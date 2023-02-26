@@ -1,0 +1,19 @@
+@import "@/styles/variables.scss";
+
+.commentsBlock {
+  display: flex;
+  align-items: center;
+  user-select: none;
+
+  svg {
+    margin-right: 10px;
+  }
+
+  span {
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    color: $primary;
+  }
+}

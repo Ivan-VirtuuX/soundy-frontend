@@ -1,0 +1,339 @@
+@import "@/styles/variables.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Comfortaa", sans-serif;
+}
+
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow: auto !important;
+  scroll-behavior: smooth;
+}
+
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/** EditorJS overrides **/
+.cdx-input.image-tool__caption {
+  display: none !important;
+}
+
+.ce-paragraph {
+  &::before,
+  &::after {
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    line-height: 28px !important;
+    color: #b0b0b0 !important;
+  }
+}
+
+/** MaterialUI overrides **/
+.MuiFormLabel-root.MuiInputLabel-animated {
+  font-family: "Comfortaa", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 23px !important;
+  color: #181f92 !important;
+  background: white;
+  padding-left: 5px;
+  padding-right: 5px;
+  line-height: 20px !important;
+}
+
+.MuiFormLabel-root.MuiInputLabel-outlined {
+  font-family: "Comfortaa", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 23px !important;
+  color: #181f92 !important;
+}
+
+.MuiInputLabel-root.Mui-error {
+  color: $secondary !important;
+}
+
+.Mui-error {
+  border: none !important;
+
+  input:not(.MuiOutlinedInput-inputAdornedEnd) {
+    border: 2px solid $secondary !important;
+    border-radius: 10px !important;
+  }
+}
+
+.MuiFormHelperText-contained.Mui-error,
+.MuiFormHelperText-root.MuiFormHelperText-contained {
+  color: $secondary !important;
+  font-size: 15px !important;
+  font-weight: 700;
+  font-family: "Comfortaa", sans-serif !important;
+}
+
+.MuiAlert-root {
+  background: #ffebf4 !important;
+}
+
+//.MuiSvgIcon-root {
+//  fill: $secondary !important;
+//}
+
+.MuiAlert-standardError {
+  margin-top: 10px !important;
+  margin-bottom: 30px !important;
+  width: auto !important;
+}
+
+.MuiTextField-root.MuiOutlinedInput-adornedEnd {
+  border-radius: 0 !important;
+}
+
+.MuiFormHelperText-root {
+  margin-left: 10px !important;
+}
+
+.MuiTextField-root {
+  margin-bottom: 20px !important;
+
+  div {
+    fieldset:not(.MuiOutlinedInput-notchedOutline) {
+      border: 2px solid $primary !important;
+      border-radius: 10px;
+    }
+  }
+
+  div.Mui-error {
+    fieldset {
+      border: 2px solid $secondary !important;
+      border-radius: 10px !important;
+    }
+  }
+}
+
+.Mui-error.MuiFormHelperText-filled {
+  font-family: "Comfortaa", sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border: 2px solid $primary !important;
+  border-radius: 10px !important;
+}
+
+.MuiOutlinedInput-notchedOutline p.MuiFormHelperText-filled {
+  border: 2px solid $secondary !important;
+  border-radius: 10px !important;
+}
+
+.MuiTextField-root label,
+.Mui-error .MuiOutlinedInput-input {
+  color: $secondary !important;
+}
+
+.MuiTextField-root:has(.Mui-error, .MuiFormHelperText-contained)
+  .MuiInputBase-formControl {
+  fieldset {
+    border: 2px solid $secondary !important;
+  }
+}
+
+.MuiTextField-root.MuiFormControl-fullWidth.MuiTextField-root:has(
+    .Mui-error,
+    .MuiFormHelperText-contained
+  ) {
+  label {
+    color: $secondary !important;
+  }
+}
+
+.MuiOutlinedInput-input {
+  font-family: "Comfortaa", sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.MuiButton-label {
+  align-items: center !important;
+}
+
+.loader {
+  background: $primary;
+  position: fixed;
+  height: 100%;
+  width: 100vw;
+  font-size: 50px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.navbarContainer {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+/** MainLayout **/
+.layoutContainer {
+  display: flex;
+  width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.fullWidthLayoutContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 13px;
+}
+
+.layoutContent {
+  padding-top: 25px;
+  margin: 0 auto;
+}
+
+/** 404 page **/
+.notFoundPageContainer {
+  margin: 50px auto 0;
+  width: 727px;
+}
+
+.notFoundPageInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-weight: 700;
+    font-size: 70px;
+    line-height: 78px;
+    color: #e8338b;
+    margin-bottom: 25px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 45px;
+    line-height: 50px;
+    text-align: center;
+    color: #181f92;
+    margin-bottom: 30px;
+  }
+
+  button {
+    width: 243px;
+    margin-bottom: 40px;
+  }
+}
+
+.stickersBlock {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/** Scrollbar **/
+::-webkit-scrollbar {
+  background: transparent;
+  width: 10px;
+
+  &-thumb {
+    background: #bbbbbb;
+    border-radius: 10px;
+  }
+
+  &-track {
+    background: $lightGray;
+  }
+}
+
+/** BlueButton **/
+.blueButtonDisabled {
+  svg {
+    path {
+      fill: #a9a9a9ff;
+    }
+  }
+}

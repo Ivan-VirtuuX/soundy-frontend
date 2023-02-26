@@ -1,0 +1,28 @@
+@import '@/styles/variables.scss';
+
+.textField {
+  border: 2.5px solid $primary;
+  border-radius: 10px !important;
+
+  fieldset {
+    border: none;
+    display: none;
+  }
+}
+
+.loginInputLabel {
+  font-weight: 700 !important;
+  font-size: 23px !important;
+  line-height: 26px !important;
+  color: #181F92 !important;
+}
+
+.birthDateField {
+  border: 2.5px solid $primary;
+  border-radius: 10px !important;
+
+  fieldset {
+    border: none;
+    display: none;
+  }
+}

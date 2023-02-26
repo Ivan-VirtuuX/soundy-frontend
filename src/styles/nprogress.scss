@@ -1,0 +1,10 @@
+@import "variables";
+
+#nprogress .bar {
+  z-index: 20000 !important;
+  background: $secondary;
+}
+
+#nprogress {
+  background: $secondary;
+}

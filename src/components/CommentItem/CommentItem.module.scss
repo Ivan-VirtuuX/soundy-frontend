@@ -1,0 +1,45 @@
+@import "@/styles/variables.scss";
+
+.container {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  margin-left: 10px;
+  width: 100%;
+}
+
+.name {
+  margin-right: 5px;
+}
+
+.name,
+.surname {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  color: $primary;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 22px;
+  color: $primary;
+}
+
+.createdAt {
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 17px;
+  color: $secondary;
+  font-family: "Nunito", sans-serif;
+}

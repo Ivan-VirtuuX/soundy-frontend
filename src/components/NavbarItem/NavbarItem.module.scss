@@ -1,0 +1,102 @@
+@import "@/styles/variables.scss";
+
+.activeLink {
+  background: $primary;
+  border-radius: 10px;
+  pointer-events: none;
+
+  span {
+    color: white;
+  }
+
+  &:not(:nth-child(3)) {
+    a {
+      svg {
+        path {
+          fill: white !important;
+        }
+      }
+    }
+  }
+}
+
+.messagesIcon {
+  &:hover {
+    svg {
+      path {
+        stroke: white !important;
+      }
+    }
+  }
+
+  svg {
+    path {
+      stroke: $primary !important;
+      fill: transparent !important;
+    }
+  }
+
+  a div button span svg path {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+}
+
+.messagesIcon.activeLink {
+  svg {
+    path {
+      stroke: white !important;
+    }
+  }
+}
+
+.link {
+  width: 200px;
+
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 10px;
+
+      path {
+        fill: $primary;
+        -webkit-transition: fill 0.4s ease-in-out;
+        -moz-transition: fill 0.4s ease-in-out;
+        -ms-transition: fill 0.4s ease-in-out;
+        -o-transition: fill 0.4s ease-in-out;
+        transition: fill 0.4s ease-in-out;
+      }
+    }
+  }
+
+  span {
+    -webkit-transition: all 0.4s ease-in-out;
+    -moz-transition: all 0.4s ease-in-out;
+    -ms-transition: all 0.4s ease-in-out;
+    -o-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+  }
+
+  &:hover {
+    a {
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+
+    span {
+      color: white;
+    }
+  }
+}

@@ -1,0 +1,160 @@
+@import "@/styles/variables.scss";
+
+.container {
+  width: 740px;
+  background: #ffffff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 50px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+
+  &LeftSide {
+    display: flex;
+  }
+}
+
+.userInfoBlock {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.createdAt {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+  color: #4a4a4a;
+}
+
+.name {
+  margin-right: 5px;
+}
+
+.surname {
+  margin-right: 10px;
+}
+
+.login {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+  color: #e8338b;
+}
+
+.name,
+.surname {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 20px;
+  color: #181f92;
+}
+
+.image {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 25px;
+}
+
+.text {
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  line-height: 22px !important;
+  color: #181f92 !important;
+  font-family: "Comfortaa", sans-serif !important;
+}
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentInputField {
+  width: 100%;
+  margin-right: 50px;
+
+  input {
+    padding: 15px;
+    background: #f1f1f1;
+    border-radius: 10px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 20px;
+    color: $gray;
+    width: 100%;
+
+    &::placeholder {
+      color: $gray;
+    }
+  }
+
+  &Block {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+}
+
+.attachImageButton {
+  position: absolute !important;
+  top: 10px !important;
+  right: -15px !important;
+  cursor: pointer !important;
+}
+
+.commentInputFieldContainer {
+  position: relative;
+}
+
+.sendCommentButton {
+  background: $lightGray !important;
+  width: 47px;
+  height: 47px;
+
+  svg {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.commentsBlock {
+  margin-top: 25px;
+
+  &Title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 33px;
+    color: #181f92;
+    margin-bottom: 20px;
+  }
+}
+
+.showCommentsButton {
+  background: transparent;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  color: $primary;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  margin-top: 5px;
+
+  &:hover {
+    color: $secondary;
+  }
+}
+
+.comment {
+  margin-top: 25px;
+}

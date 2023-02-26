@@ -1,0 +1,22 @@
+.container {
+  height: 50px;
+  width: 100%;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10000;
+}
+
+.inner {
+  padding-left: 13px;
+
+  img {
+    cursor: pointer;
+  }
+}
