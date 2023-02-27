@@ -1,35 +1,39 @@
 import { GetServerSideProps, NextPage } from "next";
-import { MainLayout } from "@/layouts/MainLayout";
 import Head from "next/head";
+
 import React from "react";
+import { useInView } from "react-intersection-observer";
+import { InfinitySpin } from "react-loader-spinner";
+
 import { IPost, IUser } from "@/api/types";
 import { Api } from "@/api/index";
+
+
 import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
-import styles from "./Users.module.scss";
 import { FriendsList } from "@/components/FriendsList";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { Line } from "@/components/UI/Line";
 import { PageTitle } from "@/components/UI/PageTitle";
-import { usePosts } from "@/hooks/usePosts";
-import { useInView } from "react-intersection-observer";
 import { Post } from "@/components/Post";
-import { InfinitySpin } from "react-loader-spinner";
+
+import { MainLayout } from "@/layouts/MainLayout";
+
+import { usePosts } from "@/hooks/usePosts";
+
+
 import { Dialog, DialogContent, DialogContentText, IconButton } from "@mui/material";
 
+import styles from "./Users.module.scss";
 
 const Users: NextPage<IUser> = ({
-                                  id,
-                                  login,
-                                  name,
-                                  surname,
-                                  avatarUrl,
+                                  id, login, name, surname, avatarUrl,
                                   birthDate
-
                                 }) => {
   const [page, setPage] = React.useState(1);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isChangeAvatarOpen, setIsChangeAvatarOpen] = React.useState(false);
+  const [isEditProfileVisible, setIsEditProfileVisible] = React.useState(false);
 
 
   const { posts, setPosts } = usePosts(newPosts, page);
@@ -130,7 +134,7 @@ const Users: NextPage<IUser> = ({
             </div>
           </div>
           <div className={styles.profileActionsBlock}>
-            <BlueButton size="sm" text="Редактировать">
+            <BlueButton handleClick={() => setIsEditProfileVisible(true)} size="sm" text="Редактировать">
               <svg
                 width="15"
                 height="15"
@@ -165,7 +169,7 @@ const Users: NextPage<IUser> = ({
           <Line />
         </div>
         <div className={styles.posts}>
-          <PageTitle pageTitle="Посты" />
+          <PageTitle pageTitle="Посты" marginBottom={20} marginTop={15} />
           {posts.map((post) => (
             <Post
               handleDelete={(postId: string) =>
@@ -184,11 +188,21 @@ const Users: NextPage<IUser> = ({
             </div>
           )}
         </div>
-        <Dialog  open={isChangeAvatarOpen} onClose={() => setIsChangeAvatarOpen(false)} fullWidth maxWidth="sm"
-                style={{ zIndex: 10000 }}  >
-          <DialogContent className={styles.dialogContainer} >
-            <DialogContentText>
-              <h2>Редактирование аватара</h2>
+        <Dialog open={isChangeAvatarOpen} onClose={() => setIsChangeAvatarOpen(false)} fullWidth maxWidth="sm"
+                style={{ zIndex: 10000 }}>
+          <DialogContent className={styles.dialogContainer}>
+            <DialogContentText className={styles.editAvatarContainer}>
+              <h2 className={styles.editAvatarTitle}>Редактирование аватара</h2>
+              <EmptyAvatar width={150} />
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+        <Dialog open={isEditProfileVisible} onClose={() => setIsEditProfileVisible(false)} fullWidth maxWidth="sm"
+                style={{ zIndex: 10000 }}>
+          <DialogContent className={styles.dialogContainer}>
+            <DialogContentText className={styles.editAvatarContainer}>
+              <h2 className={styles.editAvatarTitle}>Редактирование профиля</h2>
+
             </DialogContentText>
           </DialogContent>
         </Dialog>

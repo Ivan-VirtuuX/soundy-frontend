@@ -16,6 +16,7 @@ import { theme } from "@/theme";
 import "nprogress/nprogress.css";
 import "@/styles/nprogress.scss";
 import NProgress from "nprogress";
+
 import "@/styles/globals.scss";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {

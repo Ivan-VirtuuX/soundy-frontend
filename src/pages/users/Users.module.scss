@@ -127,3 +127,18 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.editAvatarTitle {
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 39px;
+  text-align: center;
+  color: $primary;
+}
+
+.editAvatarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+}

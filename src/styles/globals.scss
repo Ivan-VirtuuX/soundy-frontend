@@ -231,6 +231,14 @@ h6 {
   align-items: center !important;
 }
 
+.MuiDialog-paperWidthSm {
+  width: 421px;
+}
+
+.MuiDialogContent-root {
+  padding: 40px !important;
+}
+
 .loader {
   background: $primary;
   position: fixed;
@@ -341,3 +349,5 @@ h6 {
 .MuiButton-contained {
   box-shadow: none !important;
 }
+
+

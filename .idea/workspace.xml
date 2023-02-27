@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="" />
+    <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PageTitle/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PageTitle/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,18 +73,18 @@
       <window_info id="Space Code Reviews" order="0" />
       <window_info id="Bookmarks" order="1" side_tool="true" />
       <window_info id="Pull Requests" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.09348959" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.10859375" />
       <window_info id="Commit" order="4" />
       <window_info id="Structure" order="5" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="File Transfer" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22163461" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22127016" />
       <window_info anchor="bottom" id="Problems View" order="3" weight="0.33028847" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.33028847" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.5297379" />
       <window_info anchor="bottom" id="TypeScript" order="5" />
       <window_info anchor="bottom" id="Services" order="6" />
       <window_info anchor="bottom" id="Duplicates" order="7" weight="0.33028847" />
-      <window_info anchor="bottom" id="Dependency Checker" order="7" />
+      <window_info anchor="bottom" id="Dependency Checker" order="8" />
       <window_info anchor="right" id="Notifications" side_tool="true" />
     </layout>
   </component>
@@ -127,7 +135,9 @@
       <workItem from="1677470386175" duration="8579000" />
       <workItem from="1677487885079" duration="408000" />
       <workItem from="1677488300417" duration="1035000" />
-      <workItem from="1677489892241" duration="2175000" />
+      <workItem from="1677489892241" duration="2565000" />
+      <workItem from="1677501012561" duration="62000" />
+      <workItem from="1677501086204" duration="599000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>
