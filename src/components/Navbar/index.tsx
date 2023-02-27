@@ -1,11 +1,15 @@
 import React from "react";
 import styles from "./Navbar.module.scss";
 import { NavbarItem } from "@/components/NavbarItem";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
 
 export const Navbar: React.FC = () => {
+  const { id } = useAppSelector(selectUserData);
+
   const navItems = [
     { id: 1, text: "Посты", name: "posts" },
-    { id: 2, text: "Профиль", name: "profile" },
+    { id: 2, text: "Профиль", name: `users/${id}` },
     { id: 3, text: "Сообщения", name: "messages" },
     { id: 4, text: "Друзья", name: "friends" },
     { id: 5, text: "Поиск", name: "search" },
@@ -15,7 +19,7 @@ export const Navbar: React.FC = () => {
   return (
     <ul className={styles.navbar}>
       {navItems.map((item) => (
-        <NavbarItem key={item.id} {...item} />
+        <NavbarItem {...item} key={item.id} />
       ))}
     </ul>
   );

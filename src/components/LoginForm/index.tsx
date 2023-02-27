@@ -48,7 +48,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOpenRegister }) => {
 
       if (data.token) {
         setCookie(null, "authToken", data.token, {
-          maxAge: 30 * 24 * 60,
+          maxAge: 30 * 24 * 60 * 100,
           path: "/",
         });
 

@@ -8,12 +8,14 @@ export const BlueButton = ({
   handleClick,
   disabled,
   variant,
+  size,
 }: {
   children: React.ReactNode;
   text: string;
   handleClick?: () => void;
   disabled?: boolean;
   variant?: string;
+  size?: string;
 }) => {
   return (
     <div>
@@ -28,6 +30,24 @@ export const BlueButton = ({
           {children}
           {text}
         </Button>
+      ) : size === "sm" ? (
+        <Button
+          size="small"
+          variant="contained"
+          className={styles.blueButton}
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          <div
+            style={{ display: "flex" }}
+            className={`${
+              disabled ? "blueButtonDisabled" : styles.defaultSmallButton
+            }`}
+          >
+            {children}
+          </div>
+          {text}
+        </Button>
       ) : (
         <Button
           variant="contained"
@@ -35,7 +55,10 @@ export const BlueButton = ({
           onClick={handleClick}
           disabled={disabled}
         >
-          <div className={`${disabled ? "blueButtonDisabled" : ""}`}>
+          <div
+            style={{ display: "flex" }}
+            className={`${disabled ? "blueButtonDisabled" : ""}`}
+          >
             {children}
           </div>
           {text}

@@ -1,8 +1,8 @@
-export const EmptyAvatar = () => {
+export const EmptyAvatar = ({ width }: { width?: number }) => {
   return (
     <svg
-      width="40"
-      height="40"
+      width={width ? width : 40}
+      height={width ? width : 40}
       viewBox="0 0 40 40"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

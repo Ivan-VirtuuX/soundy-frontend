@@ -56,6 +56,7 @@ export const Post: React.FC<PostProps> = ({
     React.useState(false);
   const [isView, setIsView] = React.useState(false);
   const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -126,24 +127,32 @@ export const Post: React.FC<PostProps> = ({
   const submitComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await setIsShowComments(true);
-
-    await commentInputRef?.current?.scrollIntoView({ block: "center" });
-
     try {
-      const comment = await Api().comment.addComment({
-        postId,
-        author: userData?.userId,
-        text: message,
-      });
+      if (message) {
+        await setIsShowComments(true);
 
-      setLocalComments([...localComments, comment]);
+        await commentInputRef?.current?.scrollIntoView({ block: "center" });
+
+        setIsSubmitting(true);
+
+        const comment = await Api().comment.addComment({
+          postId,
+          author: userData?.userId,
+          text: message,
+        });
+
+        setLocalComments([...localComments, comment]);
+        setIsSubmitting(false);
+      }
     } catch (err) {
       console.warn(err);
     } finally {
       setMessage("");
+      setIsSubmitting(false);
     }
   };
+
+  console.log(isSubmitting);
 
   const onClickLike = async () => {
     try {
@@ -299,6 +308,7 @@ export const Post: React.FC<PostProps> = ({
               </div>
             </div>
             <IconButton
+              disabled={isSubmitting}
               type="submit"
               size="large"
               className={styles.sendCommentButton}

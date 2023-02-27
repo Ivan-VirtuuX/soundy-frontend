@@ -37,7 +37,9 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
     >
       <Link href={"/" + name}>
         <BlueButton variant="transparent" text={text}>
-          {iconsComponents[name]}
+          {name.includes("users")
+            ? iconsComponents["profile"]
+            : iconsComponents[name]}
         </BlueButton>
       </Link>
     </li>

@@ -42,11 +42,13 @@ export interface ILike {
 }
 
 export interface IUser {
+  id?: string;
   userId: string;
   login: string;
   name: string;
   surname: string;
   avatarUrl: string;
+  birthDate?: Date;
 }
 
 export interface ResponseUser {
