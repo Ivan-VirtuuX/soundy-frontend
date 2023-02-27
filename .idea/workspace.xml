@@ -6,16 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LoginForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/BlueButton.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/BlueButton/BlueButton.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/EmptyAvatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/write/Write.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +56,33 @@
     &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
+    &quot;remote.dev.show.docker.config.missing.jdk.notification&quot;: &quot;false&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/mnt/space/work/soundy-frontend/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RdControllerToolWindowsLayoutState" isNewUi="false">
+    <layout>
+      <window_info id="Commit_Guest" />
+      <window_info id="Space Code Reviews" order="0" />
+      <window_info id="Bookmarks" order="1" side_tool="true" />
+      <window_info id="Pull Requests" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.09348959" />
+      <window_info id="Commit" order="4" />
+      <window_info id="Structure" order="5" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="File Transfer" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22163461" />
+      <window_info anchor="bottom" id="Problems View" order="3" weight="0.33028847" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.33028847" />
+      <window_info anchor="bottom" id="TypeScript" order="5" />
+      <window_info anchor="bottom" id="Services" order="6" />
+      <window_info anchor="bottom" id="Duplicates" order="7" weight="0.33028847" />
+      <window_info anchor="bottom" id="Dependency Checker" order="7" />
+      <window_info anchor="right" id="Notifications" side_tool="true" />
+    </layout>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend" />
@@ -110,6 +128,9 @@
       <workItem from="1677389651663" duration="20443000" />
       <workItem from="1677418932908" duration="685000" />
       <workItem from="1677470386175" duration="8579000" />
+      <workItem from="1677487885079" duration="408000" />
+      <workItem from="1677488300417" duration="1035000" />
+      <workItem from="1677489892241" duration="1920000" />
     </task>
     <servers />
   </component>
