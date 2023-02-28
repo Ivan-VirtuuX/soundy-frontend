@@ -26,7 +26,7 @@ const Posts: NextPage = () => {
 
   const { ref, inView } = useInView({
     threshold: 1,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   React.useEffect(() => {
@@ -64,7 +64,7 @@ const Posts: NextPage = () => {
       <main className={styles.container}>
         <PageTitle pageTitle="Посты" />
         <div style={{ marginBottom: 20 }} onClick={() => router.push("/write")}>
-          <BlueButton text="Создать">
+          <BlueButton color="primary" text="Создать">
             <svg
               width="17"
               height="17"
@@ -83,7 +83,7 @@ const Posts: NextPage = () => {
           <Post
             handleDelete={(postId: string) =>
               setPosts((posts) => [
-                ...posts.filter((post) => post.postId !== postId)
+                ...posts.filter((post) => post.postId !== postId),
               ])
             }
             innerRef={ref}
@@ -108,11 +108,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     return {
       redirect: {
         destination: "/",
-        permanent: false
-      }
+        permanent: false,
+      },
     };
   }
   return {
-    props: {}
+    props: {},
   };
 };

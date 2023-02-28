@@ -239,6 +239,18 @@ h6 {
   padding: 40px !important;
 }
 
+.MuiPaper-rounded {
+  border-radius: 10px !important;
+}
+
+.MuiPickersPopper-root {
+  z-index: 10000 !important;
+}
+
+.greenButtonDisabled {
+  background: #898989 !important;
+}
+
 .loader {
   background: $primary;
   position: fixed;
@@ -341,7 +353,7 @@ h6 {
 .blueButtonDisabled {
   svg {
     path {
-      fill: #a9a9a9ff;
+      fill: #a9a9a9ff !important;
     }
   }
 }
@@ -349,5 +361,3 @@ h6 {
 .MuiButton-contained {
   box-shadow: none !important;
 }
-
-

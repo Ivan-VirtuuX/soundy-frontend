@@ -9,14 +9,18 @@ export const BlueButton = ({
   disabled,
   variant,
   size,
+  color,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   text: string;
   handleClick?: () => void;
   disabled?: boolean;
   variant?: string;
   size?: string;
+  color?: string;
 }) => {
+  const [isHover, setIsHover] = React.useState(false);
+
   return (
     <div>
       {variant === "transparent" ? (
@@ -48,12 +52,56 @@ export const BlueButton = ({
           </div>
           {text}
         </Button>
-      ) : (
+      ) : color === "secondary" ? (
         <Button
           variant="contained"
           className={styles.blueButton}
           onClick={handleClick}
           disabled={disabled}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          style={{
+            background: !isHover ? "#E8338B" : "#181F92",
+            display: "block",
+          }}
+        >
+          <div
+            style={{ display: "flex" }}
+            className={`${disabled ? "blueButtonDisabled" : ""}`}
+          >
+            {children}
+          </div>
+          {text}
+        </Button>
+      ) : color === "primary" ? (
+        <Button
+          variant="contained"
+          className={styles.blueButton}
+          onClick={handleClick}
+          disabled={disabled}
+        >
+          <div
+            style={{ display: "flex" }}
+            className={`${disabled ? "blueButtonDisabled" : styles.blueButton}`}
+          >
+            {children}
+          </div>
+          {text}
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          className={`${styles.blueButton} ${
+            disabled ? "greenButtonDisabled" : ""
+          }`}
+          onClick={handleClick}
+          disabled={disabled}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
+          style={{
+            background: !isHover ? "#7DCF3C" : "#8A40DB",
+            display: "block",
+          }}
         >
           <div
             style={{ display: "flex" }}

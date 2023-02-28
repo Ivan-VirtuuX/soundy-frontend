@@ -11,7 +11,6 @@ import { Api } from "@/api/index";
 import { BlueButton } from "@/components/UI/BlueButton";
 
 import styles from "./WriteForm.module.scss";
-import { Alert } from "@mui/material";
 import { OutputData } from "@editorjs/editorjs";
 
 const Editor = dynamic(() => import("../Editor"), {
@@ -20,12 +19,12 @@ const Editor = dynamic(() => import("../Editor"), {
 
 interface WriteFormProps {
   data?: any;
+  fromUsersPage?: boolean;
 }
 
-export const WriteForm: FC<WriteFormProps> = ({ data }) => {
+export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
   const [blocks, setBlocks] = React.useState(data?.body || []);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isError, setIsError] = React.useState(false);
   const [isImageSubmitting, setIsImageSubmitting] = React.useState(false);
 
   const router = useRouter();
@@ -41,16 +40,19 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
         id: userData?.userId,
       };
 
-      if (blocks.length) {
+      if (blocks.length && fromUsersPage) {
         const post = await Api().post.create(obj);
 
-        await router.push(`/posts`);
+        await router.push(`/users/${userData?.id}`);
+      } else {
+        if (blocks.length) {
+          const post = await Api().post.create(obj);
+
+          await router.push(`/posts`);
+        }
       }
-      setIsError(true);
     } catch (err) {
       console.warn(err);
-
-      setIsError(true);
     } finally {
       setIsLoading(false);
     }
@@ -58,7 +60,6 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
 
   const onChangeEditorFields = (arr: OutputData["blocks"]) => {
     setBlocks(arr);
-    setIsError(false);
   };
 
   return (
@@ -68,7 +69,8 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
         <BlueButton
           text="Опубликовать"
           handleClick={onAddPost}
-          disabled={isImageSubmitting}
+          disabled={isImageSubmitting || !blocks.length}
+          color="primary"
         >
           <svg
             width="17"
@@ -90,22 +92,6 @@ export const WriteForm: FC<WriteFormProps> = ({ data }) => {
             </defs>
           </svg>
         </BlueButton>
-        {isError && (
-          <Alert
-            severity="error"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginBottom: 20,
-              marginTop: 20,
-              borderRadius: 17,
-              height: 50,
-              width: "100%",
-            }}
-          >
-            Текст поста пуст
-          </Alert>
-        )}
       </div>
       <div className={styles.editor}>
         <Editor

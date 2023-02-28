@@ -26,11 +26,28 @@
   flex-direction: column;
 }
 
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.pinIcon {
+  margin-left: 10px;
+
+  path {
+    fill: $gray;
+  }
+}
+
 .createdAt {
   font-weight: 600;
   font-size: 14px;
   line-height: 19px;
   color: #4a4a4a;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .name {
@@ -157,4 +174,9 @@
 
 .comment {
   margin-top: 25px;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
 }

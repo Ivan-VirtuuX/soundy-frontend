@@ -43,3 +43,8 @@
   color: $secondary;
   font-family: "Nunito", sans-serif;
 }
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}

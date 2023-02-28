@@ -1,10 +1,13 @@
-import { NextPage, NextPageContext } from "next";
 import React from "react";
-import { Api } from "@/api/index";
+
+import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
+
+import { Api } from "@/api/index";
+
 import { WriteForm } from "@/components/WriteForm";
 
-const Write: NextPage = () => {
+const Write: NextPage = ({ fromUsersPage }: { fromUsersPage: boolean }) => {
   return (
     <>
       <Head>
@@ -13,7 +16,7 @@ const Write: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicons/favicon.ico" />
       </Head>
-      <WriteForm />
+      <WriteForm fromUsersPage={fromUsersPage} />
     </>
   );
 };
@@ -23,6 +26,8 @@ export default Write;
 export const getServerSideProps = async (ctx: NextPageContext) => {
   try {
     const user = await Api(ctx).user.getMe();
+
+    console.log();
 
     if (!user) {
       return {
@@ -34,7 +39,9 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
       };
     }
     return {
-      props: {},
+      props: {
+        fromUsersPage: ctx.req.headers.referer.includes("users"),
+      },
     };
   } catch (err) {
     return {

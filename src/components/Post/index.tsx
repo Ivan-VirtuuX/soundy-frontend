@@ -1,9 +1,5 @@
 import React, { FormEvent, Ref } from "react";
 
-import Image from "next/image";
-
-import { OutputData } from "@editorjs/editorjs";
-
 import { IconButton, Typography } from "@mui/material";
 
 import { KebabMenu } from "@/components/UI/KebabMenu";
@@ -16,7 +12,7 @@ import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
 import { Line } from "../UI/Line";
 
 import { Api } from "@/api/index";
-import { IComment, ILike, IUser, ResponseUser } from "@/api/types";
+import { IComment, IPost } from "@/api/types";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
@@ -25,16 +21,10 @@ import styles from "./Post.module.scss";
 import { useInView } from "react-intersection-observer";
 import { convertDate } from "@/utils/dateConverter";
 
-interface PostProps {
-  postId: string;
-  author: ResponseUser;
-  body: OutputData["blocks"];
-  createdAt: Date;
-  likes: ILike[];
-  views: IUser[];
-  comments: IComment[];
+interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
   handleDelete: (postId: string) => void;
+  handlePin?: (postId: string) => void;
 }
 
 export const Post: React.FC<PostProps> = ({
@@ -46,17 +36,20 @@ export const Post: React.FC<PostProps> = ({
   views,
   innerRef,
   handleDelete,
+  pinned,
+  handlePin,
 }) => {
   const [isShowComments, setIsShowComments] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [localComments, setLocalComments] = React.useState<IComment[]>([]);
-  const [likesCount, setLikesCount] = React.useState(likes.length);
-  const [viewsCount, setViewsCount] = React.useState(views.length);
+  const [likesCount, setLikesCount] = React.useState(likes?.length);
+  const [viewsCount, setViewsCount] = React.useState(views?.length);
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
   const [isView, setIsView] = React.useState(false);
   const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isPinned, setIsPinned] = React.useState(false);
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -73,7 +66,13 @@ export const Post: React.FC<PostProps> = ({
 
   React.useEffect(() => {
     const timeout = setInterval(() => {
-      setDate(convertDate(new Date(createdAt)));
+      const newDate = convertDate(new Date(createdAt));
+
+      if (newDate.split(" ")[1].includes("секунд")) {
+        setDate(newDate);
+      } else {
+        clearInterval(timeout);
+      }
     }, 5000);
 
     return () => clearInterval(timeout);
@@ -91,6 +90,10 @@ export const Post: React.FC<PostProps> = ({
         console.warn(err);
       }
     })();
+  }, []);
+
+  React.useEffect(() => {
+    pinned && setIsPinned(true);
   }, []);
 
   React.useEffect(() => {
@@ -152,8 +155,6 @@ export const Post: React.FC<PostProps> = ({
     }
   };
 
-  console.log(isSubmitting);
-
   const onClickLike = async () => {
     try {
       setLikesCount((likesCount) => likesCount + 1);
@@ -180,15 +181,28 @@ export const Post: React.FC<PostProps> = ({
     await commentInputRef?.current?.focus();
   };
 
+  const onPinPost = async () => {
+    try {
+      await Api().post.addPin(postId);
+
+      setIsPinned(!isPinned);
+      handlePin(postId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   return (
     <div className={styles.container} ref={innerRef}>
       <div className={styles.head}>
         <div className={styles.headLeftSide}>
           {author?.avatarUrl ? (
-            <Image
+            <img
               className={styles.avatar}
               src={author?.avatarUrl}
               alt="avatar"
+              width={40}
+              height={40}
             />
           ) : (
             <EmptyAvatar />
@@ -198,12 +212,31 @@ export const Post: React.FC<PostProps> = ({
               <span className={styles.name}>{author?.name}</span>
               <span className={styles.surname}>{author?.surname}</span>
               <span className={styles.login}>{author?.login}</span>
+              {pinned && (
+                <svg
+                  className={styles.pinIcon}
+                  width="16"
+                  height="16"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M11.1281 3.98626C11.2481 4.10655 11.3177 4.26812 11.3226 4.43797C11.3275 4.60782 11.2673 4.77312 11.1544 4.90011C11.0415 5.0271 10.8844 5.10618 10.7151 5.1212C10.5459 5.13622 10.3773 5.08605 10.2438 4.98093L10.1853 4.92907L7.93953 7.17484L7.04622 9.85383C7.02199 9.92737 6.98514 9.99612 6.93732 10.057L6.88547 10.1145L5.94266 11.0573C5.82718 11.1728 5.67335 11.2418 5.51034 11.2514C5.34733 11.2609 5.18648 11.2103 5.0583 11.1092L4.99985 11.0573L3.11423 9.17171L1.22861 11.0573C1.10833 11.1773 0.946755 11.2469 0.776905 11.2518C0.607056 11.2567 0.44175 11.1965 0.314764 11.0836C0.187777 10.9707 0.108695 10.8136 0.0936743 10.6443C0.078654 10.4751 0.128829 10.3065 0.233949 10.173L0.285804 10.1145L2.17142 8.2289L0.285804 6.34328C0.170356 6.22781 0.101305 6.07397 0.0917472 5.91097C0.0821891 5.74796 0.132788 5.58711 0.233949 5.45893L0.285804 5.40048L1.22861 4.45767C1.28334 4.40307 1.34714 4.35841 1.41717 4.32567L1.4893 4.29692L4.16923 3.40266L6.41406 1.15783C6.29404 1.03755 6.22449 0.875977 6.2196 0.706127C6.21471 0.536278 6.27487 0.370972 6.38777 0.243986C6.50067 0.116999 6.6578 0.0379169 6.82706 0.0228966C6.99631 0.00787629 7.16492 0.0580518 7.29842 0.163171L7.35687 0.215026L11.1281 3.98626Z"
+                    fill="#898989"
+                  />
+                </svg>
+              )}
             </div>
             <span className={styles.createdAt}>{date}</span>
           </div>
         </div>
         {author?.userId === userData?.id && (
-          <KebabMenu handleDelete={onDeletePost} />
+          <KebabMenu
+            isPinned={pinned}
+            handleDelete={onDeletePost}
+            handlePin={onPinPost}
+          />
         )}
       </div>
       <div className={styles.content}>
@@ -213,7 +246,7 @@ export const Post: React.FC<PostProps> = ({
               dangerouslySetInnerHTML={{ __html: obj.data.text }}
               className={styles.text}
             />
-            {obj.data.file?.url && (
+            {obj?.data?.file?.url && (
               <img
                 className={styles.image}
                 src={obj.data.file.url}

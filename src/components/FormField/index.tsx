@@ -9,13 +9,23 @@ import dayjs, { Dayjs } from "dayjs";
 interface FormFieldProps {
   name: string;
   label: string;
+  initialDate?: Date;
+  initialText?: string;
 }
 
-export const FormField: React.FC<FormFieldProps> = ({ name, label }) => {
-  const { register, formState } = useFormContext();
-
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs(new Date()));
+export const FormField: React.FC<FormFieldProps> = ({
+  name,
+  label,
+  initialDate,
+  initialText,
+}) => {
+  const [value, setValue] = React.useState<Dayjs | null | Date>(
+    dayjs(new Date())
+  );
   const [yearError, setYearError] = React.useState("");
+  const [inputValue, setInputValue] = React.useState("");
+
+  const { register, formState } = useFormContext();
 
   const handleChange = (newValue: Dayjs | null) => {
     setValue(newValue);
@@ -24,6 +34,12 @@ export const FormField: React.FC<FormFieldProps> = ({ name, label }) => {
       ? setYearError("")
       : setYearError("wrong year");
   };
+
+  React.useEffect(() => {
+    initialDate && setValue(initialDate);
+
+    initialText && setInputValue(initialText);
+  }, []);
 
   return (
     <>
@@ -57,6 +73,8 @@ export const FormField: React.FC<FormFieldProps> = ({ name, label }) => {
           name={name}
           label={label}
           fullWidth
+          onChange={(e) => setInputValue(e.target.value)}
+          value={inputValue}
           variant="outlined"
           InputProps={{
             className: styles.textField,

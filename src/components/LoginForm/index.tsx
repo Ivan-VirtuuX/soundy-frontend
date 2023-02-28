@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -67,7 +67,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOpenRegister }) => {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     !form.formState.isDirty && setIsCorrect(true);
 
     form.formState.isDirty && !form.formState.isValid

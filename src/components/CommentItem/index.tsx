@@ -51,7 +51,13 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   return (
     <div className={styles.container}>
       {author?.avatarUrl ? (
-        <img className={styles.avatar} src={author?.avatarUrl} alt="avatar" />
+        <img
+          width={40}
+          height={40}
+          className={styles.avatar}
+          src={author?.avatarUrl}
+          alt="avatar"
+        />
       ) : (
         <EmptyAvatar />
       )}

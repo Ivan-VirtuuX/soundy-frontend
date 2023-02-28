@@ -62,6 +62,12 @@ export const PostApi = (instance: AxiosInstance) => ({
     return data;
   },
 
+  async addPin(postId: string) {
+    const { data } = await instance.post<IPost>(`/posts/${postId}/pins`);
+
+    return data;
+  },
+
   async delete(postId: string) {
     const { data } = await instance.delete<IPost>(`/posts`, {
       data: { postId: postId },

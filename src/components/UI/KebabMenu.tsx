@@ -8,7 +8,15 @@ const options = ["Удалить"];
 
 const ITEM_HEIGHT = 48;
 
-export const KebabMenu = ({ handleDelete }: { handleDelete: () => void }) => {
+export const KebabMenu = ({
+  handleDelete,
+  handlePin,
+  isPinned,
+}: {
+  handleDelete: () => void;
+  handlePin: () => void;
+  isPinned: boolean;
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -18,6 +26,11 @@ export const KebabMenu = ({ handleDelete }: { handleDelete: () => void }) => {
 
   const onClickDelete = () => {
     handleDelete();
+    setAnchorEl(null);
+  };
+
+  const onClickPin = () => {
+    handlePin();
     setAnchorEl(null);
   };
 
@@ -46,17 +59,12 @@ export const KebabMenu = ({ handleDelete }: { handleDelete: () => void }) => {
           },
         }}
       >
-        {options.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Удалить"}
-            onClick={
-              option === "Удалить" ? onClickDelete : () => setAnchorEl(null)
-            }
-          >
-            {option}
-          </MenuItem>
-        ))}
+        <MenuItem onClick={onClickDelete}>Удалить</MenuItem>
+        {isPinned ? (
+          <MenuItem onClick={onClickPin}>Открепить</MenuItem>
+        ) : (
+          <MenuItem onClick={onClickPin}>Закрепить</MenuItem>
+        )}
       </Menu>
     </div>
   );

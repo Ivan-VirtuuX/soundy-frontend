@@ -1,23 +1,15 @@
 import { AxiosInstance } from "axios";
-import { CreateUserDto, LoginDto, ResponseUser } from "./types";
+import {
+  ChangeUserDataDto,
+  CreateUserDto,
+  LoginDto,
+  ResponseUser,
+} from "./types";
 
 export const UserApi = (instance: AxiosInstance) => ({
   async updateAvatar(userId: string | string[], avatarUrl: string) {
-    const { data } = await instance.patch(`/users/${userId}`, { avatarUrl });
-
-    return data;
-  },
-
-  async getAll() {
-    const { data } = await instance.get<ResponseUser[]>("/users");
-
-    return data;
-  },
-
-  async buyDonate({ name, serverName }: { name: string; serverName: string }) {
-    const { data } = await instance.post<ResponseUser>("/users/donate", {
-      name,
-      serverName,
+    const { data } = await instance.patch(`/users/${userId}/avatar`, {
+      avatarUrl,
     });
 
     return data;
@@ -53,9 +45,9 @@ export const UserApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async changePassword(newPassword: string) {
-    const { data } = await instance.patch<ResponseUser>("/users", {
-      newPassword: newPassword,
+  async changeUserData(dto: ChangeUserDataDto, userId: string) {
+    const { data } = await instance.patch<ResponseUser>(`/users/${userId}`, {
+      data: dto,
     });
 
     return data;

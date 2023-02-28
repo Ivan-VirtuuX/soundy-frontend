@@ -33,6 +33,7 @@ export interface IPost {
   views: IUser[];
   createdAt: Date;
   comments: IComment[];
+  pinned?: boolean;
 }
 
 export interface ILike {
@@ -64,12 +65,10 @@ export interface ResponseUser {
   createdAt?: string;
 }
 
-export interface SearchPostDto {
-  body?: string;
-  views?: "DESC" | "ASC";
-  limit?: number;
-  take?: number;
-  tag?: string;
+export interface ChangeUserDataDto {
+  name: string;
+  surname: string;
+  birthDate: Date;
 }
 
 export interface CreatePostDto {
