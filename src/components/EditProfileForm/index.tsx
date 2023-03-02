@@ -31,6 +31,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   handleSubmit,
 }) => {
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [date, setDate] = React.useState<Date>(new Date(birthDate));
 
   const form = useForm({
     mode: "onChange",
@@ -76,12 +77,23 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
                 </Alert>
               </div>
             )}
-            <FormField name="name" label="Имя" initialText={name} />
-            <FormField name="surname" label="Фамилия" initialText={surname} />
+            <FormField
+              name="name"
+              label="Имя"
+              initialText={name}
+              type="editProfile"
+            />
+            <FormField
+              name="surname"
+              label="Фамилия"
+              initialText={surname}
+              type="editProfile"
+            />
             <FormField
               name="birthDate"
               label="Дата рождения"
-              initialDate={new Date(birthDate)}
+              initialDate={date}
+              handleChangeDate={(date: any) => setDate(date.$d)}
             />
             <Button
               disabled={!form.formState.isDirty || form.formState.isSubmitting}

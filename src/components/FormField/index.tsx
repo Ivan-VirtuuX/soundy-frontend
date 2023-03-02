@@ -4,13 +4,14 @@ import { useFormContext } from "react-hook-form";
 import styles from "./FormField.module.scss";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
 
 interface FormFieldProps {
   name: string;
   label: string;
   initialDate?: Date;
   initialText?: string;
+  type?: string;
+  handleChangeDate?: (date: Date) => void;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -18,17 +19,21 @@ export const FormField: React.FC<FormFieldProps> = ({
   label,
   initialDate,
   initialText,
+  type,
+  handleChangeDate,
 }) => {
-  const [value, setValue] = React.useState<Dayjs | null | Date>(
-    dayjs(new Date())
-  );
+  const [date, setDate] = React.useState<Date>(initialDate);
   const [yearError, setYearError] = React.useState("");
   const [inputValue, setInputValue] = React.useState("");
 
-  const { register, formState } = useFormContext();
+  const { register, formState, getValues, setValue } = useFormContext();
 
-  const handleChange = (newValue: Dayjs | null) => {
-    setValue(newValue);
+  const handleChange = (newValue: any) => {
+    console.log("newvalue", newValue.$d);
+
+    setDate(newValue.$d);
+
+    handleChangeDate(newValue.$d);
 
     Number(newValue?.year()) <= 2099 && Number(newValue?.year()) >= 1900
       ? setYearError("")
@@ -36,10 +41,16 @@ export const FormField: React.FC<FormFieldProps> = ({
   };
 
   React.useEffect(() => {
-    initialDate && setValue(initialDate);
+    setValue(name, initialText ? initialText : initialDate);
+
+    initialDate && setDate(initialDate);
 
     initialText && setInputValue(initialText);
   }, []);
+
+  console.log(getValues());
+
+  console.log("initialDate", initialDate);
 
   return (
     <>
@@ -48,7 +59,7 @@ export const FormField: React.FC<FormFieldProps> = ({
           <DesktopDatePicker
             label={label}
             inputFormat="DD/MM/YYYY"
-            value={value}
+            value={date}
             onChange={handleChange}
             renderInput={(params: any) => (
               <TextField
@@ -64,7 +75,7 @@ export const FormField: React.FC<FormFieldProps> = ({
             )}
           />
         </LocalizationProvider>
-      ) : (
+      ) : type === "editProfile" ? (
         <TextField
           className={styles.formField}
           {...register(name)}
@@ -75,6 +86,24 @@ export const FormField: React.FC<FormFieldProps> = ({
           fullWidth
           onChange={(e) => setInputValue(e.target.value)}
           value={inputValue}
+          variant="outlined"
+          InputProps={{
+            className: styles.textField,
+            type:
+              name === "password" || name === "secondPassword"
+                ? "password"
+                : "text",
+          }}
+        />
+      ) : (
+        <TextField
+          className={styles.formField}
+          {...register(name)}
+          helperText={formState.errors[name]?.message}
+          error={!!formState.errors[name]?.message}
+          name={name}
+          label={label}
+          fullWidth
           variant="outlined"
           InputProps={{
             className: styles.textField,
