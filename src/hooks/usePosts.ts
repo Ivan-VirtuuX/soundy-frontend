@@ -10,7 +10,7 @@ type UsePostsProps = {
 export const usePosts = (
   newPosts: IPost[],
   page: number = 1,
-  pinnedPost?: string,
+  pinnedPost?: IPost,
   postId?: string
 ): UsePostsProps => {
   const [posts, setPosts] = useState<IPost[]>([]);

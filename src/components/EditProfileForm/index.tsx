@@ -31,7 +31,10 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   handleSubmit,
 }) => {
   const [errorMessage, setErrorMessage] = React.useState("");
-  const [date, setDate] = React.useState<Date>(new Date(birthDate));
+  const [date, setDate] = React.useState<Date>(birthDate);
+  const [localName, setLocalName] = React.useState("");
+  const [localSurname, setLocalSurname] = React.useState("");
+  const [isValid, setIsValid] = React.useState(false);
 
   const form = useForm({
     mode: "onChange",
@@ -42,7 +45,12 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
 
   const onSubmit = async (dto: ChangeUserDataDto) => {
     try {
-      const data = await Api().user.changeUserData(dto, userData.id);
+      const data = await Api().user.changeUserData(
+        { name: dto.name, surname: dto.surname, birthDate: date },
+        userData.id
+      );
+
+      await setDate(dto.birthDate);
 
       handleSubmit(data);
     } catch (err: any) {
@@ -53,6 +61,30 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
       }
     }
   };
+
+  React.useEffect(() => {
+    if (typeof form.getValues().birthDate === "object") {
+      if (
+        birthDate?.toLocaleDateString("ru-Ru")?.replaceAll(".", "/") !==
+          form
+            .getValues()
+            .birthDate?.toLocaleDateString("ru-Ru")
+            ?.replaceAll(".", "/") ||
+        form.getValues().name !== name ||
+        form.getValues().surname !== surname
+      ) {
+        setIsValid(true);
+      }
+    } else {
+      if (
+        birthDate !== form.getValues() ||
+        form.getValues().name !== name ||
+        form.getValues().surname !== surname
+      ) {
+        setIsValid(true);
+      }
+    }
+  }, [localName, localSurname, date]);
 
   return (
     <div className={styles.form}>
@@ -81,22 +113,28 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               name="name"
               label="Имя"
               initialText={name}
+              handleChangeTextField={(value) => setLocalName(value)}
               type="editProfile"
             />
             <FormField
               name="surname"
               label="Фамилия"
               initialText={surname}
+              handleChangeTextField={(value) => setLocalSurname(value)}
               type="editProfile"
             />
             <FormField
               name="birthDate"
               label="Дата рождения"
               initialDate={date}
-              handleChangeDate={(date: any) => setDate(date.$d)}
+              handleChangeDate={(date: any) => setDate(date)}
             />
             <Button
-              disabled={!form.formState.isDirty || form.formState.isSubmitting}
+              disabled={
+                !isValid ||
+                !form.formState.errors ||
+                form.formState.isSubmitting
+              }
               type="submit"
               variant="contained"
               fullWidth

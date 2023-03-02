@@ -14,6 +14,8 @@ import { BlueButton } from "@/components/UI/BlueButton";
 import { Line } from "@/components/UI/Line";
 import { PageTitle } from "@/components/UI/PageTitle";
 import { Post } from "@/components/Post";
+import { EditProfileForm } from "@/components/EditProfileForm";
+import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
@@ -28,13 +30,14 @@ import {
 
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 
-import styles from "./Users.module.scss";
 import Image from "next/image";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { EditProfileForm } from "@/components/EditProfileForm";
+
 import { useRouter } from "next/router";
-import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+
+import styles from "./Users.module.scss";
 
 const Users: NextPage<IUser> = ({
   id,
@@ -60,7 +63,7 @@ const Users: NextPage<IUser> = ({
   const [localSurname, setLocalSurname] = React.useState(surname);
   const [localBirthDate, setLocalBirthDate] = React.useState(birthDate);
   const [pinned, setPinned] = React.useState("");
-  const [pinnedPost, setPinnedPost] = React.useState<any>();
+  const [pinnedPost, setPinnedPost] = React.useState<IPost>();
 
   const attachedImageRef = React.useRef(null);
 
@@ -78,6 +81,7 @@ const Users: NextPage<IUser> = ({
   const { query } = useRouter();
 
   const onCloseImage = async () => {
+    await setAttachedImageFormData([]);
     await setAttachedImageFormData([]);
     await setAttachedImage(undefined);
     await setIsSaveImage(false);
@@ -186,16 +190,42 @@ const Users: NextPage<IUser> = ({
     }
   }, [image, attachedImage]);
 
-  const postsFiltered = posts.filter(
-    (post) => post?.author?.userId === query?.id
-  );
+  // const filteredPosts = posts.filter(
+  //   (post) => post?.author?.userId === query?.id
+  // );
 
-  postsFiltered.unshift(
-    postsFiltered.splice(
-      postsFiltered.findIndex((post: any) => post.pinned === true),
-      1
-    )[0]
-  );
+  const [filteredPosts, setFilteredPosts] = React.useState<IPost[]>([]);
+
+  React.useEffect(() => {
+    setFilteredPosts(
+      posts.filter((post) => post?.author?.userId === query?.id)
+    );
+  }, []);
+
+  function move(arr, old_index, new_index) {
+    while (old_index < 0) {
+      old_index += arr.length;
+    }
+    while (new_index < 0) {
+      new_index += arr.length;
+    }
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length;
+      while (k-- + 1) {
+        arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr;
+  }
+
+  React.useEffect(() => {
+    const postFiltered = posts.filter(
+      (post) => post?.author?.userId === query?.id
+    );
+
+    setFilteredPosts(move(posts, filteredPosts.indexOf(pinnedPost), 0));
+  }, [pinned, pinnedPost]);
 
   return (
     <MainLayout fullWidth>
@@ -365,7 +395,7 @@ const Users: NextPage<IUser> = ({
           0 ? (
             <NullResultsBlock text="Список постов пуст" />
           ) : (
-            postsFiltered.map((post) => (
+            filteredPosts.map((post) => (
               <Post
                 handleDelete={(postId: string) =>
                   setPosts((posts) => [
@@ -428,9 +458,9 @@ const Users: NextPage<IUser> = ({
             <DialogContentText className={styles.editAvatarContainer}>
               <h2 className={styles.editAvatarTitle}>Редактирование профиля</h2>
               <EditProfileForm
-                name={name}
-                surname={surname}
-                birthDate={birthDate}
+                name={localName}
+                surname={localSurname}
+                birthDate={new Date(localBirthDate)}
                 handleSubmit={onEditProfile}
               />
             </DialogContentText>

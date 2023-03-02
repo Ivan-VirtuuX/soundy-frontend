@@ -1,9 +1,10 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
 import styles from "./FormField.module.scss";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Dayjs } from "dayjs";
 
 interface FormFieldProps {
   name: string;
@@ -11,7 +12,8 @@ interface FormFieldProps {
   initialDate?: Date;
   initialText?: string;
   type?: string;
-  handleChangeDate?: (date: Date) => void;
+  handleChangeDate?: (date: Dayjs | Date) => void;
+  handleChangeTextField?: (value: string) => void;
 }
 
 export const FormField: React.FC<FormFieldProps> = ({
@@ -21,19 +23,23 @@ export const FormField: React.FC<FormFieldProps> = ({
   initialText,
   type,
   handleChangeDate,
+  handleChangeTextField,
 }) => {
-  const [date, setDate] = React.useState<Date>(initialDate);
+  const [date, setDate] = React.useState<Dayjs | Date>();
   const [yearError, setYearError] = React.useState("");
   const [inputValue, setInputValue] = React.useState("");
 
-  const { register, formState, getValues, setValue } = useFormContext();
+  const { register, formState, setValue, getValues, setError } =
+    useFormContext();
 
   const handleChange = (newValue: any) => {
-    console.log("newvalue", newValue.$d);
+    if (newValue?.$d) {
+      setDate(new Date(newValue?.$d));
 
-    setDate(newValue.$d);
+      handleChangeDate(new Date(newValue?.$d));
 
-    handleChangeDate(newValue.$d);
+      setValue(name, new Date(newValue?.$d));
+    }
 
     Number(newValue?.year()) <= 2099 && Number(newValue?.year()) >= 1900
       ? setYearError("")
@@ -43,14 +49,20 @@ export const FormField: React.FC<FormFieldProps> = ({
   React.useEffect(() => {
     setValue(name, initialText ? initialText : initialDate);
 
-    initialDate && setDate(initialDate);
+    if (initialDate) {
+      setDate(initialDate);
 
-    initialText && setInputValue(initialText);
+      setInputValue(initialText);
+    }
   }, []);
 
-  console.log(getValues());
+  const onChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
 
-  console.log("initialDate", initialDate);
+    handleChangeTextField(e.target.value);
+
+    setValue(name, e.target.value);
+  };
 
   return (
     <>
@@ -66,7 +78,7 @@ export const FormField: React.FC<FormFieldProps> = ({
                 className={`${styles.formField}`}
                 {...params}
                 {...register(name)}
-                helperText={yearError !== "" && formState.errors[name]?.message}
+                helperText={yearError && formState.errors[name]?.message}
                 name={name}
                 label={label}
                 fullWidth
@@ -84,8 +96,7 @@ export const FormField: React.FC<FormFieldProps> = ({
           name={name}
           label={label}
           fullWidth
-          onChange={(e) => setInputValue(e.target.value)}
-          value={inputValue}
+          onChange={onChangeTextField}
           variant="outlined"
           InputProps={{
             className: styles.textField,
