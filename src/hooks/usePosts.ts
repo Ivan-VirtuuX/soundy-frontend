@@ -11,17 +11,25 @@ export const usePosts = (
   newPosts: IPost[],
   page: number = 1,
   pinnedPost?: IPost,
-  postId?: string
+  userId?: string | string[]
 ): UsePostsProps => {
   const [posts, setPosts] = useState<IPost[]>([]);
 
   React.useEffect(() => {
     (async () => {
       try {
-        if (page === 1) {
+        if (page === 1 && !userId) {
           const arr = await Api().post.getAll(1);
 
           setPosts(arr);
+        } else if (page === 1 && userId) {
+          const arr = await Api().post.getUserPosts(1);
+
+          setPosts(arr);
+        } else if (page > 1 && userId) {
+          const arr = await Api().post.getUserPosts(page);
+
+          setPosts([...posts.concat(arr)]);
         } else {
           const arr = await Api().post.getAll(page);
 

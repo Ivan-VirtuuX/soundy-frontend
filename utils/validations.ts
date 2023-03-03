@@ -29,19 +29,29 @@ export const RegisterFormSchema = yup
       .typeError("Введите дату рождения")
       .required("Введите дату рождения")
       .transform(function (value, originalValue) {
-        this.isType(value) && value;
+        if (typeof originalValue !== "object") {
+          this.isType(value) && value;
 
-        const result = parse(
-          originalValue.slice(0, 10).replaceAll("/", "."),
+          const result = parse(
+            originalValue.slice(0, 10).replaceAll("/", "."),
+            "dd.mm.yyyy",
+            new Date()
+          );
+
+          return (
+            String(result.getFullYear()).length === 4 &&
+            result.getFullYear() <= 2099 &&
+            result.getFullYear() >= 1900 &&
+            result
+          );
+        }
+        return parse(
+          new Date(originalValue)
+            .toLocaleDateString("ru-Ru")
+            ?.slice(0, 10)
+            ?.replaceAll("/", "."),
           "dd.mm.yyyy",
           new Date()
-        );
-
-        return (
-          String(result.getFullYear()).length === 4 &&
-          result.getFullYear() <= 2099 &&
-          result.getFullYear() >= 1900 &&
-          result
         );
       }),
     secondPassword: yup

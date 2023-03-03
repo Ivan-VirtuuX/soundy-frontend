@@ -64,12 +64,15 @@ const Users: NextPage<IUser> = ({
   const [localBirthDate, setLocalBirthDate] = React.useState(birthDate);
   const [pinned, setPinned] = React.useState("");
   const [pinnedPost, setPinnedPost] = React.useState<IPost>();
+  const [filteredPosts, setFilteredPosts] = React.useState<IPost[]>([]);
 
   const attachedImageRef = React.useRef(null);
 
   const router = useRouter();
 
-  const { posts, setPosts } = usePosts(newPosts, page, pinnedPost);
+  const { query } = useRouter();
+
+  const { posts, setPosts } = usePosts(newPosts, page, pinnedPost, query?.id);
 
   const { ref, inView } = useInView({
     threshold: 1,
@@ -77,8 +80,6 @@ const Users: NextPage<IUser> = ({
   });
 
   const userData = useAppSelector(selectUserData);
-
-  const { query } = useRouter();
 
   const onCloseImage = async () => {
     await setAttachedImageFormData([]);
@@ -190,42 +191,16 @@ const Users: NextPage<IUser> = ({
     }
   }, [image, attachedImage]);
 
-  // const filteredPosts = posts.filter(
-  //   (post) => post?.author?.userId === query?.id
-  // );
-
-  const [filteredPosts, setFilteredPosts] = React.useState<IPost[]>([]);
-
   React.useEffect(() => {
-    setFilteredPosts(
-      posts.filter((post) => post?.author?.userId === query?.id)
-    );
-  }, []);
+    const newData = [
+      posts.find((post) => post?.postId === pinnedPost?.postId),
+      ...posts.filter((post) => post?.postId !== pinnedPost?.postId),
+    ];
 
-  function move(arr, old_index, new_index) {
-    while (old_index < 0) {
-      old_index += arr.length;
+    if (newData.some((el) => el !== undefined)) {
+      setFilteredPosts([...newData.filter((el) => el !== undefined)]);
     }
-    while (new_index < 0) {
-      new_index += arr.length;
-    }
-    if (new_index >= arr.length) {
-      var k = new_index - arr.length;
-      while (k-- + 1) {
-        arr.push(undefined);
-      }
-    }
-    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
-    return arr;
-  }
-
-  React.useEffect(() => {
-    const postFiltered = posts.filter(
-      (post) => post?.author?.userId === query?.id
-    );
-
-    setFilteredPosts(move(posts, filteredPosts.indexOf(pinnedPost), 0));
-  }, [pinned, pinnedPost]);
+  }, [posts, pinnedPost, pinned, setPinned]);
 
   return (
     <MainLayout fullWidth>
@@ -391,23 +366,22 @@ const Users: NextPage<IUser> = ({
         </div>
         <div className={styles.posts}>
           <PageTitle pageTitle="Посты" marginBottom={20} marginTop={15} />
-          {posts.filter((post) => post?.author?.userId === query?.id).length ===
-          0 ? (
+          {!filteredPosts ? (
             <NullResultsBlock text="Список постов пуст" />
           ) : (
             filteredPosts.map((post) => (
               <Post
                 handleDelete={(postId: string) =>
                   setPosts((posts) => [
-                    ...posts.filter((post) => post.postId !== postId),
+                    ...posts.filter((post) => post?.postId !== postId),
                   ])
                 }
-                pinned={pinnedPost?.postId === post.postId}
+                pinned={post.pinned}
                 innerRef={ref}
                 {...post}
-                key={post.postId}
+                key={post?.postId}
                 handlePin={(postId) =>
-                  post.postId === postId && setPinnedPost(post)
+                  post?.postId === postId && setPinnedPost(post)
                 }
               />
             ))

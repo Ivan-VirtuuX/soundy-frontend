@@ -48,6 +48,7 @@ export const Post: React.FC<PostProps> = ({
     React.useState(false);
   const [isView, setIsView] = React.useState(false);
   const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
+
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isPinned, setIsPinned] = React.useState(false);
 

@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/usePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePosts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/users/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/post.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/validations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validations.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,26 +48,26 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Документы/next-nest-soundy/soundy-frontend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "pnpm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier",
-    "remote.dev.show.docker.config.missing.jdk.notification": "false",
-    "settings.editor.selected.configurable": "configurable.group.tools",
-    "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Документы/next-nest-soundy/soundy-frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
+    &quot;remote.dev.show.docker.config.missing.jdk.notification&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RdControllerToolWindowsLayoutState" isNewUi="false">
     <layout>
       <window_info id="Commit_Guest" />
@@ -153,7 +155,8 @@
       <workItem from="1677732029946" duration="813000" />
       <workItem from="1677732893460" duration="2287000" />
       <workItem from="1677735299670" duration="40000" />
-      <workItem from="1677735344494" duration="19557000" />
+      <workItem from="1677735344494" duration="19643000" />
+      <workItem from="1677818204735" duration="6216000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>

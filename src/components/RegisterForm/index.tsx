@@ -32,6 +32,7 @@ interface RegisterFormProps {
 export const RegisterForm: React.FC<RegisterFormProps> = ({ onOpenLogin }) => {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [isCorrect, setIsCorrect] = React.useState(true);
+  const [date, setDate] = React.useState<Date>();
 
   const dispatch = useAppDispatch();
 
@@ -44,7 +45,13 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onOpenLogin }) => {
 
   const onSubmit = async (dto: CreateUserDto) => {
     try {
-      const data = await Api().user.register(dto);
+      const data = await Api().user.register({
+        name: dto.name,
+        surname: dto.surname,
+        birthDate: date,
+        login: dto.login,
+        password: dto.password,
+      });
 
       if (data.token) {
         setCookie(null, "authToken", data.token, {
@@ -133,7 +140,11 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onOpenLogin }) => {
               <FormField name="name" label="Имя" />
               <FormField name="surname" label="Фамилия" />
             </div>
-            <FormField name="birthDate" label="Дата рождения" />
+            <FormField
+              name="birthDate"
+              label="Дата рождения"
+              handleChangeDate={(date: any) => setDate(date)}
+            />
             <FormField name="password" label="Пароль" />
             <FormField name="secondPassword" label="Повторите пароль" />
             <div className={styles.formActions}>

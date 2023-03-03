@@ -27,16 +27,14 @@ export const FormField: React.FC<FormFieldProps> = ({
 }) => {
   const [date, setDate] = React.useState<Dayjs | Date>();
   const [yearError, setYearError] = React.useState("");
-  const [inputValue, setInputValue] = React.useState("");
 
-  const { register, formState, setValue, getValues, setError } =
-    useFormContext();
+  const { register, formState, setValue } = useFormContext();
 
   const handleChange = (newValue: any) => {
     if (newValue?.$d) {
       setDate(new Date(newValue?.$d));
 
-      handleChangeDate(new Date(newValue?.$d));
+      handleChangeDate && handleChangeDate(new Date(newValue?.$d));
 
       setValue(name, new Date(newValue?.$d));
     }
@@ -51,14 +49,10 @@ export const FormField: React.FC<FormFieldProps> = ({
 
     if (initialDate) {
       setDate(initialDate);
-
-      setInputValue(initialText);
     }
   }, []);
 
   const onChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-
     handleChangeTextField(e.target.value);
 
     setValue(name, e.target.value);
