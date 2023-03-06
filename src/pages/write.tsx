@@ -27,8 +27,6 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
   try {
     const user = await Api(ctx).user.getMe();
 
-    console.log();
-
     if (!user) {
       return {
         props: {},

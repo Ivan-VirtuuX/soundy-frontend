@@ -1,4 +1,7 @@
 import React, { FormEvent, Ref } from "react";
+import { useInView } from "react-intersection-observer";
+
+import { useRouter } from "next/router";
 
 import { IconButton, Typography } from "@mui/material";
 
@@ -17,9 +20,9 @@ import { IComment, IPost } from "@/api/types";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import styles from "./Post.module.scss";
-import { useInView } from "react-intersection-observer";
 import { convertDate } from "@/utils/dateConverter";
+
+import styles from "./Post.module.scss";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -56,10 +59,14 @@ export const Post: React.FC<PostProps> = ({
 
   const userData = useAppSelector(selectUserData);
 
+  const { asPath } = useRouter();
+
   const { ref, inView } = useInView({
     threshold: 1,
     triggerOnce: true,
   });
+
+  const router = useRouter();
 
   const intervalCallback = React.useCallback(() => {
     setDate(convertDate(new Date(createdAt)));
@@ -204,16 +211,21 @@ export const Post: React.FC<PostProps> = ({
               alt="avatar"
               width={40}
               height={40}
+              onClick={() => router.push(`/users/${author?.userId}`)}
             />
           ) : (
-            <EmptyAvatar />
+            <EmptyAvatar
+              handleClick={() => router.push(`/users/${author?.userId}`)}
+            />
           )}
           <div className={styles.userInfoBlock}>
             <div className={styles.userInfo}>
-              <span className={styles.name}>{author?.name}</span>
-              <span className={styles.surname}>{author?.surname}</span>
-              <span className={styles.login}>{author?.login}</span>
-              {pinned && (
+              <div onClick={() => router.push(`/users/${author?.userId}`)}>
+                <span className={styles.name}>{author?.name}</span>
+                <span className={styles.surname}>{author?.surname}</span>
+                <span className={styles.login}>{author?.login}</span>
+              </div>
+              {pinned && asPath !== "/posts" && (
                 <svg
                   className={styles.pinIcon}
                   width="16"
@@ -237,6 +249,7 @@ export const Post: React.FC<PostProps> = ({
             isPinned={pinned}
             handleDelete={onDeletePost}
             handlePin={onPinPost}
+            isVisiblePin={asPath.includes("/users")}
           />
         )}
       </div>

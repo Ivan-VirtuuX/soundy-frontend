@@ -1,0 +1,56 @@
+@import "@/styles/variables.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 300px;
+}
+
+.leftSide {
+  display: flex;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+
+.userInfoBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 15px;
+}
+
+.nameSurnameBlock {
+  cursor: pointer;
+  display: flex;
+}
+
+.name {
+  margin-right: 5px;
+}
+
+.name,
+.surname,
+.login {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  color: $primary;
+  user-select: none;
+}
+
+.login {
+  color: $secondary;
+  cursor: pointer;
+}
+
+.requestFriendActionsBlock {
+  display: flex;
+  column-gap: 10px;
+}

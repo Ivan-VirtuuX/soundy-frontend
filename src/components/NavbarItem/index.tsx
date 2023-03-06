@@ -32,7 +32,10 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
       className={`${styles.link} ${
         name === "messages" && styles.messagesIcon
       } ${
-        router.asPath === "/" + name ? styles.activeLink : styles.defaultLink
+        router.asPath === "/" + name ||
+        (name === "friends" && router.asPath === "/friend-requests")
+          ? styles.activeLink
+          : styles.defaultLink
       }`}
     >
       <Link href={"/" + name}>

@@ -1,0 +1,28 @@
+.searchBlock {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+}
+
+.searchActionsBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.friendsBlock {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+}

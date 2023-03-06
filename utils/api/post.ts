@@ -13,11 +13,22 @@ export const PostApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async getUserPosts(_page: number) {
+  async getUserPosts(_page: number, userId: string | string[]) {
     const { data } = await instance.get<IPost[]>("/posts/user", {
       params: {
         _limit: 5,
         _page,
+        userId,
+      },
+    });
+
+    return data;
+  },
+
+  async getPinnedPost(userId: string | string[]) {
+    const { data } = await instance.get<IPost>("/posts/pinned", {
+      params: {
+        userId,
       },
     });
 

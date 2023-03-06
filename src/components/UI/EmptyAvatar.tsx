@@ -1,6 +1,14 @@
-export const EmptyAvatar = ({ width }: { width?: number }) => {
+export const EmptyAvatar = ({
+  width,
+  handleClick,
+}: {
+  width?: number;
+  handleClick?: () => void;
+}) => {
   return (
     <svg
+      onClick={handleClick}
+      style={{ cursor: handleClick ? "pointer" : "default" }}
       width={width ? width : 40}
       height={width ? width : 40}
       viewBox="0 0 40 40"

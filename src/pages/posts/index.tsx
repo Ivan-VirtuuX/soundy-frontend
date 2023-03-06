@@ -1,21 +1,25 @@
+import React from "react";
+import { useInView } from "react-intersection-observer";
+import { InfinitySpin } from "react-loader-spinner";
+
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+
 import { MainLayout } from "@/layouts/MainLayout";
-import styles from "./Posts.module.scss";
+
 import { Post } from "@/components/Post";
-import { usePosts } from "@/hooks/usePosts";
-import { useInView } from "react-intersection-observer";
-import { Api } from "@/api/index";
-import { IPost } from "@/api/types";
-import { InfinitySpin } from "react-loader-spinner";
 import { PageTitle } from "@/components/UI/PageTitle";
 import { BlueButton } from "@/components/UI/BlueButton";
 
-import { useRouter } from "next/router";
+import { usePosts } from "@/hooks/usePosts";
+
+import { IPost } from "@/api/types";
+import { Api } from "@/api/index";
+
+import styles from "./Posts.module.scss";
 
 const Posts: NextPage = () => {
-  const [localPosts, setLocalPosts] = React.useState<IPost[]>([]);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -46,7 +50,7 @@ const Posts: NextPage = () => {
           }
         } catch (err) {
           console.warn(err);
-
+        } finally {
           setIsLoading(false);
         }
       }

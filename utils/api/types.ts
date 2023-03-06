@@ -49,6 +49,8 @@ export interface IUser {
   name: string;
   surname: string;
   avatarUrl: string;
+  friends?: IUser[];
+  friendRequests?: IUser[];
   birthDate?: Date;
 }
 
@@ -61,6 +63,8 @@ export interface ResponseUser {
   name: string;
   surname: string;
   birthDate: Date;
+  friends: IUser[];
+  friendRequests: IUser[];
   token?: string;
   createdAt?: string;
 }

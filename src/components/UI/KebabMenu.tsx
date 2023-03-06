@@ -12,10 +12,12 @@ export const KebabMenu = ({
   handleDelete,
   handlePin,
   isPinned,
+  isVisiblePin,
 }: {
-  handleDelete: () => void;
-  handlePin: () => void;
-  isPinned: boolean;
+  handleDelete?: () => void;
+  handlePin?: () => void;
+  isPinned?: boolean;
+  isVisiblePin?: boolean;
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -60,11 +62,12 @@ export const KebabMenu = ({
         }}
       >
         <MenuItem onClick={onClickDelete}>Удалить</MenuItem>
-        {isPinned ? (
-          <MenuItem onClick={onClickPin}>Открепить</MenuItem>
-        ) : (
-          <MenuItem onClick={onClickPin}>Закрепить</MenuItem>
-        )}
+        {isVisiblePin &&
+          (isPinned ? (
+            <MenuItem onClick={onClickPin}>Открепить</MenuItem>
+          ) : (
+            <MenuItem onClick={onClickPin}>Закрепить</MenuItem>
+          ))}
       </Menu>
     </div>
   );

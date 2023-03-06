@@ -353,11 +353,16 @@ h6 {
 .blueButtonDisabled {
   svg {
     path {
-      fill: #a9a9a9ff !important;
+      fill: #9b9b9b !important;
     }
   }
 }
 
 .MuiButton-contained {
   box-shadow: none !important;
+
+  &.Mui-disabled {
+    background: #e8e8e8 !important;
+    color: #9b9b9b !important;
+  }
 }

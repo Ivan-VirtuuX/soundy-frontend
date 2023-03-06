@@ -17,7 +17,7 @@ export const BlueButton = ({
   disabled?: boolean;
   variant?: string;
   size?: string;
-  color?: string;
+  color?: "primary" | "secondary" | "green";
 }) => {
   const [isHover, setIsHover] = React.useState(false);
 

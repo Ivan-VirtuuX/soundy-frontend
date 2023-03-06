@@ -60,10 +60,13 @@
   font-size: 20px;
   line-height: 23px;
   color: $primary;
+  margin-right: 10px;
 }
 
 .friendsBlockHead {
   margin-bottom: 10px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .friendsBlockFriendsCount {

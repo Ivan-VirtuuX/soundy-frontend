@@ -5,11 +5,11 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 export const Navbar: React.FC = () => {
-  const { id } = useAppSelector(selectUserData);
+  const userData = useAppSelector(selectUserData);
 
   const navItems = [
     { id: 1, text: "Посты", name: "posts" },
-    { id: 2, text: "Профиль", name: `users/${id}` },
+    { id: 2, text: "Профиль", name: `users/${userData?.id}` },
     { id: 3, text: "Сообщения", name: "messages" },
     { id: 4, text: "Друзья", name: "friends" },
     { id: 5, text: "Поиск", name: "search" },

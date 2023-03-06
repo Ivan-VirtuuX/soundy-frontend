@@ -6,13 +6,32 @@
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Editor/Editor.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Editor/Editor.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Editor/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Editor/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/FriendsList.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/FriendsList.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/BlueButton.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/BlueButton/BlueButton.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/EmptyAvatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/KebabMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/KebabMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/NullResultsBlock/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/NullResultsBlock/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PageTitle/PageTitle.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PageTitle/PageTitle.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/usePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePosts.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/write/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/api/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/post.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/validations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/user.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,11 +115,11 @@
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\pages" />
+      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\pages\users\[id]" />
+      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI\SearchInput" />
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI\BlueButton" />
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI" />
-      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI\Line" />
-      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\public\favicons" />
-      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\UI\Like" />
     </key>
   </component>
   <component name="RunManager" selected="npm.dev">
@@ -157,6 +176,9 @@
       <workItem from="1677735299670" duration="40000" />
       <workItem from="1677735344494" duration="19643000" />
       <workItem from="1677818204735" duration="6216000" />
+      <workItem from="1677852359829" duration="6887000" />
+      <workItem from="1677901031459" duration="28745000" />
+      <workItem from="1678077294094" duration="6418000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>
@@ -188,6 +210,17 @@
     </ignored-roots>
     <MESSAGE value="some changes in profile page" />
     <option name="LAST_COMMIT_MESSAGE" value="some changes in profile page" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/utils/api/post.ts</url>
+          <line>21</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

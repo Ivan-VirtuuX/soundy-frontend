@@ -29,6 +29,11 @@
 .userInfo {
   display: flex;
   align-items: center;
+
+  div {
+    cursor: pointer;
+    user-select: none;
+  }
 }
 
 .pinIcon {
@@ -179,4 +184,5 @@
 .avatar {
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
 }

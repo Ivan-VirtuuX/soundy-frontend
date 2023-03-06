@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .container {
   height: 50px;
   width: 100%;
@@ -15,8 +17,69 @@
 
 .inner {
   padding-left: 13px;
+  padding-right: 13px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  img {
+.logo {
+  cursor: pointer;
+  user-select: none;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  cursor: pointer;
+  user-select: none;
+}
+
+.name,
+.surname {
+  font-weight: 700;
+  line-height: 50px;
+  color: $primary;
+  cursor: pointer;
+  user-select: none;
+}
+
+.name {
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+.surname {
+  margin-right: 10px;
+}
+
+.userInfoBlock {
+  display: flex;
+  align-items: center;
+
+  div {
     cursor: pointer;
+  }
+}
+
+.logoutButton {
+  cursor: pointer;
+
+  path {
+    stroke: $primary;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:hover {
+    path {
+      stroke: $secondary;
+    }
   }
 }

@@ -91,6 +91,16 @@ const Editor: FC<EditorProps> = ({
     };
   }, []);
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      const editor = document.getElementById("editor");
+
+      if (editor) {
+        editor.style.pointerEvents = "auto";
+      }
+    }, 1500);
+  }, []);
+
   return <div id="editor" className={styles.editor} />;
 };
 

@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import {
   ChangeUserDataDto,
   CreateUserDto,
+  IUser,
   LoginDto,
   ResponseUser,
 } from "./types";
@@ -17,6 +18,12 @@ export const UserApi = (instance: AxiosInstance) => ({
 
   async getOne(userId: string | string[]) {
     const { data } = await instance.get<ResponseUser>(`/users/${userId}`);
+
+    return data;
+  },
+
+  async getFriends(userId: string | string[]) {
+    const { data } = await instance.get<IUser[]>(`/users/${userId}/friends`);
 
     return data;
   },
@@ -45,10 +52,62 @@ export const UserApi = (instance: AxiosInstance) => ({
     return data;
   },
 
+  async getFriendRequests(userId: string | string[]) {
+    const { data } = await instance.get<ResponseUser>(
+      `/users/${userId}/friend-requests`
+    );
+
+    return data;
+  },
+
+  async addFriendRequests(userId: string | string[]) {
+    const { data } = await instance.post<ResponseUser>(
+      `/users/${userId}/friend-requests`
+    );
+
+    return data;
+  },
+
+  async confirmFriendRequest(userId: string, requestFriendId: string) {
+    const { data } = await instance.patch<ResponseUser>(
+      `/users/${userId}/friend-requests`,
+      {
+        requestFriendId,
+      }
+    );
+
+    return data;
+  },
+
+  async cancelFriendRequest(
+    userId: string,
+    requestFriendId: string | string[]
+  ) {
+    const { data } = await instance.delete<ResponseUser>(
+      `/users/${requestFriendId}/friend-requests`,
+      {
+        data: { userId },
+      }
+    );
+
+    return data;
+  },
+
   async changeUserData(dto: ChangeUserDataDto, userId: string) {
     const { data } = await instance.patch<ResponseUser>(`/users/${userId}`, {
       data: dto,
     });
+
+    return data;
+  },
+
+  async deleteFriend(userId: string, friendId: string | string[]) {
+    const { data } = await instance.delete<ResponseUser>(
+      `/users/${userId}/friends`,
+      {
+        data: { friendId },
+      }
+    );
 
     return data;
   },

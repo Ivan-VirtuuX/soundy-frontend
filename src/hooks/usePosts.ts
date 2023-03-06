@@ -23,11 +23,11 @@ export const usePosts = (
 
           setPosts(arr);
         } else if (page === 1 && userId) {
-          const arr = await Api().post.getUserPosts(1);
+          const arr = await Api().post.getUserPosts(1, userId);
 
           setPosts(arr);
         } else if (page > 1 && userId) {
-          const arr = await Api().post.getUserPosts(page);
+          const arr = await Api().post.getUserPosts(page, userId);
 
           setPosts([...posts.concat(arr)]);
         } else {
@@ -39,7 +39,7 @@ export const usePosts = (
         console.warn(err);
       }
     })();
-  }, [page, pinnedPost]);
+  }, [page, pinnedPost, userId]);
 
   return { posts, setPosts };
 };
