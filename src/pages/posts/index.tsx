@@ -18,6 +18,7 @@ import { IPost } from "@/api/types";
 import { Api } from "@/api/index";
 
 import styles from "./Posts.module.scss";
+import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
 
 const Posts: NextPage = () => {
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
@@ -69,18 +70,7 @@ const Posts: NextPage = () => {
         <PageTitle pageTitle="Посты" />
         <div style={{ marginBottom: 20 }} onClick={() => router.push("/write")}>
           <BlueButton color="primary" text="Создать">
-            <svg
-              width="17"
-              height="17"
-              viewBox="0 0 17 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.3191 5.44074L10.5909 1.75113L11.819 0.521254C12.1553 0.184504 12.5684 0.0161285 13.0585 0.0161285C13.5486 0.0161285 13.9615 0.184504 14.2972 0.521254L15.5253 1.75113C15.8615 2.08788 16.037 2.49432 16.0516 2.97046C16.0662 3.44659 15.9054 3.85274 15.5691 4.18891L14.3191 5.44074ZM13.0471 6.7365L3.74848 16.0484H0.0202637V12.3148L9.31888 3.00296L13.0471 6.7365Z"
-                fill="white"
-              />
-            </svg>
+            <PencilIcon width={17} height={17} />
           </BlueButton>
         </div>
         {posts.map((post) => (

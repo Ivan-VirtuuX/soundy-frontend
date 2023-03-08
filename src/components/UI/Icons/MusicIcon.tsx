@@ -1,4 +1,4 @@
-export const MusicLogo = () => {
+export const MusicIcon = () => {
   return (
     <svg
       width="24"

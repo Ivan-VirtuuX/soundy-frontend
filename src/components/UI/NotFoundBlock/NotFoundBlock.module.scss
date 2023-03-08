@@ -1,0 +1,22 @@
+@import "@/styles/variables.scss";
+
+.text {
+  font-weight: 700;
+  font-size: 45px;
+  line-height: 50px;
+  text-align: center;
+  color: $secondary;
+  width: 600px;
+  margin-bottom: 40px;
+}
+
+.imagesBlock {
+  display: flex;
+  column-gap: 85px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

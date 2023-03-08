@@ -5,7 +5,7 @@ import Head from "next/head";
 import styles from "./FriendRequests.module.scss";
 import { PageTitle } from "@/components/UI/PageTitle";
 import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
-import { FriendItem } from "@/components/FriendItem";
+import { UserItem } from "@/components/UserItem";
 import { IUser } from "@/api/types";
 import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
@@ -67,7 +67,7 @@ const FriendRequests: NextPage = ({
               </div>
             ) : (
               friendRequests?.map((friend) => (
-                <FriendItem
+                <UserItem
                   key={friend?.userId}
                   {...friend}
                   type="requestFriends"

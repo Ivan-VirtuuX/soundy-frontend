@@ -1,12 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import { PostsLogo } from "@/components/UI/PostsLogo";
+import { PostIcon } from "@/components/UI/Icons/PostIcon";
 import { useRouter } from "next/router";
-import { ProfileLogo } from "@/components/UI/ProfileLogo";
-import { MessagesLogo } from "@/components/UI/MessagesLogo";
-import { FriendsLogo } from "@/components/UI/FriendsLogo";
-import { SearchLogo } from "@/components/UI/SearchLogo";
-import { MusicLogo } from "@/components/UI/MusicLogo";
+import { UserIcon } from "@/components/UI/Icons/UserIcon";
+import { MessageIcon } from "@/components/UI/Icons/MessageIcon";
+import { UsersIcon } from "@/components/UI/Icons/UsersIcon";
+import { SearchIcon } from "@/components/UI/Icons/SearchIcon";
+import { MusicIcon } from "@/components/UI/Icons/MusicIcon";
 import { BlueButton } from "@/components/UI/BlueButton";
 import styles from "./NavbarItem.module.scss";
 
@@ -19,12 +19,12 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   const router = useRouter();
 
   const iconsComponents = {
-    posts: <PostsLogo />,
-    profile: <ProfileLogo />,
-    messages: <MessagesLogo />,
-    friends: <FriendsLogo />,
-    search: <SearchLogo />,
-    music: <MusicLogo />,
+    posts: <PostIcon />,
+    profile: <UserIcon />,
+    messages: <MessageIcon />,
+    friends: <UsersIcon />,
+    search: <SearchIcon />,
+    music: <MusicIcon />,
   };
 
   return (

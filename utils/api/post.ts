@@ -16,7 +16,7 @@ export const PostApi = (instance: AxiosInstance) => ({
   async getUserPosts(_page: number, userId: string | string[]) {
     const { data } = await instance.get<IPost[]>("/posts/user", {
       params: {
-        _limit: 5,
+        _limit: 4,
         _page,
         userId,
       },

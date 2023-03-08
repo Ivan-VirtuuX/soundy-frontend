@@ -29,7 +29,9 @@ export const BlueButton = ({
           className={styles.blueButton}
           onClick={handleClick}
           disabled={disabled}
-          style={{ justifyContent: "flex-start" }}
+          style={{
+            justifyContent: "flex-start",
+          }}
         >
           {children}
           {text}
@@ -81,7 +83,7 @@ export const BlueButton = ({
           disabled={disabled}
         >
           <div
-            style={{ display: "flex" }}
+            style={{ display: "flex", marginRight: 10 }}
             className={`${disabled ? "blueButtonDisabled" : styles.blueButton}`}
           >
             {children}

@@ -2,7 +2,7 @@ import styles from "./Views.module.scss";
 
 export const Views = ({ viewsCount }: { viewsCount: number }) => {
   return (
-    <div className={styles.commentsBlock}>
+    <div className={styles.viewsBlock}>
       <svg
         width="20"
         height="20"
@@ -15,7 +15,6 @@ export const Views = ({ viewsCount }: { viewsCount: number }) => {
           fill="#181F92"
         />
       </svg>
-
       <span>{viewsCount}</span>
     </div>
   );

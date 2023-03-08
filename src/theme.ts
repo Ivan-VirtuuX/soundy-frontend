@@ -12,7 +12,6 @@ export const theme = createTheme({
       main: "#7DCF3C",
     },
   },
-
   overrides: {
     MuiButton: {
       root: {
@@ -32,20 +31,23 @@ export const theme = createTheme({
           backgroundColor: "#E8338B",
         },
       },
-      containedPrimary: {
+      outlined: {
         boxShadow: "none",
         transition: "all 0.4s ease-in-out",
         fontSize: 15,
-        color: "#E8338B",
         fontWeight: 700,
         textTransform: "none",
         fontFamily: "Comfortaa",
         width: 200,
         padding: "10px 15px",
+        color: "#181F92",
+        background: "rgba(24,31,146,0.1)",
+        border: "none !important",
 
         "&:hover": {
           boxShadow: "none",
-          backgroundColor: "#181F92",
+          color: "#E8338B",
+          background: "rgba(232,51,139,0.1) !important",
         },
       },
       text: {

@@ -1,4 +1,4 @@
-export const ProfileLogo = () => {
+export const UserIcon = () => {
   return (
     <svg
       width="24"

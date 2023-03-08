@@ -9,8 +9,8 @@ import { PageTitle } from "@/components/UI/PageTitle";
 import styles from "@/pages/friends/Friends.module.scss";
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
-import { FriendItem } from "@/components/FriendItem";
 import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+import { UserItem } from "@/components/UserItem";
 
 const Friends: NextPage = ({
   friends,
@@ -38,7 +38,7 @@ const Friends: NextPage = ({
               <NullResultsBlock text="Список друзей пуст" />
             ) : (
               friends?.map((friend) => (
-                <FriendItem key={friend?.userId} {...friend} menuHidden />
+                <UserItem key={friend?.userId} {...friend} menuHidden />
               ))
             )}
           </div>

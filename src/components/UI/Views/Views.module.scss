@@ -1,9 +1,10 @@
 @import "@/styles/variables.scss";
 
-.commentsBlock {
+.viewsBlock {
   display: flex;
   align-items: center;
   user-select: none;
+  padding: 12px;
 
   svg {
     margin-right: 10px;

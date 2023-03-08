@@ -78,3 +78,10 @@ export interface ChangeUserDataDto {
 export interface CreatePostDto {
   body: OutputData["blocks"];
 }
+
+export interface SearchUserDto {
+  _name?: string;
+  _surname?: string;
+  _login?: string;
+  _query?: string;
+}
