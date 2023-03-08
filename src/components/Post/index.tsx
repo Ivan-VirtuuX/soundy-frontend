@@ -5,13 +5,6 @@ import { useRouter } from "next/router";
 
 import { IconButton, Typography } from "@mui/material";
 
-import { KebabMenu } from "@/components/UI/KebabMenu";
-import { Like } from "@/components/UI/Like";
-import { Comment } from "@/components/UI/Comment";
-import { Views } from "@/components/UI/Views";
-import { CommentItem } from "@/components/CommentItem";
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
-
 import { Line } from "../UI/Line";
 
 import { Api } from "@/api/index";
@@ -22,10 +15,17 @@ import { selectUserData } from "@/redux/slices/user";
 
 import { convertDate } from "@/utils/dateConverter";
 
-import styles from "./Post.module.scss";
+import { KebabMenu } from "@/components/UI/KebabMenu";
+import { Like } from "@/components/UI/Like";
+import { Comment } from "@/components/UI/Comment";
+import { Views } from "@/components/UI/Views";
+import { CommentItem } from "@/components/CommentItem";
+import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
 import { PinIcon } from "@/components/UI/Icons/PinIcon";
 import { AttachImageIcon } from "@/components/UI/Icons/AttachImageIcon";
 import { SendIcon } from "@/components/UI/Icons/SendIcon";
+
+import styles from "./Post.module.scss";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -33,7 +33,7 @@ interface PostProps extends IPost {
   handlePin?: (postId: string) => void;
 }
 
-export const Post: React.FC<PostProps> = ({
+const Index: React.FC<PostProps> = ({
   postId,
   author,
   body,
@@ -45,18 +45,17 @@ export const Post: React.FC<PostProps> = ({
   pinned,
   handlePin,
 }) => {
-  const [isShowComments, setIsShowComments] = React.useState(false);
-  const [message, setMessage] = React.useState("");
-  const [localComments, setLocalComments] = React.useState<IComment[]>([]);
-  const [likesCount, setLikesCount] = React.useState(likes?.length);
-  const [viewsCount, setViewsCount] = React.useState(views?.length);
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
+  const [isShowComments, setIsShowComments] = React.useState(false);
+  const [localComments, setLocalComments] = React.useState<IComment[]>([]);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [likesCount, setLikesCount] = React.useState(likes?.length);
+  const [viewsCount, setViewsCount] = React.useState(views?.length);
+  const [isPinned, setIsPinned] = React.useState(false);
+  const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
   const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
-
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isPinned, setIsPinned] = React.useState(false);
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -79,7 +78,10 @@ export const Post: React.FC<PostProps> = ({
     const timeout = setInterval(() => {
       const newDate = convertDate(new Date(createdAt));
 
-      if (newDate.split(" ")[1].includes("секунд")) {
+      if (
+        newDate.split(" ")[1].includes("секунд") ||
+        newDate === "2 минуты назад"
+      ) {
         setDate(newDate);
       } else {
         clearInterval(timeout);
@@ -138,35 +140,38 @@ export const Post: React.FC<PostProps> = ({
     }
   };
 
-  const submitComment = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const submitComment = React.useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
 
-    try {
-      if (message) {
-        await setIsShowComments(true);
+      try {
+        if (message) {
+          await setIsShowComments(true);
 
-        await commentInputRef?.current?.scrollIntoView({ block: "center" });
+          await commentInputRef?.current?.scrollIntoView({ block: "center" });
 
-        setIsSubmitting(true);
+          setIsSubmitting(true);
 
-        const comment = await Api().comment.addComment({
-          postId,
-          author: userData?.userId,
-          text: message,
-        });
+          const comment = await Api().comment.addComment({
+            postId,
+            author: userData?.userId,
+            text: message,
+          });
 
-        setLocalComments([...localComments, comment]);
+          setLocalComments([...localComments, comment]);
+          setIsSubmitting(false);
+        }
+      } catch (err) {
+        console.warn(err);
+      } finally {
+        setMessage("");
         setIsSubmitting(false);
       }
-    } catch (err) {
-      console.warn(err);
-    } finally {
-      setMessage("");
-      setIsSubmitting(false);
-    }
-  };
+    },
+    [localComments, message, postId, userData?.userId]
+  );
 
-  const onClickLike = async () => {
+  const onClickLike = React.useCallback(async () => {
     try {
       setLikesCount((likesCount) => likesCount + 1);
 
@@ -174,9 +179,9 @@ export const Post: React.FC<PostProps> = ({
     } catch (err) {
       console.warn(err);
     }
-  };
+  }, []);
 
-  const onClickDislike = async (likeId: string) => {
+  const onClickDislike = React.useCallback(async (likeId: string) => {
     try {
       setLikesCount((likesCount) => likesCount - 1);
 
@@ -184,7 +189,7 @@ export const Post: React.FC<PostProps> = ({
     } catch (err) {
       console.warn(err);
     }
-  };
+  }, []);
 
   const onClickCommentIcon = async () => {
     await setIsCommentInputVisible(true);
@@ -197,6 +202,7 @@ export const Post: React.FC<PostProps> = ({
       await Api().post.addPin(postId);
 
       setIsPinned(!isPinned);
+
       handlePin(postId);
     } catch (err) {
       console.warn(err);
@@ -337,3 +343,5 @@ export const Post: React.FC<PostProps> = ({
     </div>
   );
 };
+
+export const Post = React.memo(Index);

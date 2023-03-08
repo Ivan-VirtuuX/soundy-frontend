@@ -1,0 +1,40 @@
+@import "@/styles/variables.scss";
+
+.changeAvatarButton {
+  position: absolute;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: white;
+  width: 35px;
+  height: 35px;
+  bottom: -17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.editAvatarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+}
+
+.editAvatarTitle {
+  font-weight: 700;
+  font-size: 35px;
+  line-height: 39px;
+  text-align: center;
+  color: $primary;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}

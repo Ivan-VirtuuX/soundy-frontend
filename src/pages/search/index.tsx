@@ -1,27 +1,20 @@
 import React from "react";
-import { InfinitySpin } from "react-loader-spinner";
-import { useInView } from "react-intersection-observer";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { IUser } from "@/api/types";
-
-import { Api } from "@/api/index";
-
 import { PageTitle } from "@/components/UI/PageTitle";
-import { NotFoundBlock } from "@/components/UI/NotFoundBlock";
 import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { UsersIcon } from "@/components/UI/Icons/UsersIcon";
-import { UserItem } from "@/components/UserItem";
 import { PostIcon } from "@/components/UI/Icons/PostIcon";
 
-import { Button } from "@material-ui/core";
-
 import styles from "./Search.module.scss";
+import { SearchedUsers } from "@/components/SearchedUsers";
+import { Api } from "@/api/index";
+import { IUser } from "@/api/types";
 
 const Search: NextPage = () => {
   const [searchUserQuery, setSearchUserQuery] = React.useState("");
@@ -30,12 +23,7 @@ const Search: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
 
-  const { ref, inView } = useInView({
-    threshold: 1,
-    triggerOnce: true,
-  });
-
-  const searchUsers = async () => {
+  const searchUsers = React.useCallback(async () => {
     try {
       if (searchUserQuery && searchUserQuery !== " ") {
         setPage(1);
@@ -82,68 +70,7 @@ const Search: NextPage = () => {
     } catch (err) {
       console.warn(err);
     }
-  };
-
-  const loadMoreResults = async (pageNumber) => {
-    try {
-      if (searchUserQuery) {
-        const splitSearchUsers = searchUserQuery.split(" ");
-
-        if (splitSearchUsers.length === 2) {
-          setIsLoading(true);
-
-          const data = await Api().user.findUsers(
-            {
-              _name: splitSearchUsers[0],
-              _surname: splitSearchUsers[1],
-            },
-            pageNumber
-          );
-
-          setSearchedUsers([...searchedUsers.concat(data)]);
-
-          setIsLoading(false);
-
-          setPage((page) => page + 1);
-        } else if (splitSearchUsers.length === 1) {
-          setIsLoading(true);
-
-          const data = await Api().user.findUsers(
-            {
-              _query: splitSearchUsers[0],
-            },
-            pageNumber
-          );
-
-          setSearchedUsers([...searchedUsers.concat(data)]);
-
-          setIsLoading(false);
-
-          setPage((page) => page + 1);
-        }
-      }
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  React.useEffect(() => {
-    (async () => {
-      try {
-        if (inView && page !== 1) {
-          setIsLoading(true);
-
-          await loadMoreResults(page);
-
-          setIsLoading(false);
-        }
-      } catch (err) {
-        console.warn(err);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, [inView]);
+  }, [page, searchUserQuery]);
 
   return (
     <MainLayout fullWidth>
@@ -171,37 +98,17 @@ const Search: NextPage = () => {
               </BlueButton>
             </div>
           </div>
-          {searchedUsers && (
-            <div
-              className={styles.searchedUsersBlock}
-              style={{
-                gridTemplateColumns: searchedUsers?.length < 3 && "1fr",
-              }}
-            >
-              {searchedUsers.map((user) => (
-                <UserItem
-                  key={user.userId}
-                  {...user}
-                  menuHidden
-                  innerRef={ref}
-                />
-              ))}
-            </div>
-          )}
-          {isLoading && (
-            <div className={styles.loadSpinner}>
-              <InfinitySpin width="200" color="#181F92" />
-            </div>
-          )}
-          {page === 1 && searchedUsers.length > 0 && !isLoading && (
-            <Button onClick={() => loadMoreResults(2)} variant="outlined">
-              Загрузить еще...
-            </Button>
-          )}
+          <SearchedUsers
+            searchUserQuery={searchUserQuery}
+            handleLoading={(isLoading) => setIsLoading(isLoading)}
+            isLoading={isLoading}
+            handleSearchedUsers={(users) => setSearchedUsers(users)}
+            searchedUsers={searchedUsers}
+            handleChangeUsersPage={() => setPage((page) => page + 1)}
+            page={page}
+            isEmptyResults={isEmptyResults}
+          />
         </div>
-        {isEmptyResults && (
-          <NotFoundBlock text="По данному запросу ничего не найдено" />
-        )}
       </main>
     </MainLayout>
   );

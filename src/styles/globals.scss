@@ -5,6 +5,11 @@
   padding: 0;
   border: 0;
   font-family: "Comfortaa", sans-serif;
+
+  ::selection {
+    background: rgba(24, 31, 146, 0.1);
+    color: $primary;
+  }
 }
 
 *:before,

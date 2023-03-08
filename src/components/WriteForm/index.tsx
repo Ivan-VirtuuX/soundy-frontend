@@ -42,12 +42,12 @@ export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
       };
 
       if (blocks.length && fromUsersPage) {
-        const post = await Api().post.create(obj);
+        await Api().post.create(obj);
 
         await router.push(`/users/${userData?.id}`);
       } else {
         if (blocks.length) {
-          const post = await Api().post.create(obj);
+          await Api().post.create(obj);
 
           await router.push(`/posts`);
         }
@@ -70,7 +70,7 @@ export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
         <BlueButton
           text="Опубликовать"
           handleClick={onAddPost}
-          disabled={isImageSubmitting || !blocks.length}
+          disabled={isImageSubmitting || !blocks.length || isLoading}
           color="primary"
         >
           <UploadIcon className={styles.uploadIcon} />
