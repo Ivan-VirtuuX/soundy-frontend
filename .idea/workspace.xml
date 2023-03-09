@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MusicItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MusicItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/music/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/index.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,14 +66,14 @@
       <window_info id="Space Code Reviews" order="0" weight="0.17578125" />
       <window_info id="Bookmarks" order="1" side_tool="true" weight="0.17578125" />
       <window_info id="Pull Requests" order="2" weight="0.17578125" />
-      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.17578125" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" sideWeight="0.5007837" visible="true" weight="0.17578125" />
       <window_info id="Commit" order="4" />
-      <window_info id="Structure" order="5" side_tool="true" weight="0.17578125" />
+      <window_info id="Structure" order="5" sideWeight="0.49921632" side_tool="true" weight="0.17578125" />
       <window_info anchor="bottom" id="Version Control" order="0" weight="0.33028847" />
       <window_info anchor="bottom" id="File Transfer" order="1" weight="0.33028847" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.33028847" />
       <window_info anchor="bottom" id="Problems View" order="3" weight="0.33028847" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.33028847" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="4" visible="true" weight="0.33028847" />
       <window_info anchor="bottom" id="TypeScript" order="5" />
       <window_info anchor="bottom" id="Services" order="6" weight="0.24278846" />
       <window_info anchor="bottom" id="Duplicates" order="7" weight="0.33028847" />
@@ -172,7 +168,7 @@
       <workItem from="1678291014537" duration="11553000" />
       <workItem from="1678335530852" duration="5879000" />
       <workItem from="1678361057453" duration="440000" />
-      <workItem from="1678361508052" duration="3086000" />
+      <workItem from="1678361508052" duration="3293000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>
