@@ -1,27 +1,29 @@
 import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
 import { SearchInput } from "@/components/UI/SearchInput";
-
-import styles from "./Friends.module.scss";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { PageTitle } from "@/components/UI/PageTitle";
 import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
-import { Api } from "@/api/index";
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-import { IUser } from "@/api/types";
 import { UserItem } from "@/components/UserItem";
-import { useRouter } from "next/router";
 import { ArrowRightIcon } from "@/components/UI/Icons/ArrowRightIcon";
 
+import { Api } from "@/api/index";
+import { IUser } from "@/api/types";
+
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+
+import styles from "./Friends.module.scss";
+
 const Friends: NextPage = () => {
-  const [friends, setFriends] = React.useState<IUser[]>([]);
   const [searchText, setSearchText] = React.useState("");
+  const [friends, setFriends] = React.useState<IUser[]>([]);
 
   const userData = useAppSelector(selectUserData);
 
@@ -97,6 +99,7 @@ const Friends: NextPage = () => {
                         handleDelete={(userId: string) =>
                           onDeleteFriend(userId)
                         }
+                        type="friends"
                         {...friend}
                       />
                     ))
@@ -105,6 +108,7 @@ const Friends: NextPage = () => {
                       key={friend.userId}
                       handleDelete={(userId: string) => onDeleteFriend(userId)}
                       {...friend}
+                      type="friends"
                     />
                   ))}
             </div>

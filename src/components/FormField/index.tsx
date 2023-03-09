@@ -27,8 +27,10 @@ export const FormField: React.FC<FormFieldProps> = ({
 }) => {
   const [date, setDate] = React.useState<Dayjs | Date>();
   const [yearError, setYearError] = React.useState("");
+  const [text, setText] = React.useState("");
 
-  const { register, formState, setValue } = useFormContext();
+  const { register, formState, setValue, setError, clearErrors } =
+    useFormContext();
 
   const handleChange = (newValue: any) => {
     if (newValue?.$d) {
@@ -102,6 +104,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         />
       ) : (
         <TextField
+          type=""
           className={styles.formField}
           {...register(name)}
           helperText={formState.errors[name]?.message}

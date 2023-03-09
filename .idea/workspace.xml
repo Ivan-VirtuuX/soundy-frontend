@@ -6,14 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/search/Search.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/Search.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/Friends.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/validations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validations.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +160,8 @@
       <workItem from="1677901031459" duration="28745000" />
       <workItem from="1678077294094" duration="7139000" />
       <workItem from="1678249691874" duration="21107000" />
-      <workItem from="1678291014537" duration="11412000" />
+      <workItem from="1678291014537" duration="11553000" />
+      <workItem from="1678335530852" duration="5879000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>

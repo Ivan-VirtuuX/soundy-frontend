@@ -1,4 +1,5 @@
 import * as yup from "yup";
+
 import parse from "date-fns/parse";
 
 export const LoginFormSchema = yup.object().shape({
@@ -19,7 +20,7 @@ export const RegisterFormSchema = yup
     name: yup
       .string()
       .required("Введите имя")
-      .max(10, "Длина имени больше 10 символов"),
+      .max(10, "Длина имени больше 15 символов"),
     surname: yup
       .string()
       .required("Введите фамилию")

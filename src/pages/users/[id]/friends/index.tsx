@@ -4,11 +4,13 @@ import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
-import { PageTitle } from "@/components/UI/PageTitle";
 
 import styles from "@/pages/friends/Friends.module.scss";
+
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
+
+import { PageTitle } from "@/components/UI/PageTitle";
 import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 
