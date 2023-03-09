@@ -15,7 +15,6 @@ const Music: NextPage = () => {
   const songsData = [];
 
   const [songs, setSongs] = React.useState();
-  const [songs, setSongs] = React.useState();
 
   return (
     <MainLayout fullWidth>
