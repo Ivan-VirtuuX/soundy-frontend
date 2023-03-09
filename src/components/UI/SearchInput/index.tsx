@@ -6,9 +6,11 @@ import { SearchIcon } from "@/components/UI/Icons/SearchIcon";
 export const SearchInput = ({
   placeholder,
   handleChange,
+  width,
 }: {
   placeholder?: string;
   handleChange?: (text: string) => void;
+  width?: number;
 }) => {
   const [value, setValue] = React.useState("");
 
@@ -25,6 +27,7 @@ export const SearchInput = ({
         value={value}
         onChange={onChangeSearchInput}
         placeholder={placeholder ? placeholder : "Введите запрос"}
+        style={{ width: width ? width : 400 }}
       />
     </div>
   );

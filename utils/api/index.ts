@@ -1,6 +1,9 @@
-import axios from "axios";
 import { GetServerSidePropsContext, NextPageContext } from "next";
+
+import axios from "axios";
+
 import Cookies, { parseCookies } from "nookies";
+
 import { UserApi } from "./user";
 import { PostApi } from "./post";
 import { CommentApi } from "./comment";
@@ -18,7 +21,7 @@ export const Api = (
   const token = cookies.authToken;
 
   const instance = axios.create({
-    baseURL: "http://localhost:7777",
+    baseURL: "https://soundy-backend-production.up.railway.app",
     headers: {
       Authorization: "Bearer " + token,
     },

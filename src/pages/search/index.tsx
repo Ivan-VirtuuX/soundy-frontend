@@ -10,11 +10,12 @@ import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { UsersIcon } from "@/components/UI/Icons/UsersIcon";
 import { PostIcon } from "@/components/UI/Icons/PostIcon";
-
-import styles from "./Search.module.scss";
 import { SearchedUsers } from "@/components/SearchedUsers";
+
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
+
+import styles from "./Search.module.scss";
 
 const Search: NextPage = () => {
   const [searchUserQuery, setSearchUserQuery] = React.useState("");
@@ -101,10 +102,10 @@ const Search: NextPage = () => {
           <SearchedUsers
             searchUserQuery={searchUserQuery}
             handleLoading={(isLoading) => setIsLoading(isLoading)}
-            isLoading={isLoading}
             handleSearchedUsers={(users) => setSearchedUsers(users)}
-            searchedUsers={searchedUsers}
             handleChangeUsersPage={() => setPage((page) => page + 1)}
+            isLoading={isLoading}
+            searchedUsers={searchedUsers}
             page={page}
             isEmptyResults={isEmptyResults}
           />

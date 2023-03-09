@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/Friends.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/validations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/MusicIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/Icons/MusicIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/SearchInput/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/SearchInput/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,45 +49,46 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Документы/next-nest-soundy/soundy-frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;pnpm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
-    &quot;remote.dev.show.docker.config.missing.jdk.notification&quot;: &quot;false&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editing.templates&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/Документы/next-nest-soundy/soundy-frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "pnpm",
+    "prettierjs.PrettierConfiguration.Package": "/mnt/space/work/soundy-frontend/node_modules/prettier",
+    "remote.dev.show.docker.config.missing.jdk.notification": "false",
+    "settings.editor.selected.configurable": "editing.templates",
+    "ts.external.directory.path": "/mnt/space/work/soundy-frontend/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RdControllerToolWindowsLayoutState" isNewUi="false">
+}]]></component>
+  <component name="RdControllerToolWindowsLayoutState" isNewUi="true">
     <layout>
       <window_info id="Commit_Guest" />
-      <window_info id="Space Code Reviews" order="0" />
-      <window_info id="Bookmarks" order="1" side_tool="true" />
-      <window_info id="Pull Requests" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.10859375" />
+      <window_info id="Space Code Reviews" order="0" weight="0.17578125" />
+      <window_info id="Bookmarks" order="1" side_tool="true" weight="0.17578125" />
+      <window_info id="Pull Requests" order="2" weight="0.17578125" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.17578125" />
       <window_info id="Commit" order="4" />
-      <window_info id="Structure" order="5" side_tool="true" />
+      <window_info id="Structure" order="5" side_tool="true" weight="0.17578125" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="File Transfer" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22127016" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.24278846" />
       <window_info anchor="bottom" id="Problems View" order="3" weight="0.33028847" />
-      <window_info anchor="bottom" id="Terminal" order="4" weight="0.5297379" />
+      <window_info anchor="bottom" id="Terminal" order="4" weight="0.24278846" />
       <window_info anchor="bottom" id="TypeScript" order="5" />
-      <window_info anchor="bottom" id="Services" order="6" />
+      <window_info anchor="bottom" id="Services" order="6" weight="0.24278846" />
       <window_info anchor="bottom" id="Duplicates" order="7" weight="0.33028847" />
       <window_info anchor="bottom" id="Dependency Checker" order="8" />
-      <window_info anchor="right" id="Notifications" side_tool="true" />
+      <window_info anchor="right" id="Notifications" side_tool="true" weight="0.32994792" />
     </layout>
   </component>
   <component name="RecentsManager">
@@ -131,6 +134,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SpaceReviewFiltersPersistance"><![CDATA[{
+  "lastFilter": {
+    "state": "NeedsReview",
+    "reviewer": {
+      "id": "3CF5Fm3l0kmc",
+      "fullName": "Ivan Danilov"
+    }
+  }
+}]]></component>
+  <component name="SpaceReviewProjectSettings">
+    <option name="selectedReviewProjectId" value="2IRdRE0LiXf0" />
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -162,6 +177,8 @@
       <workItem from="1678249691874" duration="21107000" />
       <workItem from="1678291014537" duration="11553000" />
       <workItem from="1678335530852" duration="5879000" />
+      <workItem from="1678361057453" duration="440000" />
+      <workItem from="1678361508052" duration="2562000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>

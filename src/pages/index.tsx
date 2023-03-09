@@ -1,17 +1,18 @@
 import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
-
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { LoginForm } from "@/components/LoginForm";
 import { RegisterForm } from "@/components/RegisterForm";
 
-import styles from "@/styles/Home.module.scss";
-import { useRouter } from "next/router";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+
 import { MainLayout } from "@/layouts/MainLayout";
+
+import styles from "@/styles/Home.module.scss";
 
 const Home: NextPage = () => {
   const [formType, setFormType] = React.useState<"login" | "register">("login");
