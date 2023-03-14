@@ -4,18 +4,16 @@ import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
-import { PageTitle } from "@/components/UI/PageTitle";
 
-import styles from "./Music.module.scss";
+import { PageTitle } from "@/components/UI/PageTitle";
 import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { MusicIcon } from "@/components/UI/Icons/MusicIcon";
+import { AudioPlayer } from "@/components/AudioPlayer";
+
+import styles from "./Music.module.scss";
 
 const Music: NextPage = () => {
-  const songsData = [];
-
-  const [songs, setSongs] = React.useState();
-
   return (
     <MainLayout fullWidth>
       <Head>
@@ -28,12 +26,10 @@ const Music: NextPage = () => {
         <PageTitle pageTitle="Музыка" />
         <div className={styles.searchBlock}>
           <SearchInput placeholder="Введите название трека" width={600} />
-
           <BlueButton color="primary" text="Найти">
             <MusicIcon color="white" />
           </BlueButton>
-
-          <audio></audio>
+          <AudioPlayer />
         </div>
       </main>
     </MainLayout>

@@ -110,7 +110,7 @@ export const UserApi = (instance: AxiosInstance) => ({
   },
 
   async changeUserData(dto: ChangeUserDataDto, userId: string) {
-    const { data } = await instance.patch<IUser>(`/users/${userId}`, {
+    const { data } = await instance.patch<ResponseUser>(`/users/${userId}`, {
       data: dto,
     });
 
