@@ -1,17 +1,23 @@
-import { GetServerSideProps, NextPage } from "next";
 import React from "react";
-import { MainLayout } from "@/layouts/MainLayout";
+
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import styles from "./FriendRequests.module.scss";
+import { useRouter } from "next/router";
+
+import { MainLayout } from "@/layouts/MainLayout";
+
 import { PageTitle } from "@/components/UI/PageTitle";
 import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
+import { BlueButton } from "@/components/UI/BlueButton";
+
 import { IUser } from "@/api/types";
 import { Api } from "@/api/index";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { BlueButton } from "@/components/UI/BlueButton";
-import { useRouter } from "next/router";
+
+import styles from "./FriendRequests.module.scss";
 
 const FriendRequests: NextPage = ({
   friendRequests,

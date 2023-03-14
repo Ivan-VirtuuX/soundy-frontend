@@ -11,6 +11,7 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { Post } from "@/components/Post";
 import { PageTitle } from "@/components/UI/PageTitle";
 import { BlueButton } from "@/components/UI/BlueButton";
+import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
 
 import { usePosts } from "@/hooks/usePosts";
 
@@ -18,7 +19,6 @@ import { IPost } from "@/api/types";
 import { Api } from "@/api/index";
 
 import styles from "./Posts.module.scss";
-import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
 
 const Posts: NextPage = () => {
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);

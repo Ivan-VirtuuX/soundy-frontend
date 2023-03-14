@@ -11,10 +11,19 @@ import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { UsersIcon } from "@/components/UI/Icons/UsersIcon";
 import { PostIcon } from "@/components/UI/Icons/PostIcon";
+<<<<<<< HEAD
 import { SearchedData } from "@/components/SearchedData";
 
 import { Api } from "@/api/index";
 import { IPost, IUser } from "@/api/types";
+
+import styles from "./Search.module.scss";
+=======
+import { SearchedUsers } from "@/components/SearchedUsers";
+
+import { Api } from "@/api/index";
+import { IUser } from "@/api/types";
+>>>>>>> 9fe205bfea8578fea0737ae0320e08c0674a2e8c
 
 import styles from "./Search.module.scss";
 
@@ -132,10 +141,17 @@ const Search: NextPage = () => {
           </div>
           <SearchedData
             handleLoading={(isLoading) => setIsLoading(isLoading)}
+<<<<<<< HEAD
             handleSearchedData={(data) => setSearchedData(data)}
             handleChangeDataPage={() => setPage((page) => page + 1)}
             searchQuery={searchQuery}
             searchedData={searchedData}
+=======
+            handleSearchedUsers={(users) => setSearchedUsers(users)}
+            handleChangeUsersPage={() => setPage((page) => page + 1)}
+            isLoading={isLoading}
+            searchedUsers={searchedUsers}
+>>>>>>> 9fe205bfea8578fea0737ae0320e08c0674a2e8c
             page={page}
             type={type}
             isLoading={isLoading}
