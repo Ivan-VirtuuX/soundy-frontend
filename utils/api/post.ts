@@ -35,9 +35,13 @@ export const PostApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async search(title: string) {
-    const { data } = await instance.post<IPost[]>("/posts/search", {
-      title: title,
+  async searchPosts(_text: string, _page: number) {
+    const { data } = await instance.get<IPost[]>("/posts/search", {
+      params: {
+        _text,
+        _limit: 5,
+        _page,
+      },
     });
 
     return data;

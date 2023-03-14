@@ -1,14 +1,16 @@
 import React from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
+
 import { setCookie } from "nookies";
 
 import { useAppDispatch } from "@/redux/hooks";
 import { setUserData } from "@/redux/slices/user";
 
-import { FormProvider, useForm } from "react-hook-form";
 import { LoginFormSchema } from "@/utils/validations";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Api } from "@/api/index";
@@ -58,7 +60,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOpenRegister }) => {
 
         await router.push("/posts");
       }
-    } catch (err: any) {
+    } catch (err) {
       console.warn("Auth error", err);
 
       if (err.response) {

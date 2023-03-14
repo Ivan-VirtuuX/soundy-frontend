@@ -6,12 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="29bbdf72-9537-4bff-b384-dd1a97dd0c6e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/Friends.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/validations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/validations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LoginForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedUsers/SearchedUsers.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedUsers/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/search/Search.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/Search.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/post.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/user.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +167,10 @@
       <workItem from="1678077294094" duration="7139000" />
       <workItem from="1678249691874" duration="21107000" />
       <workItem from="1678291014537" duration="11553000" />
-      <workItem from="1678335530852" duration="5879000" />
+      <workItem from="1678335530852" duration="17832000" />
+      <workItem from="1678506251681" duration="3805000" />
+      <workItem from="1678615402669" duration="4054000" />
+      <workItem from="1678767370528" duration="7661000" />
     </task>
     <task id="LOCAL-00001" summary="some changes in profile page">
       <created>1677493941307</created>

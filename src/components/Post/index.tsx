@@ -29,8 +29,9 @@ import styles from "./Post.module.scss";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
-  handleDelete: (postId: string) => void;
+  handleDelete?: (postId: string) => void;
   handlePin?: (postId: string) => void;
+  menuHidden?: boolean;
 }
 
 const Index: React.FC<PostProps> = ({
@@ -44,6 +45,7 @@ const Index: React.FC<PostProps> = ({
   handleDelete,
   pinned,
   handlePin,
+  menuHidden,
 }) => {
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
@@ -241,7 +243,7 @@ const Index: React.FC<PostProps> = ({
             <span className={styles.createdAt}>{date}</span>
           </div>
         </div>
-        {author?.userId === userData?.id && (
+        {!menuHidden && author?.userId === userData?.id && (
           <KebabMenu
             isPinned={pinned}
             handleDelete={onDeletePost}

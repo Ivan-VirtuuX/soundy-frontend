@@ -67,6 +67,11 @@ export interface ResponseUser {
   friendRequests: IUser[];
   token?: string;
   createdAt?: string;
+  response?: {
+    error: string;
+    message: string;
+    statusCode: number;
+  };
 }
 
 export interface ChangeUserDataDto {

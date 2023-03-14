@@ -1,7 +1,7 @@
 .searchedUsersBlock {
   margin-top: 50px;
+  margin-bottom: 40px;
+  gap: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-  margin-bottom: 40px;
 }

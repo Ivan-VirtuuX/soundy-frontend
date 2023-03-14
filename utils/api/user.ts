@@ -43,7 +43,7 @@ export const UserApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async findUsers(dto: SearchUserDto, _page: number) {
+  async searchUsers(dto: SearchUserDto, _page: number) {
     const { data } = await instance.get<IUser[]>("/users/search", {
       params: {
         _name: dto._name,

@@ -1,4 +1,5 @@
 import React from "react";
+import { InfinitySpin } from "react-loader-spinner";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
@@ -10,67 +11,94 @@ import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { UsersIcon } from "@/components/UI/Icons/UsersIcon";
 import { PostIcon } from "@/components/UI/Icons/PostIcon";
+import { SearchedData } from "@/components/SearchedData";
+
+import { Api } from "@/api/index";
+import { IPost, IUser } from "@/api/types";
 
 import styles from "./Search.module.scss";
-import { SearchedUsers } from "@/components/SearchedUsers";
-import { Api } from "@/api/index";
-import { IUser } from "@/api/types";
 
 const Search: NextPage = () => {
-  const [searchUserQuery, setSearchUserQuery] = React.useState("");
-  const [isEmptyResults, setIsEmptyResults] = React.useState(false);
-  const [searchedUsers, setSearchedUsers] = React.useState<IUser[]>([]);
+  const [searchedData, setSearchedData] = React.useState<IUser[] | IPost[]>([]);
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [isEmptyData, setIsEmptyData] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
+  const [type, setType] = React.useState<"users" | "posts">("users");
 
-  const searchUsers = React.useCallback(async () => {
-    try {
-      if (searchUserQuery && searchUserQuery !== " ") {
-        setPage(1);
+  const searchData = React.useCallback(
+    async (type: "users" | "posts") => {
+      try {
+        if (searchQuery && searchQuery !== " ") {
+          if (type === "users") {
+            await setSearchedData([]);
 
-        setSearchedUsers([]);
+            setPage(1);
 
-        const splitSearchUsers = searchUserQuery.split(" ");
+            setType("users");
 
-        if (splitSearchUsers.length === 2) {
-          setIsLoading(true);
+            const splitSearchUsers = searchQuery.split(" ");
 
-          const data = await Api().user.findUsers(
-            {
-              _name: splitSearchUsers[0],
-              _surname: splitSearchUsers[1],
-            },
-            page
-          );
+            if (splitSearchUsers.length === 2) {
+              setIsLoading(true);
 
-          setSearchedUsers(data);
+              const data = await Api().user.searchUsers(
+                {
+                  _name: splitSearchUsers[0],
+                  _surname: splitSearchUsers[1],
+                },
+                page
+              );
 
-          setIsLoading(false);
+              setSearchedData(data);
 
-          !data.length ? setIsEmptyResults(true) : setIsEmptyResults(false);
-        } else if (splitSearchUsers.length === 1) {
-          setPage(1);
+              setIsLoading(false);
 
-          setIsLoading(true);
+              !data.length ? setIsEmptyData(true) : setIsEmptyData(false);
+            } else if (splitSearchUsers.length === 1) {
+              await setSearchedData([]);
 
-          const data = await Api().user.findUsers(
-            {
-              _query: splitSearchUsers[0],
-            },
-            page
-          );
+              setPage(1);
 
-          setSearchedUsers(data);
+              setIsLoading(true);
 
-          setIsLoading(false);
+              const data = await Api().user.searchUsers(
+                {
+                  _query: splitSearchUsers[0],
+                },
+                page
+              );
 
-          !data.length ? setIsEmptyResults(true) : setIsEmptyResults(false);
+              setSearchedData(data);
+
+              setIsLoading(false);
+
+              !data.length ? setIsEmptyData(true) : setIsEmptyData(false);
+            }
+          } else if (type === "posts") {
+            await setSearchedData([]);
+
+            setPage(1);
+
+            setType("posts");
+
+            setIsLoading(true);
+
+            const data = await Api().post.searchPosts(searchQuery, page);
+
+            setSearchedData(data);
+
+            setIsLoading(false);
+
+            !data.length ? setIsEmptyData(true) : setIsEmptyData(false);
+          }
         }
+      } catch (err) {
+        console.warn(err);
       }
-    } catch (err) {
-      console.warn(err);
-    }
-  }, [page, searchUserQuery]);
+    },
+    [page, searchQuery]
+  );
 
   return (
     <MainLayout fullWidth>
@@ -83,31 +111,37 @@ const Search: NextPage = () => {
       <main className={styles.container}>
         <PageTitle pageTitle="Поиск" />
         <div className={styles.content}>
-          <div>
-            <SearchInput handleChange={(text) => setSearchUserQuery(text)} />
+          <div className={styles.searchBlock}>
+            <SearchInput handleChange={(text) => setSearchQuery(text)} />
             <div className={styles.actions}>
               <BlueButton
                 text="Найти"
                 color="primary"
-                handleClick={searchUsers}
+                handleClick={() => searchData("users")}
               >
                 <UsersIcon color="white" />
               </BlueButton>
-              <BlueButton text="Найти" color="primary">
+              <BlueButton
+                text="Найти"
+                color="primary"
+                handleClick={() => searchData("posts")}
+              >
                 <PostIcon color="white" />
               </BlueButton>
             </div>
           </div>
-          <SearchedUsers
-            searchUserQuery={searchUserQuery}
+          <SearchedData
             handleLoading={(isLoading) => setIsLoading(isLoading)}
-            isLoading={isLoading}
-            handleSearchedUsers={(users) => setSearchedUsers(users)}
-            searchedUsers={searchedUsers}
-            handleChangeUsersPage={() => setPage((page) => page + 1)}
+            handleSearchedData={(data) => setSearchedData(data)}
+            handleChangeDataPage={() => setPage((page) => page + 1)}
+            searchQuery={searchQuery}
+            searchedData={searchedData}
             page={page}
-            isEmptyResults={isEmptyResults}
+            type={type}
+            isLoading={isLoading}
+            isEmptyResults={isEmptyData}
           />
+          {isLoading && <InfinitySpin width="200" color="#181F92" />}
         </div>
       </main>
     </MainLayout>

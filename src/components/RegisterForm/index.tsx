@@ -65,7 +65,9 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onOpenLogin }) => {
 
         await router.push("/posts");
       }
-    } catch (err: any) {
+
+      data.response.message && setErrorMessage(data.response.message);
+    } catch (err) {
       console.warn("Auth error", err);
 
       if (err.response) {
