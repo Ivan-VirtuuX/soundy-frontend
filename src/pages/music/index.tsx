@@ -9,11 +9,17 @@ import { PageTitle } from "@/components/UI/PageTitle";
 import { SearchInput } from "@/components/UI/SearchInput";
 import { BlueButton } from "@/components/UI/BlueButton";
 import { MusicIcon } from "@/components/UI/Icons/MusicIcon";
-import { AudioPlayer } from "@/components/AudioPlayer";
+import { TrackItem } from "@/components/TrackItem";
 
 import styles from "./Music.module.scss";
 
 const Music: NextPage = () => {
+  const [playlist, setPlaylist] = React.useState([
+    "/music/ImagineDragonsBirds.mp3",
+    "/music/ImagineDragonsBleedingOut.mp3",
+  ]);
+  const [currentTrack, setCurrentTrack] = React.useState("");
+
   return (
     <MainLayout fullWidth>
       <Head>
@@ -29,7 +35,16 @@ const Music: NextPage = () => {
           <BlueButton color="primary" text="Найти">
             <MusicIcon color="white" />
           </BlueButton>
-          <AudioPlayer />
+          <div className={styles.tracks}>
+            {playlist.map((track, index) => (
+              <TrackItem
+                key={index}
+                track={track}
+                currentTrack={currentTrack}
+                handleClickTrack={(track) => setCurrentTrack(track)}
+              />
+            ))}
+          </div>
         </div>
       </main>
     </MainLayout>

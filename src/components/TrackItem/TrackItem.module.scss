@@ -1,0 +1,273 @@
+@import "@/styles/variables.scss";
+
+.container {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease-in-out;
+  padding: 15px 15px 20px;
+
+  &:hover {
+    background: #f9f9f9;
+    border-radius: 10px;
+  }
+}
+
+.imageBlock {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+
+  &:hover {
+    .overlay {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .playButton {
+      path {
+        fill: white;
+      }
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  width: 65px;
+  height: 65px;
+  background: transparent;
+  border-radius: 50%;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.playButton {
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+
+  path {
+    fill: transparent;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+.image {
+  user-select: none;
+}
+
+.volumeBar {
+  margin-left: 10px;
+  height: 3px;
+  border-radius: 10px;
+  appearance: none;
+  background: $lightGray;
+  width: 50px;
+  position: relative;
+  outline: none;
+
+  &::-webkit-slider-runnable-track {
+    background: $lightGray;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    outline: none;
+  }
+
+  &::-moz-range-track {
+    background: $lightGray;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    outline: none;
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::before {
+    content: "";
+    height: 3px;
+    width: var(--seek-before-width);
+    background: $primary;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+    border-radius: 10px;
+  }
+
+  &::-moz-range-progress {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 3px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+  }
+}
+
+.progressBar {
+  margin-left: 10px;
+  height: 3px;
+  border-radius: 10px;
+  appearance: none;
+  background: $lightGray;
+  width: 525px;
+  position: relative;
+  outline: none;
+
+  &::-webkit-slider-runnable-track {
+    background: $lightGray;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    outline: none;
+  }
+
+  &::-moz-range-track {
+    background: $lightGray;
+    border-radius: 10px;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    outline: none;
+  }
+
+  &::-moz-focus-outer {
+    border: 0;
+  }
+
+  &::before {
+    content: "";
+    height: 3px;
+    width: var(--seek-before-width);
+    background: $secondary;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: width 0.1s ease-in-out;
+  }
+
+  &::-moz-range-progress {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 3px;
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 15px;
+    width: 15px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    border: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+    box-sizing: border-box;
+  }
+}
+
+.timeBlock {
+  display: flex;
+  column-gap: 10px;
+}
+
+.currentTime,
+.duration {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  width: 50px;
+}
+
+.currentTime {
+  color: $primary;
+}
+
+.duration {
+  color: $secondary;
+}
+
+.name,
+.artist {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 22px;
+  margin-left: 10px;
+}
+
+.name {
+  color: $primary;
+  margin-bottom: 5px;
+}
+
+.artist {
+  color: #4a4a4a;
+}
+
+.trackInfoBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.leftSide {
+  display: flex;
+}
+
+.trackHead {
+  display: flex;
+  justify-content: space-between;
+}
+
+.trackInfo {
+  display: flex;
+  flex-direction: column;
+}
