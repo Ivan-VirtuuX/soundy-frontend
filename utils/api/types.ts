@@ -90,3 +90,11 @@ export interface SearchUserDto {
   _login?: string;
   _query?: string;
 }
+
+export interface ITrack {
+  id: number;
+  name: string;
+  artist: string;
+  trackSrc: string;
+  coverUrl: string;
+}

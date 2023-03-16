@@ -2,33 +2,78 @@ import React from "react";
 
 import Image from "next/image";
 
-import musicImage from "@/public/images/musicImage.png";
-
 import { PlayIcon } from "@/components/UI/Icons/PlayIcon";
 import { PauseIcon } from "@/components/UI/Icons/PauseIcon";
 
+import { ITrack } from "@/api/types";
+
 import styles from "./TrackItem.module.scss";
 
-interface TrackItemProps {
-  track: string;
-  handleClickTrack: (track: string) => void;
-  currentTrack: string;
+interface TrackItemProps extends ITrack {
+  handleClickTrack: (trackSrc: string) => void;
+  currentTrackSrc: string;
 }
 
 export const TrackItem: React.FC<TrackItemProps> = ({
-  track,
   handleClickTrack,
-  currentTrack,
+  currentTrackSrc,
+  name,
+  artist,
+  trackSrc,
+  coverUrl,
 }) => {
   const [currentTime, setCurrentTime] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [duration, setDuration] = React.useState(0);
-  const [volume, setVolume] = React.useState(0.5);
 
   const progressBarRef = React.useRef(null);
   const animationRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const volumeRef = React.useRef(null);
+
+  React.useEffect(() => {
+    playerRef.current.onloadeddata = () => {
+      console.log(playerRef.current);
+    };
+  }, []);
+
+  React.useEffect(() => {
+    if (progressBarRef.current) {
+      const seconds = Math.floor(playerRef?.current?.duration);
+
+      setDuration(seconds);
+
+      progressBarRef.current.max = seconds;
+    }
+  }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
+
+  React.useEffect(() => {
+    if (playerRef.current) {
+      const seconds = Math.floor(playerRef.current.duration);
+
+      setDuration(seconds);
+
+      playerRef.current.volume = 0.2;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (trackSrc !== currentTrackSrc) {
+      setIsPlaying(false);
+
+      playerRef.current.pause();
+
+      setCurrentTime(0);
+
+      if (playerRef.current) playerRef.current.currentTime = 0;
+    } else {
+      if (volumeRef.current)
+        volumeRef.current.style.setProperty(
+          "--seek-before-width",
+          `${0.2 * 100}%`
+        );
+    }
+  }, [currentTrackSrc]);
 
   const onClickPause = () => {
     setIsPlaying(false);
@@ -45,7 +90,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({
 
     animationRef.current = requestAnimationFrame(whilePlaying);
 
-    handleClickTrack(track);
+    handleClickTrack(trackSrc);
   };
 
   const calculateTime = (secs: number) => {
@@ -92,59 +137,26 @@ export const TrackItem: React.FC<TrackItemProps> = ({
     );
   };
 
-  React.useEffect(() => {
-    if (progressBarRef.current) {
-      const seconds = Math.floor(playerRef?.current?.duration);
-
-      setDuration(seconds);
-
-      progressBarRef.current.max = seconds;
-    }
-  }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
-
-  React.useEffect(() => {
-    if (playerRef.current) {
-      const seconds = Math.floor(playerRef.current.duration);
-
-      setDuration(seconds);
-
-      playerRef.current.volume = 0.2;
-    }
-  }, []);
-
-  React.useEffect(() => {
-    if (track !== currentTrack) {
-      setIsPlaying(false);
-
-      playerRef.current.pause();
-
-      setCurrentTime(0);
-
-      if (playerRef.current) playerRef.current.currentTime = 0;
-    } else {
-      if (volumeRef.current)
-        volumeRef.current.style.setProperty(
-          "--seek-before-width",
-          `${0.2 * 100}%`
-        );
-    }
-  }, [currentTrack]);
-
   return (
     <div className={styles.container}>
       <audio
         ref={playerRef}
-        src={track}
+        src={trackSrc}
         preload="metadata"
         onLoadedMetadata={(e: any) => setDuration(e.target.duration)}
-      ></audio>
-      <div className={styles.leftSide}>
+      />
+      <div
+        className={styles.leftSide}
+        style={{ alignItems: !playerRef?.current?.currentTime && "center" }}
+      >
         <div className={styles.imageBlock}>
           <Image
             className={styles.image}
-            src={musicImage}
+            src={coverUrl}
             alt="musicImage"
             quality={100}
+            width={65}
+            height={65}
           />
           <div className={styles.overlay} />
           {isPlaying ? (
@@ -160,12 +172,12 @@ export const TrackItem: React.FC<TrackItemProps> = ({
           )}
         </div>
         <div className={styles.trackInfoBlock}>
-          {track === currentTrack ? (
+          {trackSrc === currentTrackSrc ? (
             <>
               <div className={styles.trackHead}>
                 <div className={styles.trackInfo}>
-                  <span className={styles.name}>Track name</span>
-                  <span className={styles.artist}>Track artist</span>
+                  <span className={styles.name}>{name}</span>
+                  <span className={styles.artist}>{artist}</span>
                 </div>
                 <div className={styles.timeBlock}>
                   <div>
@@ -198,8 +210,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
             <>
               <div className={styles.trackHead}>
                 <div className={styles.trackInfo}>
-                  <span className={styles.name}>Track name</span>
-                  <span className={styles.artist}>Track artist</span>
+                  <span className={styles.name}>{name}</span>
+                  <span className={styles.artist}>{artist}</span>
                 </div>
                 <div className={styles.timeBlock}>
                   <span className={styles.duration}>

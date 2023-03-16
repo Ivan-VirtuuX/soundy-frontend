@@ -64,6 +64,7 @@
 
 .image {
   user-select: none;
+  border-radius: 50%;
 }
 
 .volumeBar {
@@ -119,12 +120,16 @@
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
+    height: 10px;
+    width: 10px;
     border: none;
     cursor: pointer;
     position: relative;
     box-sizing: border-box;
+    background: $primary;
+    border-radius: 50%;
+    z-index: 2;
+    margin: -2px 0 0 0;
   }
 
   &::-moz-range-thumb {
@@ -193,12 +198,16 @@
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
+    height: 10px;
+    width: 10px;
     border: none;
     cursor: pointer;
     position: relative;
     box-sizing: border-box;
+    background: $secondary;
+    border-radius: 50%;
+    z-index: 2;
+    margin: -2px 0 0 0;
   }
 
   &::-moz-range-thumb {
@@ -239,7 +248,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 22px;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .name {

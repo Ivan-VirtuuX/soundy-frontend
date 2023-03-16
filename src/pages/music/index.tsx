@@ -12,13 +12,10 @@ import { MusicIcon } from "@/components/UI/Icons/MusicIcon";
 import { TrackItem } from "@/components/TrackItem";
 
 import styles from "./Music.module.scss";
+import { musicTracks } from "@/musicTracks.data";
 
 const Music: NextPage = () => {
-  const [playlist, setPlaylist] = React.useState([
-    "/music/ImagineDragonsBirds.mp3",
-    "/music/ImagineDragonsBleedingOut.mp3",
-  ]);
-  const [currentTrack, setCurrentTrack] = React.useState("");
+  const [currentTrackSrc, setCurrentTrackSrc] = React.useState("");
 
   return (
     <MainLayout fullWidth>
@@ -36,12 +33,12 @@ const Music: NextPage = () => {
             <MusicIcon color="white" />
           </BlueButton>
           <div className={styles.tracks}>
-            {playlist.map((track, index) => (
+            {musicTracks.map((track) => (
               <TrackItem
-                key={index}
-                track={track}
-                currentTrack={currentTrack}
-                handleClickTrack={(track) => setCurrentTrack(track)}
+                key={track.id}
+                {...track}
+                currentTrackSrc={currentTrackSrc}
+                handleClickTrack={(trackSrc) => setCurrentTrackSrc(trackSrc)}
               />
             ))}
           </div>
