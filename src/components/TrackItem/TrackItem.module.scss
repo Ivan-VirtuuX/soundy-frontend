@@ -6,11 +6,7 @@
   flex-direction: column;
   transition: all 0.3s ease-in-out;
   padding: 15px 15px 20px;
-
-  &:hover {
-    background: #f9f9f9;
-    border-radius: 10px;
-  }
+  border-radius: 10px;
 }
 
 .imageBlock {
@@ -69,6 +65,7 @@
 
 .volumeBar {
   margin-left: 10px;
+  margin-bottom: 10px;
   height: 3px;
   border-radius: 10px;
   appearance: none;
@@ -76,6 +73,7 @@
   width: 50px;
   position: relative;
   outline: none;
+  --width: 0;
 
   &::-webkit-slider-runnable-track {
     background: $lightGray;
@@ -83,6 +81,7 @@
     position: relative;
     width: 100%;
     height: 3px;
+    cursor: pointer;
     outline: none;
   }
 
@@ -102,7 +101,7 @@
   &::before {
     content: "";
     height: 3px;
-    width: var(--seek-before-width);
+    width: var(--width);
     background: $primary;
     position: absolute;
     top: 0;
@@ -145,7 +144,7 @@
 }
 
 .progressBar {
-  margin-left: 10px;
+  margin-left: 15px;
   height: 3px;
   border-radius: 10px;
   appearance: none;
@@ -153,6 +152,7 @@
   width: 525px;
   position: relative;
   outline: none;
+  --width: 0;
 
   &::-webkit-slider-runnable-track {
     background: $lightGray;
@@ -161,6 +161,7 @@
     width: 100%;
     height: 3px;
     outline: none;
+    cursor: pointer;
   }
 
   &::-moz-range-track {
@@ -179,7 +180,7 @@
   &::before {
     content: "";
     height: 3px;
-    width: var(--seek-before-width);
+    width: var(--width);
     background: $secondary;
     position: absolute;
     top: 0;
@@ -187,7 +188,6 @@
     z-index: 2;
     cursor: pointer;
     border-radius: 10px;
-    transition: width 0.1s ease-in-out;
   }
 
   &::-moz-range-progress {
@@ -225,6 +225,7 @@
 .timeBlock {
   display: flex;
   column-gap: 10px;
+  align-items: center;
 }
 
 .currentTime,
@@ -274,6 +275,7 @@
 .trackHead {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .trackInfo {

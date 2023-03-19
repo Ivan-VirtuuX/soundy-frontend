@@ -7,15 +7,23 @@ import { MainLayout } from "@/layouts/MainLayout";
 
 import { PageTitle } from "@/components/UI/PageTitle";
 import { SearchInput } from "@/components/UI/SearchInput";
-import { BlueButton } from "@/components/UI/BlueButton";
-import { MusicIcon } from "@/components/UI/Icons/MusicIcon";
 import { TrackItem } from "@/components/TrackItem";
+import { NextTrackIcon } from "@/components/UI/Icons/NextTrackIcon";
+import { PreviousTrackIcon } from "@/components/UI/Icons/PreviousTrackIcon";
 
-import styles from "./Music.module.scss";
 import { musicTracks } from "@/musicTracks.data";
 
+import { ITrack } from "@/api/types";
+
+import { filterItems } from "@/utils/filterItems";
+
+import styles from "./Music.module.scss";
+
 const Music: NextPage = () => {
-  const [currentTrackSrc, setCurrentTrackSrc] = React.useState("");
+  const [isCurrentTrackPlaying, setIsCurrentTrackPlaying] =
+    React.useState(false);
+  const [currentTrack, setCurrentTrack] = React.useState<ITrack>();
+  const [searchText, setSearchText] = React.useState("");
 
   return (
     <MainLayout fullWidth>
@@ -28,19 +36,77 @@ const Music: NextPage = () => {
       <main className={styles.container}>
         <PageTitle pageTitle="Музыка" />
         <div className={styles.searchBlock}>
-          <SearchInput placeholder="Введите название трека" width={600} />
-          <BlueButton color="primary" text="Найти">
-            <MusicIcon color="white" />
-          </BlueButton>
+          <SearchInput
+            placeholder="Введите название трека"
+            width={700}
+            handleChange={(text) => setSearchText(text)}
+          />
           <div className={styles.tracks}>
-            {musicTracks.map((track) => (
-              <TrackItem
-                key={track.id}
-                {...track}
-                currentTrackSrc={currentTrackSrc}
-                handleClickTrack={(trackSrc) => setCurrentTrackSrc(trackSrc)}
-              />
-            ))}
+            {searchText
+              ? filterItems(musicTracks, ["artist", "name"], searchText).map(
+                  (track) => (
+                    <TrackItem
+                      key={track.id}
+                      {...track}
+                      currentTrack={currentTrack}
+                      currentTrackSrc={currentTrack?.trackSrc}
+                      handleClickTrack={(track) => setCurrentTrack(track)}
+                      handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                      handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                      searchText={searchText}
+                      isTrackPlaying={isCurrentTrackPlaying}
+                    />
+                  )
+                )
+              : musicTracks.map((track) => (
+                  <TrackItem
+                    key={track.id}
+                    {...track}
+                    currentTrack={currentTrack}
+                    currentTrackSrc={currentTrack?.trackSrc}
+                    handleClickTrack={(track) => setCurrentTrack(track)}
+                    handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                    handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                    isTrackPlaying={isCurrentTrackPlaying}
+                  />
+                ))}
+            {currentTrack && (
+              <div className={styles.currentTrackBlock}>
+                <div className={styles.trackActionsBlock}>
+                  <PreviousTrackIcon
+                    handleClick={() =>
+                      musicTracks[0].id !== currentTrack.id &&
+                      setCurrentTrack(
+                        musicTracks.find(
+                          (track) => track.id === currentTrack.id - 1
+                        )
+                      )
+                    }
+                  />
+                  <NextTrackIcon
+                    handleClick={() =>
+                      musicTracks[musicTracks.length - 1].id !==
+                        currentTrack.id &&
+                      setCurrentTrack(
+                        musicTracks.find(
+                          (track) => track.id === currentTrack.id + 1
+                        )
+                      )
+                    }
+                  />
+                </div>
+                <TrackItem
+                  {...currentTrack}
+                  currentTrack={currentTrack}
+                  currentTrackSrc={currentTrack?.trackSrc}
+                  handleClickTrack={(track) => setCurrentTrack(track)}
+                  handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                  handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                  isTrackPlaying={isCurrentTrackPlaying}
+                  muted={false}
+                />
+              </div>
+            )}
           </div>
         </div>
       </main>

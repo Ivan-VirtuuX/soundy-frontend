@@ -19,6 +19,8 @@ import { IUser } from "@/api/types";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
+import { filterItems } from "@/utils/filterItems";
+
 import styles from "./Friends.module.scss";
 
 const Friends: NextPage = () => {
@@ -80,29 +82,18 @@ const Friends: NextPage = () => {
               style={{ gridTemplateColumns: friends?.length < 3 && "1fr" }}
             >
               {searchText
-                ? friends
-                    .filter(
-                      (friend) =>
-                        friend.name
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase()) ||
-                        friend.surname
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase()) ||
-                        friend.login
-                          .toLowerCase()
-                          .includes(searchText.toLowerCase())
-                    )
-                    .map((friend) => (
-                      <UserItem
-                        key={friend.userId}
-                        handleDelete={(userId: string) =>
-                          onDeleteFriend(userId)
-                        }
-                        type="friends"
-                        {...friend}
-                      />
-                    ))
+                ? filterItems(
+                    friends,
+                    ["name", "surname", "login"],
+                    searchText
+                  ).map((friend) => (
+                    <UserItem
+                      key={friend.userId}
+                      handleDelete={(userId: string) => onDeleteFriend(userId)}
+                      type="friends"
+                      {...friend}
+                    />
+                  ))
                 : friends?.map((friend) => (
                     <UserItem
                       key={friend.userId}

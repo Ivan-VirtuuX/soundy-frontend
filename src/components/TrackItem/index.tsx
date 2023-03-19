@@ -2,40 +2,80 @@ import React from "react";
 
 import Image from "next/image";
 
+import { ITrack } from "@/api/types";
+
+import { IconButton } from "@mui/material";
+
 import { PlayIcon } from "@/components/UI/Icons/PlayIcon";
 import { PauseIcon } from "@/components/UI/Icons/PauseIcon";
-
-import { ITrack } from "@/api/types";
+import { PlusIcon } from "@/components/UI/Icons/PlusIcon";
 
 import styles from "./TrackItem.module.scss";
 
 interface TrackItemProps extends ITrack {
-  handleClickTrack: (trackSrc: string) => void;
+  handleClickTrack: ({ id, name, artist, trackSrc, coverUrl }: ITrack) => void;
   currentTrackSrc: string;
+  currentTrack: ITrack;
+  searchText?: string;
+  muted?: boolean;
+  handleClickPlay: () => void;
+  handleClickStop: () => void;
+  isTrackPlaying: boolean;
 }
 
 export const TrackItem: React.FC<TrackItemProps> = ({
+  id,
   handleClickTrack,
   currentTrackSrc,
   name,
   artist,
   trackSrc,
   coverUrl,
+  currentTrack,
+  searchText,
+  muted = true,
+  handleClickPlay,
+  handleClickStop,
+  isTrackPlaying,
 }) => {
+  const [isAddButtonVisible, setIsAddButtonVisible] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [duration, setDuration] = React.useState(0);
 
+  const addTrackButtonRef = React.useRef(null);
   const progressBarRef = React.useRef(null);
   const animationRef = React.useRef(null);
+  const containerRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const volumeRef = React.useRef(null);
 
-  React.useEffect(() => {
-    playerRef.current.onloadeddata = () => {
-      console.log(playerRef.current);
-    };
-  }, []);
+  const opacityUp = [
+    {
+      opacity: 0,
+      transition: "all 0.3s ease-in-out",
+    },
+    {
+      opacity: 1,
+      transition: "all 0.3s ease-in-out",
+    },
+  ];
+
+  const opacityDown = [
+    {
+      opacity: 1,
+      transition: "all 0.3s ease-in-out",
+    },
+    {
+      opacity: 0,
+      transition: "all 0.3s ease-in-out",
+    },
+  ];
+
+  const timing = {
+    duration: 200,
+    iterations: 1,
+  };
 
   React.useEffect(() => {
     if (progressBarRef.current) {
@@ -44,41 +84,57 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       setDuration(seconds);
 
       progressBarRef.current.max = seconds;
+
+      volumeRef.current.max = 0.5;
     }
   }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
 
   React.useEffect(() => {
     if (playerRef.current) {
+      if (muted) playerRef.current.volume = 0;
+      else playerRef.current.volume = 0.1;
+
       const seconds = Math.floor(playerRef.current.duration);
 
       setDuration(seconds);
-
-      playerRef.current.volume = 0.2;
     }
   }, []);
 
   React.useEffect(() => {
-    if (trackSrc !== currentTrackSrc) {
+    if (id !== currentTrack?.id) {
       setIsPlaying(false);
+
+      handleClickStop();
 
       playerRef.current.pause();
 
-      setCurrentTime(0);
+      progressBarRef.current && setCurrentTime(0);
 
       if (playerRef.current) playerRef.current.currentTime = 0;
     } else {
-      if (volumeRef.current)
+      !searchText && onClickStart();
+
+      if (volumeRef.current) {
         volumeRef.current.style.setProperty(
-          "--seek-before-width",
-          `${0.2 * 100}%`
+          "--width",
+          `${(volumeRef.current.value / 0.5) * 100}%`
         );
+      }
     }
   }, [currentTrackSrc]);
+
+  React.useEffect(() => {
+    isAddButtonVisible
+      ? addTrackButtonRef?.current?.animate(opacityUp, timing)
+      : addTrackButtonRef?.current?.animate(opacityDown, timing);
+  }, [isAddButtonVisible]);
 
   const onClickPause = () => {
     setIsPlaying(false);
 
     playerRef?.current?.pause();
+
+    handleClickStop();
 
     cancelAnimationFrame(animationRef.current);
   };
@@ -88,9 +144,11 @@ export const TrackItem: React.FC<TrackItemProps> = ({
 
     playerRef?.current?.play();
 
+    handleClickPlay();
+
     animationRef.current = requestAnimationFrame(whilePlaying);
 
-    handleClickTrack(trackSrc);
+    handleClickTrack({ id, name, artist, trackSrc, coverUrl });
   };
 
   const calculateTime = (secs: number) => {
@@ -104,9 +162,11 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   };
 
   const onChangeRange = () => {
-    playerRef.current.currentTime = progressBarRef.current.value;
+    if (progressBarRef.current) {
+      playerRef.current.currentTime = progressBarRef.current.value;
 
-    changePlayerCurrentTime();
+      changePlayerCurrentTime();
+    }
   };
 
   const whilePlaying = () => {
@@ -120,25 +180,56 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   };
 
   const changePlayerCurrentTime = () => {
-    progressBarRef.current.style.setProperty(
-      "--seek-before-width",
-      `${(progressBarRef.current.value / duration) * 100}%`
-    );
+    if (progressBarRef.current) {
+      progressBarRef.current.style.setProperty(
+        "--width",
+        `${(progressBarRef.current.value / playerRef.current.duration) * 100}%`
+      );
 
-    setCurrentTime(progressBarRef.current.value);
+      setCurrentTime(progressBarRef.current.value);
+    }
   };
 
   const onChangeVolume = (e) => {
     playerRef.current.volume = e.target.value;
 
     volumeRef.current.style.setProperty(
-      "--seek-before-width",
-      `${playerRef.current.volume * 100}%`
+      "--width",
+      `${(e.target.value * 100) / 0.5}%`
     );
   };
 
+  const onMouseEnterTrack = () => {
+    setIsAddButtonVisible(true);
+
+    if (containerRef.current && muted)
+      containerRef.current.style.background = "#f9f9f9";
+
+    addTrackButtonRef?.current?.animate(opacityUp, timing);
+  };
+
+  const onMouseLeaveTrack = () => {
+    addTrackButtonRef?.current?.animate(opacityDown, timing);
+
+    if (containerRef.current && muted)
+      containerRef.current.style.background = "transparent";
+
+    setTimeout(() => {
+      setIsAddButtonVisible(false);
+    }, 150);
+  };
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onMouseEnter={onMouseEnterTrack}
+      onMouseLeave={onMouseLeaveTrack}
+      style={{
+        padding: id === currentTrack?.id && !muted ? 0 : "15px 15px 20px",
+        background: id === currentTrack?.id && muted && "#f9f9f9",
+      }}
+      ref={containerRef}
+    >
       <audio
         ref={playerRef}
         src={trackSrc}
@@ -147,7 +238,9 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       />
       <div
         className={styles.leftSide}
-        style={{ alignItems: !playerRef?.current?.currentTime && "center" }}
+        style={{
+          alignItems: (!playerRef?.current?.currentTime || muted) && "center",
+        }}
       >
         <div className={styles.imageBlock}>
           <Image
@@ -172,39 +265,29 @@ export const TrackItem: React.FC<TrackItemProps> = ({
           )}
         </div>
         <div className={styles.trackInfoBlock}>
-          {trackSrc === currentTrackSrc ? (
+          {id !== currentTrack?.id ? (
             <>
-              <div className={styles.trackHead}>
+              <div
+                className={styles.trackHead}
+                style={{ alignItems: "center" }}
+              >
                 <div className={styles.trackInfo}>
                   <span className={styles.name}>{name}</span>
                   <span className={styles.artist}>{artist}</span>
                 </div>
                 <div className={styles.timeBlock}>
-                  <div>
-                    <input
-                      ref={volumeRef}
-                      className={styles.volumeBar}
-                      type="range"
-                      onChange={(e) => onChangeVolume(e)}
-                      max={1}
-                      step={0.01}
-                    />
-                  </div>
-                  <span className={styles.currentTime}>
-                    {calculateTime(currentTime)}
-                  </span>
+                  {isAddButtonVisible && (
+                    <div>
+                      <IconButton ref={addTrackButtonRef} size="medium">
+                        <PlusIcon color="#898989" />
+                      </IconButton>
+                    </div>
+                  )}
                   <span className={styles.duration}>
                     {duration && !isNaN(duration) && calculateTime(duration)}
                   </span>
                 </div>
               </div>
-              <input
-                ref={progressBarRef}
-                className={styles.progressBar}
-                type="range"
-                defaultValue={0}
-                onChange={onChangeRange}
-              />
             </>
           ) : (
             <>
@@ -214,11 +297,45 @@ export const TrackItem: React.FC<TrackItemProps> = ({
                   <span className={styles.artist}>{artist}</span>
                 </div>
                 <div className={styles.timeBlock}>
+                  {!muted && (
+                    <div>
+                      <input
+                        ref={volumeRef}
+                        className={styles.volumeBar}
+                        type="range"
+                        onChange={(e) => onChangeVolume(e)}
+                        max={0.5}
+                        defaultValue={playerRef?.current?.volume}
+                        step={0.01}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <IconButton size="medium">
+                      <PlusIcon color="#898989" />
+                    </IconButton>
+                  </div>
+                  {!muted && (
+                    <span className={styles.currentTime}>
+                      {calculateTime(currentTime)}
+                    </span>
+                  )}
                   <span className={styles.duration}>
                     {duration && !isNaN(duration) && calculateTime(duration)}
                   </span>
                 </div>
               </div>
+              {!muted && (
+                <div>
+                  <input
+                    ref={progressBarRef}
+                    className={styles.progressBar}
+                    type="range"
+                    defaultValue={0}
+                    onChange={onChangeRange}
+                  />
+                </div>
+              )}
             </>
           )}
         </div>

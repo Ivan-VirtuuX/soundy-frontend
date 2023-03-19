@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .searchBlock {
   margin-top: 20px;
   display: flex;
@@ -12,4 +14,51 @@
   flex-direction: column;
   row-gap: 10px;
   margin-top: 30px;
+  align-items: center;
+  height: 520px;
+  overflow: auto;
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+}
+
+.currentTrackBlock {
+  bottom: 0;
+  position: absolute;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: white;
+  display: flex;
+  align-items: center;
+  width: 700px;
+  padding: 20px;
+  justify-content: space-between;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.trackActionsBlock {
+  display: flex;
+  column-gap: 10px;
+
+  svg {
+    cursor: pointer;
+
+    path {
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+    }
+
+    &:hover {
+      path {
+        fill: $secondary;
+      }
+    }
+  }
 }

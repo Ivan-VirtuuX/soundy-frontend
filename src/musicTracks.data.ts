@@ -35,10 +35,26 @@ export const musicTracks: ITrack[] = [
   },
   {
     id: 5,
-    name: "Bleeding Out",
-    artist: "Whatever It Takes",
+    name: "Whatever It Takes",
+    artist: "Imagine Dragons",
     trackSrc: "/music/ImagineDragonsWhateverItTakes.mp3",
     coverUrl:
       "https://upload.wikimedia.org/wikipedia/en/3/3f/Night_Visions_Album_Cover.jpeg",
+  },
+  {
+    id: 6,
+    name: "Dream",
+    artist: "Imagine Dragons",
+    trackSrc: "/music/ImagineDragonsDream.mp3",
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/c/ce/Imagine_Dragons_-_Smoke_%2B_Mirrors.png",
+  },
+  {
+    id: 7,
+    name: "Bad Liar",
+    artist: "Imagine Dragons",
+    trackSrc: "/music/ImagineDragonsBadLiar.mp3",
+    coverUrl:
+      "https://upload.wikimedia.org/wikipedia/en/9/95/Origins_cover.png",
   },
 ];

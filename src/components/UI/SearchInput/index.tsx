@@ -1,7 +1,8 @@
 import React from "react";
 
-import styles from "./SearchInput.module.scss";
 import { SearchIcon } from "@/components/UI/Icons/SearchIcon";
+
+import styles from "./SearchInput.module.scss";
 
 export const SearchInput = ({
   placeholder,
