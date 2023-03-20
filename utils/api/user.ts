@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import {
   ChangeUserDataDto,
   CreateUserDto,
+  ITrack,
   IUser,
   LoginDto,
   ResponseUser,
@@ -95,6 +96,28 @@ export const UserApi = (instance: AxiosInstance) => ({
     return data;
   },
 
+  async toggleMusicTrack(userId: string, musicTrack: ITrack, action: string) {
+    const baseUrl = `/users/${userId}/playlist`;
+
+    if (action === "add") {
+      const { data } = await instance.patch<IUser>(baseUrl, {
+        data: {
+          musicTrack,
+        },
+      });
+
+      return data;
+    } else {
+      const { data } = await instance.patch(baseUrl, {
+        data: {
+          musicTrack,
+        },
+      });
+
+      return data;
+    }
+  },
+
   async cancelFriendRequest(
     userId: string,
     requestFriendId: string | string[]
@@ -118,7 +141,7 @@ export const UserApi = (instance: AxiosInstance) => ({
   },
 
   async deleteFriend(userId: string, friendId: string | string[]) {
-    const { data } = await instance.delete<IUser>(`/users/${userId}/friends`, {
+    const { data } = await instance.delete(`/users/${userId}/friends`, {
       data: { friendId },
     });
 

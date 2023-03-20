@@ -4,13 +4,17 @@ import Image from "next/image";
 
 import { ITrack } from "@/api/types";
 
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 import { PlayIcon } from "@/components/UI/Icons/PlayIcon";
 import { PauseIcon } from "@/components/UI/Icons/PauseIcon";
 import { PlusIcon } from "@/components/UI/Icons/PlusIcon";
 
 import styles from "./TrackItem.module.scss";
+import { Api } from "@/api/index";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+import { CheckMarkIcon } from "@/components/UI/Icons/CheckMarkIcon";
 
 interface TrackItemProps extends ITrack {
   handleClickTrack: ({ id, name, artist, trackSrc, coverUrl }: ITrack) => void;
@@ -20,7 +24,8 @@ interface TrackItemProps extends ITrack {
   muted?: boolean;
   handleClickPlay: () => void;
   handleClickStop: () => void;
-  isTrackPlaying: boolean;
+  userTracks: ITrack[];
+  isTrackPlaying?: boolean;
 }
 
 export const TrackItem: React.FC<TrackItemProps> = ({
@@ -36,19 +41,24 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   muted = true,
   handleClickPlay,
   handleClickStop,
+  userTracks,
   isTrackPlaying,
 }) => {
   const [isAddButtonVisible, setIsAddButtonVisible] = React.useState(false);
+  const [isAddedTrack, setIsAddedTrack] = React.useState(false);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [duration, setDuration] = React.useState(0);
 
+  const removeTrackButtonRef = React.useRef(null);
   const addTrackButtonRef = React.useRef(null);
   const progressBarRef = React.useRef(null);
   const animationRef = React.useRef(null);
   const containerRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const volumeRef = React.useRef(null);
+
+  const userData = useAppSelector(selectUserData);
 
   const opacityUp = [
     {
@@ -90,6 +100,10 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
 
   React.useEffect(() => {
+    userTracks?.find((track) => track.id === id)
+      ? setIsAddedTrack(true)
+      : setIsAddedTrack(false);
+
     if (playerRef.current) {
       if (muted) playerRef.current.volume = 0;
       else playerRef.current.volume = 0.1;
@@ -98,15 +112,13 @@ export const TrackItem: React.FC<TrackItemProps> = ({
 
       setDuration(seconds);
     }
-  }, []);
+  }, [trackSrc]);
 
   React.useEffect(() => {
     if (id !== currentTrack?.id) {
-      setIsPlaying(false);
-
       handleClickStop();
 
-      playerRef.current.pause();
+      onClickPause();
 
       progressBarRef.current && setCurrentTime(0);
 
@@ -122,6 +134,22 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       }
     }
   }, [currentTrackSrc]);
+
+  React.useEffect(() => {
+    console.log(currentTrack);
+
+    if (id === currentTrack?.id) {
+      if (isTrackPlaying) {
+        onClickStart();
+
+        setIsPlaying(true);
+      } else {
+        onClickPause();
+
+        setIsPlaying(false);
+      }
+    }
+  }, [isTrackPlaying, id]);
 
   React.useEffect(() => {
     isAddButtonVisible
@@ -200,23 +228,67 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   };
 
   const onMouseEnterTrack = () => {
-    setIsAddButtonVisible(true);
+    if (id !== currentTrack?.id) {
+      setIsAddButtonVisible(true);
 
-    if (containerRef.current && muted)
-      containerRef.current.style.background = "#f9f9f9";
+      if (containerRef.current && muted)
+        containerRef.current.style.background = "#f9f9f9";
 
-    addTrackButtonRef?.current?.animate(opacityUp, timing);
+      addTrackButtonRef?.current?.animate(opacityUp, timing);
+    }
   };
 
   const onMouseLeaveTrack = () => {
-    addTrackButtonRef?.current?.animate(opacityDown, timing);
+    if (id !== currentTrack?.id) {
+      addTrackButtonRef?.current?.animate(opacityDown, timing);
 
-    if (containerRef.current && muted)
-      containerRef.current.style.background = "transparent";
+      if (containerRef.current && muted)
+        containerRef.current.style.background = "transparent";
 
-    setTimeout(() => {
-      setIsAddButtonVisible(false);
-    }, 150);
+      setTimeout(() => {
+        setIsAddButtonVisible(false);
+      }, 150);
+    }
+  };
+
+  const onAddToUserPlaylist = async () => {
+    try {
+      setIsAddedTrack(true);
+
+      await Api().user.toggleMusicTrack(
+        userData?.id,
+        {
+          id,
+          name,
+          artist,
+          trackSrc,
+          coverUrl,
+        },
+        "add"
+      );
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const onRemoveFromUserPlaylist = async () => {
+    try {
+      setIsAddedTrack(false);
+
+      await Api().user.toggleMusicTrack(
+        userData?.id,
+        {
+          id,
+          name,
+          artist,
+          trackSrc,
+          coverUrl,
+        },
+        "remove"
+      );
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   return (
@@ -226,7 +298,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       onMouseLeave={onMouseLeaveTrack}
       style={{
         padding: id === currentTrack?.id && !muted ? 0 : "15px 15px 20px",
-        background: id === currentTrack?.id && muted && "#f9f9f9",
+        background:
+          id === currentTrack?.id && muted ? "#f9f9f9" : "transparent",
       }}
       ref={containerRef}
     >
@@ -276,12 +349,28 @@ export const TrackItem: React.FC<TrackItemProps> = ({
                   <span className={styles.artist}>{artist}</span>
                 </div>
                 <div className={styles.timeBlock}>
-                  {isAddButtonVisible && (
-                    <div>
-                      <IconButton ref={addTrackButtonRef} size="medium">
-                        <PlusIcon color="#898989" />
+                  {!isAddedTrack ? (
+                    isAddButtonVisible && (
+                      <Tooltip title="В мою музыку" arrow>
+                        <IconButton
+                          ref={addTrackButtonRef}
+                          size="medium"
+                          onClick={onAddToUserPlaylist}
+                        >
+                          <PlusIcon color="#898989" />
+                        </IconButton>
+                      </Tooltip>
+                    )
+                  ) : (
+                    <Tooltip title="Удалить трек" arrow>
+                      <IconButton
+                        ref={removeTrackButtonRef}
+                        size="medium"
+                        onClick={onRemoveFromUserPlaylist}
+                      >
+                        <CheckMarkIcon color="#898989" size={14} />
                       </IconButton>
-                    </div>
+                    </Tooltip>
                   )}
                   <span className={styles.duration}>
                     {duration && !isNaN(duration) && calculateTime(duration)}
@@ -310,11 +399,28 @@ export const TrackItem: React.FC<TrackItemProps> = ({
                       />
                     </div>
                   )}
-                  <div>
-                    <IconButton size="medium">
-                      <PlusIcon color="#898989" />
-                    </IconButton>
-                  </div>
+                  {!muted &&
+                    (!isAddedTrack ? (
+                      <Tooltip title="В мою музыку" arrow>
+                        <IconButton
+                          ref={addTrackButtonRef}
+                          size="medium"
+                          onClick={onAddToUserPlaylist}
+                        >
+                          <PlusIcon color="#898989" />
+                        </IconButton>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip title="Удалить трек" arrow>
+                        <IconButton
+                          ref={removeTrackButtonRef}
+                          size="medium"
+                          onClick={onRemoveFromUserPlaylist}
+                        >
+                          <CheckMarkIcon color="#898989" size={14} />
+                        </IconButton>
+                      </Tooltip>
+                    ))}
                   {!muted && (
                     <span className={styles.currentTime}>
                       {calculateTime(currentTime)}

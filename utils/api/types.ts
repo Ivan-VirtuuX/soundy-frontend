@@ -51,6 +51,7 @@ export interface IUser {
   avatarUrl: string;
   friends?: IUser[];
   friendRequests?: IUser[];
+  playlist?: ITrack[];
   birthDate?: Date;
 }
 
@@ -65,6 +66,7 @@ export interface ResponseUser {
   birthDate: Date;
   friends: IUser[];
   friendRequests: IUser[];
+  playlist?: ITrack[];
   token?: string;
   createdAt?: string;
   response?: {
