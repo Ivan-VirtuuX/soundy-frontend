@@ -108,7 +108,8 @@
     left: 0;
     z-index: 2;
     cursor: pointer;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 
   &::-moz-range-progress {
@@ -128,7 +129,7 @@
     background: $primary;
     border-radius: 50%;
     z-index: 2;
-    margin: -2px 0 0 0;
+    margin: -3px 0 0 0;
   }
 
   &::-moz-range-thumb {
@@ -187,7 +188,8 @@
     left: 0;
     z-index: 2;
     cursor: pointer;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
   }
 
   &::-moz-range-progress {
@@ -207,7 +209,7 @@
     background: $secondary;
     border-radius: 50%;
     z-index: 2;
-    margin: -2px 0 0 0;
+    margin: -3px 0 0 0;
   }
 
   &::-moz-range-thumb {
@@ -234,6 +236,7 @@
   font-size: 20px;
   line-height: 27px;
   width: 50px;
+  font-family: Nunito, sans-serif;
 }
 
 .currentTime {
@@ -241,6 +244,7 @@
 }
 
 .duration {
+  font-family: Nunito, sans-serif;
   color: $secondary;
 }
 
@@ -270,12 +274,13 @@
 
 .leftSide {
   display: flex;
+  align-items: center;
 }
 
 .trackHead {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .trackInfo {

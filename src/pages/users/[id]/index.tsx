@@ -13,9 +13,9 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { FriendsList } from "@/components/FriendsList";
-import { Line } from "@/components/UI/Line";
+import { Line } from "@/components/ui/Line";
 import { ChangeAvatarPopup } from "@/components/ChangeAvatarPopup";
 import { ProfileActions } from "@/components/ProfileActions";
 import { UserPosts } from "@/components/UserPosts";

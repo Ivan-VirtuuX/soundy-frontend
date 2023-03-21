@@ -9,9 +9,9 @@ import { useRouter } from "next/router";
 import { MainLayout } from "@/layouts/MainLayout";
 
 import { Post } from "@/components/Post";
-import { PageTitle } from "@/components/UI/PageTitle";
-import { BlueButton } from "@/components/UI/BlueButton";
-import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
 
 import { usePosts } from "@/hooks/usePosts";
 

@@ -1,17 +1,12 @@
 import React from "react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, IconButton } from "@mui/material";
 
-import { BlueButton } from "@/components/UI/BlueButton";
+import { BlueButton } from "@/components/ui/BlueButton";
 
 import styles from "./AttachImagePopup.module.scss";
 import { CloudinaryApi } from "@/api/CloudinaryApi";
-import { AttachImageIcon } from "@/components/UI/Icons/AttachImageIcon";
+import { AttachImageIcon } from "@/components/ui/Icons/AttachImageIcon";
 import Image from "next/image";
 
 interface AttachImagePopupProps {

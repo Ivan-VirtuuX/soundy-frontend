@@ -8,14 +8,14 @@ import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { BlueButton } from "@/components/UI/BlueButton";
-import { EditUserIcon } from "@/components/UI/Icons/EditUserIcon";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { EditUserIcon } from "@/components/ui/Icons/EditUserIcon";
 import { EditProfilePopup } from "@/components/EditProfilePopup";
-import { MessageIcon } from "@/components/UI/Icons/MessageIcon";
-import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
-import { DeleteUserIcon } from "@/components/UI/Icons/DeleteUserIcon";
-import { CrossIcon } from "@/components/UI/Icons/CrossIcon";
-import { AddUserIcon } from "@/components/UI/Icons/AddUserIcon";
+import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
+import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
+import { DeleteUserIcon } from "@/components/ui/Icons/DeleteUserIcon";
+import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { AddUserIcon } from "@/components/ui/Icons/AddUserIcon";
 
 import styles from "./ProfileActions.module.scss";
 

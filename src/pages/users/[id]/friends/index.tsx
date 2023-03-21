@@ -10,8 +10,8 @@ import styles from "@/pages/friends/Friends.module.scss";
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
 
-import { PageTitle } from "@/components/UI/PageTitle";
-import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 
 const Friends: NextPage = ({

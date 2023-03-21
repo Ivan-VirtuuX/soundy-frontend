@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
+
 import { setCookie } from "nookies";
 
 import { useAppDispatch } from "@/redux/hooks";
 import { setUserData } from "@/redux/slices/user";
 
-import { FormProvider, useForm } from "react-hook-form";
+
 import { RegisterFormSchema } from "@/utils/validations";
+import { capitalize } from "@/utils/capitalizeString";
+
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { Api } from "@/api/index";
@@ -18,14 +22,14 @@ import { Alert } from "@mui/material";
 import { Button } from "@material-ui/core";
 
 import { FormField } from "@/components/FormField";
+import { ArrowLeftIcon } from "@/components/ui/Icons/ArrowLeftIcon";
 
 import helloSticker from "@/images/helloSticker.png";
 import wrongSticker from "@/images/wrongSticker.png";
 import logo from "@/images/logo.svg";
 
+
 import styles from "./RegisterForm.module.scss";
-import { capitalize } from "@/utils/capitalizeString";
-import { ArrowLeftIcon } from "@/components/UI/Icons/ArrowLeftIcon";
 
 interface RegisterFormProps {
   onOpenLogin: () => void;

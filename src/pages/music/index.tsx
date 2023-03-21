@@ -5,11 +5,11 @@ import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { PageTitle } from "@/components/UI/PageTitle";
-import { SearchInput } from "@/components/UI/SearchInput";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { SearchInput } from "@/components/ui/SearchInput";
 import { TrackItem } from "@/components/TrackItem";
-import { NextTrackIcon } from "@/components/UI/Icons/NextTrackIcon";
-import { PreviousTrackIcon } from "@/components/UI/Icons/PreviousTrackIcon";
+import { NextTrackIcon } from "@/components/ui/Icons/NextTrackIcon";
+import { PreviousTrackIcon } from "@/components/ui/Icons/PreviousTrackIcon";
 
 import { musicTracks } from "@/musicTracks.data";
 
@@ -88,8 +88,8 @@ const Music: NextPage = () => {
                     />
                   )
                 )
-              : userTracks.length !== 0 &&
-                musicTracks.map((track) => (
+              : userTracks.length !== 0 ?
+                musicTracks.map((track) =>
                   <TrackItem
                     key={track.id}
                     {...track}
@@ -110,8 +110,29 @@ const Music: NextPage = () => {
                         ),
                       ])
                     }
-                  />
-                ))}
+                  />) : musicTracks.map((track) =>
+                <TrackItem
+                  key={track.id}
+                  {...track}
+                  currentTrack={currentTrack}
+                  currentTrackSrc={currentTrack?.trackSrc}
+                  handleClickTrack={(track) => setCurrentTrack(track)}
+                  userTracks={userTracks}
+                  handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                  handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                  isTrackPlaying={isCurrentTrackPlaying}
+                  handleAddTrack={(userTrack) =>
+                    setUserTracks([...userTracks, userTrack])
+                  }
+                  handleRemoveTrack={(track) =>
+                    setUserTracks([
+                      ...userTracks.filter(
+                        (userTrack) => userTrack.id !== track.id
+                      ),
+                    ])
+                  }
+                />
+                )}
             {currentTrack && (
               <div className={styles.currentTrackBlock}>
                 <div className={styles.trackActionsBlock}>

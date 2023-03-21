@@ -2,13 +2,13 @@ import React, { Ref } from "react";
 
 import { useRouter } from "next/router";
 
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
-import { BlueButton } from "@/components/UI/BlueButton";
-import { KebabMenu } from "@/components/UI/KebabMenu";
-import { PlusIcon } from "@/components/UI/Icons/PlusIcon";
-import { CrossIcon } from "@/components/UI/Icons/CrossIcon";
-import { MessageIcon } from "@/components/UI/Icons/MessageIcon";
-import { CheckMarkIcon } from "@/components/UI/Icons/CheckMarkIcon";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { KebabMenu } from "@/components/ui/KebabMenu";
+import { PlusIcon } from "@/components/ui/Icons/PlusIcon";
+import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
+import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
 import styles from "./UserItem.module.scss";
 

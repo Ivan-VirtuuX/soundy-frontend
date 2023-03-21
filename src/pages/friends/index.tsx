@@ -6,12 +6,12 @@ import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { SearchInput } from "@/components/UI/SearchInput";
-import { BlueButton } from "@/components/UI/BlueButton";
-import { PageTitle } from "@/components/UI/PageTitle";
-import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+import { SearchInput } from "@/components/ui/SearchInput";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
-import { ArrowRightIcon } from "@/components/UI/Icons/ArrowRightIcon";
+import { ArrowRightIcon } from "@/components/ui/Icons/ArrowRightIcon";
 
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";

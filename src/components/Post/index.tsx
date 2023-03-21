@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { IconButton, Typography } from "@mui/material";
 
-import { Line } from "../UI/Line";
+import { Line } from "../ui/Line";
 
 import { Api } from "@/api/index";
 import { IComment, IPost } from "@/api/types";
@@ -15,14 +15,14 @@ import { selectUserData } from "@/redux/slices/user";
 
 import { convertDate } from "@/utils/dateConverter";
 
-import { KebabMenu } from "@/components/UI/KebabMenu";
-import { Like } from "@/components/UI/Like";
-import { Comment } from "@/components/UI/Comment";
-import { Views } from "@/components/UI/Views";
+import { KebabMenu } from "@/components/ui/KebabMenu";
+import { Like } from "@/components/ui/Like";
+import { Comment } from "@/components/ui/Comment";
+import { Views } from "@/components/ui/Views";
 import { CommentItem } from "@/components/CommentItem";
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
-import { PinIcon } from "@/components/UI/Icons/PinIcon";
-import { SendIcon } from "@/components/UI/Icons/SendIcon";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { PinIcon } from "@/components/ui/Icons/PinIcon";
+import { SendIcon } from "@/components/ui/Icons/SendIcon";
 
 import styles from "./Post.module.scss";
 import { AttachImagePopup } from "@/components/AttachImagePopup";
@@ -292,6 +292,8 @@ const Index: React.FC<PostProps> = ({
     }
   };
 
+  console.log(likes);
+
   return (
     <div className={styles.container} ref={innerRef}>
       <div className={styles.head}>
@@ -345,6 +347,7 @@ const Index: React.FC<PostProps> = ({
                 className={styles.image}
                 src={obj.data.file.url}
                 alt="post image"
+                style={{ marginTop: obj.data.text ? 25 : 10 }}
               />
             )}
           </React.Fragment>
@@ -355,12 +358,9 @@ const Index: React.FC<PostProps> = ({
           handleClickLike={onClickLike}
           handleClickDislike={onClickDislike}
           likesCount={likesCount}
-          isLiked={likes?.some(
-            (like) => like?.author?.userId === userData?.userId
-          )}
+          isLiked={likes?.some((like) => like?.author?.userId === userData?.id)}
           likeId={
-            likes?.find((like) => like?.author?.userId === userData?.userId)
-              ?.likeId
+            likes?.find((like) => like?.author?.userId === userData?.id)?.likeId
           }
         />
         <Comment

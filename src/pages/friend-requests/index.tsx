@@ -6,10 +6,10 @@ import { useRouter } from "next/router";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { PageTitle } from "@/components/UI/PageTitle";
-import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
-import { BlueButton } from "@/components/UI/BlueButton";
+import { BlueButton } from "@/components/ui/BlueButton";
 
 import { IUser } from "@/api/types";
 import { Api } from "@/api/index";

@@ -4,8 +4,8 @@ import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
 
-import { PageTitle } from "@/components/UI/PageTitle";
-import { NullResultsBlock } from "@/components/UI/NullResultsBlock";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { Post } from "@/components/Post";
 
 import { IPost } from "@/api/types";

@@ -4,17 +4,16 @@ import Image from "next/image";
 
 import { IconButton, Tooltip } from "@mui/material";
 
-import { PlayIcon } from "@/components/UI/Icons/PlayIcon";
-import { PauseIcon } from "@/components/UI/Icons/PauseIcon";
-import { PlusIcon } from "@/components/UI/Icons/PlusIcon";
+import { PlayIcon } from "@/components/ui/Icons/PlayIcon";
+import { PauseIcon } from "@/components/ui/Icons/PauseIcon";
+import { PlusIcon } from "@/components/ui/Icons/PlusIcon";
+import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
 import { Api } from "@/api/index";
 import { ITrack } from "@/api/types";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-
-import { CheckMarkIcon } from "@/components/UI/Icons/CheckMarkIcon";
 
 import styles from "./TrackItem.module.scss";
 
@@ -319,12 +318,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({
         preload="metadata"
         onLoadedMetadata={(e: any) => setDuration(e.target.duration)}
       />
-      <div
-        className={styles.leftSide}
-        style={{
-          alignItems: (!playerRef?.current?.currentTime || muted) && "center",
-        }}
-      >
+      <div className={styles.leftSide}>
         <div className={styles.imageBlock}>
           <Image
             className={styles.image}

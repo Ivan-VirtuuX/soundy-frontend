@@ -5,14 +5,79 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChangeAvatarPopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChangeAvatarPopup/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedData/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchedData/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TrackItem/TrackItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrackItem/TrackItem.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/BlueButton.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/BlueButton/BlueButton.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/BlueButton/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Comment/Comment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Comment/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/AddUserIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/AddUserIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/ArrowLeftIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/ArrowLeftIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/ArrowRightIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/ArrowRightIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/AttachImageIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/AttachImageIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/CameraIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CameraIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/CheckMarkIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CheckMarkIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/CrossIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CrossIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/DeleteUserIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/DeleteUserIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/EditUserIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/EditUserIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/MessageIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/MessageIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/MusicIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/MusicIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/NextTrackIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/NextTrackIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PauseIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PauseIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PencilIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PencilIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PinIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PinIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PlayIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PlayIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PlusIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PlusIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PostIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PostIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/PreviousTrackIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PreviousTrackIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/SearchIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/SearchIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/SendIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/SendIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/UploadIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/UploadIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/UserIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/UserIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Icons/UsersIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/UsersIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/KebabMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/KebabMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Like/Like.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Like/Like.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Like/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Like/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Line/Line.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Line/Line.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Line/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Line/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/NotFoundBlock/NotFoundBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/NotFoundBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/NotFoundBlock/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/NullResultsBlock/NullResultsBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/NullResultsBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/NullResultsBlock/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PageTitle/PageTitle.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/PageTitle/PageTitle.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PageTitle/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/PageTitle/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/SearchInput/SearchInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/SearchInput/SearchInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/SearchInput/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/SearchInput/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Views/Views.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Views/Views.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/Views/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Views/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/music/Music.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/Music.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/music/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,23 +105,23 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "/mnt/space/work/soundy-frontend/node_modules/prettier",
+    "settings.editor.selected.configurable": "actions.on.save",
+    "ts.external.directory.path": "/mnt/space/work/soundy-frontend/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -84,6 +149,9 @@
       <updated>1679286278787</updated>
       <workItem from="1679286280515" duration="7374000" />
       <workItem from="1679374464088" duration="5546000" />
+      <workItem from="1679391532186" duration="197000" />
+      <workItem from="1679391738615" duration="126000" />
+      <workItem from="1679391874452" duration="2907000" />
     </task>
     <servers />
   </component>

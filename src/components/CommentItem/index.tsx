@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./CommentItem.module.scss";
 import { ILike, IUser } from "@/api/types";
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
-import { Like } from "@/components/UI/Like";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { Like } from "@/components/ui/Like";
 import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+import { isUrl } from "@/utils/isUrl";
+import Image from "next/image";
 
 interface CommentItemProps {
   postId: string;
@@ -48,6 +50,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     }
   };
 
+  console.log(text, likes);
+
   return (
     <div className={styles.container}>
       {author?.avatarUrl ? (
@@ -72,19 +76,31 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           </div>
           <Like
             isLiked={likes?.some(
-              (like) => like?.author?.userId === userData?.userId
+              (like) => like?.author?.userId === userData?.id
             )}
             handleClickLike={onClickLike}
             handleClickDislike={onClickDislike}
             likesCount={likesCount}
             size="small"
             likeId={
-              likes?.find((like) => like?.author?.userId === userData?.userId)
+              likes?.find((like) => like?.author?.userId === userData?.id)
                 ?.likeId
             }
           />
         </div>
-        <p className={styles.text}>{text}</p>
+
+        {isUrl(text) ? (
+          <Image
+            className={styles.commentImage}
+            width={200}
+            height={200}
+            src={text}
+            quality={100}
+            alt="comment image"
+          />
+        ) : (
+          <p className={styles.text}>{text}</p>
+        )}
       </div>
     </div>
   );

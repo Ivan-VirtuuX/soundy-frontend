@@ -9,7 +9,7 @@ import { selectUserData, setUserData } from "@/redux/slices/user";
 import { destroyCookie } from "nookies";
 
 import styles from "./Header.module.scss";
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import React from "react";
 
 export const Header = () => {

@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { Api } from "@/api/index";
 import { IPost, IUser } from "@/api/types";
 
-import { NotFoundBlock } from "@/components/UI/NotFoundBlock";
+import { NotFoundBlock } from "@/components/ui/NotFoundBlock";
 import { UserItem } from "@/components/UserItem";
 import { Post } from "@/components/Post";
 

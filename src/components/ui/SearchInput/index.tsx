@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SearchIcon } from "@/components/UI/Icons/SearchIcon";
+import { SearchIcon } from "@/components/ui/Icons/SearchIcon";
 
 import styles from "./SearchInput.module.scss";
 

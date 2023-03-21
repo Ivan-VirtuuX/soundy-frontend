@@ -1,4 +1,4 @@
-import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 
 import styles from "./FriendsList.module.scss";
 import React from "react";

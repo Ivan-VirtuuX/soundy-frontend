@@ -34,6 +34,8 @@
   font-size: 20px;
   line-height: 22px;
   color: $primary;
+  padding-right: 40px;
+  margin-top: 10px;
 }
 
 .createdAt {
@@ -47,5 +49,11 @@
 
 .avatar {
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.commentImage {
+  border-radius: 10px;
+  margin-top: 15px;
   object-fit: cover;
 }

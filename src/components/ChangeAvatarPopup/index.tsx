@@ -1,14 +1,9 @@
 import React from "react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-} from "@mui/material";
+import { Dialog, DialogContent, DialogContentText, IconButton } from "@mui/material";
 
-import { BlueButton } from "@/components/UI/BlueButton";
-import { CameraIcon } from "@/components/UI/Icons/CameraIcon";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { CameraIcon } from "@/components/ui/Icons/CameraIcon";
 
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 import { Api } from "@/api/index";
