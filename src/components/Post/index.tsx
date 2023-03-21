@@ -22,10 +22,12 @@ import { Views } from "@/components/UI/Views";
 import { CommentItem } from "@/components/CommentItem";
 import { EmptyAvatar } from "@/components/UI/EmptyAvatar";
 import { PinIcon } from "@/components/UI/Icons/PinIcon";
-import { AttachImageIcon } from "@/components/UI/Icons/AttachImageIcon";
 import { SendIcon } from "@/components/UI/Icons/SendIcon";
 
 import styles from "./Post.module.scss";
+import { AttachImagePopup } from "@/components/AttachImagePopup";
+import Image from "next/image";
+import { CloudinaryApi } from "@/api/CloudinaryApi";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -49,14 +51,22 @@ const Index: React.FC<PostProps> = ({
 }) => {
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
+  const [attachedImage, setAttachedImage] = React.useState<File>();
+  const [attachedImageFormData, setAttachedImageFormData] =
+    React.useState<FormData>();
   const [isShowComments, setIsShowComments] = React.useState(false);
   const [localComments, setLocalComments] = React.useState<IComment[]>([]);
+  const [attachedImageUrl, setAttachedImageUrl] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [isSaveImage, setIsSaveImage] = React.useState(false);
+  const [isUploading, setIsUploading] = React.useState(false);
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
   const [isPinned, setIsPinned] = React.useState(false);
+  const [preview, setPreview] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
+
   const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
@@ -132,6 +142,20 @@ const Index: React.FC<PostProps> = ({
     })();
   }, [inView]);
 
+  React.useEffect(() => {
+    if (attachedImage) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+
+      reader.readAsDataURL(attachedImage);
+    } else {
+      setPreview(null);
+    }
+  }, [attachedImage]);
+
   const onDeletePost = async () => {
     try {
       await Api().post.delete(postId);
@@ -146,7 +170,38 @@ const Index: React.FC<PostProps> = ({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
+      console.log(attachedImageFormData);
+
       try {
+        if (attachedImageFormData) {
+          const { secure_url } = await onSubmitAttachImage();
+
+          if (secure_url) {
+            await setIsShowComments(true);
+
+            await commentInputRef?.current?.scrollIntoView({ block: "center" });
+
+            setIsSubmitting(true);
+
+            setIsUploading(true);
+
+            setIsUploading(false);
+
+            const comment = await Api().comment.addComment({
+              postId,
+              author: userData?.userId,
+              text: secure_url,
+            });
+
+            setAttachedImageFormData(null);
+            setAttachedImage(null);
+
+            setPreview("");
+
+            setLocalComments([...localComments, comment]);
+            setIsSubmitting(false);
+          }
+        }
         if (message) {
           await setIsShowComments(true);
 
@@ -170,7 +225,7 @@ const Index: React.FC<PostProps> = ({
         setIsSubmitting(false);
       }
     },
-    [localComments, message, postId, userData?.userId]
+    [attachedImageFormData, localComments, message, postId, userData?.userId]
   );
 
   const onClickLike = React.useCallback(async () => {
@@ -208,6 +263,32 @@ const Index: React.FC<PostProps> = ({
       handlePin(postId);
     } catch (err) {
       console.warn(err);
+    }
+  };
+
+  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
+    setAttachedImage(image);
+    setAttachedImageFormData(imageFormData);
+  };
+
+  const onSubmitAttachImage = async () => {
+    try {
+      setIsUploading(true);
+
+      const { data } = await CloudinaryApi().cloudinary.changeImage(
+        attachedImageFormData
+      );
+
+      setIsUploading(false);
+
+      return data;
+    } catch (err) {
+      console.warn(err);
+
+      alert("Update image error");
+    } finally {
+      setIsSaveImage(false);
+      setIsUploading(false);
     }
   };
 
@@ -314,6 +395,16 @@ const Index: React.FC<PostProps> = ({
       )}
       {isCommentInputVisible && (
         <form onSubmit={submitComment}>
+          {preview && (
+            <Image
+              width={100}
+              height={100}
+              quality={100}
+              className={styles.preview}
+              src={preview}
+              alt="image preview"
+            />
+          )}
           <div className={styles.commentInputFieldBlock}>
             <div className={styles.commentInputField}>
               <div className={styles.commentInputFieldContainer}>
@@ -326,13 +417,17 @@ const Index: React.FC<PostProps> = ({
                   type="text"
                   placeholder="Cообщение"
                 />
-                <IconButton size="small" className={styles.attachImageButton}>
-                  <AttachImageIcon />
-                </IconButton>
+                <AttachImagePopup
+                  className={styles.attachImageButton}
+                  handleChangeAvatar={(imageUrl) =>
+                    setAttachedImageUrl(imageUrl)
+                  }
+                  handleChangeAttachedImage={handleChangeAttachedImage}
+                />
               </div>
             </div>
             <IconButton
-              disabled={isSubmitting}
+              disabled={isSubmitting || isUploading}
               type="submit"
               size="large"
               className={styles.sendCommentButton}

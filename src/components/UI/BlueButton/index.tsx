@@ -2,15 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 import styles from "./BlueButton.module.scss";
 
-export const BlueButton = ({
-  children,
-  text,
-  handleClick,
-  disabled,
-  variant,
-  size,
-  color,
-}: {
+interface BlueButtonProps {
   children?: React.ReactNode;
   text: string;
   handleClick?: () => void;
@@ -18,6 +10,18 @@ export const BlueButton = ({
   variant?: string;
   size?: string;
   color?: "primary" | "secondary" | "green";
+  className?: string;
+}
+
+export const BlueButton: React.FC<BlueButtonProps> = ({
+  children,
+  text,
+  handleClick,
+  disabled,
+  variant,
+  size,
+  color,
+  className,
 }) => {
   const [isHover, setIsHover] = React.useState(false);
 
@@ -26,7 +30,7 @@ export const BlueButton = ({
       {variant === "transparent" ? (
         <Button
           variant="text"
-          className={styles.blueButton}
+          className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
           style={{
@@ -40,7 +44,7 @@ export const BlueButton = ({
         <Button
           size="small"
           variant="contained"
-          className={styles.blueButton}
+          className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
         >
@@ -57,7 +61,7 @@ export const BlueButton = ({
       ) : color === "secondary" ? (
         <Button
           variant="contained"
-          className={styles.blueButton}
+          className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
           onMouseEnter={() => setIsHover(true)}
@@ -78,7 +82,7 @@ export const BlueButton = ({
       ) : color === "primary" ? (
         <Button
           variant="contained"
-          className={styles.blueButton}
+          className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
         >
@@ -95,7 +99,7 @@ export const BlueButton = ({
           variant="contained"
           className={`${styles.blueButton} ${
             disabled ? "greenButtonDisabled" : ""
-          }`}
+          } ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
           onMouseEnter={() => setIsHover(true)}

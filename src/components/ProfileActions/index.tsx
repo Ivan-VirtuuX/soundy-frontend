@@ -1,5 +1,13 @@
 import React from "react";
-import styles from "./ProfileActions.module.scss";
+
+import { useRouter } from "next/router";
+
+import { ChangeUserDataDto, IUser } from "@/api/types";
+import { Api } from "@/api/index";
+
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+
 import { BlueButton } from "@/components/UI/BlueButton";
 import { EditUserIcon } from "@/components/UI/Icons/EditUserIcon";
 import { EditProfilePopup } from "@/components/EditProfilePopup";
@@ -8,11 +16,8 @@ import { PencilIcon } from "@/components/UI/Icons/PencilIcon";
 import { DeleteUserIcon } from "@/components/UI/Icons/DeleteUserIcon";
 import { CrossIcon } from "@/components/UI/Icons/CrossIcon";
 import { AddUserIcon } from "@/components/UI/Icons/AddUserIcon";
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-import { useRouter } from "next/router";
-import { ChangeUserDataDto, IUser } from "@/api/types";
-import { Api } from "@/api/index";
+
+import styles from "./ProfileActions.module.scss";
 
 interface ProfileActionsProps {
   isEditProfileVisible: boolean;

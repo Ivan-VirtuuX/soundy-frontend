@@ -121,7 +121,6 @@
   &Block {
     display: flex;
     justify-content: space-between;
-    margin-top: 25px;
   }
 }
 
@@ -149,6 +148,7 @@
 
 .commentsBlock {
   margin-top: 25px;
+  margin-bottom: 25px;
 
   &Title {
     font-weight: 700;
@@ -171,6 +171,7 @@
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   margin-top: 5px;
+  margin-bottom: 25px;
 
   &:hover {
     color: $secondary;
@@ -185,4 +186,12 @@
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }

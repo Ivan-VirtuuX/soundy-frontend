@@ -2,19 +2,21 @@ import React from "react";
 
 import Image from "next/image";
 
-import { ITrack } from "@/api/types";
-
 import { IconButton, Tooltip } from "@mui/material";
 
 import { PlayIcon } from "@/components/UI/Icons/PlayIcon";
 import { PauseIcon } from "@/components/UI/Icons/PauseIcon";
 import { PlusIcon } from "@/components/UI/Icons/PlusIcon";
 
-import styles from "./TrackItem.module.scss";
 import { Api } from "@/api/index";
+import { ITrack } from "@/api/types";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+
 import { CheckMarkIcon } from "@/components/UI/Icons/CheckMarkIcon";
+
+import styles from "./TrackItem.module.scss";
 
 interface TrackItemProps extends ITrack {
   handleClickTrack: ({ id, name, artist, trackSrc, coverUrl }: ITrack) => void;
@@ -24,6 +26,8 @@ interface TrackItemProps extends ITrack {
   muted?: boolean;
   handleClickPlay: () => void;
   handleClickStop: () => void;
+  handleAddTrack: (track: ITrack) => void;
+  handleRemoveTrack: (track: ITrack) => void;
   userTracks: ITrack[];
   isTrackPlaying?: boolean;
 }
@@ -41,6 +45,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   muted = true,
   handleClickPlay,
   handleClickStop,
+  handleAddTrack,
+  handleRemoveTrack,
   userTracks,
   isTrackPlaying,
 }) => {
@@ -86,76 +92,6 @@ export const TrackItem: React.FC<TrackItemProps> = ({
     duration: 200,
     iterations: 1,
   };
-
-  React.useEffect(() => {
-    if (progressBarRef.current) {
-      const seconds = Math.floor(playerRef?.current?.duration);
-
-      setDuration(seconds);
-
-      progressBarRef.current.max = seconds;
-
-      volumeRef.current.max = 0.5;
-    }
-  }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
-
-  React.useEffect(() => {
-    userTracks?.find((track) => track.id === id)
-      ? setIsAddedTrack(true)
-      : setIsAddedTrack(false);
-
-    if (playerRef.current) {
-      if (muted) playerRef.current.volume = 0;
-      else playerRef.current.volume = 0.1;
-
-      const seconds = Math.floor(playerRef.current.duration);
-
-      setDuration(seconds);
-    }
-  }, [trackSrc]);
-
-  React.useEffect(() => {
-    if (id !== currentTrack?.id) {
-      handleClickStop();
-
-      onClickPause();
-
-      progressBarRef.current && setCurrentTime(0);
-
-      if (playerRef.current) playerRef.current.currentTime = 0;
-    } else {
-      !searchText && onClickStart();
-
-      if (volumeRef.current) {
-        volumeRef.current.style.setProperty(
-          "--width",
-          `${(volumeRef.current.value / 0.5) * 100}%`
-        );
-      }
-    }
-  }, [currentTrackSrc]);
-
-  React.useEffect(() => {
-    console.log(currentTrack);
-
-    if (id === currentTrack?.id) {
-      if (isTrackPlaying) {
-        onClickStart();
-
-        setIsPlaying(true);
-      } else {
-        onClickPause();
-
-        setIsPlaying(false);
-      }
-    }
-  }, [isTrackPlaying, id]);
-
-  React.useEffect(() => {
-    isAddButtonVisible
-      ? addTrackButtonRef?.current?.animate(opacityUp, timing)
-      : addTrackButtonRef?.current?.animate(opacityDown, timing);
-  }, [isAddButtonVisible]);
 
   const onClickPause = () => {
     setIsPlaying(false);
@@ -255,6 +191,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
     try {
       setIsAddedTrack(true);
 
+      handleAddTrack({ id, name, artist, trackSrc, coverUrl });
+
       await Api().user.toggleMusicTrack(
         userData?.id,
         {
@@ -275,6 +213,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
     try {
       setIsAddedTrack(false);
 
+      handleRemoveTrack({ id, name, artist, trackSrc, coverUrl });
+
       await Api().user.toggleMusicTrack(
         userData?.id,
         {
@@ -290,6 +230,76 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       console.warn(err);
     }
   };
+
+  React.useEffect(() => {
+    if (progressBarRef.current) {
+      const seconds = Math.floor(playerRef?.current?.duration);
+
+      setDuration(seconds);
+
+      progressBarRef.current.max = seconds;
+
+      volumeRef.current.max = 0.5;
+    }
+  }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
+
+  React.useEffect(() => {
+    userTracks?.find((track) => track.id === id)
+      ? setIsAddedTrack(true)
+      : setIsAddedTrack(false);
+  }, [trackSrc, userTracks]);
+
+  React.useEffect(() => {
+    if (playerRef.current) {
+      if (muted) playerRef.current.volume = 0;
+      else playerRef.current.volume = 0.1;
+
+      const seconds = Math.floor(playerRef.current.duration);
+
+      setDuration(seconds);
+    }
+  }, [trackSrc]);
+
+  React.useEffect(() => {
+    if (id !== currentTrack?.id) {
+      handleClickStop();
+
+      onClickPause();
+
+      progressBarRef.current && setCurrentTime(0);
+
+      if (playerRef.current) playerRef.current.currentTime = 0;
+    } else {
+      !searchText && onClickStart();
+
+      if (volumeRef.current) {
+        volumeRef.current.style.setProperty(
+          "--width",
+          `${(volumeRef.current.value / 0.5) * 100}%`
+        );
+      }
+    }
+  }, [currentTrackSrc]);
+
+  React.useEffect(() => {
+    if (id === currentTrack?.id) {
+      if (isTrackPlaying) {
+        onClickStart();
+
+        setIsPlaying(true);
+      } else {
+        onClickPause();
+
+        setIsPlaying(false);
+      }
+    }
+  }, [isTrackPlaying, id]);
+
+  React.useEffect(() => {
+    isAddButtonVisible
+      ? addTrackButtonRef?.current?.animate(opacityUp, timing)
+      : addTrackButtonRef?.current?.animate(opacityDown, timing);
+  }, [isAddButtonVisible]);
 
   return (
     <div

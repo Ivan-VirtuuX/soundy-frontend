@@ -14,13 +14,14 @@ import { PreviousTrackIcon } from "@/components/UI/Icons/PreviousTrackIcon";
 import { musicTracks } from "@/musicTracks.data";
 
 import { ITrack } from "@/api/types";
+import { Api } from "@/api/index";
 
 import { filterItems } from "@/utils/filterItems";
 
-import styles from "./Music.module.scss";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { Api } from "@/api/index";
+
+import styles from "./Music.module.scss";
 
 const Music: NextPage = () => {
   const [isCurrentTrackPlaying, setIsCurrentTrackPlaying] =
@@ -74,6 +75,16 @@ const Music: NextPage = () => {
                       handleClickPlay={() => setIsCurrentTrackPlaying(true)}
                       handleClickStop={() => setIsCurrentTrackPlaying(false)}
                       isTrackPlaying={isCurrentTrackPlaying}
+                      handleAddTrack={(track) =>
+                        setUserTracks([...userTracks, track])
+                      }
+                      handleRemoveTrack={(track) =>
+                        setUserTracks([
+                          ...userTracks.filter(
+                            (userTrack) => userTrack.id !== track.id
+                          ),
+                        ])
+                      }
                     />
                   )
                 )
@@ -89,6 +100,16 @@ const Music: NextPage = () => {
                     handleClickPlay={() => setIsCurrentTrackPlaying(true)}
                     handleClickStop={() => setIsCurrentTrackPlaying(false)}
                     isTrackPlaying={isCurrentTrackPlaying}
+                    handleAddTrack={(userTrack) =>
+                      setUserTracks([...userTracks, userTrack])
+                    }
+                    handleRemoveTrack={(track) =>
+                      setUserTracks([
+                        ...userTracks.filter(
+                          (userTrack) => userTrack.id !== track.id
+                        ),
+                      ])
+                    }
                   />
                 ))}
             {currentTrack && (
@@ -125,6 +146,16 @@ const Music: NextPage = () => {
                   handleClickStop={() => setIsCurrentTrackPlaying(false)}
                   isTrackPlaying={isCurrentTrackPlaying}
                   userTracks={userTracks}
+                  handleAddTrack={(track) =>
+                    setUserTracks([...userTracks, track])
+                  }
+                  handleRemoveTrack={(track) =>
+                    setUserTracks([
+                      ...userTracks.filter(
+                        (userTrack) => userTrack.id !== track.id
+                      ),
+                    ])
+                  }
                   muted={false}
                 />
               </div>
