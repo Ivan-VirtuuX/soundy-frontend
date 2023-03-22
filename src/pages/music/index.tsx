@@ -57,7 +57,7 @@ const Music: NextPage = () => {
         <div className={styles.searchBlock}>
           <SearchInput
             placeholder="Введите название трека"
-            width={700}
+            width={600}
             handleChange={(text) => setSearchText(text)}
           />
           <div className={styles.tracks}>
@@ -88,8 +88,7 @@ const Music: NextPage = () => {
                     />
                   )
                 )
-              : userTracks.length !== 0 ?
-                musicTracks.map((track) =>
+              : musicTracks.map((track) => (
                   <TrackItem
                     key={track.id}
                     {...track}
@@ -110,29 +109,8 @@ const Music: NextPage = () => {
                         ),
                       ])
                     }
-                  />) : musicTracks.map((track) =>
-                <TrackItem
-                  key={track.id}
-                  {...track}
-                  currentTrack={currentTrack}
-                  currentTrackSrc={currentTrack?.trackSrc}
-                  handleClickTrack={(track) => setCurrentTrack(track)}
-                  userTracks={userTracks}
-                  handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-                  handleClickStop={() => setIsCurrentTrackPlaying(false)}
-                  isTrackPlaying={isCurrentTrackPlaying}
-                  handleAddTrack={(userTrack) =>
-                    setUserTracks([...userTracks, userTrack])
-                  }
-                  handleRemoveTrack={(track) =>
-                    setUserTracks([
-                      ...userTracks.filter(
-                        (userTrack) => userTrack.id !== track.id
-                      ),
-                    ])
-                  }
-                />
-                )}
+                  />
+                ))}
             {currentTrack && (
               <div className={styles.currentTrackBlock}>
                 <div className={styles.trackActionsBlock}>

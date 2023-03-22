@@ -39,12 +39,16 @@ export const convertDate = (date: Date): string => {
     units[unitIndex]
   );
 
-  return !formattedDate.includes("назад")
-    ? formattedDate +
-        " в " +
-        new Date(date).toLocaleTimeString("ru-Ru", {
-          hour: "numeric",
-          minute: "2-digit",
-        })
-    : formattedDate;
+  if (formattedDate.toLowerCase().includes("сейчас")) {
+    return "Сейчас";
+  } else if (!formattedDate.includes("назад"))
+    return (
+      formattedDate +
+      " в " +
+      new Date(date).toLocaleTimeString("ru-Ru", {
+        hour: "numeric",
+        minute: "2-digit",
+      })
+    );
+  return formattedDate;
 };

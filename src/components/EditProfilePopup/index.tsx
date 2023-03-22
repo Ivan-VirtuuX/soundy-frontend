@@ -29,12 +29,11 @@ export const EditProfilePopup: React.FC<EditProfilePopupProps> = ({
     <Dialog
       open={isEditProfileVisible}
       onClose={handleClose}
-      fullWidth
-      maxWidth="sm"
+      maxWidth="xs"
       style={{ zIndex: 10000 }}
     >
       <DialogContent>
-        <DialogContentText >
+        <DialogContentText>
           <h2 className={styles.editAvatarTitle}>Редактирование профиля</h2>
           <EditProfileForm
             name={localName}

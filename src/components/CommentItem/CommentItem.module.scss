@@ -27,6 +27,7 @@
   font-size: 20px;
   line-height: 22px;
   color: $primary;
+  cursor: pointer;
 }
 
 .text {
@@ -50,6 +51,7 @@
 .avatar {
   border-radius: 50%;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .commentImage {

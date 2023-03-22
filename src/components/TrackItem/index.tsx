@@ -260,6 +260,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   }, [trackSrc]);
 
   React.useEffect(() => {
+    console.log(currentTrackSrc);
+
     if (id !== currentTrack?.id) {
       handleClickStop();
 

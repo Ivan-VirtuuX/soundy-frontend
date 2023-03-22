@@ -196,3 +196,13 @@
   border-radius: 10px;
   margin-bottom: 15px;
 }
+
+.previewBlock {
+  position: relative;
+}
+
+.closeImageButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

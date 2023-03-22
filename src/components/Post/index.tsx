@@ -2,6 +2,7 @@ import React, { FormEvent, Ref } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { IconButton, Typography } from "@mui/material";
 
@@ -9,11 +10,10 @@ import { Line } from "../ui/Line";
 
 import { Api } from "@/api/index";
 import { IComment, IPost } from "@/api/types";
+import { CloudinaryApi } from "@/api/CloudinaryApi";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-
-import { convertDate } from "@/utils/dateConverter";
 
 import { KebabMenu } from "@/components/ui/KebabMenu";
 import { Like } from "@/components/ui/Like";
@@ -23,11 +23,12 @@ import { CommentItem } from "@/components/CommentItem";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { PinIcon } from "@/components/ui/Icons/PinIcon";
 import { SendIcon } from "@/components/ui/Icons/SendIcon";
+import { AttachImagePopup } from "@/components/AttachImagePopup";
+import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+
+import { useInterval } from "@/hooks/useInterval";
 
 import styles from "./Post.module.scss";
-import { AttachImagePopup } from "@/components/AttachImagePopup";
-import Image from "next/image";
-import { CloudinaryApi } from "@/api/CloudinaryApi";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -49,16 +50,14 @@ const Index: React.FC<PostProps> = ({
   handlePin,
   menuHidden,
 }) => {
-  const [isCommentInputVisible, setIsCommentInputVisible] =
-    React.useState(false);
-  const [attachedImage, setAttachedImage] = React.useState<File>();
   const [attachedImageFormData, setAttachedImageFormData] =
     React.useState<FormData>();
+  const [isCommentInputVisible, setIsCommentInputVisible] =
+    React.useState(false);
   const [isShowComments, setIsShowComments] = React.useState(false);
+  const [attachedImage, setAttachedImage] = React.useState<File>();
   const [localComments, setLocalComments] = React.useState<IComment[]>([]);
-  const [attachedImageUrl, setAttachedImageUrl] = React.useState("");
   const [isSubmitting, setIsSubmitting] = React.useState(false);
-  const [isSaveImage, setIsSaveImage] = React.useState(false);
   const [isUploading, setIsUploading] = React.useState(false);
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
@@ -66,8 +65,6 @@ const Index: React.FC<PostProps> = ({
   const [preview, setPreview] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
-
-  const [date, setDate] = React.useState(convertDate(new Date(createdAt)));
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -82,26 +79,7 @@ const Index: React.FC<PostProps> = ({
 
   const router = useRouter();
 
-  const intervalCallback = React.useCallback(() => {
-    setDate(convertDate(new Date(createdAt)));
-  }, []);
-
-  React.useEffect(() => {
-    const timeout = setInterval(() => {
-      const newDate = convertDate(new Date(createdAt));
-
-      if (
-        newDate.split(" ")[1].includes("секунд") ||
-        newDate === "2 минуты назад"
-      ) {
-        setDate(newDate);
-      } else {
-        clearInterval(timeout);
-      }
-    }, 5000);
-
-    return () => clearInterval(timeout);
-  }, [intervalCallback]);
+  const { convertedDate } = useInterval(5000, createdAt);
 
   React.useEffect(() => {
     (async () => {
@@ -287,12 +265,15 @@ const Index: React.FC<PostProps> = ({
 
       alert("Update image error");
     } finally {
-      setIsSaveImage(false);
       setIsUploading(false);
     }
   };
 
-  console.log(likes);
+  const onCancelAttachImage = () => {
+    setAttachedImageFormData(null);
+    setAttachedImage(undefined);
+    setPreview("");
+  };
 
   return (
     <div className={styles.container} ref={innerRef}>
@@ -323,7 +304,7 @@ const Index: React.FC<PostProps> = ({
                 <PinIcon className={styles.pinIcon} />
               )}
             </div>
-            <span className={styles.createdAt}>{date}</span>
+            <span className={styles.createdAt}>{convertedDate}</span>
           </div>
         </div>
         {!menuHidden && author?.userId === userData?.id && (
@@ -396,14 +377,23 @@ const Index: React.FC<PostProps> = ({
       {isCommentInputVisible && (
         <form onSubmit={submitComment}>
           {preview && (
-            <Image
-              width={100}
-              height={100}
-              quality={100}
-              className={styles.preview}
-              src={preview}
-              alt="image preview"
-            />
+            <div className={styles.previewBlock}>
+              <Image
+                width={100}
+                height={100}
+                quality={100}
+                className={styles.preview}
+                src={preview}
+                alt="image preview"
+              />
+              <IconButton
+                color="primary"
+                className={styles.closeImageButton}
+                onClick={onCancelAttachImage}
+              >
+                <CrossIcon color="#181F92" />
+              </IconButton>
+            </div>
           )}
           <div className={styles.commentInputFieldBlock}>
             <div className={styles.commentInputField}>
@@ -419,9 +409,6 @@ const Index: React.FC<PostProps> = ({
                 />
                 <AttachImagePopup
                   className={styles.attachImageButton}
-                  handleChangeAvatar={(imageUrl) =>
-                    setAttachedImageUrl(imageUrl)
-                  }
                   handleChangeAttachedImage={handleChangeAttachedImage}
                 />
               </div>

@@ -134,6 +134,7 @@ const Users: NextPage<IUser> = ({
               <FriendsList friends={friends} />
             </div>
           </div>
+          <div className={styles.musicBlock}></div>
           <ProfileActions
             onOpenEdit={() => setIsEditProfileVisible(true)}
             onCloseEdit={() => setIsEditProfileVisible(false)}

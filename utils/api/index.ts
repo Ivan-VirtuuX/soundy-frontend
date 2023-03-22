@@ -21,7 +21,7 @@ export const Api = (
   const token = cookies.authToken;
 
   const instance = axios.create({
-    baseURL: "https://soundy-backend-production.up.railway.app",
+    baseURL: "http://localhost:7777",
     headers: {
       Authorization: "Bearer " + token,
     },

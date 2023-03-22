@@ -1,13 +1,22 @@
 import React from "react";
-import styles from "./CommentItem.module.scss";
+
+import Image from "next/image";
+
 import { ILike, IUser } from "@/api/types";
+import { Api } from "@/api/index";
+
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { Like } from "@/components/ui/Like";
-import { Api } from "@/api/index";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+
 import { isUrl } from "@/utils/isUrl";
-import Image from "next/image";
+
+import { useInterval } from "@/hooks/useInterval";
+
+import styles from "./CommentItem.module.scss";
+import { useRouter } from "next/router";
 
 interface CommentItemProps {
   postId: string;
@@ -30,6 +39,10 @@ export const CommentItem: React.FC<CommentItemProps> = ({
 
   const userData = useAppSelector(selectUserData);
 
+  const router = useRouter();
+
+  const { convertedDate } = useInterval(5000, createdAt);
+
   const onClickLike = async () => {
     try {
       setLikesCount((likesCount) => likesCount + 1);
@@ -50,8 +63,6 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     }
   };
 
-  console.log(text, likes);
-
   return (
     <div className={styles.container}>
       {author?.avatarUrl ? (
@@ -61,18 +72,19 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           className={styles.avatar}
           src={author?.avatarUrl}
           alt="avatar"
+          onClick={() => router.push(`/users/${author?.userId}`)}
         />
       ) : (
-        <EmptyAvatar />
+        <EmptyAvatar
+          handleClick={() => router.push(`/users/${author?.userId}`)}
+        />
       )}
       <div className={styles.content}>
         <div className={styles.head}>
-          <div>
+          <div onClick={() => router.push(`/users/${author?.userId}`)}>
             <span className={styles.name}>{author?.name}</span>
             <span className={styles.surname}>{author?.surname}</span>
-            <span className={styles.createdAt}>
-              {new Date(createdAt)?.toLocaleDateString("ru-Ru")}
-            </span>
+            <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <Like
             isLiked={likes?.some(
@@ -88,7 +100,6 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             }
           />
         </div>
-
         {isUrl(text) ? (
           <Image
             className={styles.commentImage}

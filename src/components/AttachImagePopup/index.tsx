@@ -1,32 +1,34 @@
 import React from "react";
 
-import { Dialog, DialogContent, DialogContentText, IconButton } from "@mui/material";
-
-import { BlueButton } from "@/components/ui/BlueButton";
-
-import styles from "./AttachImagePopup.module.scss";
-import { CloudinaryApi } from "@/api/CloudinaryApi";
-import { AttachImageIcon } from "@/components/ui/Icons/AttachImageIcon";
 import Image from "next/image";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+} from "@mui/material";
+
+import { BlueButton } from "@/components/ui/BlueButton";
+import { AttachImageIcon } from "@/components/ui/Icons/AttachImageIcon";
+
+import styles from "./AttachImagePopup.module.scss";
+
 interface AttachImagePopupProps {
-  handleChangeAvatar: (avatarUrl: string) => void;
   className: string;
   handleChangeAttachedImage: (image: File, imageFormData: FormData) => void;
 }
 
 export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
-  handleChangeAvatar,
   className,
   handleChangeAttachedImage,
 }) => {
-  const [attachedImageFormData, setAttachedImageFormData] =
-    React.useState<FormData>(null);
   const [isChangeAttachImageOpen, setIsChangeAttachImageOpen] =
     React.useState(false);
+  const [attachedImageFormData, setAttachedImageFormData] =
+    React.useState<FormData>(null);
   const [attachedImage, setAttachedImage] = React.useState<File>();
   const [isSaveImage, setIsSaveImage] = React.useState(false);
-  const [isUploading, setIsUploading] = React.useState(false);
   const [preview, setPreview] = React.useState("");
 
   const onCloseImage = async () => {
@@ -41,30 +43,6 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   const attachedImageRef = React.useRef(null);
 
   const onChangeImage = () => attachedImageRef?.current?.click();
-
-  const onSubmitAttachedImage = async () => {
-    try {
-      setIsUploading(true);
-
-      const { data } = await CloudinaryApi().cloudinary.changeImage(
-        attachedImageFormData
-      );
-
-      setIsUploading(false);
-
-      handleChangeAvatar(data.secure_url);
-
-      return data;
-    } catch (err) {
-      console.warn(err);
-
-      alert("Update image error");
-    } finally {
-      setIsSaveImage(false);
-      setIsUploading(false);
-      setIsChangeAttachImageOpen(false);
-    }
-  };
 
   const handleChangeImage = async (files) => {
     try {
