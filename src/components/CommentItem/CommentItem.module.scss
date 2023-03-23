@@ -45,7 +45,10 @@
   font-size: 15px;
   line-height: 17px;
   color: $secondary;
-  font-family: "Nunito", sans-serif;
+
+  &:first-letter {
+    text-transform: uppercase;
+  }
 }
 
 .avatar {

@@ -260,19 +260,11 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   }, [trackSrc]);
 
   React.useEffect(() => {
-    console.log(currentTrackSrc);
-
     if (id !== currentTrack?.id) {
-      handleClickStop();
-
-      onClickPause();
-
       progressBarRef.current && setCurrentTime(0);
 
       if (playerRef.current) playerRef.current.currentTime = 0;
     } else {
-      !searchText && onClickStart();
-
       if (volumeRef.current) {
         volumeRef.current.style.setProperty(
           "--width",
@@ -294,7 +286,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({
         setIsPlaying(false);
       }
     }
-  }, [isTrackPlaying, id]);
+  }, [isTrackPlaying]);
 
   React.useEffect(() => {
     isAddButtonVisible

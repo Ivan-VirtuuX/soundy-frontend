@@ -6,25 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/AttachImagePopup.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/AttachImagePopup.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditProfilePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfilePopup/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/CrossIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CrossIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/SearchInput/SearchInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/SearchInput/SearchInput.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useComments.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useUser.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/music/Music.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/Music.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/music/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dateConverter.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/dateConverter.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +37,23 @@
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -99,7 +84,8 @@
       <workItem from="1679391532186" duration="197000" />
       <workItem from="1679391738615" duration="126000" />
       <workItem from="1679391874452" duration="2907000" />
-      <workItem from="1679456844405" duration="6566000" />
+      <workItem from="1679456844405" duration="6667000" />
+      <workItem from="1679545232842" duration="3820000" />
     </task>
     <servers />
   </component>
