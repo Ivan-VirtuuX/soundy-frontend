@@ -81,9 +81,19 @@ export const CommentItem: React.FC<CommentItemProps> = ({
       )}
       <div className={styles.content}>
         <div className={styles.head}>
-          <div onClick={() => router.push(`/users/${author?.userId}`)}>
-            <span className={styles.name}>{author?.name}</span>
-            <span className={styles.surname}>{author?.surname}</span>
+          <div className={styles.infoBlock}>
+            <span
+              className={styles.name}
+              onClick={() => router.push(`/users/${author?.userId}`)}
+            >
+              {author?.name}
+            </span>
+            <span
+              className={styles.surname}
+              onClick={() => router.push(`/users/${author?.userId}`)}
+            >
+              {author?.surname}
+            </span>
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <Like
