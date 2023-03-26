@@ -11,6 +11,7 @@ interface BlueButtonProps {
   size?: string;
   color?: "primary" | "secondary" | "green";
   className?: string;
+  width?: number;
 }
 
 export const BlueButton: React.FC<BlueButtonProps> = ({
@@ -22,6 +23,7 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
   size,
   color,
   className,
+  width,
 }) => {
   const [isHover, setIsHover] = React.useState(false);
 
@@ -35,6 +37,7 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
           disabled={disabled}
           style={{
             justifyContent: "flex-start",
+            width: width && width,
           }}
         >
           {children}
@@ -47,6 +50,9 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
           className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
+          style={{
+            width: width && width,
+          }}
         >
           <div
             style={{ display: "flex" }}
@@ -69,6 +75,7 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
           style={{
             background: !isHover ? "#E8338B" : "#181F92",
             display: "block",
+            width: width && width,
           }}
         >
           <div
@@ -85,9 +92,12 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
           className={`${styles.blueButton} ${className && className}`}
           onClick={handleClick}
           disabled={disabled}
+          style={{
+            width: width && width,
+          }}
         >
           <div
-            style={{ display: "flex", marginRight: 10 }}
+            style={{ display: "flex", marginRight: children ? 10 : 0 }}
             className={`${disabled ? "blueButtonDisabled" : styles.blueButton}`}
           >
             {children}
@@ -107,6 +117,7 @@ export const BlueButton: React.FC<BlueButtonProps> = ({
           style={{
             background: !isHover ? "#7DCF3C" : "#8A40DB",
             display: "block",
+            width: width && width,
           }}
         >
           <div

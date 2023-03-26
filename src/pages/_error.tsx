@@ -5,10 +5,9 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { Button } from "@material-ui/core";
-
 import errorSticker from "@/images/errorSticker.png";
 import stopSticker from "@/images/stopSticker.png";
+import { BlueButton } from "@/components/ui/BlueButton";
 
 const Error: NextPage = () => {
   const router = useRouter();
@@ -25,9 +24,13 @@ const Error: NextPage = () => {
         <div className="notFoundPageInner">
           <h2>Ошибка 404</h2>
           <p>Страница по данном адресу не существует</p>
-          <Button variant="contained" onClick={() => router.push("/posts")}>
-            На главную
-          </Button>
+          <BlueButton
+            variant="contained"
+            handleClick={() => router.push("/posts")}
+            color="primary"
+            text="На главную"
+            width={243}
+          />
           <div className="stickersBlock">
             <Image src={errorSticker} alt="errorSticker" quality={100} />
             <Image src={stopSticker} alt="stopSticker" quality={100} />

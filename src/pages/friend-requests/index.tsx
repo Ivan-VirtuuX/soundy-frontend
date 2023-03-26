@@ -69,6 +69,7 @@ const FriendRequests: NextPage = ({
                   handleClick={() => router.push("/friends")}
                   text="К списку друзей"
                   color="primary"
+                  width={270}
                 />
               </div>
             ) : (

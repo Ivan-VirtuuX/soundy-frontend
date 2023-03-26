@@ -4,13 +4,23 @@
   width: 740px;
 }
 
+// Head content user info block
+.headContentUserInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .headContentLeftSide {
   display: flex;
+  width: 100%;
 }
 
 .headContent {
   display: flex;
   justify-content: space-between;
+  column-gap: 25px;
 }
 
 .headContentUserInfo {
@@ -18,11 +28,6 @@
 }
 
 .userInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.birthDateBlock {
   display: flex;
   flex-direction: column;
 }
@@ -47,6 +52,11 @@
   margin-top: 5px;
 }
 
+// Friends block
+.friendsBlock {
+  user-select: none;
+}
+
 .friendsBlockTitle {
   font-weight: 700;
   font-size: 20px;
@@ -68,13 +78,12 @@
   color: $secondary;
 }
 
-.birthDateBlockTitle {
-  font-weight: 700;
-  font-size: 25px;
-  line-height: 28px;
-  color: $primary;
+.middleBlock {
+  display: flex;
+  justify-content: space-between;
 }
 
+// Birthdate block
 .birthDateBlockDate {
   font-weight: 700;
   font-size: 20px;
@@ -83,17 +92,29 @@
   margin-top: 5px;
 }
 
-.headContentUserInfo {
+.birthDateBlock {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
+.birthDateBlockTitle,
+.musicBlockTitle {
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 28px;
+  color: $primary;
+  user-select: none;
+}
+
+// Avatar block
 .avatarBlock {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 150px;
+  user-select: none;
+  height: 150px;
 }
 
 .avatar {
@@ -101,4 +122,43 @@
   height: 150px;
   object-fit: cover;
   border-radius: 50%;
+}
+
+// Music block
+.musicBlock {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.musicBlockTracks {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 5px;
+}
+
+.trackCover {
+  border-radius: 50%;
+  position: absolute;
+}
+
+.trackCover:nth-of-type(1) {
+  left: 0;
+  z-index: 1;
+}
+
+.trackCover:nth-of-type(2) {
+  left: 28px;
+  z-index: 2;
+}
+
+.trackCover:nth-of-type(3) {
+  left: 48px;
+  z-index: 3;
+}
+
+.trackCover:nth-of-type(4) {
+  left: 68px;
+  z-index: 4;
 }

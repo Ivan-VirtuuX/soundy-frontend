@@ -32,7 +32,6 @@
 
   div {
     cursor: pointer;
-    user-select: none;
   }
 }
 
@@ -186,6 +185,7 @@
 .avatar {
   border-radius: 50%;
   object-fit: cover;
+  user-select: none;
   cursor: pointer;
 }
 

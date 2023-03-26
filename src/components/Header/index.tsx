@@ -1,16 +1,19 @@
+import React from "react";
+
 import Image from "next/image";
 import { useRouter } from "next/router";
+
+import { destroyCookie } from "nookies";
 
 import logoText from "@/public/images/logoText.svg";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUserData, setUserData } from "@/redux/slices/user";
 
-import { destroyCookie } from "nookies";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 
 import styles from "./Header.module.scss";
-import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import React from "react";
+import { truncateString } from "@/utils/truncateString";
 
 export const Header = () => {
   const [isVisibleUserInfo, setIsVisibleUserInfo] = React.useState(true);
@@ -57,7 +60,9 @@ export const Header = () => {
             )}
             <div onClick={() => router.push(`/users/${userData?.id}`)}>
               <span className={styles.name}>{userData?.name}</span>
-              <span className={styles.surname}>{userData?.surname}</span>
+              <span className={styles.surname}>
+                {truncateString(userData?.surname, 10)}
+              </span>
             </div>
             <svg
               className={styles.logoutButton}

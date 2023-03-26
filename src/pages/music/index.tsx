@@ -7,28 +7,20 @@ import { MainLayout } from "@/layouts/MainLayout";
 
 import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/ui/SearchInput";
-import { TrackItem } from "@/components/TrackItem";
-import { NextTrackIcon } from "@/components/ui/Icons/NextTrackIcon";
-import { PreviousTrackIcon } from "@/components/ui/Icons/PreviousTrackIcon";
-
-import { musicTracks } from "@/musicTracks.data";
-
-import { ITrack } from "@/api/types";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import { Api } from "@/api/index";
-
-import { filterItems } from "@/utils/filterItems";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
+import { musicTracks } from "@/musicTracks.data";
+
 import styles from "./Music.module.scss";
+import { ITrack } from "@/api/types";
 
 const Music: NextPage = () => {
-  const [isCurrentTrackPlaying, setIsCurrentTrackPlaying] =
-    React.useState(false);
-  const [currentTrack, setCurrentTrack] = React.useState<ITrack>();
+  const [playlistTracks, setPlaylistTracks] = React.useState<ITrack[]>();
   const [searchText, setSearchText] = React.useState("");
-  const [userTracks, setUserTracks] = React.useState([]);
 
   const userData = useAppSelector(selectUserData);
 
@@ -37,7 +29,7 @@ const Music: NextPage = () => {
       try {
         const data = await Api().user.getOne(userData?.id);
 
-        setUserTracks(data.playlist);
+        setPlaylistTracks(data.playlist);
       } catch (err) {
         console.warn(err);
       }
@@ -54,88 +46,27 @@ const Music: NextPage = () => {
       </Head>
       <main className={styles.container}>
         <PageTitle pageTitle="Музыка" />
-        <div className={styles.searchBlock}>
+        <div className={styles.musicBlock}>
           <SearchInput
             placeholder="Введите название трека"
             width={600}
             handleChange={(text) => setSearchText(text)}
           />
-          <div className={styles.tracks}>
-            {filterItems(musicTracks, ["artist", "name"], searchText).map(
-              (track) => (
-                <TrackItem
-                  key={track.id}
-                  {...track}
-                  currentTrack={currentTrack}
-                  currentTrackSrc={currentTrack?.trackSrc}
-                  handleClickTrack={(track) => setCurrentTrack(track)}
-                  searchText={searchText}
-                  userTracks={userTracks}
-                  handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-                  handleClickStop={() => setIsCurrentTrackPlaying(false)}
-                  isTrackPlaying={isCurrentTrackPlaying}
-                  handleAddTrack={(track) =>
-                    setUserTracks([...userTracks, track])
-                  }
-                  handleRemoveTrack={(track) =>
-                    setUserTracks([
-                      ...userTracks.filter(
-                        (userTrack) => userTrack.id !== track.id
-                      ),
-                    ])
-                  }
-                />
-              )
-            )}
-            {currentTrack && (
-              <div className={styles.currentTrackBlock}>
-                <div className={styles.trackActionsBlock}>
-                  <PreviousTrackIcon
-                    handleClick={() =>
-                      musicTracks[0].id !== currentTrack.id &&
-                      setCurrentTrack(
-                        musicTracks.find(
-                          (track) => track.id === currentTrack.id - 1
-                        )
-                      )
-                    }
-                  />
-                  <NextTrackIcon
-                    handleClick={() =>
-                      musicTracks[musicTracks.length - 1].id !==
-                        currentTrack.id &&
-                      setCurrentTrack(
-                        musicTracks.find(
-                          (track) => track.id === currentTrack.id + 1
-                        )
-                      )
-                    }
-                  />
-                </div>
-                <TrackItem
-                  {...currentTrack}
-                  currentTrack={currentTrack}
-                  currentTrackSrc={currentTrack?.trackSrc}
-                  handleClickTrack={(track) => setCurrentTrack(track)}
-                  handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-                  handleClickStop={() => setIsCurrentTrackPlaying(false)}
-                  isTrackPlaying={isCurrentTrackPlaying}
-                  userTracks={userTracks}
-                  handleAddTrack={(track) =>
-                    setUserTracks([...userTracks, track])
-                  }
-                  handleRemoveTrack={(track) =>
-                    setUserTracks([
-                      ...userTracks.filter(
-                        (userTrack) => userTrack.id !== track.id
-                      ),
-                    ])
-                  }
-                  muted={false}
-                />
-              </div>
-            )}
-          </div>
+          <MusicPlayer
+            searchText={searchText}
+            tracks={musicTracks}
+            playlistTracks={playlistTracks}
+            handleChangeUserTracks={(track) =>
+              setPlaylistTracks([...playlistTracks, track])
+            }
+            handleRemoveTrack={(track) =>
+              setPlaylistTracks([
+                ...playlistTracks.filter(
+                  (playlistTrack) => playlistTrack.id !== track.id
+                ),
+              ])
+            }
+          />
         </div>
       </main>
     </MainLayout>

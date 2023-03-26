@@ -21,14 +21,13 @@ interface TrackItemProps extends ITrack {
   handleClickTrack: ({ id, name, artist, trackSrc, coverUrl }: ITrack) => void;
   currentTrackSrc: string;
   currentTrack: ITrack;
-  searchText?: string;
   muted?: boolean;
   handleClickPlay: () => void;
   handleClickStop: () => void;
+  playlistTracks: ITrack[];
+  isTrackPlaying?: boolean;
   handleAddTrack: (track: ITrack) => void;
   handleRemoveTrack: (track: ITrack) => void;
-  userTracks: ITrack[];
-  isTrackPlaying?: boolean;
 }
 
 export const TrackItem: React.FC<TrackItemProps> = ({
@@ -40,14 +39,13 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   trackSrc,
   coverUrl,
   currentTrack,
-  searchText,
   muted = true,
   handleClickPlay,
   handleClickStop,
+  playlistTracks,
+  isTrackPlaying,
   handleAddTrack,
   handleRemoveTrack,
-  userTracks,
-  isTrackPlaying,
 }) => {
   const [isAddButtonVisible, setIsAddButtonVisible] = React.useState(false);
   const [isAddedTrack, setIsAddedTrack] = React.useState(false);
@@ -190,8 +188,6 @@ export const TrackItem: React.FC<TrackItemProps> = ({
     try {
       setIsAddedTrack(true);
 
-      handleAddTrack({ id, name, artist, trackSrc, coverUrl });
-
       await Api().user.toggleMusicTrack(
         userData?.id,
         {
@@ -203,6 +199,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
         },
         "add"
       );
+
+      await handleAddTrack({ id, name, artist, trackSrc, coverUrl });
     } catch (err) {
       console.warn(err);
     }
@@ -211,8 +209,6 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   const onRemoveFromUserPlaylist = async () => {
     try {
       setIsAddedTrack(false);
-
-      handleRemoveTrack({ id, name, artist, trackSrc, coverUrl });
 
       await Api().user.toggleMusicTrack(
         userData?.id,
@@ -225,6 +221,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
         },
         "remove"
       );
+
+      await handleRemoveTrack({ id, name, artist, trackSrc, coverUrl });
     } catch (err) {
       console.warn(err);
     }
@@ -243,10 +241,10 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   }, [playerRef?.current?.loadedmetadata, playerRef?.current?.readyState]);
 
   React.useEffect(() => {
-    userTracks?.find((track) => track.id === id)
+    playlistTracks?.find((track) => track.id === id)
       ? setIsAddedTrack(true)
       : setIsAddedTrack(false);
-  }, [trackSrc, userTracks]);
+  }, [trackSrc, playlistTracks]);
 
   React.useEffect(() => {
     if (playerRef.current) {
@@ -285,8 +283,12 @@ export const TrackItem: React.FC<TrackItemProps> = ({
 
         setIsPlaying(false);
       }
+    } else {
+      onClickPause();
+
+      setIsPlaying(false);
     }
-  }, [isTrackPlaying]);
+  }, [currentTrack?.id, isTrackPlaying]);
 
   React.useEffect(() => {
     isAddButtonVisible
@@ -322,16 +324,28 @@ export const TrackItem: React.FC<TrackItemProps> = ({
             width={65}
             height={65}
           />
-          <div className={styles.overlay} />
+          <div
+            className={`${
+              id === currentTrack?.id ? styles.overlayOpen : styles.overlay
+            }`}
+          />
           {isPlaying ? (
             <PauseIcon
               handleClick={onClickPause}
-              className={styles.playButton}
+              className={`${
+                id === currentTrack?.id
+                  ? styles.playButtonOverlayOpen
+                  : styles.playButton
+              }`}
             />
           ) : (
             <PlayIcon
               handleClick={onClickStart}
-              className={styles.playButton}
+              className={`${
+                id === currentTrack?.id
+                  ? styles.playButtonOverlayOpen
+                  : styles.playButton
+              }`}
             />
           )}
         </div>
