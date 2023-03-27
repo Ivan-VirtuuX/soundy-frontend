@@ -1,4 +1,4 @@
-export const PostIcon = ({ color }: { color: string }) => {
+export const PostIcon = ({ color }: { color?: string }) => {
   return (
     <svg
       width="24"

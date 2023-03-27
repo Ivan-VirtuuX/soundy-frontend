@@ -3,8 +3,8 @@ export const MessageIcon = ({
   height,
   color,
 }: {
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
   color?: string;
 }) => {
   return (

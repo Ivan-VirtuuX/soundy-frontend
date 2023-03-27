@@ -21,7 +21,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   const iconsComponents = {
     posts: <PostIcon />,
     profile: <UserIcon />,
-    messages: <MessageIcon />,
+    conversations: <MessageIcon />,
     friends: <UsersIcon />,
     search: <SearchIcon />,
     music: <MusicIcon />,
@@ -30,7 +30,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   return (
     <li
       className={`${styles.link} ${
-        name === "messages" && styles.messagesIcon
+        name === "conversations" && styles.messagesIcon
       } ${
         router.asPath === "/" + name ||
         (name === "friends" && router.asPath === "/friend-requests")

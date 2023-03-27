@@ -1,4 +1,4 @@
-export const UsersIcon = ({ color }: { color: string }) => {
+export const UsersIcon = ({ color }: { color?: string }) => {
   return (
     <svg
       width="24"

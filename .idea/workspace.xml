@@ -6,21 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProfileActions/ProfileActions.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileActions/ProfileActions.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TrackItem/TrackItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrackItem/TrackItem.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrackItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/BlueButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/CrossIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CrossIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/_error.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_error.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friend-requests/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/music/Music.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/Music.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/music/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/MessageIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/MessageIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/MusicIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/MusicIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/PostIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PostIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/UsersIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/UsersIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/truncateString.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/truncateString.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +28,9 @@
   </component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="2NGN5TbknXAQMLgyV8CmfZXYuca" />
   <component name="ProjectLevelVcsManager">
@@ -62,7 +58,7 @@
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "yarn",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -101,7 +97,11 @@
       <workItem from="1679545232842" duration="3977000" />
       <workItem from="1679629190646" duration="1540000" />
       <workItem from="1679745130559" duration="6109000" />
-      <workItem from="1679807435666" duration="10440000" />
+      <workItem from="1679807435666" duration="10748000" />
+      <workItem from="1679889059304" duration="1074000" />
+      <workItem from="1679890718405" duration="1049000" />
+      <workItem from="1679895128547" duration="40000" />
+      <workItem from="1679895281195" duration="2871000" />
     </task>
     <servers />
   </component>

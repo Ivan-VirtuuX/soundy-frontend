@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
   const navItems = [
     { id: 1, text: "Посты", name: "posts" },
     { id: 2, text: "Профиль", name: `users/${userData?.id}` },
-    { id: 3, text: "Сообщения", name: "messages" },
+    { id: 3, text: "Сообщения", name: "conversations" },
     { id: 4, text: "Друзья", name: "friends" },
     { id: 5, text: "Поиск", name: "search" },
     { id: 6, text: "Музыка", name: "music" },

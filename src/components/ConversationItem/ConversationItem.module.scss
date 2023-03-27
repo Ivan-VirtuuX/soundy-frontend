@@ -1,0 +1,29 @@
+@import "@/styles/variables.scss";
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.receiverInfo {
+  display: flex;
+  column-gap: 5px;
+
+  span {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 22px;
+    color: $primary;
+    cursor: pointer;
+  }
+}

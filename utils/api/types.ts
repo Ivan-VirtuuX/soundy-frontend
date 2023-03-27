@@ -82,15 +82,15 @@ export interface ChangeUserDataDto {
   birthDate: Date;
 }
 
-export interface CreatePostDto {
-  body: OutputData["blocks"];
-}
-
 export interface SearchUserDto {
   _name?: string;
   _surname?: string;
   _login?: string;
   _query?: string;
+}
+
+export interface CreatePostDto {
+  body: OutputData["blocks"];
 }
 
 export interface ITrack {
@@ -99,4 +99,18 @@ export interface ITrack {
   artist: string;
   trackSrc: string;
   coverUrl: string;
+}
+
+export interface IConversation {
+  conversationId: string;
+  sender: IUser;
+  receiver: IUser;
+}
+
+export interface IMessage {
+  messageId: string;
+  conversationId: string;
+  sender: IUser;
+  text: string;
+  createdAt: Date;
 }
