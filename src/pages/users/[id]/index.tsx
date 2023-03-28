@@ -48,6 +48,18 @@ const Users: NextPage<IUser> = ({
 
   const userData = useAppSelector(selectUserData);
 
+  const createConversation = async () => {
+    try {
+      const data = await Api().conversation.createConversation({
+        receiver: query.id,
+      });
+
+      await router.push(`/conversations/${data.conversationId}`);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   React.useEffect(() => {
     (async () => {
       setLocalName(name);
@@ -189,6 +201,7 @@ const Users: NextPage<IUser> = ({
             handleChangeName={(text) => setLocalName(text)}
             handleChangeSurname={(text) => setLocalSurname(text)}
             handleChangeBirthDate={(date) => setLocalBirthDate(date)}
+            handleClickMessageButton={createConversation}
             friends={friends}
             isAddFriend={isAddFriend}
             isEditProfileVisible={isEditProfileVisible}

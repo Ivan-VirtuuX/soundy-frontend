@@ -20,8 +20,13 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 import { useRouter } from "next/router";
 import { Api } from "@/api/index";
+import { IMessage } from "@/api/types";
 
-const Conversation: NextPage = () => {
+interface ConversationProps {
+  messages: IMessage[];
+}
+
+const Conversation: NextPage<ConversationProps> = ({ messages }) => {
   const [message, setMessage] = React.useState("");
   const [imageFormData, setImageFormData] = React.useState([]);
   const [attachedImageFormData, setAttachedImageFormData] = React.useState([]);
@@ -31,6 +36,54 @@ const Conversation: NextPage = () => {
   const [isSaveImage, setIsSaveImage] = React.useState(false);
   const [preview, setPreview] = React.useState("");
   const [isUploading, setIsUploading] = React.useState(false);
+  const [localMessages, setLocalMessages] =
+    React.useState<IMessage[]>(messages);
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  const messageContainerRef = React.useRef(null);
+  const contentRef = React.useRef(null);
+
+  const moveUp = [
+    {
+      transform: "translateY(30px)",
+      transition: "all 0.05s ease-in-out",
+    },
+    {
+      transform: "translateY(0px)",
+      transition: "all 0.05s ease-in-out",
+    },
+  ];
+
+  const timing = {
+    duration: 60,
+    iterations: 1,
+  };
+
+  // React.useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       if (conversationId) {
+  //         const data = await Api().message.getAll();
+  //
+  //         setMessages(
+  //           data.filter((message) => message.conversationId === conversationId)
+  //         );
+  //
+  //         setLocalMessages(
+  //           data.filter((message) => message.conversationId === conversationId)
+  //         );
+  //       } else if (!conversationId) {
+  //         const data = await Api().message.getAll();
+  //
+  //         setMessages(data);
+  //       }
+  //     } catch (err) {
+  //       console.warn(err);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   })();
+  // }, [conversationId, isSave]);
 
   const userData = useAppSelector(selectUserData);
 
@@ -48,17 +101,19 @@ const Conversation: NextPage = () => {
     e.preventDefault();
 
     try {
-      setIsUploading(true);
+      if (message) {
+        setIsUploading(true);
 
-      await Api().message.sendMessage({
-        messageId: uuidv4(),
-        conversationId: String(id),
-        sender: { ...userData },
-        text: message,
-        createdAt: new Date(),
-      });
+        await Api().message.sendMessage({
+          messageId: uuidv4(),
+          conversationId: String(id),
+          sender: { ...userData },
+          text: message,
+          createdAt: new Date(),
+        });
 
-      setMessage("");
+        setMessage("");
+      }
     } catch (err) {
       console.warn(err);
     } finally {
@@ -72,23 +127,23 @@ const Conversation: NextPage = () => {
         socket.on("onMessage", async (payload) => {
           const { ...message } = payload;
 
-          // const data = await Api().conversation.getOne(message.conversationId);
+          const data = await Api().conversation.getOne(message.conversationId);
 
-          // if (
-          //   data.receiver.userId === userData.id ||
-          //   data.sender.userId === userData.id
-          // ) {
-          //   setLocalMessages((localMessages) => [...localMessages, message]);
-          // }
+          if (
+            data.receiver?.userId === userData.id ||
+            data.sender?.userId === userData.id
+          ) {
+            setLocalMessages((localMessages) => [...localMessages, message]);
+          }
         });
 
-        // socket.on("onDeleteMessage", (messageId) => {
-        //   setLocalMessages((localMessages) => [
-        //     ...localMessages.filter(
-        //       (message) => message.messageId !== messageId
-        //     ),
-        //   ]);
-        // });
+        socket.on("onDeleteMessage", (messageId) => {
+          setLocalMessages((localMessages) => [
+            ...localMessages.filter(
+              (message) => message.messageId !== messageId
+            ),
+          ]);
+        });
       } catch (err) {
         console.warn(err);
       }
@@ -100,6 +155,10 @@ const Conversation: NextPage = () => {
       socket.off("message");
     };
   }, [socket]);
+
+  React.useEffect(() => {
+    contentRef?.current?.animate(moveUp, timing);
+  }, [localMessages]);
 
   return (
     <MainLayout fullWidth>
@@ -122,12 +181,23 @@ const Conversation: NextPage = () => {
               <span className={styles.nickname}>nickname</span>
             </div>
           </div>
-          <IconButton className={styles.closeButton}>
+          <IconButton
+            className={styles.closeButton}
+            onClick={() => router.push("/conversations")}
+          >
             <CrossIcon size={16} color="#A9A9A9" />
           </IconButton>
         </div>
-        <div className={styles.content}>
-          <MessageItem />
+        <div className={styles.content} ref={contentRef}>
+          {localMessages
+            .map((message) => (
+              <MessageItem
+                key={message.messageId}
+                {...message}
+                innerRef={messageContainerRef}
+              />
+            ))
+            .reverse()}
         </div>
         <div className={styles.bottom}>
           <form
@@ -175,7 +245,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
+  const data = await Api().message.getAll();
+
   return {
-    props: {},
+    props: { messages: data },
   };
 };

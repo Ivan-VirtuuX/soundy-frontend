@@ -1,22 +1,54 @@
 @import "@/styles/variables.scss";
 
-.container {
+.containerLeftSide,
+.containerRightSide {
+  transition: all 0.3s ease-in-out;
+}
+
+.containerLeftSide {
   position: relative;
   background: $lightGraySecondary;
   padding: 10px;
   border-radius: 10px 10px 10px 0;
-  width: 300px;
+  width: fit-content;
+}
+
+.containerRightSide {
+  position: relative;
+  background: $lightGraySecondary;
+  padding: 10px;
+  border-radius: 10px 10px 0 10px;
+  max-width: 100%;
+  align-self: flex-end;
+}
+
+.contentRightSide {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+}
+
+.contentLeftSide {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
 }
 
 .inner {
   display: flex;
-  flex-direction: column;
+  gap: 5px;
 }
 
-.svgAppendix {
+.svgAppendixLeftSide {
   position: absolute;
   bottom: -6px;
   left: -9px;
+}
+
+.svgAppendixRightSide {
+  position: absolute;
+  bottom: -6px;
+  right: -9px;
 }
 
 .text {
@@ -24,12 +56,18 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 18px;
+  word-break: break-all;
 }
 
-.date {
+.date,
+.dateLeftSide {
   font-family: "Nunito", sans-serif;
   font-weight: 500;
   font-size: 13px;
   color: $secondary;
   align-self: flex-end;
+}
+
+.dateLeftSide {
+  align-self: flex-start;
 }

@@ -30,10 +30,11 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   return (
     <li
       className={`${styles.link} ${
-        name === "conversations" && styles.messagesIcon
+        name.includes("conversations") && styles.messagesIcon
       } ${
         router.asPath === "/" + name ||
-        (name === "friends" && router.asPath === "/friend-requests")
+        (name === "friends" && router.asPath === "/friend-requests") ||
+        router.asPath.includes(name)
           ? styles.activeLink
           : styles.defaultLink
       }`}
@@ -42,6 +43,8 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
         <BlueButton variant="transparent" text={text}>
           {name.includes("users")
             ? iconsComponents["profile"]
+            : name.includes("/conversations")
+            ? iconsComponents["conversations"]
             : iconsComponents[name]}
         </BlueButton>
       </Link>

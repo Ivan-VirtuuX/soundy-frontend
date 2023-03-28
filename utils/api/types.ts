@@ -107,23 +107,15 @@ export interface IConversation {
   receiver: IUser;
 }
 
-export type Message = {
+export type IMessage = {
   messageId?: string;
   id?: string;
   conversationId: string;
-  sender?: ResponseUser;
+  sender?: IUser;
   text: string;
   createdAt?: string | Date;
 };
 
 export type ConversationDto = {
-  receiver: string;
+  receiver: string | string[];
 };
-
-export interface IMessage {
-  messageId: string;
-  conversationId: string;
-  sender: IUser;
-  text: string;
-  createdAt: Date;
-}

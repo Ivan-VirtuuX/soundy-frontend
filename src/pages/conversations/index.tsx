@@ -17,119 +17,18 @@ import { selectUserData } from "@/redux/slices/user";
 import { IConversation } from "@/api/types";
 
 import styles from "./Conversations.module.scss";
+import { Api } from "@/api/index";
 
-const Conversations: NextPage = () => {
+interface ConversationsProps {
+  conversations: IConversation[];
+}
+
+const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const [searchText, setSearchText] = React.useState("");
-  const [conversations, setConversations] = React.useState<IConversation[]>([
-    {
-      conversationId: "1",
-      sender: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-      receiver: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-    },
-    {
-      conversationId: "2",
-      sender: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-      receiver: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-    },
-    {
-      conversationId: "3",
-      sender: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-      receiver: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-    },
-    {
-      conversationId: "4",
-      sender: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-      receiver: {
-        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
-        login: "virtuux",
-        name: "Иван",
-        surname: "Данилов",
-        birthDate: new Date("2004-03-18T15:27:10.000Z"),
-        avatarUrl:
-          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
-        friends: [],
-        playlist: [],
-        friendRequests: [],
-      },
-    },
-  ]);
+  const [conversation, setConversation] = React.useState<IConversation>();
+  const [localConversations, setLocalConversations] =
+    React.useState<IConversation[]>(conversations);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const userData = useAppSelector(selectUserData);
 
@@ -147,18 +46,13 @@ const Conversations: NextPage = () => {
         <PageTitle pageTitle="Сообщения" />
         <SearchInput handleChange={(text) => setSearchText(text)} width={600} />
         <div className={styles.conversationsBlock}>
-          {conversations.map((obj) => (
-            <>
-              <ConversationItem
-                key={obj.conversationId}
-                {...obj}
-                messages={[]}
-              />
+          {localConversations?.map((obj) => (
+            <React.Fragment key={obj.conversationId}>
+              <ConversationItem {...obj} />
               {obj.conversationId !==
-                conversations[conversations.length - 1]?.conversationId && (
-                <Line />
-              )}
-            </>
+                localConversations[localConversations.length - 1]
+                  ?.conversationId && <Line />}
+            </React.Fragment>
           ))}
         </div>
       </main>
@@ -177,7 +71,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
+  const data = await Api(ctx).conversation.getAll();
+
   return {
-    props: {},
+    props: { conversations: data },
   };
 };

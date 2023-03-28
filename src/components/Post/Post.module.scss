@@ -133,6 +133,12 @@
 
 .commentInputFieldContainer {
   position: relative;
+
+  padding-right: 40px;
+
+  input {
+    padding-right: 50px;
+  }
 }
 
 .sendCommentButton {

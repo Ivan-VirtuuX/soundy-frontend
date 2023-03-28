@@ -91,22 +91,20 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
 
   return (
     <>
-      <div>
-        <IconButton
-          size="small"
-          className={className}
-          onClick={onClickAttachImageButton}
-        >
-          <input
-            accept="image/*"
-            ref={attachedImageRef}
-            type="file"
-            onChange={(e) => handleChangeImage(e.target.files)}
-            hidden
-          />
-          <AttachImageIcon />
-        </IconButton>
-      </div>
+      <IconButton
+        size="small"
+        className={className}
+        onClick={onClickAttachImageButton}
+      >
+        <input
+          accept="image/*"
+          ref={attachedImageRef}
+          type="file"
+          onChange={(e) => handleChangeImage(e.target.files)}
+          hidden
+        />
+        <AttachImageIcon />
+      </IconButton>
       <Dialog
         open={isChangeAttachImageOpen}
         onClose={() => setIsChangeAttachImageOpen(false)}

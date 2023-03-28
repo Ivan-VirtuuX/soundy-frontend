@@ -32,6 +32,7 @@ interface ProfileActionsProps {
   friends: IUser[];
   handleAddFriend: (isAdd: boolean) => void;
   isAddFriend: boolean;
+  handleClickMessageButton: () => void;
 }
 
 export const ProfileActions: React.FC<ProfileActionsProps> = ({
@@ -47,6 +48,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
   friends,
   handleAddFriend,
   isAddFriend,
+  handleClickMessageButton,
 }) => {
   const [isDeleteFriend, setIsDeleteFriend] = React.useState(false);
   const [isLoadingUserAction, setIsLoadingUserAction] = React.useState(false);
@@ -124,7 +126,11 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
         </>
       )}
       {userData?.id !== query?.id && (
-        <BlueButton size="sm" text="Сообщение">
+        <BlueButton
+          size="sm"
+          text="Сообщение"
+          handleClick={handleClickMessageButton}
+        >
           <MessageIcon width={15} height={15} color="white" />
         </BlueButton>
       )}

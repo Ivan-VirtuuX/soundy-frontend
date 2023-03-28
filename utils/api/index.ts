@@ -36,7 +36,7 @@ export const Api = (
     post: PostApi,
     comment: CommentApi,
     message: MessageApi,
-    conversationId: ConversationApi,
+    conversation: ConversationApi,
   };
 
   return Object.entries(apis).reduce((prev, [key, f]) => {
