@@ -7,11 +7,15 @@ import Cookies, { parseCookies } from "nookies";
 import { UserApi } from "./user";
 import { PostApi } from "./post";
 import { CommentApi } from "./comment";
+import { MessageApi } from "@/api/message";
+import { ConversationApi } from "@/api/conversation";
 
 export type ApiReturnType = {
   user: ReturnType<typeof UserApi>;
   post: ReturnType<typeof PostApi>;
   comment: ReturnType<typeof CommentApi>;
+  message: ReturnType<typeof MessageApi>;
+  conversation: ReturnType<typeof ConversationApi>;
 };
 
 export const Api = (
@@ -31,6 +35,8 @@ export const Api = (
     user: UserApi,
     post: PostApi,
     comment: CommentApi,
+    message: MessageApi,
+    conversationId: ConversationApi,
   };
 
   return Object.entries(apis).reduce((prev, [key, f]) => {

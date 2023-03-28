@@ -126,7 +126,7 @@
 
 .attachImageButton {
   position: absolute !important;
-  top: 10px !important;
+  top: 13px !important;
   right: -15px !important;
   cursor: pointer !important;
 }
@@ -136,7 +136,7 @@
 }
 
 .sendCommentButton {
-  background: $lightGray !important;
+  background: $lightGrayTernary !important;
   width: 47px;
   height: 47px;
 
@@ -185,7 +185,6 @@
 .avatar {
   border-radius: 50%;
   object-fit: cover;
-  user-select: none;
   cursor: pointer;
 }
 

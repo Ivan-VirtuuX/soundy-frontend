@@ -9,7 +9,7 @@ import { Api } from "@/api/index";
 import { ITrack, IUser } from "@/api/types";
 
 import { PageTitle } from "@/components/ui/PageTitle";
-import { SearchInput } from "@/components/ui/SearchInput";
+import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 

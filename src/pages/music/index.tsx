@@ -6,7 +6,7 @@ import Head from "next/head";
 import { MainLayout } from "@/layouts/MainLayout";
 
 import { PageTitle } from "@/components/ui/PageTitle";
-import { SearchInput } from "@/components/ui/SearchInput";
+import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { Api } from "@/api/index";
 

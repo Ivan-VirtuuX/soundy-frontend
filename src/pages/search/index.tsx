@@ -7,7 +7,7 @@ import Head from "next/head";
 import { MainLayout } from "@/layouts/MainLayout";
 
 import { PageTitle } from "@/components/ui/PageTitle";
-import { SearchInput } from "@/components/ui/SearchInput";
+import { SearchInput } from "@/components/SearchInput";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { UsersIcon } from "@/components/ui/Icons/UsersIcon";
 import { PostIcon } from "@/components/ui/Icons/PostIcon";

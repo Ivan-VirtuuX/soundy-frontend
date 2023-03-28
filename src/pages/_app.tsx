@@ -18,6 +18,7 @@ import "@/styles/nprogress.scss";
 import NProgress from "nprogress";
 
 import "@/styles/globals.scss";
+import { socket, SocketContext } from "@/utils/SocketContext";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   Router.events.on("routeChangeStart", (url) => {
@@ -33,9 +34,11 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   return (
     <>
       {router.asPath !== "/" && <Header />}
-      <MuiThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </MuiThemeProvider>
+      <SocketContext.Provider value={socket}>
+        <MuiThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </MuiThemeProvider>
+      </SocketContext.Provider>
     </>
   );
 };

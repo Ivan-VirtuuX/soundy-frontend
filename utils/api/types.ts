@@ -107,6 +107,19 @@ export interface IConversation {
   receiver: IUser;
 }
 
+export type Message = {
+  messageId?: string;
+  id?: string;
+  conversationId: string;
+  sender?: ResponseUser;
+  text: string;
+  createdAt?: string | Date;
+};
+
+export type ConversationDto = {
+  receiver: string;
+};
+
 export interface IMessage {
   messageId: string;
   conversationId: string;

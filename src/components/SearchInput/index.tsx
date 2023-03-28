@@ -17,6 +17,7 @@ export const SearchInput = ({
 
   const onChangeSearchInput = (e) => {
     setValue(e.target.value);
+
     handleChange(e.target.value);
   };
 

@@ -6,7 +6,7 @@ import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { SearchInput } from "@/components/ui/SearchInput";
+import { SearchInput } from "@/components/SearchInput";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";

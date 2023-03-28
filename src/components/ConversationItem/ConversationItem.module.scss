@@ -3,6 +3,19 @@
 .container {
   display: flex;
   justify-content: space-between;
+  padding: 15px;
+  border-radius: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  margin-bottom: 20px;
+
+  &:hover {
+    background: $lightGray;
+  }
 }
 
 .leftSide {
@@ -13,6 +26,13 @@
 
 .avatar {
   border-radius: 50%;
+}
+
+.leftSideText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 
 .receiverInfo {
@@ -26,4 +46,17 @@
     color: $primary;
     cursor: pointer;
   }
+}
+
+.lastMessageText {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  color: $darkGray;
+}
+
+.lastMessageDate {
+  font-weight: 700;
+  font-size: 20px;
+  color: $secondary;
 }

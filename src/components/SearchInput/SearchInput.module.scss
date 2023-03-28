@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   align-items: center;
+  user-select: none;
 
   svg {
     position: absolute;

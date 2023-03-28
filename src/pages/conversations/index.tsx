@@ -2,23 +2,108 @@ import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { MainLayout } from "@/layouts/MainLayout";
-import { PageTitle } from "@/components/ui/PageTitle";
 
-import styles from "./Conversations.module.scss";
-import { SearchInput } from "@/components/ui/SearchInput";
-import { useRouter } from "next/router";
+import { PageTitle } from "@/components/ui/PageTitle";
+import { SearchInput } from "@/components/SearchInput";
+import { ConversationItem } from "@/components/ConversationItem";
+import { Line } from "@/components/ui/Line";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { ConversationItem } from "@/components/ConversationItem";
+
 import { IConversation } from "@/api/types";
+
+import styles from "./Conversations.module.scss";
 
 const Conversations: NextPage = () => {
   const [searchText, setSearchText] = React.useState("");
   const [conversations, setConversations] = React.useState<IConversation[]>([
     {
       conversationId: "1",
+      sender: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+      receiver: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+    },
+    {
+      conversationId: "2",
+      sender: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+      receiver: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+    },
+    {
+      conversationId: "3",
+      sender: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+      receiver: {
+        userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
+        login: "virtuux",
+        name: "Иван",
+        surname: "Данилов",
+        birthDate: new Date("2004-03-18T15:27:10.000Z"),
+        avatarUrl:
+          "https://res.cloudinary.com/virtuux/image/upload/v1678860078/znfkvx9tp695zt5blze5.jpg",
+        friends: [],
+        playlist: [],
+        friendRequests: [],
+      },
+    },
+    {
+      conversationId: "4",
       sender: {
         userId: "c0c07f9a-0b1e-45a9-9833-047be0f1c39d",
         login: "virtuux",
@@ -61,9 +146,19 @@ const Conversations: NextPage = () => {
       <main className={styles.container}>
         <PageTitle pageTitle="Сообщения" />
         <SearchInput handleChange={(text) => setSearchText(text)} width={600} />
-        <div className={styles.messagesBlock}>
+        <div className={styles.conversationsBlock}>
           {conversations.map((obj) => (
-            <ConversationItem key={obj.conversationId} {...obj} messages={[]} />
+            <>
+              <ConversationItem
+                key={obj.conversationId}
+                {...obj}
+                messages={[]}
+              />
+              {obj.conversationId !==
+                conversations[conversations.length - 1]?.conversationId && (
+                <Line />
+              )}
+            </>
           ))}
         </div>
       </main>
