@@ -2,8 +2,8 @@ export const CheckMarkIcon = ({
   color,
   size,
 }: {
-  color: string;
-  size: number;
+  color?: string;
+  size?: number;
 }) => {
   return (
     <svg

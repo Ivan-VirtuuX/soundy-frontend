@@ -6,14 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NotificationWindow/NotificationWindow.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationWindow/NotificationWindow.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/SocketContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/SocketContext.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/conversation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/conversation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/CheckMarkIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/CheckMarkIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/PlusIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/PlusIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
