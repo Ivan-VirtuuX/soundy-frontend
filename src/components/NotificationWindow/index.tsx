@@ -114,7 +114,7 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
               )
             }
           >
-            {truncateString(notificationMessage?.text, 15)}
+            {truncateString(notificationMessage?.content.text, 15)}
           </p>
         </div>
       </div>

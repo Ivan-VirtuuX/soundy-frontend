@@ -22,7 +22,7 @@ export const ConversationApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async getMessages(conversationId: string) {
+  async getMessages(conversationId: string | string[]) {
     const { data } = await instance.get<IMessage[]>(
       `/conversations/${conversationId}/messages`
     );

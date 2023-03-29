@@ -36,6 +36,7 @@ const Conversation: NextPage<ConversationProps> = ({
   messages,
   sender,
   receiver,
+  conversationId,
 }) => {
   const [message, setMessage] = React.useState("");
   const [imageFormData, setImageFormData] = React.useState([]);
@@ -183,13 +184,17 @@ const Conversation: NextPage<ConversationProps> = ({
         socket.on("onMessage", async (payload) => {
           const { ...message } = payload;
 
-          const data = await Api().conversation.getOne(message.conversationId);
+          if (conversationId === message.conversationId) {
+            const data = await Api().conversation.getOne(
+              message.conversationId
+            );
 
-          if (
-            data.receiver?.userId === userData.id ||
-            data.sender?.userId === userData.id
-          ) {
-            setLocalMessages((localMessages) => [...localMessages, message]);
+            if (
+              data.receiver?.userId === userData.id ||
+              data.sender?.userId === userData.id
+            ) {
+              setLocalMessages((localMessages) => [...localMessages, message]);
+            }
           }
         });
 
@@ -357,7 +362,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     };
   }
-  const data = await Api().message.getAll();
+  const data = await Api().conversation.getMessages(ctx.query.id);
 
   const conversation = await Api(ctx).conversation.getOne(ctx.query.id);
 
