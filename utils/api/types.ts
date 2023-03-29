@@ -112,8 +112,8 @@ export type IMessage = {
   id?: string;
   conversationId: string;
   sender?: IUser;
-  text: string;
-  createdAt?: string | Date;
+  content: { text?: string; imageUrl?: string };
+  createdAt?: Date;
 };
 
 export type ConversationDto = {

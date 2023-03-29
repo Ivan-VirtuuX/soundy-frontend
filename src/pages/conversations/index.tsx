@@ -2,7 +2,6 @@ import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
@@ -11,13 +10,11 @@ import { SearchInput } from "@/components/SearchInput";
 import { ConversationItem } from "@/components/ConversationItem";
 import { Line } from "@/components/ui/Line";
 
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-
 import { IConversation } from "@/api/types";
+import { Api } from "@/api/index";
 
 import styles from "./Conversations.module.scss";
-import { Api } from "@/api/index";
+import { socket } from "@/utils/SocketContext";
 
 interface ConversationsProps {
   conversations: IConversation[];
@@ -25,14 +22,30 @@ interface ConversationsProps {
 
 const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const [searchText, setSearchText] = React.useState("");
-  const [conversation, setConversation] = React.useState<IConversation>();
   const [localConversations, setLocalConversations] =
     React.useState<IConversation[]>(conversations);
-  const [isLoading, setIsLoading] = React.useState(true);
 
-  const userData = useAppSelector(selectUserData);
+  React.useEffect(() => {
+    (async () => {
+      try {
+        socket.on("onMessage", async (payload) => {
+          const { ...message } = payload;
 
-  const router = useRouter();
+          const data = await Api().conversation.getAll();
+
+          setLocalConversations(data);
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    })();
+
+    return () => {
+      socket.off("onMessage");
+      socket.off("onDeleteMessage");
+      socket.off("message");
+    };
+  }, [socket]);
 
   return (
     <MainLayout fullWidth>

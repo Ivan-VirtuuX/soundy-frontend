@@ -63,3 +63,9 @@
   font-size: 20px;
   color: $secondary;
 }
+
+.imageMessageBlock {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}

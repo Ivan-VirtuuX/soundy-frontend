@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { ConversationDto, IConversation } from "./types";
+import { ConversationDto, IConversation, IMessage } from "./types";
 
 export const ConversationApi = (instance: AxiosInstance) => ({
   async createConversation(dto: ConversationDto) {
@@ -14,7 +14,7 @@ export const ConversationApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async getOne(conversationId: string) {
+  async getOne(conversationId: string | string[]) {
     const { data } = await instance.get<IConversation>(
       `/conversations/${conversationId}`
     );
@@ -23,7 +23,7 @@ export const ConversationApi = (instance: AxiosInstance) => ({
   },
 
   async getMessages(conversationId: string) {
-    const { data } = await instance.get<IConversation>(
+    const { data } = await instance.get<IMessage[]>(
       `/conversations/${conversationId}/messages`
     );
 

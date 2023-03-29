@@ -12,27 +12,26 @@ import { Post } from "@/components/Post";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { usePosts } from "@/hooks/usePosts";
 
 import { IMessage, IPost } from "@/api/types";
 import { Api } from "@/api/index";
 
-import styles from "./Posts.module.scss";
 import { socket } from "@/utils/SocketContext";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import { truncateString } from "@/utils/truncateString";
-import { IconButton } from "@mui/material";
-import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+
+import styles from "./Posts.module.scss";
 
 const Posts: NextPage = () => {
-  const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
-  const [page, setPage] = React.useState(1);
-  const [isLoading, setIsLoading] = React.useState(false);
   const [notificationMessage, setNotificationMessage] =
     React.useState<IMessage>(null);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
+  const [page, setPage] = React.useState(1);
 
   const { posts, setPosts } = usePosts(newPosts, page);
 
@@ -43,54 +42,7 @@ const Posts: NextPage = () => {
     triggerOnce: true,
   });
 
-  const notificationBlockRef = React.useRef(null);
-
-  const moveUp = [
-    {
-      opacity: 0,
-      transition: "opacity 0.5s ease-in-out",
-    },
-    {
-      opacity: 100,
-      transition: "opacity 0.5s ease-in-out",
-    },
-  ];
-
-  const moveDown = [
-    {
-      opacity: 100,
-      transition: "opacity 0.5s ease-in-out",
-    },
-    {
-      opacity: 0,
-      transition: "opacity 0.5s ease-in-out",
-    },
-  ];
-
   const userData = useAppSelector(selectUserData);
-
-  const onCloseNotification = () => {
-    notificationBlockRef?.current?.animate(moveDown, 100);
-
-    setTimeout(() => {
-      setNotificationMessage(null);
-    }, 100);
-  };
-
-  React.useEffect(() => {
-    notificationMessage &&
-      setTimeout(() => {
-        notificationBlockRef?.current?.animate(moveDown, 1000);
-
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 900);
-      }, 5000);
-  }, [notificationMessage]);
-
-  React.useEffect(() => {
-    notificationMessage && notificationBlockRef?.current?.animate(moveUp, 100);
-  }, [notificationMessage]);
 
   React.useEffect(() => {
     (async () => {
@@ -176,58 +128,10 @@ const Posts: NextPage = () => {
           </div>
         )}
         {notificationMessage && (
-          <div className={styles.notificationBlock} ref={notificationBlockRef}>
-            <div className={styles.notificationBlockInner}>
-              {notificationMessage?.sender?.avatarUrl ? (
-                <img
-                  className={styles.notificationUserAvatar}
-                  src={notificationMessage.sender.avatarUrl}
-                  alt="user avatar"
-                  onClick={() =>
-                    router.push(
-                      `/conversations/${notificationMessage.conversationId}`
-                    )
-                  }
-                />
-              ) : (
-                <EmptyAvatar width={50} />
-              )}
-              <div className={styles.notificationBlockRightSide}>
-                <div className={styles.notificationBlockContent}>
-                  <span
-                    onClick={() =>
-                      router.push(
-                        `/conversations/${notificationMessage.conversationId}`
-                      )
-                    }
-                  >
-                    {notificationMessage?.sender?.name}
-                  </span>
-                  <span
-                    onClick={() =>
-                      router.push(
-                        `/conversations/${notificationMessage.conversationId}`
-                      )
-                    }
-                  >
-                    {notificationMessage?.sender?.surname}
-                  </span>
-                  <IconButton onClick={onCloseNotification}>
-                    <CrossIcon color="#898989" />
-                  </IconButton>
-                </div>
-                <p
-                  onClick={() =>
-                    router.push(
-                      `/conversations/${notificationMessage.conversationId}`
-                    )
-                  }
-                >
-                  {truncateString(notificationMessage?.text, 15)}
-                </p>
-              </div>
-            </div>
-          </div>
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
         )}
       </main>
     </MainLayout>

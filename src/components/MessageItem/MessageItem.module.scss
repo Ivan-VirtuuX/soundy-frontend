@@ -18,7 +18,7 @@
   background: $lightGraySecondary;
   padding: 10px;
   border-radius: 10px 10px 0 10px;
-  max-width: 100%;
+  width: fit-content;
   align-self: flex-end;
 }
 
@@ -36,6 +36,7 @@
 
 .inner {
   display: flex;
+  flex-direction: column;
   gap: 5px;
 }
 
@@ -70,4 +71,13 @@
 
 .dateLeftSide {
   align-self: flex-start;
+}
+
+.messageImage {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 5px;
+  width: 350px;
+  height: auto;
+  object-fit: cover;
 }

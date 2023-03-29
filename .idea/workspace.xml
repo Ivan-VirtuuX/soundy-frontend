@@ -11,16 +11,13 @@
       <change beforePath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MessageItem/MessageItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/MessageItem.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/conversations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/conversation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/conversation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/message.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/message.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -121,7 +118,8 @@
       <workItem from="1679895128547" duration="40000" />
       <workItem from="1679895281195" duration="2898000" />
       <workItem from="1679975883669" duration="8110000" />
-      <workItem from="1680016953182" duration="13881000" />
+      <workItem from="1680016953182" duration="13961000" />
+      <workItem from="1680060227326" duration="10855000" />
     </task>
     <servers />
   </component>

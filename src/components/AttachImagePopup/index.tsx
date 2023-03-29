@@ -106,7 +106,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
         <AttachImageIcon />
       </IconButton>
       <Dialog
-        open={isChangeAttachImageOpen}
+        open={isChangeAttachImageOpen && !!attachedImage}
         onClose={() => setIsChangeAttachImageOpen(false)}
         fullWidth
         maxWidth="sm"

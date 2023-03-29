@@ -1,35 +1,46 @@
 import React, { useContext } from "react";
 
 import { GetServerSideProps, NextPage } from "next";
-import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/router";
 import Head from "next/head";
+
+import { v4 as uuidv4 } from "uuid";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
 import { MessageItem } from "@/components/MessageItem";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { AttachImagePopup } from "@/components/AttachImagePopup";
+import { SendIcon } from "@/components/ui/Icons/SendIcon";
 
 import { IconButton } from "@mui/material";
 
-import styles from "./Conversation.module.scss";
-import { AttachImagePopup } from "@/components/AttachImagePopup";
-import { SendIcon } from "@/components/ui/Icons/SendIcon";
 import { SocketContext } from "@/utils/SocketContext";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { useRouter } from "next/router";
-import { Api } from "@/api/index";
-import { IMessage } from "@/api/types";
 
-interface ConversationProps {
+import { Api } from "@/api/index";
+import { IConversation, IMessage } from "@/api/types";
+
+import styles from "./Conversation.module.scss";
+import { CloudinaryApi } from "@/api/CloudinaryApi";
+import Image from "next/image";
+
+interface ConversationProps extends IConversation {
   messages: IMessage[];
 }
 
-const Conversation: NextPage<ConversationProps> = ({ messages }) => {
+const Conversation: NextPage<ConversationProps> = ({
+  messages,
+  sender,
+  receiver,
+}) => {
   const [message, setMessage] = React.useState("");
   const [imageFormData, setImageFormData] = React.useState([]);
-  const [attachedImageFormData, setAttachedImageFormData] = React.useState([]);
+  const [attachedImageFormData, setAttachedImageFormData] =
+    React.useState<FormData>();
   const [image, setImage] = React.useState<File>();
   const [attachedImage, setAttachedImage] = React.useState<File>();
   const [isSave, setIsSave] = React.useState(false);
@@ -42,6 +53,17 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
 
   const messageContainerRef = React.useRef(null);
   const contentRef = React.useRef(null);
+
+  const userData = useAppSelector(selectUserData);
+
+  const socket = useContext(SocketContext);
+
+  const router = useRouter();
+
+  const { id } = router.query;
+
+  const conversationUser =
+    receiver?.userId === userData?.id ? sender : receiver;
 
   const moveUp = [
     {
@@ -59,41 +81,38 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
     iterations: 1,
   };
 
-  // React.useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       if (conversationId) {
-  //         const data = await Api().message.getAll();
-  //
-  //         setMessages(
-  //           data.filter((message) => message.conversationId === conversationId)
-  //         );
-  //
-  //         setLocalMessages(
-  //           data.filter((message) => message.conversationId === conversationId)
-  //         );
-  //       } else if (!conversationId) {
-  //         const data = await Api().message.getAll();
-  //
-  //         setMessages(data);
-  //       }
-  //     } catch (err) {
-  //       console.warn(err);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   })();
-  // }, [conversationId, isSave]);
+  const handleChangeAttachImage = (image: File, imageFormData: FormData) => {
+    setAttachedImage(image);
+    setAttachedImageFormData(imageFormData);
+    setIsSaveImage(true);
+  };
 
-  const userData = useAppSelector(selectUserData);
+  const onSubmitAttachedImage = async () => {
+    try {
+      setIsUploading(true);
 
-  const socket = useContext(SocketContext);
+      const { data } = await CloudinaryApi().cloudinary.changeImage(
+        attachedImageFormData
+      );
 
-  const router = useRouter();
+      setIsUploading(false);
 
-  const { id } = router.query;
+      return data;
+    } catch (err) {
+      console.warn(err);
+      alert("Update image error");
+    } finally {
+      setIsSaveImage(false);
+      setIsUploading(false);
+    }
+  };
 
-  const handleChangeAttachedImage = () => {};
+  const onCancelAttachImage = () => {
+    setAttachedImageFormData(null);
+    setAttachedImage(undefined);
+    setIsSaveImage(false);
+    setPreview("");
+  };
 
   const handleSubmitNewMessage = async (
     e: React.FormEvent<HTMLFormElement>
@@ -101,18 +120,55 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
     e.preventDefault();
 
     try {
-      if (message) {
-        setIsUploading(true);
+      setIsUploading(true);
 
-        await Api().message.sendMessage({
-          messageId: uuidv4(),
-          conversationId: String(id),
-          sender: { ...userData },
-          text: message,
-          createdAt: new Date(),
-        });
+      if (isSaveImage && message) {
+        const { secure_url } = await onSubmitAttachedImage();
 
-        setMessage("");
+        if (secure_url) {
+          await Api().message.sendMessage({
+            messageId: uuidv4(),
+            conversationId: String(id),
+            sender: { ...userData },
+            content: { text: message, imageUrl: secure_url },
+            createdAt: new Date(),
+          });
+
+          setAttachedImageFormData(null);
+          setPreview("");
+          setMessage("");
+        }
+      } else {
+        if (isSaveImage) {
+          const { secure_url } = await onSubmitAttachedImage();
+
+          if (secure_url) {
+            await Api().message.sendMessage({
+              messageId: uuidv4(),
+              conversationId: String(id),
+              sender: { ...userData },
+              content: { imageUrl: secure_url },
+              createdAt: new Date(),
+            });
+
+            setAttachedImageFormData(null);
+            setPreview("");
+          }
+        }
+
+        if (message) {
+          setIsUploading(true);
+
+          await Api().message.sendMessage({
+            messageId: uuidv4(),
+            conversationId: String(id),
+            sender: { ...userData },
+            content: { text: message },
+            createdAt: new Date(),
+          });
+
+          setMessage("");
+        }
       }
     } catch (err) {
       console.warn(err);
@@ -160,10 +216,24 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
     contentRef?.current?.animate(moveUp, timing);
   }, [localMessages]);
 
+  React.useEffect(() => {
+    if (attachedImage) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPreview(reader.result as string);
+      };
+
+      reader.readAsDataURL(attachedImage);
+    } else {
+      setPreview(null);
+    }
+  }, [attachedImage]);
+
   return (
     <MainLayout fullWidth>
       <Head>
-        <title>name surname</title>
+        <title>Сообщения</title>
         <meta name="description" content="Generated by create next app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicons/favicon.ico" />
@@ -171,14 +241,32 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
       <main className={styles.container}>
         <div className={styles.head}>
           <div className={styles.leftSide}>
-            <EmptyAvatar className={styles.avatar} />
-            {/*<Image src={} alt="avatar"/>*/}
-            <div className={styles.userInfo}>
+            {conversationUser.avatarUrl ? (
+              <img
+                className={styles.avatar}
+                src={conversationUser.avatarUrl}
+                alt="avatar"
+                onClick={() =>
+                  router.push(`/users/${conversationUser?.userId}`)
+                }
+              />
+            ) : (
+              <EmptyAvatar
+                width={40}
+                handleClick={() =>
+                  router.push(`/users/${conversationUser?.userId}`)
+                }
+              />
+            )}
+            <div
+              className={styles.userInfo}
+              onClick={() => router.push(`/users/${conversationUser?.userId}`)}
+            >
               <div className={styles.nameSurname}>
-                <span>Name</span>
-                <span>Surname</span>
+                <span>{conversationUser.name}</span>
+                <span>{conversationUser.surname}</span>
               </div>
-              <span className={styles.nickname}>nickname</span>
+              <span className={styles.nickname}>{conversationUser.login}</span>
             </div>
           </div>
           <IconButton
@@ -201,32 +289,56 @@ const Conversation: NextPage<ConversationProps> = ({ messages }) => {
         </div>
         <div className={styles.bottom}>
           <form
-            className={styles.messageInputFieldBlock}
             onSubmit={handleSubmitNewMessage}
+            className={preview && styles.bottomPreviewOpened}
           >
-            <div className={styles.messageInputField}>
-              <div className={styles.messageInputFieldContainer}>
-                <input
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setMessage(e.target.value)
-                  }
-                  value={message}
-                  type="text"
-                  placeholder="Cообщение"
-                />
-                <AttachImagePopup
-                  className={styles.attachImageButton}
-                  handleChangeAttachedImage={handleChangeAttachedImage}
-                />
+            {preview && (
+              <div style={{ marginTop: preview ? 20 : 0 }}>
+                <div className={styles.previewBlock}>
+                  <Image
+                    width={100}
+                    height={100}
+                    quality={100}
+                    className={styles.preview}
+                    src={preview}
+                    alt="image preview"
+                  />
+                  <IconButton
+                    color="primary"
+                    className={styles.closeImageButton}
+                    onClick={onCancelAttachImage}
+                  >
+                    <CrossIcon color="#181F92" />
+                  </IconButton>
+                </div>
               </div>
+            )}
+            <div className={styles.messageInputFieldBlock}>
+              <div className={styles.messageInputField}>
+                <div className={styles.messageInputFieldContainer}>
+                  <input
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setMessage(e.target.value)
+                    }
+                    value={message}
+                    type="text"
+                    placeholder="Cообщение"
+                  />
+                  <AttachImagePopup
+                    className={styles.attachImageButton}
+                    handleChangeAttachedImage={handleChangeAttachImage}
+                  />
+                </div>
+              </div>
+              <IconButton
+                type="submit"
+                size="large"
+                className={styles.sendMessageButton}
+                disabled={isUploading}
+              >
+                <SendIcon />
+              </IconButton>
             </div>
-            <IconButton
-              type="submit"
-              size="large"
-              className={styles.sendMessageButton}
-            >
-              <SendIcon />
-            </IconButton>
           </form>
         </div>
       </main>
@@ -247,7 +359,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
   const data = await Api().message.getAll();
 
+  const conversation = await Api(ctx).conversation.getOne(ctx.query.id);
+
   return {
-    props: { messages: data },
+    props: { messages: data, ...conversation },
   };
 };

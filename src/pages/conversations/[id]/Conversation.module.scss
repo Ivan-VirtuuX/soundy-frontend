@@ -6,9 +6,8 @@
   box-shadow: 0 0 27px rgba(0, 0, 0, 0.1);
   padding: 25px;
   height: calc(100vh - 150px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: 60px 2fr;
 }
 
 .head {
@@ -23,10 +22,19 @@
   column-gap: 10px;
 }
 
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
 .userInfo {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .nameSurname {
@@ -75,6 +83,7 @@
 
 .bottom {
   margin-top: 20px;
+  position: relative;
 }
 
 .messageInputField {
@@ -133,4 +142,30 @@
     height: 20px;
     width: 20px;
   }
+}
+
+.preview {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.previewBlock {
+  position: relative;
+}
+
+.closeImageButton {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50% !important;
+}
+
+.bottomPreviewOpened {
+  display: flex;
+  flex-direction: column-reverse;
 }

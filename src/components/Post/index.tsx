@@ -148,8 +148,6 @@ const Index: React.FC<PostProps> = ({
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      console.log(attachedImageFormData);
-
       try {
         if (attachedImageFormData) {
           const { secure_url } = await onSubmitAttachImage();

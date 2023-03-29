@@ -4,6 +4,9 @@ import styles from "./MessageItem.module.scss";
 import { IMessage } from "@/api/types";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { Api } from "@/api/index";
 
 interface MessageItemProps extends IMessage {
   innerRef: React.Ref<HTMLDivElement>;
@@ -11,21 +14,73 @@ interface MessageItemProps extends IMessage {
 
 export const MessageItem: React.FC<MessageItemProps> = ({
   sender,
-  text,
+  content,
   createdAt,
   innerRef,
+  messageId,
 }) => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
   const userData = useAppSelector(selectUserData);
+
+  const onShowMessageActions = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    setAnchorEl(e.currentTarget);
+  };
+
+  const onHideMessageActions = () => {
+    setAnchorEl(null);
+  };
+
+  const onDeleteMessage = async () => {
+    try {
+      await Api().message.deleteMessage(messageId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   return (
     <>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={!!anchorEl}
+        onClose={onHideMessageActions}
+      >
+        <MenuItem onClick={onDeleteMessage}>Удалить</MenuItem>
+      </Menu>
       {sender?.id === userData.id || sender?.userId === userData.id ? (
-        <div className={styles.containerRightSide} ref={innerRef}>
+        <div
+          onContextMenu={onShowMessageActions}
+          className={styles.containerRightSide}
+          ref={innerRef}
+          style={{ padding: content.imageUrl ? "0 0 10px 0" : 10 }}
+        >
           <div className={styles.contentRightSide}>
             <div className={styles.inner}>
-              <p className={styles.text}>{text}</p>
+              {content.imageUrl && (
+                <img
+                  className={styles.messageImage}
+                  src={content.imageUrl}
+                  alt="comment image"
+                />
+              )}
+              {content.text && (
+                <p
+                  className={styles.text}
+                  style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+                >
+                  {content.text}
+                </p>
+              )}
             </div>
-            <p className={styles.date}>
+            <p
+              className={styles.date}
+              style={{ marginRight: content.imageUrl ? 10 : 0 }}
+            >
               {new Date(createdAt).toLocaleTimeString("ru-Ru", {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -60,12 +115,33 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           </div>
         </div>
       ) : (
-        <div className={styles.containerLeftSide} ref={innerRef}>
+        <div
+          className={styles.containerLeftSide}
+          ref={innerRef}
+          style={{ padding: content.imageUrl ? "0 0 10px 0" : 10 }}
+        >
           <div className={styles.contentLeftSide}>
             <div className={styles.inner}>
-              <p className={styles.text}>{text}</p>
+              {content.imageUrl && (
+                <img
+                  className={styles.messageImage}
+                  src={content.imageUrl}
+                  alt="comment image"
+                />
+              )}
+              {content.text && (
+                <p
+                  className={styles.text}
+                  style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+                >
+                  {content.text}
+                </p>
+              )}
             </div>
-            <p className={styles.dateLeftSide}>
+            <p
+              className={styles.dateLeftSide}
+              style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+            >
               {new Date(createdAt).toLocaleTimeString("ru-Ru", {
                 hour: "2-digit",
                 minute: "2-digit",
