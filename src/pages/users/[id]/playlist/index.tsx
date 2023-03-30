@@ -12,10 +12,16 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
+import { NotificationWindow } from "@/components/NotificationWindow";
+
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+
+import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "@/pages/music/Music.module.scss";
 
-const Music: NextPage = ({
+const Playlist: NextPage = ({
   userTracks,
   user,
 }: {
@@ -25,6 +31,12 @@ const Music: NextPage = ({
   const [playlistTracks, setPlaylistTracks] =
     React.useState<ITrack[]>(userTracks);
   const [searchText, setSearchText] = React.useState("");
+
+  const userData = useAppSelector(selectUserData);
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
 
   return (
     <MainLayout fullWidth>
@@ -65,12 +77,18 @@ const Music: NextPage = ({
             style={{ marginTop: 20 }}
           />
         )}
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );
 };
 
-export default Music;
+export default Playlist;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!ctx.req.cookies.authToken) {

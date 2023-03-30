@@ -16,19 +16,17 @@ import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { usePosts } from "@/hooks/usePosts";
 
-import { IMessage, IPost } from "@/api/types";
+import { IPost } from "@/api/types";
 import { Api } from "@/api/index";
-
-import { socket } from "@/utils/SocketContext";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import styles from "./Posts.module.scss";
+import { useNotifications } from "@/hooks/useNotifications";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Posts: NextPage = () => {
-  const [notificationMessage, setNotificationMessage] =
-    React.useState<IMessage>(null);
   const [isLoading, setIsLoading] = React.useState(false);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
@@ -43,6 +41,12 @@ const Posts: NextPage = () => {
   });
 
   const userData = useAppSelector(selectUserData);
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
+
+  const [parent] = useAutoAnimate();
 
   React.useEffect(() => {
     (async () => {
@@ -68,33 +72,6 @@ const Posts: NextPage = () => {
     })();
   }, [inView]);
 
-  React.useEffect(() => {
-    (async () => {
-      try {
-        socket.on("onMessage", async (payload) => {
-          const { ...message } = payload;
-
-          const data = await Api().conversation.getOne(message.conversationId);
-
-          if (
-            data.receiver?.userId === userData.id ||
-            data.sender?.userId === userData.id
-          ) {
-            setNotificationMessage(message);
-          }
-        });
-      } catch (err) {
-        console.warn(err);
-      }
-    })();
-
-    return () => {
-      socket.off("onMessage");
-      socket.off("onDeleteMessage");
-      socket.off("message");
-    };
-  }, [socket]);
-
   return (
     <MainLayout fullWidth>
       <Head>
@@ -110,18 +87,21 @@ const Posts: NextPage = () => {
             <PencilIcon width={17} height={17} />
           </BlueButton>
         </div>
-        {posts.map((post) => (
-          <Post
-            handleDelete={(postId: string) =>
-              setPosts((posts) => [
-                ...posts.filter((post) => post.postId !== postId),
-              ])
-            }
-            innerRef={ref}
-            {...post}
-            key={post.postId}
-          />
-        ))}
+        <ul ref={parent}>
+          {posts.map((post) => (
+            <li key={post.postId}>
+              <Post
+                handleDelete={(postId: string) =>
+                  setPosts((posts) => [
+                    ...posts.filter((post) => post.postId !== postId),
+                  ])
+                }
+                innerRef={ref}
+                {...post}
+              />
+            </li>
+          ))}
+        </ul>
         {isLoading && (
           <div className={styles.loadSpinner}>
             <InfinitySpin width="200" color="#181F92" />

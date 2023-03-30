@@ -13,6 +13,10 @@ import { IUser } from "@/api/types";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
+import { useNotifications } from "@/hooks/useNotifications";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 const Friends: NextPage = ({
   friends,
@@ -21,6 +25,12 @@ const Friends: NextPage = ({
   friends: IUser[];
   user: IUser;
 }) => {
+  const userData = useAppSelector(selectUserData);
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
+
   return (
     <MainLayout fullWidth>
       <Head>
@@ -45,6 +55,12 @@ const Friends: NextPage = ({
             )}
           </div>
         </div>
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );

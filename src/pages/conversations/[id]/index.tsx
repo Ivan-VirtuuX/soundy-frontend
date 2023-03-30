@@ -11,8 +11,7 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { MessageItem } from "@/components/MessageItem";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
-import { AttachImagePopup } from "@/components/AttachImagePopup";
-import { SendIcon } from "@/components/ui/Icons/SendIcon";
+import { InputField } from "@/components/InputField";
 
 import { IconButton } from "@mui/material";
 
@@ -23,10 +22,11 @@ import { selectUserData } from "@/redux/slices/user";
 
 import { Api } from "@/api/index";
 import { IConversation, IMessage } from "@/api/types";
+import { CloudinaryApi } from "@/api/CloudinaryApi";
+
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./Conversation.module.scss";
-import { CloudinaryApi } from "@/api/CloudinaryApi";
-import Image from "next/image";
 
 interface ConversationProps extends IConversation {
   messages: IMessage[];
@@ -38,19 +38,14 @@ const Conversation: NextPage<ConversationProps> = ({
   receiver,
   conversationId,
 }) => {
-  const [message, setMessage] = React.useState("");
-  const [imageFormData, setImageFormData] = React.useState([]);
   const [attachedImageFormData, setAttachedImageFormData] =
     React.useState<FormData>();
-  const [image, setImage] = React.useState<File>();
-  const [attachedImage, setAttachedImage] = React.useState<File>();
-  const [isSave, setIsSave] = React.useState(false);
-  const [isSaveImage, setIsSaveImage] = React.useState(false);
-  const [preview, setPreview] = React.useState("");
-  const [isUploading, setIsUploading] = React.useState(false);
   const [localMessages, setLocalMessages] =
     React.useState<IMessage[]>(messages);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [attachedImage, setAttachedImage] = React.useState<File>();
+  const [isUploading, setIsUploading] = React.useState(false);
+  const [message, setMessage] = React.useState("");
+  const [preview, setPreview] = React.useState("");
 
   const messageContainerRef = React.useRef(null);
   const contentRef = React.useRef(null);
@@ -62,6 +57,8 @@ const Conversation: NextPage<ConversationProps> = ({
   const router = useRouter();
 
   const { id } = router.query;
+
+  const [parent] = useAutoAnimate();
 
   const conversationUser =
     receiver?.userId === userData?.id ? sender : receiver;
@@ -82,12 +79,6 @@ const Conversation: NextPage<ConversationProps> = ({
     iterations: 1,
   };
 
-  const handleChangeAttachImage = (image: File, imageFormData: FormData) => {
-    setAttachedImage(image);
-    setAttachedImageFormData(imageFormData);
-    setIsSaveImage(true);
-  };
-
   const onSubmitAttachedImage = async () => {
     try {
       setIsUploading(true);
@@ -101,18 +92,14 @@ const Conversation: NextPage<ConversationProps> = ({
       return data;
     } catch (err) {
       console.warn(err);
-      alert("Update image error");
     } finally {
-      setIsSaveImage(false);
       setIsUploading(false);
     }
   };
 
-  const onCancelAttachImage = () => {
-    setAttachedImageFormData(null);
-    setAttachedImage(undefined);
-    setIsSaveImage(false);
-    setPreview("");
+  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
+    setAttachedImage(image);
+    setAttachedImageFormData(imageFormData);
   };
 
   const handleSubmitNewMessage = async (
@@ -123,7 +110,7 @@ const Conversation: NextPage<ConversationProps> = ({
     try {
       setIsUploading(true);
 
-      if (isSaveImage && message) {
+      if (attachedImageFormData && message) {
         const { secure_url } = await onSubmitAttachedImage();
 
         if (secure_url) {
@@ -140,7 +127,7 @@ const Conversation: NextPage<ConversationProps> = ({
           setMessage("");
         }
       } else {
-        if (isSaveImage) {
+        if (attachedImageFormData) {
           const { secure_url } = await onSubmitAttachedImage();
 
           if (secure_url) {
@@ -221,20 +208,6 @@ const Conversation: NextPage<ConversationProps> = ({
     contentRef?.current?.animate(moveUp, timing);
   }, [localMessages]);
 
-  React.useEffect(() => {
-    if (attachedImage) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-
-      reader.readAsDataURL(attachedImage);
-    } else {
-      setPreview(null);
-    }
-  }, [attachedImage]);
-
   return (
     <MainLayout fullWidth>
       <Head>
@@ -246,7 +219,7 @@ const Conversation: NextPage<ConversationProps> = ({
       <main className={styles.container}>
         <div className={styles.head}>
           <div className={styles.leftSide}>
-            {conversationUser.avatarUrl ? (
+            {conversationUser?.avatarUrl ? (
               <img
                 className={styles.avatar}
                 src={conversationUser.avatarUrl}
@@ -268,10 +241,10 @@ const Conversation: NextPage<ConversationProps> = ({
               onClick={() => router.push(`/users/${conversationUser?.userId}`)}
             >
               <div className={styles.nameSurname}>
-                <span>{conversationUser.name}</span>
-                <span>{conversationUser.surname}</span>
+                <span>{conversationUser?.name}</span>
+                <span>{conversationUser?.surname}</span>
               </div>
-              <span className={styles.nickname}>{conversationUser.login}</span>
+              <span className={styles.nickname}>{conversationUser?.login}</span>
             </div>
           </div>
           <IconButton
@@ -281,70 +254,39 @@ const Conversation: NextPage<ConversationProps> = ({
             <CrossIcon size={16} color="#A9A9A9" />
           </IconButton>
         </div>
-        <div className={styles.content} ref={contentRef}>
+        <ul className={styles.content} ref={parent}>
           {localMessages
             .map((message) => (
               <MessageItem
                 key={message.messageId}
                 {...message}
                 innerRef={messageContainerRef}
+                nextMessageSenderId={
+                  localMessages[
+                    localMessages?.findIndex(
+                      (msg) => msg.messageId === message.messageId
+                    ) + 1
+                  ]?.sender?.userId
+                }
               />
             ))
             .reverse()}
-        </div>
+        </ul>
         <div className={styles.bottom}>
-          <form
-            onSubmit={handleSubmitNewMessage}
-            className={preview && styles.bottomPreviewOpened}
-          >
-            {preview && (
-              <div style={{ marginTop: preview ? 20 : 0 }}>
-                <div className={styles.previewBlock}>
-                  <Image
-                    width={100}
-                    height={100}
-                    quality={100}
-                    className={styles.preview}
-                    src={preview}
-                    alt="image preview"
-                  />
-                  <IconButton
-                    color="primary"
-                    className={styles.closeImageButton}
-                    onClick={onCancelAttachImage}
-                  >
-                    <CrossIcon color="#181F92" />
-                  </IconButton>
-                </div>
-              </div>
-            )}
-            <div className={styles.messageInputFieldBlock}>
-              <div className={styles.messageInputField}>
-                <div className={styles.messageInputFieldContainer}>
-                  <input
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setMessage(e.target.value)
-                    }
-                    value={message}
-                    type="text"
-                    placeholder="Cообщение"
-                  />
-                  <AttachImagePopup
-                    className={styles.attachImageButton}
-                    handleChangeAttachedImage={handleChangeAttachImage}
-                  />
-                </div>
-              </div>
-              <IconButton
-                type="submit"
-                size="large"
-                className={styles.sendMessageButton}
-                disabled={isUploading}
-              >
-                <SendIcon />
-              </IconButton>
-            </div>
-          </form>
+          <InputField
+            text={message}
+            handleChangeText={(text) => setMessage(text)}
+            handleChangeAttachedImage={handleChangeAttachedImage}
+            handleChangeAttachedImageFormData={(data) =>
+              setAttachedImageFormData(data)
+            }
+            handleChangeAttachImage={(image) => setAttachedImage(image)}
+            handleChangePreview={(preview) => setPreview(preview)}
+            handleSubmit={handleSubmitNewMessage}
+            isUploading={isUploading}
+            attachedImage={attachedImage}
+            preview={preview}
+          />
         </div>
       </main>
     </MainLayout>

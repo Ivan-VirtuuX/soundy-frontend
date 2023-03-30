@@ -9,6 +9,7 @@ import { PreviousTrackIcon } from "@/components/ui/Icons/PreviousTrackIcon";
 import { NextTrackIcon } from "@/components/ui/Icons/NextTrackIcon";
 
 import styles from "./MusicPlayer.module.scss";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface MusicPlayerProps {
   searchText?: string;
@@ -29,38 +30,42 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({
     React.useState(false);
   const [currentTrack, setCurrentTrack] = React.useState<ITrack>();
 
+  const [parent] = useAutoAnimate();
+
   return (
-    <div className={styles.tracks}>
+    <ul className={styles.tracks} ref={parent}>
       {searchText
         ? filterItems(tracks, ["artist", "name"], searchText).map((track) => (
-            <TrackItem
-              key={track.id}
-              {...track}
-              currentTrack={currentTrack}
-              currentTrackSrc={currentTrack?.trackSrc}
-              handleClickTrack={(track) => setCurrentTrack(track)}
-              playlistTracks={playlistTracks}
-              handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-              handleClickStop={() => setIsCurrentTrackPlaying(false)}
-              isTrackPlaying={isCurrentTrackPlaying}
-              handleAddTrack={(track) => handleChangeUserTracks(track)}
-              handleRemoveTrack={(track) => handleRemoveTrack(track)}
-            />
+            <li key={track.id}>
+              <TrackItem
+                {...track}
+                currentTrack={currentTrack}
+                currentTrackSrc={currentTrack?.trackSrc}
+                handleClickTrack={(track) => setCurrentTrack(track)}
+                playlistTracks={playlistTracks}
+                handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                isTrackPlaying={isCurrentTrackPlaying}
+                handleAddTrack={(track) => handleChangeUserTracks(track)}
+                handleRemoveTrack={(track) => handleRemoveTrack(track)}
+              />
+            </li>
           ))
         : tracks.map((track) => (
-            <TrackItem
-              key={track.id}
-              {...track}
-              currentTrack={currentTrack}
-              currentTrackSrc={currentTrack?.trackSrc}
-              handleClickTrack={(track) => setCurrentTrack(track)}
-              playlistTracks={playlistTracks}
-              handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-              handleClickStop={() => setIsCurrentTrackPlaying(false)}
-              isTrackPlaying={isCurrentTrackPlaying}
-              handleAddTrack={(track) => handleChangeUserTracks(track)}
-              handleRemoveTrack={(track) => handleRemoveTrack(track)}
-            />
+            <li key={track.id}>
+              <TrackItem
+                {...track}
+                currentTrack={currentTrack}
+                currentTrackSrc={currentTrack?.trackSrc}
+                handleClickTrack={(track) => setCurrentTrack(track)}
+                playlistTracks={playlistTracks}
+                handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+                handleClickStop={() => setIsCurrentTrackPlaying(false)}
+                isTrackPlaying={isCurrentTrackPlaying}
+                handleAddTrack={(track) => handleChangeUserTracks(track)}
+                handleRemoveTrack={(track) => handleRemoveTrack(track)}
+              />
+            </li>
           ))}
       {currentTrack && (
         <div className={styles.currentTrackBlock}>
@@ -103,6 +108,6 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({
           />
         </div>
       )}
-    </div>
+    </ul>
   );
 };

@@ -1,26 +1,41 @@
 import React from "react";
+
+import { useRouter } from "next/router";
+
 import { IConversation, IMessage, IUser } from "@/api/types";
-import styles from "./ConversationItem.module.scss";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import { useRouter } from "next/router";
-import { Api } from "@/api/index";
+
+import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
+
 import { truncateString } from "@/utils/truncateString";
+
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { ImageIcon } from "@/components/ui/ImageIcon";
+import { KebabMenu } from "@/components/ui/KebabMenu";
+
+import { socket } from "@/utils/SocketContext";
+
+import styles from "./ConversationItem.module.scss";
+import { Api } from "@/api/index";
 
 interface ConversationItemProps extends IConversation {
   sender: IUser;
   receiver: IUser;
   conversationId: string;
+  handleDeleteConversation: (conversationId: string) => void;
 }
 
 export const ConversationItem: React.FC<ConversationItemProps> = ({
   sender,
   receiver,
   conversationId,
+  handleDeleteConversation,
 }) => {
   const [lastMessage, setLastMessage] = React.useState<IMessage>(null);
+
+  const kebabMenuRef = React.useRef(null);
 
   const userData = useAppSelector(selectUserData);
 
@@ -29,30 +44,55 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const conversationUser =
     receiver?.userId === userData?.id ? sender : receiver;
 
+  const { isActionsVisible, onMouseOver, onMouseLeave } =
+    useTransitionOpacity(kebabMenuRef);
+
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await Api().conversation.getMessages(conversationId);
+        const messages = await Api().conversation.getMessages(conversationId);
 
-        setLastMessage(data[data.length - 1]);
+        setLastMessage(messages[messages.length - 1]);
       } catch (err) {
         console.warn(err);
       }
     })();
   }, []);
 
+  React.useEffect(() => {
+    (async () => {
+      try {
+        socket.on("onMessage", async (payload) => {
+          const { ...message } = payload;
+
+          setLastMessage(message);
+        });
+      } catch (err) {
+        console.warn(err);
+      }
+    })();
+
+    return () => {
+      socket.off("onMessage");
+      socket.off("onDeleteMessage");
+      socket.off("message");
+    };
+  }, [socket]);
+
   return (
     <div
       className={styles.container}
-      onClick={() => router.push(`/conversations/${conversationId}`)}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
     >
-      <div className={styles.leftSide}>
-        {receiver.userId === userData.id && sender.avatarUrl ? (
-          <img className={styles.avatar} src={sender.avatarUrl} alt="avatar" />
-        ) : sender.userId === userData.id ? (
+      <div
+        className={styles.leftSide}
+        onClick={() => router.push(`/conversations/${conversationId}`)}
+      >
+        {conversationUser.avatarUrl ? (
           <img
             className={styles.avatar}
-            src={receiver.avatarUrl}
+            src={conversationUser.avatarUrl}
             alt="avatar"
           />
         ) : (
@@ -61,7 +101,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
         <div className={styles.leftSideText}>
           <div className={styles.receiverInfo}>
             <span>{conversationUser.name}</span>
-            <span>{conversationUser.surname}</span>
+            <span>{truncateString(conversationUser.surname, 10)}</span>
           </div>
           <p className={styles.lastMessageText}>
             {lastMessage?.sender.userId === userData?.id &&
@@ -79,9 +119,19 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
           </p>
         </div>
       </div>
-      <span className={styles.lastMessageDate}>
-        {new Date(lastMessage?.createdAt)?.toLocaleDateString()}
-      </span>
+      <div className={styles.rightSide}>
+        {isActionsVisible && (
+          <KebabMenu
+            handleDelete={() => handleDeleteConversation(conversationId)}
+            innerRef={kebabMenuRef}
+          />
+        )}
+        {lastMessage?.createdAt && (
+          <span className={styles.lastMessageDate}>
+            {new Date(lastMessage?.createdAt)?.toLocaleDateString()}
+          </span>
+        )}
+      </div>
     </div>
   );
 };

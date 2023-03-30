@@ -17,12 +17,18 @@ import { musicTracks } from "@/musicTracks.data";
 
 import styles from "./Music.module.scss";
 import { ITrack } from "@/api/types";
+import { NotificationWindow } from "@/components/NotificationWindow";
+import { useNotifications } from "@/hooks/useNotifications";
 
 const Music: NextPage = () => {
   const [playlistTracks, setPlaylistTracks] = React.useState<ITrack[]>();
   const [searchText, setSearchText] = React.useState("");
 
   const userData = useAppSelector(selectUserData);
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
 
   React.useEffect(() => {
     (async () => {
@@ -68,6 +74,12 @@ const Music: NextPage = () => {
             }
           />
         </div>
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );

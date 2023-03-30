@@ -11,6 +11,7 @@ import { Post } from "@/components/Post";
 import { Button } from "@material-ui/core";
 
 import styles from "./SearchedData.module.scss";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface SearchedDataProps {
   searchQuery: string;
@@ -41,6 +42,8 @@ export const SearchedData: React.FC<SearchedDataProps> = ({
     threshold: 1,
     triggerOnce: true,
   });
+
+  const [parent] = useAutoAnimate({ disrespectUserMotionPreference: true });
 
   const loadMoreResults = React.useCallback(
     async (pageNumber) => {
@@ -106,6 +109,12 @@ export const SearchedData: React.FC<SearchedDataProps> = ({
     [handleLoading, handleSearchedData, searchQuery, searchedData, type]
   );
 
+  const onClickNextButton = async () => {
+    await loadMoreResults(localPage === 0 ? 2 : localPage + 1);
+
+    setIsNextButtonVisible(false);
+  };
+
   React.useEffect(() => {
     setLocalPage(1);
   }, [type]);
@@ -146,12 +155,6 @@ export const SearchedData: React.FC<SearchedDataProps> = ({
     })();
   }, [inView]);
 
-  const onClickNextButton = async () => {
-    await loadMoreResults(localPage === 0 ? 2 : localPage + 1);
-
-    setIsNextButtonVisible(false);
-  };
-
   return (
     <>
       {type === "users" && searchedData.length !== 0 ? (
@@ -166,11 +169,13 @@ export const SearchedData: React.FC<SearchedDataProps> = ({
           ))}
         </div>
       ) : (
-        <div>
+        <ul ref={parent}>
           {searchedData.map((post) => (
-            <Post key={post.postId} {...post} innerRef={ref} menuHidden />
+            <li key={post.postId}>
+              <Post {...post} innerRef={ref} menuHidden />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
       {type === "users" &&
         isNextButtonVisible &&

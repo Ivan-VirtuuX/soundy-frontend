@@ -1,4 +1,4 @@
-import React, { Ref } from "react";
+import React from "react";
 
 import { useRouter } from "next/router";
 
@@ -11,6 +11,7 @@ import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
 import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
 import styles from "./UserItem.module.scss";
+import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 interface UserItemProps {
   userId: string;
@@ -25,7 +26,6 @@ interface UserItemProps {
   isConfirmed?: boolean;
   isCancelled?: boolean;
   menuHidden?: boolean;
-  innerRef?: Ref<HTMLDivElement>;
 }
 
 export const UserItem: React.FC<UserItemProps> = ({
@@ -41,13 +41,18 @@ export const UserItem: React.FC<UserItemProps> = ({
   isConfirmed,
   isCancelled,
   menuHidden,
-  innerRef,
 }) => {
   const router = useRouter();
 
+  const friendItemRef = React.useRef(null);
+
+  const { isActionsVisible, onMouseOver, onMouseLeave } =
+    useTransitionOpacity(friendItemRef);
+
   return (
     <div
-      ref={innerRef}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
       className={styles.container}
       style={{
         marginTop: type === "requestFriends" && 20,
@@ -116,8 +121,11 @@ export const UserItem: React.FC<UserItemProps> = ({
           )}
         </div>
       </div>
-      {type !== "requestFriends" && !menuHidden && (
-        <KebabMenu handleDelete={() => handleDelete(userId)} />
+      {isActionsVisible && type !== "requestFriends" && !menuHidden && (
+        <KebabMenu
+          innerRef={friendItemRef}
+          handleDelete={() => handleDelete(userId)}
+        />
       )}
     </div>
   );

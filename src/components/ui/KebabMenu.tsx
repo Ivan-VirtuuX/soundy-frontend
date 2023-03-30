@@ -1,10 +1,9 @@
 import React from "react";
+
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { MoreHoriz } from "@material-ui/icons";
-
-const options = ["Удалить"];
 
 const ITEM_HEIGHT = 48;
 
@@ -13,11 +12,13 @@ export const KebabMenu = ({
   handlePin,
   isPinned,
   isVisiblePin,
+  innerRef,
 }: {
   handleDelete?: () => void;
   handlePin?: () => void;
   isPinned?: boolean;
   isVisiblePin?: boolean;
+  innerRef?: React.Ref<HTMLDivElement>;
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -37,7 +38,7 @@ export const KebabMenu = ({
   };
 
   return (
-    <div>
+    <div ref={innerRef}>
       <IconButton
         aria-label="more"
         aria-controls="long-menu"

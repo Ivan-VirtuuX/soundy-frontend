@@ -2,8 +2,6 @@ import React from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import { useInView } from "react-intersection-observer";
 
-import { useRouter } from "next/router";
-
 import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { Post } from "@/components/Post";
@@ -12,17 +10,19 @@ import { IPost } from "@/api/types";
 import { Api } from "@/api/index";
 
 import { usePosts } from "@/hooks/usePosts";
-
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import styles from "./UserPosts.module.scss";
 
 interface UserPostsProps {
   pinnedPost: IPost;
   handleChangePinnedPost: (post: IPost) => void;
+  userId?: string | string[];
 }
 
 export const UserPosts: React.FC<UserPostsProps> = ({
   pinnedPost,
   handleChangePinnedPost,
+  userId,
 }) => {
   const [filteredPosts, setFilteredPosts] = React.useState<IPost[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -34,9 +34,9 @@ export const UserPosts: React.FC<UserPostsProps> = ({
     triggerOnce: true,
   });
 
-  const { query } = useRouter();
+  const { posts } = usePosts(newPosts, page, pinnedPost, userId);
 
-  const { posts } = usePosts(newPosts, page, pinnedPost, query?.id);
+  const [parent] = useAutoAnimate();
 
   const onDeletePost = (postId: string) => {
     pinnedPost?.postId === postId
@@ -51,7 +51,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await Api().post.getPinnedPost(query?.id);
+        const data = await Api().post.getPinnedPost(userId);
 
         if (data[0]) {
           setFilteredPosts([
@@ -59,7 +59,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
             ...posts.filter((post) => post.postId !== data[0].postId),
           ]);
         } else {
-          const data = await Api().post.getUserPosts(page, query?.id);
+          const data = await Api().post.getUserPosts(page, userId);
 
           setFilteredPosts([
             ...filteredPosts
@@ -71,7 +71,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
         console.warn(err);
       }
     })();
-  }, [posts, query?.id]);
+  }, [posts, userId]);
 
   React.useEffect(() => {
     (async () => {
@@ -80,7 +80,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
           if (inView && posts.length) {
             setIsLoading(true);
 
-            const data = await Api().post.getUserPosts(page, query?.id);
+            const data = await Api().post.getUserPosts(page, userId);
 
             setNewPosts(data);
 
@@ -95,27 +95,32 @@ export const UserPosts: React.FC<UserPostsProps> = ({
         }
       }
     })();
-  }, [inView, query?.id]);
+  }, [inView, userId]);
 
   return (
-    <div className={styles.posts}>
+    <div>
       <PageTitle pageTitle="Посты" marginBottom={20} marginTop={15} />
-      {!filteredPosts.length ? (
-        <NullResultsBlock text="Список постов пуст" />
-      ) : (
-        filteredPosts.map((post) => (
-          <Post
-            {...post}
-            key={post?.postId}
-            handleDelete={onDeletePost}
-            handlePin={(postId) =>
-              post?.postId === postId && handleChangePinnedPost(post)
-            }
-            pinned={post?.postId === pinnedPost?.postId}
-            innerRef={ref}
-          />
-        ))
-      )}
+      <ul className={styles.posts} ref={parent}>
+        {!filteredPosts.length ? (
+          <li>
+            <NullResultsBlock text="Список постов пуст" />
+          </li>
+        ) : (
+          filteredPosts.map((post) => (
+            <li key={post.postId}>
+              <Post
+                {...post}
+                handleDelete={onDeletePost}
+                handlePin={(postId) =>
+                  post?.postId === postId && handleChangePinnedPost(post)
+                }
+                pinned={post?.postId === pinnedPost?.postId}
+                innerRef={ref}
+              />
+            </li>
+          ))
+        )}
+      </ul>
       {isLoading && (
         <div>
           <InfinitySpin width="200" color="#181F92" />

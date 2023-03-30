@@ -12,6 +12,7 @@
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   margin-bottom: 20px;
+  align-items: center;
 
   &:hover {
     background: $lightGray;
@@ -68,4 +69,10 @@
   display: flex;
   align-items: center;
   column-gap: 5px;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }

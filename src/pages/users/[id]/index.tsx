@@ -22,6 +22,8 @@ import { UserPosts } from "@/components/UserPosts";
 
 import styles from "./Users.module.scss";
 import { truncateString } from "@/utils/truncateString";
+import { useNotifications } from "@/hooks/useNotifications";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 const Users: NextPage<IUser> = ({
   login,
@@ -32,8 +34,9 @@ const Users: NextPage<IUser> = ({
   friends,
   friendRequests,
 }) => {
+  const [isLoadingConversation, setIsLoadingConversation] =
+    React.useState(false);
   const [isEditProfileVisible, setIsEditProfileVisible] = React.useState(false);
-
   const [localBirthDate, setLocalBirthDate] = React.useState(birthDate);
   const [localSurname, setLocalSurname] = React.useState(surname);
   const [isAddFriend, setIsAddFriend] = React.useState(false);
@@ -44,19 +47,29 @@ const Users: NextPage<IUser> = ({
 
   const router = useRouter();
 
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    router.query.id
+  );
+
   const { query } = useRouter();
 
   const userData = useAppSelector(selectUserData);
 
   const createConversation = async () => {
     try {
+      setIsLoadingConversation(true);
+
       const data = await Api().conversation.createConversation({
         receiver: query.id,
       });
 
       await router.push(`/conversations/${data.conversationId}`);
+
+      setIsLoadingConversation(false);
     } catch (err) {
       console.warn(err);
+    } finally {
+      setIsLoadingConversation(false);
     }
   };
 
@@ -93,7 +106,7 @@ const Users: NextPage<IUser> = ({
         console.warn(err);
       }
     })();
-  }, []);
+  }, [query.id]);
 
   return (
     <MainLayout fullWidth>
@@ -156,7 +169,7 @@ const Users: NextPage<IUser> = ({
                   {userTracks.length !== 0 && (
                     <div
                       className={styles.musicBlock}
-                      onClick={() => router.push(`/users/${query.id}/music`)}
+                      onClick={() => router.push(`/users/${query.id}/playlist`)}
                     >
                       <span className={styles.musicBlockTitle}>Музыка</span>
                       <div className={styles.musicBlockTracks}>
@@ -208,13 +221,21 @@ const Users: NextPage<IUser> = ({
             localName={localName}
             localSurname={localSurname}
             localBirthDate={localBirthDate}
+            isLoadingConversation={isLoadingConversation}
           />
           <Line />
         </div>
         <UserPosts
           handleChangePinnedPost={(post) => setPinnedPost(post)}
           pinnedPost={pinnedPost}
+          userId={query.id}
         />
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );

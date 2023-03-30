@@ -12,6 +12,7 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { ArrowRightIcon } from "@/components/ui/Icons/ArrowRightIcon";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
@@ -21,7 +22,10 @@ import { selectUserData } from "@/redux/slices/user";
 
 import { filterItems } from "@/utils/filterItems";
 
+import { useNotifications } from "@/hooks/useNotifications";
+
 import styles from "./Friends.module.scss";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const Friends: NextPage = () => {
   const [searchText, setSearchText] = React.useState("");
@@ -30,6 +34,22 @@ const Friends: NextPage = () => {
   const userData = useAppSelector(selectUserData);
 
   const router = useRouter();
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
+
+  const [parent] = useAutoAnimate();
+
+  const onDeleteFriend = async (userId: string) => {
+    try {
+      setFriends([...friends.filter((friend) => friend.userId !== userId)]);
+
+      await Api().user.deleteFriend(userData?.id, userId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
 
   React.useEffect(() => {
     (async () => {
@@ -42,16 +62,6 @@ const Friends: NextPage = () => {
       }
     })();
   }, []);
-
-  const onDeleteFriend = async (userId: string) => {
-    try {
-      setFriends([...friends.filter((friend) => friend.userId !== userId)]);
-
-      await Api().user.deleteFriend(userData?.id, userId);
-    } catch (err) {
-      console.warn(err);
-    }
-  };
 
   return (
     <MainLayout fullWidth>
@@ -77,9 +87,10 @@ const Friends: NextPage = () => {
           {!friends.length ? (
             <NullResultsBlock text="Список друзей пуст" />
           ) : (
-            <div
+            <ul
               className={styles.friendsBlock}
               style={{ gridTemplateColumns: friends?.length < 3 && "1fr" }}
+              ref={parent}
             >
               {searchText
                 ? filterItems(
@@ -87,24 +98,37 @@ const Friends: NextPage = () => {
                     ["name", "surname", "login"],
                     searchText
                   ).map((friend) => (
-                    <UserItem
-                      key={friend.userId}
-                      handleDelete={(userId: string) => onDeleteFriend(userId)}
-                      type="friends"
-                      {...friend}
-                    />
+                    <li key={friend.userId}>
+                      <UserItem
+                        handleDelete={(userId: string) =>
+                          onDeleteFriend(userId)
+                        }
+                        type="friends"
+                        {...friend}
+                      />
+                    </li>
                   ))
                 : friends?.map((friend) => (
-                    <UserItem
-                      key={friend.userId}
-                      handleDelete={(userId: string) => onDeleteFriend(userId)}
-                      {...friend}
-                      type="friends"
-                    />
+                    <li key={friend.userId}>
+                      <UserItem
+                        key={friend.userId}
+                        handleDelete={(userId: string) =>
+                          onDeleteFriend(userId)
+                        }
+                        {...friend}
+                        type="friends"
+                      />
+                    </li>
                   ))}
-            </div>
+            </ul>
           )}
         </div>
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );

@@ -2,9 +2,8 @@ import React, { FormEvent, Ref } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
-import Image from "next/image";
 
-import { IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 import { Line } from "../ui/Line";
 
@@ -22,9 +21,7 @@ import { Views } from "@/components/ui/Views";
 import { CommentItem } from "@/components/CommentItem";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { PinIcon } from "@/components/ui/Icons/PinIcon";
-import { SendIcon } from "@/components/ui/Icons/SendIcon";
-import { AttachImagePopup } from "@/components/AttachImagePopup";
-import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { InputField } from "@/components/InputField";
 
 import { useInterval } from "@/hooks/useInterval";
 
@@ -55,9 +52,8 @@ const Index: React.FC<PostProps> = ({
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
   const [isShowComments, setIsShowComments] = React.useState(false);
-  const [attachedImage, setAttachedImage] = React.useState<File>();
   const [localComments, setLocalComments] = React.useState<IComment[]>([]);
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [attachedImage, setAttachedImage] = React.useState<File>();
   const [isUploading, setIsUploading] = React.useState(false);
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
@@ -65,8 +61,6 @@ const Index: React.FC<PostProps> = ({
   const [preview, setPreview] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
-
-  const commentInputRef = React.useRef<HTMLInputElement>(null);
 
   const userData = useAppSelector(selectUserData);
 
@@ -76,6 +70,8 @@ const Index: React.FC<PostProps> = ({
     threshold: 1,
     triggerOnce: true,
   });
+
+  const commentInputRef = React.useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
@@ -157,11 +153,7 @@ const Index: React.FC<PostProps> = ({
 
             await commentInputRef?.current?.scrollIntoView({ block: "center" });
 
-            setIsSubmitting(true);
-
             setIsUploading(true);
-
-            setIsUploading(false);
 
             const comment = await Api().comment.addComment({
               postId,
@@ -175,7 +167,8 @@ const Index: React.FC<PostProps> = ({
             setPreview("");
 
             setLocalComments([...localComments, comment]);
-            setIsSubmitting(false);
+
+            setIsUploading(false);
           }
         }
         if (message) {
@@ -183,7 +176,7 @@ const Index: React.FC<PostProps> = ({
 
           await commentInputRef?.current?.scrollIntoView({ block: "center" });
 
-          setIsSubmitting(true);
+          setIsUploading(true);
 
           const comment = await Api().comment.addComment({
             postId,
@@ -192,13 +185,14 @@ const Index: React.FC<PostProps> = ({
           });
 
           setLocalComments([...localComments, comment]);
-          setIsSubmitting(false);
+
+          setIsUploading(false);
         }
       } catch (err) {
         console.warn(err);
       } finally {
         setMessage("");
-        setIsSubmitting(false);
+        setIsUploading(false);
       }
     },
     [attachedImageFormData, localComments, message, postId, userData?.userId]
@@ -242,11 +236,6 @@ const Index: React.FC<PostProps> = ({
     }
   };
 
-  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
-    setAttachedImage(image);
-    setAttachedImageFormData(imageFormData);
-  };
-
   const onSubmitAttachImage = async () => {
     try {
       setIsUploading(true);
@@ -267,10 +256,9 @@ const Index: React.FC<PostProps> = ({
     }
   };
 
-  const onCancelAttachImage = () => {
-    setAttachedImageFormData(null);
-    setAttachedImage(undefined);
-    setPreview("");
+  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
+    setAttachedImage(image);
+    setAttachedImageFormData(imageFormData);
   };
 
   return (
@@ -373,54 +361,21 @@ const Index: React.FC<PostProps> = ({
         </button>
       )}
       {isCommentInputVisible && (
-        <form onSubmit={submitComment}>
-          {preview && (
-            <div className={styles.previewBlock}>
-              <Image
-                width={100}
-                height={100}
-                quality={100}
-                className={styles.preview}
-                src={preview}
-                alt="image preview"
-              />
-              <IconButton
-                color="primary"
-                className={styles.closeImageButton}
-                onClick={onCancelAttachImage}
-              >
-                <CrossIcon color="#181F92" />
-              </IconButton>
-            </div>
-          )}
-          <div className={styles.commentInputFieldBlock}>
-            <div className={styles.commentInputField}>
-              <div className={styles.commentInputFieldContainer}>
-                <input
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setMessage(e.target.value)
-                  }
-                  value={message}
-                  ref={commentInputRef}
-                  type="text"
-                  placeholder="Cообщение"
-                />
-                <AttachImagePopup
-                  className={styles.attachImageButton}
-                  handleChangeAttachedImage={handleChangeAttachedImage}
-                />
-              </div>
-            </div>
-            <IconButton
-              disabled={isSubmitting || isUploading}
-              type="submit"
-              size="large"
-              className={styles.sendCommentButton}
-            >
-              <SendIcon />
-            </IconButton>
-          </div>
-        </form>
+        <InputField
+          innerRef={commentInputRef}
+          text={message}
+          handleChangeText={(text) => setMessage(text)}
+          handleChangeAttachedImage={handleChangeAttachedImage}
+          handleChangeAttachedImageFormData={(data) =>
+            setAttachedImageFormData(data)
+          }
+          handleChangeAttachImage={(image) => setAttachedImage(image)}
+          handleChangePreview={(preview) => setPreview(preview)}
+          handleSubmit={submitComment}
+          isUploading={isUploading}
+          attachedImage={attachedImage}
+          preview={preview}
+        />
       )}
     </div>
   );

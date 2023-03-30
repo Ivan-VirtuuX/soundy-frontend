@@ -27,17 +27,18 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
     music: <MusicIcon />,
   };
 
+  const isHighlighted =
+    router.asPath === "/" + name ||
+    (name === "friends" && router.asPath === "/friend-requests") ||
+    (name === "music" && router.asPath.includes("playlist"))
+      ? styles.activeLink
+      : styles.defaultLink;
+
   return (
     <li
       className={`${styles.link} ${
         name.includes("conversations") && styles.messagesIcon
-      } ${
-        router.asPath === "/" + name ||
-        (name === "friends" && router.asPath === "/friend-requests") ||
-        router.asPath.includes(name)
-          ? styles.activeLink
-          : styles.defaultLink
-      }`}
+      } ${isHighlighted}`}
     >
       <Link href={"/" + name}>
         <BlueButton variant="transparent" text={text}>

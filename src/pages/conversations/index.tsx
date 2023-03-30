@@ -15,6 +15,8 @@ import { Api } from "@/api/index";
 
 import styles from "./Conversations.module.scss";
 import { socket } from "@/utils/SocketContext";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 
 interface ConversationsProps {
   conversations: IConversation[];
@@ -24,6 +26,37 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const [searchText, setSearchText] = React.useState("");
   const [localConversations, setLocalConversations] =
     React.useState<IConversation[]>(conversations);
+
+  const [parent] = useAutoAnimate();
+
+  const onDeleteConversation = async (conversationId: string) => {
+    try {
+      await Api().conversation.deleteConversation(conversationId);
+
+      setLocalConversations([
+        ...localConversations.filter(
+          (conversation) => conversation.conversationId !== conversationId
+        ),
+      ]);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const filterConversations = (searchText: string): IConversation[] => {
+    return localConversations.filter(
+      (conversation) =>
+        conversation.sender.name.toLowerCase().includes(searchText) ||
+        conversation.sender.surname.toLowerCase().includes(searchText) ||
+        conversation.sender.login.toLowerCase().includes(searchText) ||
+        conversation.sender.name
+          .toLowerCase()
+          .includes(searchText.split("")[0]) ||
+        conversation.sender.surname
+          .toLowerCase()
+          .includes(searchText.split("")[1])
+    );
+  };
 
   React.useEffect(() => {
     (async () => {
@@ -57,17 +90,41 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
       </Head>
       <main className={styles.container}>
         <PageTitle pageTitle="Сообщения" />
-        <SearchInput handleChange={(text) => setSearchText(text)} width={600} />
-        <div className={styles.conversationsBlock}>
-          {localConversations?.map((obj) => (
-            <React.Fragment key={obj.conversationId}>
-              <ConversationItem {...obj} />
-              {obj.conversationId !==
-                localConversations[localConversations.length - 1]
-                  ?.conversationId && <Line />}
-            </React.Fragment>
-          ))}
-        </div>
+        {localConversations.length !== 0 && (
+          <SearchInput
+            handleChange={(text) => setSearchText(text)}
+            width={600}
+          />
+        )}
+        {localConversations.length !== 0 ? (
+          <ul className={styles.conversationsBlock} ref={parent}>
+            {searchText
+              ? filterConversations(searchText)?.map((obj) => (
+                  <li key={obj.conversationId}>
+                    <ConversationItem
+                      {...obj}
+                      handleDeleteConversation={onDeleteConversation}
+                    />
+                    {obj.conversationId !==
+                      localConversations[localConversations.length - 1]
+                        ?.conversationId && <Line />}
+                  </li>
+                ))
+              : localConversations?.map((obj) => (
+                  <li key={obj.conversationId}>
+                    <ConversationItem
+                      {...obj}
+                      handleDeleteConversation={onDeleteConversation}
+                    />
+                    {obj.conversationId !==
+                      localConversations[localConversations.length - 1]
+                        ?.conversationId && <Line />}
+                  </li>
+                ))}
+          </ul>
+        ) : (
+          <NullResultsBlock text="Список диалогов пуст" />
+        )}
       </main>
     </MainLayout>
   );

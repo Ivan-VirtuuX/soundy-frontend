@@ -8,12 +8,7 @@
   margin-top: 30px;
   align-items: center;
   height: 520px;
-  overflow: auto;
   padding-right: 10px;
-
-  &::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
 }
 
 .currentTrackBlock {

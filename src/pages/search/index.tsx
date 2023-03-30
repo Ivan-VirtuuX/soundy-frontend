@@ -18,6 +18,10 @@ import { Api } from "@/api/index";
 import { IPost, IUser } from "@/api/types";
 
 import styles from "./Search.module.scss";
+import { useNotifications } from "@/hooks/useNotifications";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 const Search: NextPage = () => {
   const [searchedData, setSearchedData] = React.useState<IUser[] | IPost[]>([]);
@@ -26,6 +30,12 @@ const Search: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [type, setType] = React.useState<"users" | "posts">("users");
+
+  const userData = useAppSelector(selectUserData);
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
 
   const searchData = React.useCallback(
     async (type: "users" | "posts") => {
@@ -142,8 +152,14 @@ const Search: NextPage = () => {
             isLoading={isLoading}
             isEmptyResults={isEmptyData}
           />
-          {isLoading && <InfinitySpin width="200" color="#181F92" />}
         </div>
+        {isLoading && <InfinitySpin width="200" color="#181F92" />}
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );

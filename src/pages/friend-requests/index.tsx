@@ -18,6 +18,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import styles from "./FriendRequests.module.scss";
+import { NotificationWindow } from "@/components/NotificationWindow";
+import { useNotifications } from "@/hooks/useNotifications";
 
 const FriendRequests: NextPage = ({
   friendRequests,
@@ -30,6 +32,10 @@ const FriendRequests: NextPage = ({
   const userData = useAppSelector(selectUserData);
 
   const router = useRouter();
+
+  const { notificationMessage, setNotificationMessage } = useNotifications(
+    userData?.id
+  );
 
   const onClickAccept = async (userId: string) => {
     try {
@@ -87,6 +93,12 @@ const FriendRequests: NextPage = ({
             )}
           </div>
         </div>
+        {notificationMessage && (
+          <NotificationWindow
+            notificationMessage={notificationMessage}
+            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+          />
+        )}
       </main>
     </MainLayout>
   );
