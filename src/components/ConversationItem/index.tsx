@@ -65,7 +65,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
         socket.on("onMessage", async (payload) => {
           const { ...message } = payload;
 
-          setLastMessage(message);
+          message.sender.id === receiver.userId && setLastMessage(message);
         });
       } catch (err) {
         console.warn(err);

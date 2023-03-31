@@ -28,22 +28,23 @@
   &Container {
     position: relative;
     user-select: none;
-    padding-right: 38px;
+    padding-right:75px;
     height: 50px;
 
     input {
       padding-left: 50px;
+      padding-right: 50px;
     }
   }
 }
 
 .attachImageButton {
   position: absolute !important;
-  top: 13px !important;
+  top: 8px !important;
   right: -15px !important;
   cursor: pointer !important;
-  width: 26px;
-  height: 26px;
+  width: 35px;
+  height: 35px;
   border-radius: 50% !important;
 }
 

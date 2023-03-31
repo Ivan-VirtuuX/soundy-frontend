@@ -88,27 +88,6 @@ export const InputField: React.FC<InputFieldProps> = ({
           />
         </div>
       )}
-      {preview && (
-        <div style={{ marginTop: preview ? 20 : 0 }}>
-          <div className={styles.previewBlock}>
-            <Image
-              width={100}
-              height={100}
-              quality={100}
-              className={styles.preview}
-              src={preview}
-              alt="image preview"
-            />
-            <IconButton
-              color="primary"
-              className={styles.closeImageButton}
-              onClick={onCancelAttachImage}
-            >
-              <CrossIcon color="#181F92" />
-            </IconButton>
-          </div>
-        </div>
-      )}
       <div className={styles.textInputFieldBlock}>
         <div className={styles.textInputField}>
           <div className={styles.textInputFieldContainer}>
@@ -145,6 +124,27 @@ export const InputField: React.FC<InputFieldProps> = ({
           <SendIcon />
         </IconButton>
       </div>
+      {preview && (
+        <div style={{ marginTop: preview ? 20 : 0 }}>
+          <div className={styles.previewBlock}>
+            <Image
+              width={100}
+              height={100}
+              quality={100}
+              className={styles.preview}
+              src={preview}
+              alt="image preview"
+            />
+            <IconButton
+              color="primary"
+              className={styles.closeImageButton}
+              onClick={onCancelAttachImage}
+            >
+              <CrossIcon color="#181F92" />
+            </IconButton>
+          </div>
+        </div>
+      )}
     </form>
   );
 };
