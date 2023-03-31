@@ -30,7 +30,8 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   const isHighlighted =
     router.asPath === "/" + name ||
     (name === "friends" && router.asPath === "/friend-requests") ||
-    (name === "music" && router.asPath.includes("playlist"))
+    (name === "music" && router.asPath.includes("playlist")) ||
+    (name === "conversations" && router.asPath.includes("conversations"))
       ? styles.activeLink
       : styles.defaultLink;
 

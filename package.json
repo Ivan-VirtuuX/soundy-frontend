@@ -47,6 +47,7 @@
     "file-saver": "^2.0.5",
     "moment": "^2.29.4",
     "next": "13.1.6",
+    "next-gallery": "^1.2.1",
     "next-redux-wrapper": "^8.0.0",
     "nookies": "^2.5.2",
     "nprogress": "^0.2.0",

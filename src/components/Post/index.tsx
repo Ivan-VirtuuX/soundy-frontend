@@ -26,6 +26,7 @@ import { InputField } from "@/components/InputField";
 import { useInterval } from "@/hooks/useInterval";
 
 import styles from "./Post.module.scss";
+
 import { HideDetailsIcon } from "@/components/ui/Icons/HideDetailsIcon";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
@@ -308,21 +309,25 @@ const Index: React.FC<PostProps> = ({
       </div>
       <div className={styles.content}>
         {body.map((obj) => (
-          <React.Fragment key={obj?.id}>
-            <Typography
-              dangerouslySetInnerHTML={{ __html: obj.data.text }}
-              className={styles.text}
-            />
-            {obj?.data?.file?.url && (
-              <img
-                className={styles.image}
-                src={obj.data.file.url}
-                alt="post image"
-                style={{ marginTop: obj.data.text ? 25 : 10 }}
-              />
-            )}
-          </React.Fragment>
+          <Typography
+            key={obj?.id}
+            dangerouslySetInnerHTML={{ __html: obj.data.text }}
+            className={styles.text}
+          />
         ))}
+        <div className={styles.imagesBlock}>
+          {body.map(
+            (obj) =>
+              obj?.data?.file?.url && (
+                <img
+                  key={obj?.id}
+                  className={styles.image}
+                  src={obj.data.file.url}
+                  alt="post image"
+                />
+              )
+          )}
+        </div>
       </div>
       <div className={styles.actions} ref={ref}>
         <Like

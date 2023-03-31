@@ -1,15 +1,10 @@
 import { AxiosInstance } from "axios";
+
 import { IMessage } from "./types";
 
 export const MessageApi = (instance: AxiosInstance) => ({
   async sendMessage(message: IMessage) {
     const { data } = await instance.post("/messages", message);
-
-    return data;
-  },
-
-  async getAll() {
-    const { data } = await instance.get<IMessage[]>("/messages");
 
     return data;
   },

@@ -2714,6 +2714,11 @@ negotiator@0.6.3:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.3.tgz#58e323a72fedc0d6f9cd4d31fe49f51479590ccd"
   integrity sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==
 
+next-gallery@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/next-gallery/-/next-gallery-1.2.1.tgz#8fb0c5d5e78055e9754a9b205f51f68bbe59e909"
+  integrity sha512-sCNNN9ANNzgEyjtefuxpEkG/MH6erCfCUsfHvZrD3jG+zlhi3jwdSg/S4G+ZRjlcgYbhyhBE475nciQz0+jUXQ==
+
 next-redux-wrapper@^8.0.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/next-redux-wrapper/-/next-redux-wrapper-8.1.0.tgz#d9c135f1ceeb2478375bdacd356eb9db273d3a07"

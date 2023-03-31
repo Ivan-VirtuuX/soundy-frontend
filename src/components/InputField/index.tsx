@@ -18,13 +18,16 @@ interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
   text: string;
   handleChangeText: (text: string) => void;
-  handleChangeAttachedImage: (image: File, imageFormData: FormData) => void;
+  handleChangeAttachedImages: (
+    images: File[],
+    imagesFormData: FormData[]
+  ) => void;
   handleChangeAttachedImageFormData: (data: FormData) => void;
   handleChangeAttachImage: (image: File) => void;
   isUploading?: boolean;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  attachedImage: File;
-  preview: string;
+  attachedImages: File[];
+  previews: string[];
   handleChangePreview: (preview: string) => void;
 }
 
@@ -32,13 +35,13 @@ export const InputField: React.FC<InputFieldProps> = ({
   innerRef,
   text,
   handleChangeText,
-  handleChangeAttachedImage,
+  handleChangeAttachedImages,
   handleChangeAttachedImageFormData,
   handleChangeAttachImage,
   isUploading,
   handleSubmit,
-  attachedImage,
-  preview,
+  attachedImages,
+  previews,
   handleChangePreview,
 }) => {
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = React.useState(false);
@@ -61,18 +64,18 @@ export const InputField: React.FC<InputFieldProps> = ({
   };
 
   React.useEffect(() => {
-    if (attachedImage) {
-      const reader = new FileReader();
+    if (attachedImages?.length !== 0) {
+      for (let i: number = 0; i < attachedImages?.length; i++) {
+        const reader = new FileReader();
 
-      reader.onloadend = () => {
-        handleChangePreview(reader.result as string);
-      };
+        reader.onloadend = () => {
+          handleChangePreview(reader.result as string);
+        };
 
-      reader.readAsDataURL(attachedImage);
-    } else {
-      handleChangePreview("");
+        reader?.readAsDataURL(attachedImages[i]);
+      }
     }
-  }, [attachedImage]);
+  }, [attachedImages]);
 
   React.useEffect(() => {
     isUploading && setIsEmojiPickerVisible(false);
@@ -109,8 +112,8 @@ export const InputField: React.FC<InputFieldProps> = ({
             </IconButton>
             <AttachImagePopup
               className={styles.attachImageButton}
-              handleChangeAttachedImage={(image, imageFormData) =>
-                handleChangeAttachedImage(image, imageFormData)
+              handleChangeAttachedImages={(image, imageFormData) =>
+                handleChangeAttachedImages(image, imageFormData)
               }
             />
           </div>
@@ -124,27 +127,32 @@ export const InputField: React.FC<InputFieldProps> = ({
           <SendIcon />
         </IconButton>
       </div>
-      {preview && (
-        <div style={{ marginTop: preview ? 20 : 0 }}>
-          <div className={styles.previewBlock}>
-            <Image
-              width={100}
-              height={100}
-              quality={100}
-              className={styles.preview}
-              src={preview}
-              alt="image preview"
-            />
-            <IconButton
-              color="primary"
-              className={styles.closeImageButton}
-              onClick={onCancelAttachImage}
-            >
-              <CrossIcon color="#181F92" />
-            </IconButton>
-          </div>
-        </div>
-      )}
+      <div className={styles.previewBlock}>
+        {previews &&
+          previews?.map((preview, index) => (
+            <div style={{ marginTop: preview ? 20 : 0 }} key={index}>
+              <Image
+                style={{
+                  width: previews.length >= 3 ? 50 : 100,
+                  height: previews.length >= 3 ? 50 : 100,
+                }}
+                width={previews.length >= 3 ? 50 : 100}
+                height={previews.length >= 3 ? 50 : 100}
+                quality={100}
+                className={styles.preview}
+                src={preview}
+                alt="image preview"
+              />
+              <IconButton
+                color="primary"
+                className={styles.closeImageButton}
+                onClick={onCancelAttachImage}
+              >
+                <CrossIcon color="#181F92" />
+              </IconButton>
+            </div>
+          ))}
+      </div>
     </form>
   );
 };

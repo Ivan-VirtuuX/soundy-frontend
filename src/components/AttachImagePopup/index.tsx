@@ -16,33 +16,35 @@ import styles from "./AttachImagePopup.module.scss";
 
 interface AttachImagePopupProps {
   className: string;
-  handleChangeAttachedImage: (image: File, imageFormData: FormData) => void;
+  handleChangeAttachedImages: (
+    images: File[],
+    imagesFormData: FormData[]
+  ) => void;
 }
 
 export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   className,
-  handleChangeAttachedImage,
+  handleChangeAttachedImages,
 }) => {
   const [isChangeAttachImageOpen, setIsChangeAttachImageOpen] =
     React.useState(false);
-  const [attachedImageFormData, setAttachedImageFormData] =
-    React.useState<FormData>(null);
-  const [attachedImage, setAttachedImage] = React.useState<File>();
+  const [attachedImagesFormData, setAttachedImageFormData] = React.useState<
+    FormData[]
+  >([]);
+  const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
   const [isSaveImage, setIsSaveImage] = React.useState(false);
-  const [preview, setPreview] = React.useState("");
+  const [previews, setPreviews] = React.useState<string[]>([]);
+
+  const attachedImageRef = React.useRef(null);
 
   const onCloseImage = async () => {
     await setAttachedImageFormData(null);
     await setAttachedImageFormData(null);
-    await setAttachedImage(undefined);
+    await setAttachedImages([]);
     await setIsSaveImage(false);
-    await setPreview("");
+    await setPreviews([]);
     await setIsChangeAttachImageOpen(false);
   };
-
-  const attachedImageRef = React.useRef(null);
-
-  const onChangeImage = () => attachedImageRef?.current?.click();
 
   const handleChangeImage = async (files) => {
     try {
@@ -53,7 +55,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
 
       setAttachedImageFormData(formData);
 
-      setAttachedImage(files[0]);
+      setAttachedImages([...attachedImages, files[0]]);
 
       files && setIsSaveImage(true);
     } catch (err) {
@@ -63,38 +65,36 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
     }
   };
 
-  const onClickAttachImageButton = () => onChangeImage();
-
   const onClickSaveAttachImage = () => {
     setIsChangeAttachImageOpen(false);
 
-    handleChangeAttachedImage(attachedImage, attachedImageFormData);
+    handleChangeAttachedImages(attachedImages, attachedImagesFormData);
   };
 
   React.useEffect(() => {
     if (isSaveImage) setIsChangeAttachImageOpen(true);
-  }, [attachedImage]);
 
-  React.useEffect(() => {
-    if (attachedImage) {
-      const reader = new FileReader();
+    if (attachedImages.length !== 0) {
+      for (let i: number = 0; i < attachedImages.length; i++) {
+        const reader = new FileReader();
 
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
+        reader.onloadend = () => {
+          setPreviews([...previews, reader.result as string]);
+        };
 
-      reader.readAsDataURL(attachedImage);
+        reader.readAsDataURL(attachedImages[i]);
+      }
     } else {
-      setPreview(null);
+      setPreviews([]);
     }
-  }, [attachedImage]);
+  }, [attachedImages]);
 
   return (
     <>
       <IconButton
         size="small"
         className={className}
-        onClick={onClickAttachImageButton}
+        onClick={() => attachedImageRef?.current?.click()}
       >
         <input
           accept="image/*"
@@ -106,7 +106,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
         <AttachImageIcon />
       </IconButton>
       <Dialog
-        open={isChangeAttachImageOpen && !!attachedImage}
+        open={isChangeAttachImageOpen && !!attachedImages}
         onClose={() => setIsChangeAttachImageOpen(false)}
         fullWidth
         maxWidth="sm"
@@ -114,14 +114,14 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
       >
         <DialogContent>
           <DialogContentText className={styles.popupContainer}>
-            <h2 className={styles.popupTitle}>Отправка изображения</h2>
-            {preview && (
+            <span className={styles.popupTitle}>Отправка изображения</span>
+            {previews[previews.length - 1] && (
               <Image
                 width={200}
                 height={200}
                 quality={100}
                 className={styles.preview}
-                src={preview}
+                src={previews[previews.length - 1]}
                 alt="image preview"
               />
             )}

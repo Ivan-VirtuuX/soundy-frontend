@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { CreatePostDto, IPost } from "./types";
 
 export const PostApi = (instance: AxiosInstance) => ({
@@ -43,18 +44,6 @@ export const PostApi = (instance: AxiosInstance) => ({
         _page,
       },
     });
-
-    return data;
-  },
-
-  async getAllPostsComments() {
-    const { data } = await instance.get("/posts/comments");
-
-    return data;
-  },
-
-  async getOne(postId: string | string[]) {
-    const { data } = await instance.get<IPost>(`/posts/${postId}`);
 
     return data;
   },

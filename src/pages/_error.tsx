@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 
 import errorSticker from "@/images/errorSticker.png";
 import stopSticker from "@/images/stopSticker.png";
+
 import { BlueButton } from "@/components/ui/BlueButton";
 
 const Error: NextPage = () => {

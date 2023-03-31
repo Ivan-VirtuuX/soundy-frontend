@@ -5,18 +5,20 @@ import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import styles from "@/pages/friends/Friends.module.scss";
-
 import { Api } from "@/api/index";
 import { IUser } from "@/api/types";
 
 import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
+import { NotificationWindow } from "@/components/NotificationWindow";
+
 import { useNotifications } from "@/hooks/useNotifications";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { NotificationWindow } from "@/components/NotificationWindow";
+
+import styles from "@/pages/friends/Friends.module.scss";
 
 const Friends: NextPage = ({
   friends,

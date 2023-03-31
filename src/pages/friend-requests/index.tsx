@@ -10,6 +10,7 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { BlueButton } from "@/components/ui/BlueButton";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { IUser } from "@/api/types";
 import { Api } from "@/api/index";
@@ -17,9 +18,9 @@ import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import styles from "./FriendRequests.module.scss";
-import { NotificationWindow } from "@/components/NotificationWindow";
 import { useNotifications } from "@/hooks/useNotifications";
+
+import styles from "./FriendRequests.module.scss";
 
 const FriendRequests: NextPage = ({
   friendRequests,

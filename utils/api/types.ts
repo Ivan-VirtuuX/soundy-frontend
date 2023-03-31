@@ -112,7 +112,7 @@ export type IMessage = {
   id?: string;
   conversationId: string;
   sender?: IUser;
-  content: { text?: string; imageUrl?: string };
+  content: { text?: string; imageUrl?: string[] };
   createdAt?: Date;
 };
 

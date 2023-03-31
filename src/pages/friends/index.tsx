@@ -24,8 +24,9 @@ import { filterItems } from "@/utils/filterItems";
 
 import { useNotifications } from "@/hooks/useNotifications";
 
-import styles from "./Friends.module.scss";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import styles from "./Friends.module.scss";
 
 const Friends: NextPage = () => {
   const [searchText, setSearchText] = React.useState("");

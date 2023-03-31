@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { ConversationDto, IConversation, IMessage } from "./types";
 
 export const ConversationApi = (instance: AxiosInstance) => ({

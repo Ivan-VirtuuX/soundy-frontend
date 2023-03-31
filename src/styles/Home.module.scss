@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .container {
   width: 1200px;
   margin: 0 auto;
@@ -10,11 +12,11 @@
     font-weight: 700;
     font-size: 50px;
     line-height: 56px;
-    color: #181f92;
+    color: $primary;
     margin-bottom: 40px;
 
     span {
-      color: #e8338b;
+      color: $secondary;
     }
   }
 }

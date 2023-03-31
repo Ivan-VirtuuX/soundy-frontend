@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+
 import { CreateCommentDto, IComment } from "./types";
 
 export const CommentApi = (instance: AxiosInstance) => ({

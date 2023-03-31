@@ -15,6 +15,7 @@ import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
 import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { usePosts } from "@/hooks/usePosts";
+import { useNotifications } from "@/hooks/useNotifications";
 
 import { IPost } from "@/api/types";
 import { Api } from "@/api/index";
@@ -22,9 +23,9 @@ import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import styles from "./Posts.module.scss";
-import { useNotifications } from "@/hooks/useNotifications";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import styles from "./Posts.module.scss";
 
 const Posts: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState(false);

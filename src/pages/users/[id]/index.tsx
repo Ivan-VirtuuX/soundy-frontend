@@ -19,11 +19,13 @@ import { Line } from "@/components/ui/Line";
 import { ChangeAvatarPopup } from "@/components/ChangeAvatarPopup";
 import { ProfileActions } from "@/components/ProfileActions";
 import { UserPosts } from "@/components/UserPosts";
+import { NotificationWindow } from "@/components/NotificationWindow";
+
+import { truncateString } from "@/utils/truncateString";
+
+import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "./Users.module.scss";
-import { truncateString } from "@/utils/truncateString";
-import { useNotifications } from "@/hooks/useNotifications";
-import { NotificationWindow } from "@/components/NotificationWindow";
 
 const Users: NextPage<IUser> = ({
   login,

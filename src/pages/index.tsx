@@ -16,7 +16,6 @@ import styles from "@/styles/Home.module.scss";
 
 const Home: NextPage = () => {
   const [formType, setFormType] = React.useState<"login" | "register">("login");
-  const [loading, setLoading] = React.useState(true);
 
   const userData = useAppSelector(selectUserData);
 

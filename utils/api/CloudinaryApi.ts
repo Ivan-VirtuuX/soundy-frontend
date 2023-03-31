@@ -1,14 +1,11 @@
 import { Cloudinary } from "./cloudinary";
 import axios from "axios";
-import { GetServerSidePropsContext, NextPageContext } from "next";
 
 export type ApiReturnType = {
   cloudinary: ReturnType<typeof Cloudinary>;
 };
 
-export const CloudinaryApi = (
-  ctx?: NextPageContext | GetServerSidePropsContext
-): ApiReturnType => {
+export const CloudinaryApi = (): ApiReturnType => {
   const instance = axios.create({
     baseURL: "https://api.cloudinary.com/v1_1/virtuux/image",
   });

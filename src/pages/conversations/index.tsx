@@ -9,14 +9,16 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/SearchInput";
 import { ConversationItem } from "@/components/ConversationItem";
 import { Line } from "@/components/ui/Line";
+import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 
 import { IConversation } from "@/api/types";
 import { Api } from "@/api/index";
 
-import styles from "./Conversations.module.scss";
 import { socket } from "@/utils/SocketContext";
+
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
+
+import styles from "./Conversations.module.scss";
 
 interface ConversationsProps {
   conversations: IConversation[];

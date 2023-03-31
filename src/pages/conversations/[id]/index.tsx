@@ -38,15 +38,15 @@ const Conversation: NextPage<ConversationProps> = ({
   receiver,
   conversationId,
 }) => {
-  const [attachedImageFormData, setAttachedImageFormData] =
-    React.useState<FormData>();
-
+  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
+    FormData[]
+  >([]);
+  const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
   const [localMessages, setLocalMessages] =
     React.useState<IMessage[]>(messages);
-  const [attachedImage, setAttachedImage] = React.useState<File>();
   const [isUploading, setIsUploading] = React.useState(false);
+  const [previews, setPreviews] = React.useState<string[]>([]);
   const [message, setMessage] = React.useState("");
-  const [preview, setPreview] = React.useState("");
 
   const messageContainerRef = React.useRef(null);
   const contentRef = React.useRef(null);
@@ -84,13 +84,21 @@ const Conversation: NextPage<ConversationProps> = ({
     try {
       setIsUploading(true);
 
-      const { data } = await CloudinaryApi().cloudinary.changeImage(
-        attachedImageFormData
-      );
+      const promises = [];
+
+      for (let i: number = 0; i < attachedImagesFormData.length; i++) {
+        const { data } = await CloudinaryApi().cloudinary.changeImage(
+          attachedImagesFormData[i]
+        );
+
+        promises.push(data);
+      }
+
+      await Promise.all(promises);
 
       setIsUploading(false);
 
-      return data;
+      return promises;
     } catch (err) {
       console.warn(err);
     } finally {
@@ -98,9 +106,14 @@ const Conversation: NextPage<ConversationProps> = ({
     }
   };
 
-  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
-    setAttachedImage(image);
-    setAttachedImageFormData(imageFormData);
+  const handleChangeAttachedImages = (
+    images: File[],
+    imagesFormData: FormData[]
+  ) => {
+    setAttachedImages([...attachedImages.concat(images)]);
+    setAttachedImagesFormData([
+      ...attachedImagesFormData.concat(imagesFormData),
+    ]);
   };
 
   const handleSubmitNewMessage = async (
@@ -111,37 +124,39 @@ const Conversation: NextPage<ConversationProps> = ({
     try {
       setIsUploading(true);
 
-      if (attachedImageFormData && message) {
-        const { secure_url } = await onSubmitAttachedImage();
+      if (attachedImagesFormData.length !== 0 && message) {
+        const data = await onSubmitAttachedImage();
 
-        if (secure_url) {
+        if (data.length !== 0) {
           await Api().message.sendMessage({
             messageId: uuidv4(),
             conversationId: String(id),
             sender: { ...userData },
-            content: { text: message, imageUrl: secure_url },
+            content: { text: message, imageUrl: data },
             createdAt: new Date(),
           });
 
-          setAttachedImageFormData(null);
-          setPreview("");
+          setAttachedImagesFormData([]);
+          setPreviews([]);
           setMessage("");
         }
       } else {
-        if (attachedImageFormData) {
-          const { secure_url } = await onSubmitAttachedImage();
+        if (attachedImagesFormData.length !== 0) {
+          const data = await onSubmitAttachedImage();
 
-          if (secure_url) {
+          console.log(data);
+
+          if (data.length !== 0) {
             await Api().message.sendMessage({
               messageId: uuidv4(),
               conversationId: String(id),
               sender: { ...userData },
-              content: { imageUrl: secure_url },
+              content: { imageUrl: data },
               createdAt: new Date(),
             });
 
-            setAttachedImageFormData(null);
-            setPreview("");
+            setAttachedImagesFormData([]);
+            setPreviews([]);
           }
         }
 
@@ -277,16 +292,20 @@ const Conversation: NextPage<ConversationProps> = ({
           <InputField
             text={message}
             handleChangeText={(text) => setMessage(text)}
-            handleChangeAttachedImage={handleChangeAttachedImage}
+            handleChangeAttachedImages={handleChangeAttachedImages}
             handleChangeAttachedImageFormData={(data) =>
-              setAttachedImageFormData(data)
+              setAttachedImagesFormData([...attachedImagesFormData, data])
             }
-            handleChangeAttachImage={(image) => setAttachedImage(image)}
-            handleChangePreview={(preview) => setPreview(preview)}
+            handleChangeAttachImage={(image) =>
+              setAttachedImages([...attachedImages, image])
+            }
+            handleChangePreview={(preview) =>
+              setPreviews([...previews, preview])
+            }
             handleSubmit={handleSubmitNewMessage}
             isUploading={isUploading}
-            attachedImage={attachedImage}
-            preview={preview}
+            attachedImages={attachedImages}
+            previews={previews}
           />
         </div>
       </main>

@@ -11,17 +11,19 @@ import { Api } from "@/utils/api";
 import { Header } from "@/components/Header";
 
 import { MuiThemeProvider } from "@material-ui/core";
+
 import { theme } from "@/theme";
 
 import "nprogress/nprogress.css";
 import "@/styles/nprogress.scss";
 import NProgress from "nprogress";
 
-import "@/styles/globals.scss";
 import { socket, SocketContext } from "@/utils/SocketContext";
 
+import "@/styles/globals.scss";
+
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
-  Router.events.on("routeChangeStart", (url) => {
+  Router.events.on("routeChangeStart", () => {
     NProgress.start();
   });
   Router.events.on("routeChangeComplete", () => {

@@ -87,10 +87,10 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               className={styles.date}
               style={{ marginRight: content.imageUrl ? 10 : 0 }}
             >
-              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
+              {/*  hour: "2-digit",*/}
+              {/*  minute: "2-digit",*/}
+              {/*})}*/}
             </p>
           </div>
           {nextMessageSenderId !== sender.userId && (
@@ -154,10 +154,10 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               className={styles.dateLeftSide}
               style={{ marginLeft: content.imageUrl ? 10 : 0 }}
             >
-              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
+              {/*  hour: "2-digit",*/}
+              {/*  minute: "2-digit",*/}
+              {/*})}*/}
             </p>
           </div>
           {nextMessageSenderId !== sender.userId && (

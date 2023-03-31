@@ -11,17 +11,18 @@ import { SearchInput } from "@/components/SearchInput";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { UsersIcon } from "@/components/ui/Icons/UsersIcon";
 import { PostIcon } from "@/components/ui/Icons/PostIcon";
-
+import { NotificationWindow } from "@/components/NotificationWindow";
 import { SearchedData } from "@/components/SearchedData";
 
 import { Api } from "@/api/index";
 import { IPost, IUser } from "@/api/types";
 
-import styles from "./Search.module.scss";
 import { useNotifications } from "@/hooks/useNotifications";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-import { NotificationWindow } from "@/components/NotificationWindow";
+
+import styles from "./Search.module.scss";
 
 const Search: NextPage = () => {
   const [searchedData, setSearchedData] = React.useState<IUser[] | IPost[]>([]);

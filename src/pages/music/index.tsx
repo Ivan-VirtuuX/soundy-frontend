@@ -8,17 +8,19 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
-import { Api } from "@/api/index";
+import { NotificationWindow } from "@/components/NotificationWindow";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { musicTracks } from "@/musicTracks.data";
 
-import styles from "./Music.module.scss";
+import { Api } from "@/api/index";
 import { ITrack } from "@/api/types";
-import { NotificationWindow } from "@/components/NotificationWindow";
+
 import { useNotifications } from "@/hooks/useNotifications";
+
+import styles from "./Music.module.scss";
 
 const Music: NextPage = () => {
   const [playlistTracks, setPlaylistTracks] = React.useState<ITrack[]>();
