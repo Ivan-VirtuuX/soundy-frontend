@@ -1,7 +1,9 @@
 import React from "react";
+
 import { IMessage } from "@/api/types";
-import { socket } from "@/utils/SocketContext";
 import { Api } from "@/api/index";
+
+import { socket } from "@/utils/SocketContext";
 
 export const useNotifications = (userId: string | string[]) => {
   const [notificationMessage, setNotificationMessage] =

@@ -20,7 +20,6 @@ interface MessageItemProps extends IMessage {
 export const MessageItem: React.FC<MessageItemProps> = ({
   sender,
   content,
-  createdAt,
   innerRef,
   messageId,
   nextMessageSenderId,

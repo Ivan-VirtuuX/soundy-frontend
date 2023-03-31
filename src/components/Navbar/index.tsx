@@ -1,8 +1,11 @@
 import React from "react";
-import styles from "./Navbar.module.scss";
+
 import { NavbarItem } from "@/components/NavbarItem";
+
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+
+import styles from "./Navbar.module.scss";
 
 export const Navbar: React.FC = () => {
   const userData = useAppSelector(selectUserData);

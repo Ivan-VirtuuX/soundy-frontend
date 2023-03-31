@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .form {
   width: 1200px;
   display: flex;
@@ -15,7 +17,7 @@
   font-weight: 700;
   font-size: 38.9871px;
   line-height: 43px;
-  color: #181f92;
+  color: $primary;
   margin-top: 20px;
   margin-bottom: 30px;
 }
@@ -38,7 +40,7 @@
     font-weight: 700;
     font-size: 38.9871px;
     line-height: 43px;
-    color: #181f92;
+    color: $primary;
     margin-bottom: 25px;
   }
 }

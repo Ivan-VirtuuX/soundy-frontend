@@ -1,6 +1,11 @@
 import React from "react";
 
-import { Dialog, DialogContent, DialogContentText, IconButton } from "@mui/material";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+} from "@mui/material";
 
 import { BlueButton } from "@/components/ui/BlueButton";
 import { CameraIcon } from "@/components/ui/Icons/CameraIcon";
@@ -39,8 +44,6 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
   };
 
   const attachedImageRef = React.useRef(null);
-
-  const onChangeImage = () => attachedImageRef?.current?.click();
 
   const onSubmitAttachedImage = async () => {
     try {
@@ -87,8 +90,6 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
     }
   };
 
-  const onClickChangeAvatarButton = () => onChangeImage();
-
   React.useEffect(() => {
     if (isSaveImage) setIsChangeAvatarOpen(true);
   }, [attachedImage]);
@@ -113,7 +114,7 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
         <IconButton
           size="large"
           color="primary"
-          onClick={onClickChangeAvatarButton}
+          onClick={() => attachedImageRef?.current?.click()}
         >
           <form>
             <input

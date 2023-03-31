@@ -1,10 +1,13 @@
 import React, { ChangeEvent } from "react";
-import { TextField } from "@material-ui/core";
 import { useFormContext } from "react-hook-form";
-import styles from "./FormField.module.scss";
+
+import { TextField } from "@material-ui/core";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
 import { Dayjs } from "dayjs";
+
+import styles from "./FormField.module.scss";
 
 interface FormFieldProps {
   name: string;
@@ -25,12 +28,10 @@ export const FormField: React.FC<FormFieldProps> = ({
   handleChangeDate,
   handleChangeTextField,
 }) => {
-  const [date, setDate] = React.useState<Dayjs | Date>();
   const [yearError, setYearError] = React.useState("");
-  const [text, setText] = React.useState("");
+  const [date, setDate] = React.useState<Dayjs | Date>();
 
-  const { register, formState, setValue, setError, clearErrors } =
-    useFormContext();
+  const { register, formState, setValue } = useFormContext();
 
   const handleChange = (newValue: any) => {
     if (newValue?.$d) {
@@ -46,6 +47,12 @@ export const FormField: React.FC<FormFieldProps> = ({
       : setYearError("wrong year");
   };
 
+  const onChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
+    handleChangeTextField(e.target.value);
+
+    setValue(name, e.target.value);
+  };
+
   React.useEffect(() => {
     setValue(name, initialText ? initialText : initialDate);
 
@@ -53,12 +60,6 @@ export const FormField: React.FC<FormFieldProps> = ({
       setDate(initialDate);
     }
   }, []);
-
-  const onChangeTextField = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChangeTextField(e.target.value);
-
-    setValue(name, e.target.value);
-  };
 
   return (
     <>

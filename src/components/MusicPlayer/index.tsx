@@ -8,8 +8,9 @@ import { TrackItem } from "@/components/TrackItem";
 import { PreviousTrackIcon } from "@/components/ui/Icons/PreviousTrackIcon";
 import { NextTrackIcon } from "@/components/ui/Icons/NextTrackIcon";
 
-import styles from "./MusicPlayer.module.scss";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import styles from "./MusicPlayer.module.scss";
 
 interface MusicPlayerProps {
   searchText?: string;

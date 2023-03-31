@@ -1,18 +1,20 @@
 import React, { FormEvent } from "react";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
 import { AttachImagePopup } from "@/components/AttachImagePopup";
 import { SendIcon } from "@/components/ui/Icons/SendIcon";
 import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
 
 import { IconButton } from "@mui/material";
 
-import styles from "./InputField.module.scss";
 import { EmojiStyle } from "emoji-picker-react";
-import dynamic from "next/dynamic";
-import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
+
 import { useClickOutside } from "@/hooks/useClickOutside";
+
+import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;

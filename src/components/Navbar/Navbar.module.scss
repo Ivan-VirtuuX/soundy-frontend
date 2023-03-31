@@ -1,3 +1,5 @@
+@import "@/styles/variables.scss";
+
 .navbar {
   margin-top: 25px;
   position: sticky;
@@ -8,7 +10,7 @@
       font-weight: 700;
       font-size: 15px;
       line-height: 17px;
-      color: #181f92;
+      color: $primary;
     }
   }
 }

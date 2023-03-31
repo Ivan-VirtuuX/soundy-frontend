@@ -1,8 +1,11 @@
+import React from "react";
+
+import { useRouter } from "next/router";
+
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 
 import styles from "./FriendsList.module.scss";
-import React from "react";
-import { useRouter } from "next/router";
+
 import { IUser } from "@/api/types";
 
 export const FriendsList = ({ friends }: { friends: IUser[] }) => {

@@ -1,4 +1,4 @@
-@import '@/styles/variables.scss';
+@import "@/styles/variables.scss";
 
 .textField {
   border: 2.5px solid $primary;
@@ -14,7 +14,7 @@
   font-weight: 700 !important;
   font-size: 23px !important;
   line-height: 26px !important;
-  color: #181F92 !important;
+  color: $primary !important;
 }
 
 .birthDateField {

@@ -1,12 +1,17 @@
 import React from "react";
 
-import styles from "./NotificationWindow.module.scss";
-import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import { IconButton } from "@mui/material";
-import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
-import { truncateString } from "@/utils/truncateString";
-import { IMessage } from "@/api/types";
 import { useRouter } from "next/router";
+
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+
+import { IconButton } from "@mui/material";
+
+import { truncateString } from "@/utils/truncateString";
+
+import { IMessage } from "@/api/types";
+
+import styles from "./NotificationWindow.module.scss";
 
 interface NotificationWindowProps {
   notificationMessage: IMessage;

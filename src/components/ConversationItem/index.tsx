@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { IConversation, IMessage, IUser } from "@/api/types";
+import { Api } from "@/api/index";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
@@ -10,15 +11,13 @@ import { selectUserData } from "@/redux/slices/user";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import { truncateString } from "@/utils/truncateString";
+import { socket } from "@/utils/SocketContext";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { ImageIcon } from "@/components/ui/Icons/ImageIcon";
 import { KebabMenu } from "@/components/ui/KebabMenu";
 
-import { socket } from "@/utils/SocketContext";
-
 import styles from "./ConversationItem.module.scss";
-import { Api } from "@/api/index";
 
 interface ConversationItemProps extends IConversation {
   sender: IUser;

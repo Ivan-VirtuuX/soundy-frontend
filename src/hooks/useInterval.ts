@@ -1,4 +1,5 @@
 import React from "react";
+
 import { convertDate } from "@/utils/dateConverter";
 
 export const useInterval = (interval: number, date: Date) => {

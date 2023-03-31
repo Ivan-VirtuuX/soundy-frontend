@@ -22,13 +22,13 @@ import { CommentItem } from "@/components/CommentItem";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { PinIcon } from "@/components/ui/Icons/PinIcon";
 import { InputField } from "@/components/InputField";
+import { HideDetailsIcon } from "@/components/ui/Icons/HideDetailsIcon";
 
 import { useInterval } from "@/hooks/useInterval";
 
-import styles from "./Post.module.scss";
-
-import { HideDetailsIcon } from "@/components/ui/Icons/HideDetailsIcon";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import styles from "./Post.module.scss";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -82,6 +82,16 @@ const Index: React.FC<PostProps> = ({
 
   const [parent] = useAutoAnimate();
 
+  const onDeletePost = async () => {
+    try {
+      await Api().post.delete(postId);
+
+      handleDelete(postId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   React.useEffect(() => {
     (async () => {
       try {
@@ -134,16 +144,6 @@ const Index: React.FC<PostProps> = ({
       setPreview(null);
     }
   }, [attachedImage]);
-
-  const onDeletePost = async () => {
-    try {
-      await Api().post.delete(postId);
-
-      handleDelete(postId);
-    } catch (err) {
-      console.warn(err);
-    }
-  };
 
   const submitComment = React.useCallback(
     async (e: FormEvent<HTMLFormElement>) => {

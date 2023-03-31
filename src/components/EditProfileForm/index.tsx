@@ -1,9 +1,11 @@
-import { ChangeUserDataDto } from "@/api/types";
-import { Api } from "@/api/index";
-import { useAppSelector } from "@/redux/hooks";
-
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
+
+import { ChangeUserDataDto } from "@/api/types";
+import { Api } from "@/api/index";
+
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -13,9 +15,6 @@ import { FormField } from "@/components/FormField";
 
 import { Alert } from "@mui/material";
 import { Button } from "@material-ui/core";
-
-import styles from "./EditProfileForm.module.scss";
-import { selectUserData } from "@/redux/slices/user";
 
 interface EditProfileFormProps {
   name: string;
@@ -87,10 +86,10 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
   }, [localName, localSurname, date]);
 
   return (
-    <div className={styles.form}>
+    <div>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className={styles.formWrapper}>
+          <div>
             {errorMessage && (
               <div style={{ width: "100%" }}>
                 <Alert
@@ -138,7 +137,6 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
               type="submit"
               variant="contained"
               fullWidth
-              className={styles.saveButton}
             >
               Сохранить
             </Button>

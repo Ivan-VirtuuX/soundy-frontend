@@ -10,8 +10,9 @@ import { Post } from "@/components/Post";
 
 import { Button } from "@material-ui/core";
 
-import styles from "./SearchedData.module.scss";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import styles from "./SearchedData.module.scss";
 
 interface SearchedDataProps {
   searchQuery: string;
