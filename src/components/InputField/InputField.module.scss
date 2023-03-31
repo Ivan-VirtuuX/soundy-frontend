@@ -1,6 +1,6 @@
 @import "@/styles/variables.scss";
 
-.messageInputField {
+.textInputField {
   width: 100%;
   margin-right: 50px;
 
@@ -24,6 +24,17 @@
     display: flex;
     justify-content: space-between;
   }
+
+  &Container {
+    position: relative;
+    user-select: none;
+    padding-right: 38px;
+    height: 50px;
+
+    input {
+      padding-left: 50px;
+    }
+  }
 }
 
 .attachImageButton {
@@ -34,16 +45,6 @@
   width: 26px;
   height: 26px;
   border-radius: 50% !important;
-}
-
-.messageInputFieldContainer {
-  position: relative;
-  user-select: none;
-  padding-right: 38px;
-
-  input {
-    padding-right: 50px;
-  }
 }
 
 .sendMessageButton {
@@ -70,6 +71,20 @@
   position: absolute;
   right: 0;
   top: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 50% !important;
+}
+
+.emojiPicker {
+  position: absolute;
+  bottom: 75px;
+}
+
+.emojiButton {
+  position: absolute !important;
+  top: 8px;
+  left: 10px;
   width: 35px;
   height: 35px;
   border-radius: 50% !important;

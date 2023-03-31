@@ -117,6 +117,12 @@
   }
 }
 
+.commentsBlockHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .comment {
   margin-top: 25px;
 }
@@ -143,4 +149,12 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.commentsBlockTitle {
+  font-size: 25px;
+  font-weight: 700;
+  color: $primary;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }

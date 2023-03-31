@@ -40,6 +40,7 @@ const Conversation: NextPage<ConversationProps> = ({
 }) => {
   const [attachedImageFormData, setAttachedImageFormData] =
     React.useState<FormData>();
+
   const [localMessages, setLocalMessages] =
     React.useState<IMessage[]>(messages);
   const [attachedImage, setAttachedImage] = React.useState<File>();

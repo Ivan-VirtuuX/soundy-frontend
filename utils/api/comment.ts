@@ -16,14 +16,6 @@ export const CommentApi = (instance: AxiosInstance) => ({
     }
   },
 
-  async getOne(postId: string) {
-    const { data } = await instance.get<IComment[]>(
-      `/posts/${postId}/comments`
-    );
-
-    return data;
-  },
-
   async addComment(dto: CreateCommentDto) {
     const { data } = await instance.post(`/comments`, dto);
 
@@ -46,8 +38,8 @@ export const CommentApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async remove(commentId: string, postId: string) {
-    const { data } = await instance.delete(`/posts/${postId}/comments`, {
+  async remove(commentId: string) {
+    const { data } = await instance.delete(`/comments`, {
       data: { commentId: commentId },
     });
 

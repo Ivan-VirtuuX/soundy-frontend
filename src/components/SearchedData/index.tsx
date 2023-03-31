@@ -181,6 +181,7 @@ export const SearchedData: React.FC<SearchedDataProps> = ({
         isNextButtonVisible &&
         page === 1 &&
         searchedData.length > 0 &&
+        searchedData.length > 9 &&
         !isLoading && (
           <Button onClick={onClickNextButton} variant="outlined">
             Загрузить еще...

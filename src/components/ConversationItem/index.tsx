@@ -12,7 +12,7 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 import { truncateString } from "@/utils/truncateString";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import { ImageIcon } from "@/components/ui/ImageIcon";
+import { ImageIcon } from "@/components/ui/Icons/ImageIcon";
 import { KebabMenu } from "@/components/ui/KebabMenu";
 
 import { socket } from "@/utils/SocketContext";

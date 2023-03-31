@@ -35,10 +35,6 @@ export const MessageItem: React.FC<MessageItemProps> = ({
     setAnchorEl(e.currentTarget);
   };
 
-  const onHideMessageActions = () => {
-    setAnchorEl(null);
-  };
-
   const onDeleteMessage = async () => {
     try {
       await Api().message.deleteMessage(messageId);
@@ -54,7 +50,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
         anchorEl={anchorEl}
         keepMounted
         open={!!anchorEl}
-        onClose={onHideMessageActions}
+        onClose={() => setAnchorEl(null)}
       >
         <MenuItem onClick={onDeleteMessage}>Удалить</MenuItem>
       </Menu>

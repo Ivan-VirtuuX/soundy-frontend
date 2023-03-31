@@ -9,6 +9,10 @@ import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
 import { IconButton } from "@mui/material";
 
 import styles from "./InputField.module.scss";
+import { EmojiStyle } from "emoji-picker-react";
+import dynamic from "next/dynamic";
+import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
+import { useClickOutside } from "@/hooks/useClickOutside";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -37,6 +41,19 @@ export const InputField: React.FC<InputFieldProps> = ({
   preview,
   handleChangePreview,
 }) => {
+  const [isEmojiPickerVisible, setIsEmojiPickerVisible] = React.useState(false);
+
+  const pickerRef = React.useRef(null);
+
+  const Picker = dynamic(
+    () => {
+      return import("emoji-picker-react");
+    },
+    { ssr: false }
+  );
+
+  useClickOutside(pickerRef, () => setIsEmojiPickerVisible(false));
+
   const onCancelAttachImage = () => {
     handleChangeAttachedImageFormData(null);
     handleChangeAttachImage(undefined);
@@ -57,11 +74,20 @@ export const InputField: React.FC<InputFieldProps> = ({
     }
   }, [attachedImage]);
 
+  React.useEffect(() => {
+    isUploading && setIsEmojiPickerVisible(false);
+  }, [isUploading]);
+
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={preview && styles.bottomPreviewOpened}
-    >
+    <form onSubmit={handleSubmit}>
+      {isEmojiPickerVisible && (
+        <div className={styles.emojiPicker} ref={pickerRef}>
+          <Picker
+            onEmojiClick={({ emoji }) => handleChangeText((text += emoji))}
+            emojiStyle={EmojiStyle.GOOGLE}
+          />
+        </div>
+      )}
       {preview && (
         <div style={{ marginTop: preview ? 20 : 0 }}>
           <div className={styles.previewBlock}>
@@ -83,9 +109,9 @@ export const InputField: React.FC<InputFieldProps> = ({
           </div>
         </div>
       )}
-      <div className={styles.messageInputFieldBlock}>
-        <div className={styles.messageInputField}>
-          <div className={styles.messageInputFieldContainer}>
+      <div className={styles.textInputFieldBlock}>
+        <div className={styles.textInputField}>
+          <div className={styles.textInputFieldContainer}>
             <input
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChangeText(e.target.value)
@@ -95,6 +121,13 @@ export const InputField: React.FC<InputFieldProps> = ({
               type="text"
               placeholder="Cообщение"
             />
+            <IconButton
+              className={styles.emojiButton}
+              size="medium"
+              onClick={() => setIsEmojiPickerVisible(!isEmojiPickerVisible)}
+            >
+              <SmileIcon />
+            </IconButton>
             <AttachImagePopup
               className={styles.attachImageButton}
               handleChangeAttachedImage={(image, imageFormData) =>

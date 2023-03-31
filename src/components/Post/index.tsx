@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
 
-import { Typography } from "@mui/material";
+import { IconButton, Tooltip, Typography } from "@mui/material";
 
 import { Line } from "../ui/Line";
 
@@ -26,6 +26,8 @@ import { InputField } from "@/components/InputField";
 import { useInterval } from "@/hooks/useInterval";
 
 import styles from "./Post.module.scss";
+import { HideDetailsIcon } from "@/components/ui/Icons/HideDetailsIcon";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
@@ -76,6 +78,8 @@ const Index: React.FC<PostProps> = ({
   const router = useRouter();
 
   const { convertedDate } = useInterval(5000, createdAt);
+
+  const [parent] = useAutoAnimate();
 
   React.useEffect(() => {
     (async () => {
@@ -324,7 +328,7 @@ const Index: React.FC<PostProps> = ({
         <Like
           handleClickLike={onClickLike}
           handleClickDislike={onClickDislike}
-          likesCount={likesCount}
+          likesCount={likesCount > 0 && likesCount}
           isLiked={likes?.some((like) => like?.author?.userId === userData?.id)}
           likeId={
             likes?.find((like) => like?.author?.userId === userData?.id)?.likeId
@@ -338,18 +342,51 @@ const Index: React.FC<PostProps> = ({
       </div>
       {localComments.length !== 0 && isShowComments && (
         <div className={styles.commentsBlock}>
-          <h2 className={styles.commentsBlockTitle}>Комментарии</h2>
-          {localComments?.map((comment) => (
-            <React.Fragment key={comment.commentId}>
-              <CommentItem {...comment} />
-              {localComments[localComments.length - 1] !== comment && <Line />}
-            </React.Fragment>
-          ))}
+          <div className={styles.commentsBlockHead}>
+            <h2 className={styles.commentsBlockTitle}>Комментарии</h2>
+            <Tooltip title="Скрыть" arrow placement="top">
+              <IconButton
+                color="primary"
+                size="small"
+                onClick={() => setIsShowComments(false)}
+              >
+                <HideDetailsIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+          <ul ref={parent}>
+            {localComments?.map((comment) => (
+              <li key={comment.commentId}>
+                <CommentItem
+                  {...comment}
+                  handleDeleteComment={(commentId) =>
+                    setLocalComments([
+                      ...localComments.filter(
+                        (comment) => comment.commentId !== commentId
+                      ),
+                    ])
+                  }
+                />
+                {localComments[localComments.length - 1] !== comment && (
+                  <Line />
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       {localComments[0] && !isShowComments && (
         <div className={styles.comment}>
-          <CommentItem {...localComments[0]} />
+          <CommentItem
+            handleDeleteComment={(commentId) =>
+              setLocalComments([
+                ...localComments.filter(
+                  (comment) => comment.commentId !== commentId
+                ),
+              ])
+            }
+            {...localComments[0]}
+          />
         </div>
       )}
       {localComments.length > 1 && !isShowComments && (

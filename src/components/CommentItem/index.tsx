@@ -1,11 +1,13 @@
 import React from "react";
 
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import { ILike, IUser } from "@/api/types";
 import { Api } from "@/api/index";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { KebabMenu } from "@/components/ui/KebabMenu";
 import { Like } from "@/components/ui/Like";
 
 import { useAppSelector } from "@/redux/hooks";
@@ -14,9 +16,9 @@ import { selectUserData } from "@/redux/slices/user";
 import { isUrl } from "@/utils/isUrl";
 
 import { useInterval } from "@/hooks/useInterval";
+import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import styles from "./CommentItem.module.scss";
-import { useRouter } from "next/router";
 
 interface CommentItemProps {
   postId: string;
@@ -25,6 +27,7 @@ interface CommentItemProps {
   createdAt: Date;
   text: string;
   likes: ILike[];
+  handleDeleteComment: (commentId: string) => void;
 }
 
 export const CommentItem: React.FC<CommentItemProps> = ({
@@ -34,14 +37,20 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   createdAt,
   text,
   likes,
+  handleDeleteComment,
 }) => {
   const [likesCount, setLikesCount] = React.useState(likes?.length);
+
+  const kebabMenuRef = React.useRef(null);
 
   const userData = useAppSelector(selectUserData);
 
   const router = useRouter();
 
   const { convertedDate } = useInterval(5000, createdAt);
+
+  const { isActionsVisible, onMouseOver, onMouseLeave } =
+    useTransitionOpacity(kebabMenuRef);
 
   const onClickLike = async () => {
     try {
@@ -63,8 +72,22 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     }
   };
 
+  const onDeleteComment = async () => {
+    try {
+      await Api().comment.remove(commentId);
+
+      handleDeleteComment(commentId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
       {author?.avatarUrl ? (
         <img
           width={40}
@@ -96,19 +119,27 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             </span>
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
-          <Like
-            isLiked={likes?.some(
-              (like) => like?.author?.userId === userData?.id
+          <div className={styles.rightSide}>
+            {isActionsVisible && (
+              <KebabMenu
+                handleDelete={onDeleteComment}
+                innerRef={kebabMenuRef}
+              />
             )}
-            handleClickLike={onClickLike}
-            handleClickDislike={onClickDislike}
-            likesCount={likesCount}
-            size="small"
-            likeId={
-              likes?.find((like) => like?.author?.userId === userData?.id)
-                ?.likeId
-            }
-          />
+            <Like
+              isLiked={likes?.some(
+                (like) => like?.author?.userId === userData?.id
+              )}
+              handleClickLike={onClickLike}
+              handleClickDislike={onClickDislike}
+              likesCount={likesCount > 0 && likesCount}
+              size="small"
+              likeId={
+                likes?.find((like) => like?.author?.userId === userData?.id)
+                  ?.likeId
+              }
+            />
+          </div>
         </div>
         {isUrl(text) ? (
           <Image
