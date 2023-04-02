@@ -276,6 +276,12 @@ const Index: React.FC<PostProps> = ({
     ]);
   };
 
+  const onRemoveAttachedImage = (preview) => {
+    setAttachedImages([]);
+    setAttachedImagesFormData([]);
+    setPreviews([...previews.filter((img) => img !== preview)]);
+  };
+
   return (
     <div className={styles.container} ref={innerRef}>
       <div className={styles.head}>
@@ -428,13 +434,8 @@ const Index: React.FC<PostProps> = ({
           text={message}
           handleChangeText={(text) => setMessage(text)}
           handleChangeAttachedImages={handleChangeAttachedImages}
-          handleChangeAttachedImageFormData={(data) =>
-            setAttachedImagesFormData([...attachedImagesFormData, data])
-          }
-          handleChangeAttachImages={(image) =>
-            setAttachedImages([...attachedImages, image])
-          }
           handleChangePreview={(preview) => setPreviews([...previews, preview])}
+          handleRemoveAttachedImage={onRemoveAttachedImage}
           handleSubmit={submitComment}
           isUploading={isUploading}
           attachedImages={attachedImages}
