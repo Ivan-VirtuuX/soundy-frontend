@@ -1,7 +1,18 @@
 import React from "react";
 
 export const useTransitionOpacity = (ref: React.RefObject<HTMLElement>) => {
-  const [isActionsVisible, setIsActionsVisible] = React.useState(false);
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  const opacityUp = [
+    {
+      opacity: 0,
+      transition: "all 0.3s ease-in-out",
+    },
+    {
+      opacity: 1,
+      transition: "all 0.3s ease-in-out",
+    },
+  ];
 
   const opacityDown = [
     {
@@ -19,19 +30,19 @@ export const useTransitionOpacity = (ref: React.RefObject<HTMLElement>) => {
     iterations: 1,
   };
 
-  const onMouseOver = () => {
-    if (!isActionsVisible) {
-      setIsActionsVisible(true);
-    }
-  };
+  React.useEffect(() => {
+    isVisible && ref?.current?.animate(opacityUp, timing);
+  }, [isVisible]);
+
+  const onMouseOver = () => setIsVisible(true);
 
   const onMouseLeave = () => {
     ref?.current?.animate(opacityDown, timing);
 
     setTimeout(() => {
-      setIsActionsVisible(false);
+      setIsVisible(false);
     }, 100);
   };
 
-  return { onMouseOver, onMouseLeave, isActionsVisible };
+  return { isVisible, onMouseOver, onMouseLeave };
 };

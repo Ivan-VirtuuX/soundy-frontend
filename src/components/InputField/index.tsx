@@ -1,12 +1,10 @@
 import React, { FormEvent } from "react";
-
-import Image from "next/image";
 import dynamic from "next/dynamic";
 
 import { AttachImagePopup } from "@/components/AttachImagePopup";
 import { SendIcon } from "@/components/ui/Icons/SendIcon";
-import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
 import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
+import { InputPreviewItem } from "@/components/InputPreviewItem";
 
 import { IconButton } from "@mui/material";
 
@@ -19,32 +17,30 @@ import styles from "./InputField.module.scss";
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
   text: string;
+  isUploading?: boolean;
+  handleChangePreview: (preview: string) => void;
+  attachedImages: File[];
+  previews: string[];
   handleChangeText: (text: string) => void;
   handleChangeAttachedImages: (
     images: File[],
     imagesFormData: FormData[]
   ) => void;
-  handleChangeAttachedImageFormData: (data: FormData) => void;
-  handleChangeAttachImage: (image: File) => void;
-  isUploading?: boolean;
+  handleRemoveAttachedImage?: (preview: string) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  attachedImages: File[];
-  previews: string[];
-  handleChangePreview: (preview: string) => void;
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
   innerRef,
   text,
-  handleChangeText,
-  handleChangeAttachedImages,
-  handleChangeAttachedImageFormData,
-  handleChangeAttachImage,
   isUploading,
-  handleSubmit,
+  handleChangePreview,
   attachedImages,
   previews,
-  handleChangePreview,
+  handleChangeText,
+  handleChangeAttachedImages,
+  handleRemoveAttachedImage,
+  handleSubmit,
 }) => {
   const [isEmojiPickerVisible, setIsEmojiPickerVisible] = React.useState(false);
 
@@ -58,12 +54,6 @@ export const InputField: React.FC<InputFieldProps> = ({
   );
 
   useClickOutside(pickerRef, () => setIsEmojiPickerVisible(false));
-
-  const onCancelAttachImage = () => {
-    handleChangeAttachedImageFormData(null);
-    handleChangeAttachImage(undefined);
-    handleChangePreview("");
-  };
 
   React.useEffect(() => {
     if (attachedImages?.length !== 0) {
@@ -112,12 +102,14 @@ export const InputField: React.FC<InputFieldProps> = ({
             >
               <SmileIcon />
             </IconButton>
-            <AttachImagePopup
-              className={styles.attachImageButton}
-              handleChangeAttachedImages={(image, imageFormData) =>
-                handleChangeAttachedImages(image, imageFormData)
-              }
-            />
+            {attachedImages.length <= 5 && (
+              <AttachImagePopup
+                className={styles.attachImageButton}
+                handleChangeAttachedImages={(image, imageFormData) =>
+                  handleChangeAttachedImages(image, imageFormData)
+                }
+              />
+            )}
           </div>
         </div>
         <IconButton
@@ -129,32 +121,20 @@ export const InputField: React.FC<InputFieldProps> = ({
           <SendIcon />
         </IconButton>
       </div>
-      <div className={styles.previewBlock}>
-        {previews &&
-          previews?.map((preview, index) => (
-            <div style={{ marginTop: preview ? 20 : 0 }} key={index}>
-              <Image
-                style={{
-                  width: previews.length >= 3 ? 50 : 100,
-                  height: previews.length >= 3 ? 50 : 100,
-                }}
-                width={previews.length >= 3 ? 50 : 100}
-                height={previews.length >= 3 ? 50 : 100}
-                quality={100}
-                className={styles.preview}
-                src={preview}
-                alt="image preview"
-              />
-              <IconButton
-                color="primary"
-                className={styles.closeImageButton}
-                onClick={onCancelAttachImage}
-              >
-                <CrossIcon color="#181F92" />
-              </IconButton>
-            </div>
+      {previews && (
+        <div className={styles.previewsBlock}>
+          {previews?.map((preview, index) => (
+            <InputPreviewItem
+              key={index}
+              preview={preview}
+              previews={previews}
+              handleCloseAttachedImage={(preview) =>
+                handleRemoveAttachedImage(preview)
+              }
+            />
           ))}
-      </div>
+        </div>
+      )}
     </form>
   );
 };

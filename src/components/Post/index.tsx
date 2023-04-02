@@ -64,6 +64,11 @@ const Index: React.FC<PostProps> = ({
   const [preview, setPreview] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
+  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
+    FormData[]
+  >([]);
+  const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
+  const [previews, setPreviews] = React.useState<string[]>([]);
 
   const userData = useAppSelector(selectUserData);
 
@@ -261,9 +266,14 @@ const Index: React.FC<PostProps> = ({
     }
   };
 
-  const handleChangeAttachedImage = (image: File, imageFormData: FormData) => {
-    setAttachedImage(image);
-    setAttachedImageFormData(imageFormData);
+  const handleChangeAttachedImages = (
+    images: File[],
+    imagesFormData: FormData[]
+  ) => {
+    setAttachedImages([...attachedImages.concat(images)]);
+    setAttachedImagesFormData([
+      ...attachedImagesFormData.concat(imagesFormData),
+    ]);
   };
 
   return (
@@ -315,19 +325,29 @@ const Index: React.FC<PostProps> = ({
             className={styles.text}
           />
         ))}
-        <div className={styles.imagesBlock}>
-          {body.map(
-            (obj) =>
-              obj?.data?.file?.url && (
-                <img
-                  key={obj?.id}
-                  className={styles.image}
-                  src={obj.data.file.url}
-                  alt="post image"
-                />
-              )
-          )}
-        </div>
+        {body?.some((obj) => obj.type === "image") && (
+          <div
+            className={styles.imagesBlock}
+            style={{
+              gridTemplateColumns:
+                body.filter((obj) => obj.type === "image").length >= 2
+                  ? "1fr 1fr"
+                  : "1fr",
+            }}
+          >
+            {body.map(
+              (obj) =>
+                obj?.data?.file?.url && (
+                  <img
+                    key={obj?.id}
+                    className={styles.image}
+                    src={obj.data.file.url}
+                    alt="post image"
+                  />
+                )
+            )}
+          </div>
+        )}
       </div>
       <div className={styles.actions} ref={ref}>
         <Like
@@ -407,16 +427,18 @@ const Index: React.FC<PostProps> = ({
           innerRef={commentInputRef}
           text={message}
           handleChangeText={(text) => setMessage(text)}
-          handleChangeAttachedImage={handleChangeAttachedImage}
+          handleChangeAttachedImages={handleChangeAttachedImages}
           handleChangeAttachedImageFormData={(data) =>
-            setAttachedImageFormData(data)
+            setAttachedImagesFormData([...attachedImagesFormData, data])
           }
-          handleChangeAttachImage={(image) => setAttachedImage(image)}
-          handleChangePreview={(preview) => setPreview(preview)}
+          handleChangeAttachImages={(image) =>
+            setAttachedImages([...attachedImages, image])
+          }
+          handleChangePreview={(preview) => setPreviews([...previews, preview])}
           handleSubmit={submitComment}
           isUploading={isUploading}
-          attachedImage={attachedImage}
-          preview={preview}
+          attachedImages={attachedImages}
+          previews={previews}
         />
       )}
     </div>

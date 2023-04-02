@@ -43,7 +43,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const conversationUser =
     receiver?.userId === userData?.id ? sender : receiver;
 
-  const { isActionsVisible, onMouseOver, onMouseLeave } =
+  const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(kebabMenuRef);
 
   React.useEffect(() => {
@@ -109,7 +109,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
               : truncateString(lastMessage?.content.text, 20)}
             {lastMessage?.sender &&
               userData?.id &&
-              lastMessage?.content.imageUrl && (
+              lastMessage?.content.images[
+                lastMessage?.content.images.length - 1
+              ] && (
                 <div className={styles.imageMessageBlock}>
                   <span>Вы: Картинка</span>
                   <ImageIcon />
@@ -119,7 +121,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
         </div>
       </div>
       <div className={styles.rightSide}>
-        {isActionsVisible && (
+        {isVisible && (
           <KebabMenu
             handleDelete={() => handleDeleteConversation(conversationId)}
             innerRef={kebabMenuRef}

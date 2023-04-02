@@ -116,6 +116,12 @@ const Conversation: NextPage<ConversationProps> = ({
     ]);
   };
 
+  const onRemoveAttachedImage = (preview) => {
+    setAttachedImages([]);
+    setAttachedImagesFormData([]);
+    setPreviews([...previews.filter((img) => img !== preview)]);
+  };
+
   const handleSubmitNewMessage = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -132,7 +138,7 @@ const Conversation: NextPage<ConversationProps> = ({
             messageId: uuidv4(),
             conversationId: String(id),
             sender: { ...userData },
-            content: { text: message, imageUrl: data },
+            content: { text: message, images: data },
             createdAt: new Date(),
           });
 
@@ -144,14 +150,12 @@ const Conversation: NextPage<ConversationProps> = ({
         if (attachedImagesFormData.length !== 0) {
           const data = await onSubmitAttachedImage();
 
-          console.log(data);
-
           if (data.length !== 0) {
             await Api().message.sendMessage({
               messageId: uuidv4(),
               conversationId: String(id),
               sender: { ...userData },
-              content: { imageUrl: data },
+              content: { images: data },
               createdAt: new Date(),
             });
 
@@ -293,15 +297,10 @@ const Conversation: NextPage<ConversationProps> = ({
             text={message}
             handleChangeText={(text) => setMessage(text)}
             handleChangeAttachedImages={handleChangeAttachedImages}
-            handleChangeAttachedImageFormData={(data) =>
-              setAttachedImagesFormData([...attachedImagesFormData, data])
-            }
-            handleChangeAttachImage={(image) =>
-              setAttachedImages([...attachedImages, image])
-            }
             handleChangePreview={(preview) =>
               setPreviews([...previews, preview])
             }
+            handleRemoveAttachedImage={onRemoveAttachedImage}
             handleSubmit={handleSubmitNewMessage}
             isUploading={isUploading}
             attachedImages={attachedImages}

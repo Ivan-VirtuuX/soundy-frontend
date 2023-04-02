@@ -3,6 +3,7 @@
 .containerLeftSide,
 .containerRightSide {
   transition: all 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .containerLeftSide {
@@ -74,8 +75,7 @@
 }
 
 .messageImage {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
   margin-bottom: 5px;
   width: 350px;
   height: auto;

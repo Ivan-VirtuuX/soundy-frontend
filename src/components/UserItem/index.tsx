@@ -46,7 +46,7 @@ export const UserItem: React.FC<UserItemProps> = ({
 
   const friendItemRef = React.useRef(null);
 
-  const { isActionsVisible, onMouseOver, onMouseLeave } =
+  const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(friendItemRef);
 
   return (
@@ -121,7 +121,7 @@ export const UserItem: React.FC<UserItemProps> = ({
           )}
         </div>
       </div>
-      {isActionsVisible && type !== "requestFriends" && !menuHidden && (
+      {isVisible && type !== "requestFriends" && !menuHidden && (
         <KebabMenu
           innerRef={friendItemRef}
           handleDelete={() => handleDelete(userId)}

@@ -1,0 +1,21 @@
+.previewBlock {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.preview {
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.closeImageButton {
+  position: absolute !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 10px !important;
+}

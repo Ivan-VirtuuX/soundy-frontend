@@ -23,6 +23,7 @@
   &Block {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;
   }
 
   &Container {
@@ -60,21 +61,6 @@
   }
 }
 
-.preview {
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.closeImageButton {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 35px;
-  height: 35px;
-  border-radius: 50% !important;
-}
-
 .emojiPicker {
   position: absolute;
   bottom: 75px;
@@ -89,7 +75,7 @@
   border-radius: 50% !important;
 }
 
-.previewBlock {
+.previewsBlock {
   display: flex;
   column-gap: 10px;
 }

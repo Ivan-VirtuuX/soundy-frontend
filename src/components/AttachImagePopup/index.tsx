@@ -1,7 +1,5 @@
 import React from "react";
 
-import Image from "next/image";
-
 import {
   Dialog,
   DialogContent,
@@ -11,6 +9,8 @@ import {
 
 import { BlueButton } from "@/components/ui/BlueButton";
 import { AttachImageIcon } from "@/components/ui/Icons/AttachImageIcon";
+
+import Image from "next/image";
 
 import styles from "./AttachImagePopup.module.scss";
 
@@ -38,12 +38,12 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   const attachedImageRef = React.useRef(null);
 
   const onCloseImage = async () => {
+    await setIsChangeAttachImageOpen(false);
+    await setIsSaveImage(false);
     await setAttachedImageFormData(null);
     await setAttachedImageFormData(null);
     await setAttachedImages([]);
-    await setIsSaveImage(false);
     await setPreviews([]);
-    await setIsChangeAttachImageOpen(false);
   };
 
   const handleChangeImage = async (files) => {

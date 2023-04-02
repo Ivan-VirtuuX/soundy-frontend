@@ -59,24 +59,33 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           className={styles.containerRightSide}
           ref={innerRef}
           style={{
-            padding: content.imageUrl ? "0 0 10px 0" : 10,
-            borderRadius:
-              nextMessageSenderId === sender.userId ? 10 : "10px 10px 0 10px",
+            padding:
+              content?.images?.length !== 0 && content?.images !== undefined
+                ? "0 0 10px 0"
+                : 10,
           }}
         >
           <div className={styles.contentRightSide}>
             <div className={styles.inner}>
-              {content.imageUrl && (
-                <img
-                  className={styles.messageImage}
-                  src={content.imageUrl}
-                  alt="comment image"
-                />
-              )}
+              {content?.images?.length !== 0 &&
+                content?.images?.map((img) => (
+                  <img
+                    key={img.asset_id}
+                    className={styles.messageImage}
+                    src={img.url}
+                    alt="comment image"
+                  />
+                ))}
               {content.text && (
                 <p
                   className={styles.text}
-                  style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+                  style={{
+                    marginRight:
+                      content?.images?.length !== 0 &&
+                      content?.images !== undefined
+                        ? 10
+                        : 0,
+                  }}
                 >
                   {content.text}
                 </p>
@@ -84,7 +93,12 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             </div>
             <p
               className={styles.date}
-              style={{ marginRight: content.imageUrl ? 10 : 0 }}
+              style={{
+                marginRight:
+                  content?.images?.length !== 0 && content?.images !== undefined
+                    ? 10
+                    : 0,
+              }}
             >
               {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
               {/*  hour: "2-digit",*/}
@@ -126,24 +140,24 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           className={styles.containerLeftSide}
           ref={innerRef}
           style={{
-            padding: content.imageUrl ? "0 0 10px 0" : 10,
-            borderRadius:
-              nextMessageSenderId === sender.userId ? 10 : "10px 10px 0 10px",
+            padding: content?.images?.length !== 0 ? "0 0 10px 0" : 10,
           }}
         >
           <div className={styles.contentLeftSide}>
             <div className={styles.inner}>
-              {content.imageUrl && (
-                <img
-                  className={styles.messageImage}
-                  src={content.imageUrl}
-                  alt="comment image"
-                />
-              )}
+              {content?.images?.length !== 0 &&
+                content?.images?.map((img) => (
+                  <img
+                    key={img.asset_id}
+                    className={styles.messageImage}
+                    src={img.url}
+                    alt="comment image"
+                  />
+                ))}
               {content.text && (
                 <p
                   className={styles.text}
-                  style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+                  style={{ marginLeft: content?.images?.length !== 0 ? 10 : 0 }}
                 >
                   {content.text}
                 </p>
@@ -151,7 +165,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             </div>
             <p
               className={styles.dateLeftSide}
-              style={{ marginLeft: content.imageUrl ? 10 : 0 }}
+              style={{ marginLeft: content?.images?.length !== 0 ? 10 : 0 }}
             >
               {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
               {/*  hour: "2-digit",*/}

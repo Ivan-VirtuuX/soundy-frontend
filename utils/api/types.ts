@@ -101,6 +101,13 @@ export interface ITrack {
   coverUrl: string;
 }
 
+interface ICloudinaryImage {
+  asset_id: string;
+  width: number;
+  height: number;
+  url: string;
+}
+
 export interface IConversation {
   conversationId: string;
   sender: IUser;
@@ -112,7 +119,7 @@ export type IMessage = {
   id?: string;
   conversationId: string;
   sender?: IUser;
-  content: { text?: string; imageUrl?: string[] };
+  content: { text?: string; images?: ICloudinaryImage[] };
   createdAt?: Date;
 };
 

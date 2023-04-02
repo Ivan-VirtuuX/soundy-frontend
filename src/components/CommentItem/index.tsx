@@ -49,7 +49,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
 
   const { convertedDate } = useInterval(5000, createdAt);
 
-  const { isActionsVisible, onMouseOver, onMouseLeave } =
+  const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(kebabMenuRef);
 
   const onClickLike = async () => {
@@ -120,7 +120,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <div className={styles.rightSide}>
-            {isActionsVisible && (
+            {isVisible && (
               <KebabMenu
                 handleDelete={onDeleteComment}
                 innerRef={kebabMenuRef}

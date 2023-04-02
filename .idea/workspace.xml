@@ -6,35 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChangeAvatarPopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChangeAvatarPopup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditProfileForm/EditProfileForm.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormField/FormField.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/FormField.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FormField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FormField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LoginForm/LoginForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginForm/LoginForm.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MessageItem/MessageItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/MessageItem.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MusicItem/MusicItem.module.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MusicItem/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MusicPlayer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MusicPlayer/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/RegisterForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/RegisterForm.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchedData/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchedData/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/BlueButton/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/BlueButton/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Line/Line.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Line/Line.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useInterval.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useInterval.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useNotifications.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useNotifications.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/usePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePosts.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/MainLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Comment/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Like/Like.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Like/Like.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Like/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Like/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useTransitionOpacity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useTransitionOpacity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/music/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/SocketContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/SocketContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,9 +69,9 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "/mnt/space/work/soundy-frontend/node_modules/prettier",
+    "prettierjs.PrettierConfiguration.Package": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\prettier",
     "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "/mnt/space/work/soundy-frontend/node_modules/typescript/lib",
+    "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -150,6 +140,7 @@
       <workItem from="1680016953182" duration="13961000" />
       <workItem from="1680060227326" duration="10855000" />
       <workItem from="1680236075637" duration="7908000" />
+      <workItem from="1680412123437" duration="15457000" />
     </task>
     <servers />
   </component>
