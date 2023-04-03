@@ -1,6 +1,8 @@
-import styles from "./Like.module.scss";
 import React from "react";
+
 import { IconButton } from "@mui/material";
+
+import styles from "./Like.module.scss";
 
 export const Like = ({
   likesCount,
@@ -32,7 +34,7 @@ export const Like = ({
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       {liked ? (
         <div className={styles.likesBlock}>
           <IconButton
@@ -95,6 +97,7 @@ export const Like = ({
               </svg>
             ) : (
               <svg
+                style={{ padding: 5 }}
                 width="14"
                 height="14"
                 viewBox="0 0 20 18"

@@ -13,8 +13,7 @@ export interface CreateUserDto extends LoginDto {
 
 export type CreateCommentDto = {
   postId?: string;
-  author: string;
-  text: string;
+  content: { text?: string; images?: ICloudinaryImage[] };
 };
 
 export interface IComment {
@@ -22,7 +21,7 @@ export interface IComment {
   commentId: string;
   author: IUser;
   createdAt: Date;
-  text: string;
+  content: { text?: string; images?: ICloudinaryImage[] };
   likes: ILike[];
 }
 export interface IPost {

@@ -77,7 +77,7 @@ export const PostApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async addPin(postId: string) {
+  async togglePin(postId: string) {
     const { data } = await instance.post<IPost>(`/posts/${postId}/pins`);
 
     return data;

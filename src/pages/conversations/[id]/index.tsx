@@ -80,7 +80,7 @@ const Conversation: NextPage<ConversationProps> = ({
     iterations: 1,
   };
 
-  const onSubmitAttachedImage = async () => {
+  const onSubmitAttachedImages = async () => {
     try {
       setIsUploading(true);
 
@@ -131,7 +131,7 @@ const Conversation: NextPage<ConversationProps> = ({
       setIsUploading(true);
 
       if (attachedImagesFormData.length !== 0 && message) {
-        const data = await onSubmitAttachedImage();
+        const data = await onSubmitAttachedImages();
 
         if (data.length !== 0) {
           await Api().message.sendMessage({
@@ -148,7 +148,7 @@ const Conversation: NextPage<ConversationProps> = ({
         }
       } else {
         if (attachedImagesFormData.length !== 0) {
-          const data = await onSubmitAttachedImage();
+          const data = await onSubmitAttachedImages();
 
           if (data.length !== 0) {
             await Api().message.sendMessage({
@@ -163,7 +163,6 @@ const Conversation: NextPage<ConversationProps> = ({
             setPreviews([]);
           }
         }
-
         if (message) {
           setIsUploading(true);
 

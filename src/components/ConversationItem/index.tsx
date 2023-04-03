@@ -2,7 +2,7 @@ import React from "react";
 
 import { useRouter } from "next/router";
 
-import { IConversation, IMessage, IUser } from "@/api/types";
+import { IConversation, IMessage } from "@/api/types";
 import { Api } from "@/api/index";
 
 import { useAppSelector } from "@/redux/hooks";
@@ -20,9 +20,6 @@ import { KebabMenu } from "@/components/ui/KebabMenu";
 import styles from "./ConversationItem.module.scss";
 
 interface ConversationItemProps extends IConversation {
-  sender: IUser;
-  receiver: IUser;
-  conversationId: string;
   handleDeleteConversation: (conversationId: string) => void;
 }
 

@@ -13,6 +13,8 @@ import { EmojiStyle } from "emoji-picker-react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
 import styles from "./InputField.module.scss";
+import { router } from "next/client";
+import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -42,8 +44,6 @@ export const InputField: React.FC<InputFieldProps> = ({
   handleRemoveAttachedImage,
   handleSubmit,
 }) => {
-  const [isEmojiPickerVisible, setIsEmojiPickerVisible] = React.useState(false);
-
   const pickerRef = React.useRef(null);
 
   const Picker = dynamic(
@@ -53,7 +53,10 @@ export const InputField: React.FC<InputFieldProps> = ({
     { ssr: false }
   );
 
-  useClickOutside(pickerRef, () => setIsEmojiPickerVisible(false));
+  useClickOutside(pickerRef, () => onMouseLeave());
+
+  const { isVisible, onMouseOver, onMouseLeave } =
+    useTransitionOpacity(pickerRef);
 
   React.useEffect(() => {
     if (attachedImages?.length !== 0) {
@@ -70,13 +73,17 @@ export const InputField: React.FC<InputFieldProps> = ({
   }, [attachedImages]);
 
   React.useEffect(() => {
-    isUploading && setIsEmojiPickerVisible(false);
+    isUploading && onMouseLeave();
   }, [isUploading]);
 
   return (
     <form onSubmit={handleSubmit}>
-      {isEmojiPickerVisible && (
-        <div className={styles.emojiPicker} ref={pickerRef}>
+      {isVisible && (
+        <div
+          className={styles.emojiPicker}
+          ref={pickerRef}
+          style={{ bottom: router.asPath === "/posts" ? 140 : 75 }}
+        >
           <Picker
             onEmojiClick={({ emoji }) => handleChangeText((text += emoji))}
             emojiStyle={EmojiStyle.GOOGLE}
@@ -97,8 +104,8 @@ export const InputField: React.FC<InputFieldProps> = ({
             />
             <IconButton
               className={styles.emojiButton}
-              size="medium"
-              onClick={() => setIsEmojiPickerVisible(!isEmojiPickerVisible)}
+              size="small"
+              onClick={() => (isVisible ? onMouseLeave() : onMouseOver())}
             >
               <SmileIcon />
             </IconButton>

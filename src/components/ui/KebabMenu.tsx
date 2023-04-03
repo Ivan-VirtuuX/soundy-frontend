@@ -10,12 +10,14 @@ const ITEM_HEIGHT = 48;
 export const KebabMenu = ({
   handleDelete,
   handlePin,
+  handleUnpin,
   isPinned,
   isVisiblePin,
   innerRef,
 }: {
   handleDelete?: () => void;
   handlePin?: () => void;
+  handleUnpin?: () => void;
   isPinned?: boolean;
   isVisiblePin?: boolean;
   innerRef?: React.Ref<HTMLDivElement>;
@@ -34,6 +36,11 @@ export const KebabMenu = ({
 
   const onClickPin = () => {
     handlePin();
+    setAnchorEl(null);
+  };
+
+  const onClickUnpin = () => {
+    handleUnpin();
     setAnchorEl(null);
   };
 
@@ -65,7 +72,7 @@ export const KebabMenu = ({
         <MenuItem onClick={onClickDelete}>Удалить</MenuItem>
         {isVisiblePin &&
           (isPinned ? (
-            <MenuItem onClick={onClickPin}>Открепить</MenuItem>
+            <MenuItem onClick={onClickUnpin}>Открепить</MenuItem>
           ) : (
             <MenuItem onClick={onClickPin}>Закрепить</MenuItem>
           ))}

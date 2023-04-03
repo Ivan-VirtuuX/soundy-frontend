@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { ILike, IUser } from "@/api/types";
+import { IComment } from "@/api/types";
 import { Api } from "@/api/index";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
@@ -13,20 +13,12 @@ import { Like } from "@/components/ui/Like";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { isUrl } from "@/utils/isUrl";
-
 import { useInterval } from "@/hooks/useInterval";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import styles from "./CommentItem.module.scss";
 
-interface CommentItemProps {
-  postId: string;
-  commentId: string;
-  author: IUser;
-  createdAt: Date;
-  text: string;
-  likes: ILike[];
+interface CommentItemProps extends IComment {
   handleDeleteComment: (commentId: string) => void;
 }
 
@@ -35,7 +27,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   commentId,
   author,
   createdAt,
-  text,
+  content,
   likes,
   handleDeleteComment,
 }) => {
@@ -141,18 +133,19 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             />
           </div>
         </div>
-        {isUrl(text) ? (
-          <Image
-            className={styles.commentImage}
-            width={200}
-            height={200}
-            src={text}
-            quality={100}
-            alt="comment image"
-          />
-        ) : (
-          <p className={styles.text}>{text}</p>
-        )}
+        {content?.images?.length !== 0 &&
+          content?.images?.map((img, index) => (
+            <Image
+              key={index}
+              className={styles.commentImage}
+              width={200}
+              height={200}
+              src={content.text}
+              quality={100}
+              alt="comment image"
+            />
+          ))}
+        {content.text && <p className={styles.text}>{content.text}</p>}
       </div>
     </div>
   );

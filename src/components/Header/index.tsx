@@ -11,12 +11,13 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUserData, setUserData } from "@/redux/slices/user";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
+import { LogoutIcon } from "@/components/ui/Icons/LogoutIcon";
 
 import { truncateString } from "@/utils/truncateString";
 
-import styles from "./Header.module.scss";
-import { LogoutIcon } from "@/components/ui/Icons/LogoutIcon";
 import { IconButton } from "@mui/material";
+
+import styles from "./Header.module.scss";
 
 export const Header = () => {
   const [isVisibleUserInfo, setIsVisibleUserInfo] = React.useState(true);
@@ -71,7 +72,7 @@ export const Header = () => {
             </div>
             <IconButton
               onClick={onLogout}
-              size="large"
+              size="small"
               className={styles.logoutButton}
               color="primary"
             >

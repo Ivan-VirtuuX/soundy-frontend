@@ -15,7 +15,7 @@ import styles from "./UserPosts.module.scss";
 
 interface UserPostsProps {
   pinnedPost: IPost;
-  handleChangePinnedPost: (post: IPost) => void;
+  handleChangePinnedPost: (post?: IPost) => void;
   userId?: string | string[];
 }
 
@@ -53,18 +53,16 @@ export const UserPosts: React.FC<UserPostsProps> = ({
       try {
         const data = await Api().post.getPinnedPost(userId);
 
-        if (data[0]) {
+        if (data) {
           setFilteredPosts([
-            data[0],
-            ...posts.filter((post) => post.postId !== data[0].postId),
+            data,
+            ...posts.filter((post) => post.postId !== data.postId),
           ]);
-        } else {
+        } else if (filteredPosts.length === 0) {
           const data = await Api().post.getUserPosts(page, userId);
 
           setFilteredPosts([
-            ...filteredPosts
-              .concat(data)
-              .filter((post) => post.pinned !== true),
+            ...filteredPosts.concat(data).filter((post) => !post.pinned),
           ]);
         }
       } catch (err) {
@@ -113,6 +111,9 @@ export const UserPosts: React.FC<UserPostsProps> = ({
                 handleDelete={onDeletePost}
                 handlePin={(postId) =>
                   post?.postId === postId && handleChangePinnedPost(post)
+                }
+                handleUnpin={(postId) =>
+                  post?.postId === postId && handleChangePinnedPost()
                 }
                 pinned={post?.postId === pinnedPost?.postId}
                 innerRef={ref}

@@ -43,7 +43,7 @@ const Users: NextPage<IUser> = ({
   const [localSurname, setLocalSurname] = React.useState(surname);
   const [isAddFriend, setIsAddFriend] = React.useState(false);
   const [userTracks, setUserTracks] = React.useState([]);
-  const [pinnedPost, setPinnedPost] = React.useState<IPost>();
+  const [pinnedPost, setPinnedPost] = React.useState<IPost>(null);
   const [localName, setLocalName] = React.useState(name);
   const [avatar, setAvatar] = React.useState(avatarUrl);
 
@@ -75,6 +75,10 @@ const Users: NextPage<IUser> = ({
     }
   };
 
+  const onChangePinnedPost = (post: IPost) => {
+    post ? setPinnedPost(post) : setPinnedPost(null);
+  };
+
   React.useEffect(() => {
     (async () => {
       setLocalName(name);
@@ -85,7 +89,7 @@ const Users: NextPage<IUser> = ({
       try {
         const data = await Api().post.getPinnedPost(query?.id);
 
-        if (data[0]) setPinnedPost(data[0]);
+        if (data) setPinnedPost(data);
       } catch (err) {
         console.warn(err);
       }
@@ -228,7 +232,7 @@ const Users: NextPage<IUser> = ({
           <Line />
         </div>
         <UserPosts
-          handleChangePinnedPost={(post) => setPinnedPost(post)}
+          handleChangePinnedPost={onChangePinnedPost}
           pinnedPost={pinnedPost}
           userId={query.id}
         />

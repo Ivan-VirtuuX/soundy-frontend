@@ -34,6 +34,7 @@ interface PostProps extends IPost {
   innerRef: Ref<HTMLDivElement>;
   handleDelete?: (postId: string) => void;
   handlePin?: (postId: string) => void;
+  handleUnpin?: (postId: string) => void;
   menuHidden?: boolean;
 }
 
@@ -48,27 +49,26 @@ const Index: React.FC<PostProps> = ({
   handleDelete,
   pinned,
   handlePin,
+  handleUnpin,
   menuHidden,
+  comments,
 }) => {
-  const [attachedImageFormData, setAttachedImageFormData] =
-    React.useState<FormData>();
+  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
+    FormData[]
+  >([]);
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
   const [isShowComments, setIsShowComments] = React.useState(false);
-  const [localComments, setLocalComments] = React.useState<IComment[]>([]);
-  const [attachedImage, setAttachedImage] = React.useState<File>();
+  const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
+  const [localComments, setLocalComments] =
+    React.useState<IComment[]>(comments);
   const [isUploading, setIsUploading] = React.useState(false);
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
   const [isPinned, setIsPinned] = React.useState(false);
-  const [preview, setPreview] = React.useState("");
+  const [previews, setPreviews] = React.useState<string[]>([]);
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
-  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
-    FormData[]
-  >([]);
-  const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
-  const [previews, setPreviews] = React.useState<string[]>([]);
 
   const userData = useAppSelector(selectUserData);
 
@@ -95,6 +95,178 @@ const Index: React.FC<PostProps> = ({
     } catch (err) {
       console.warn(err);
     }
+  };
+
+  const submitComment = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      if (attachedImagesFormData.length !== 0 && message) {
+        setIsUploading(true);
+
+        const data = await onSubmitAttachedImages();
+
+        if (data.length !== 0) {
+          await setIsShowComments(true);
+
+          await commentInputRef?.current?.scrollIntoView({ block: "center" });
+
+          setIsUploading(true);
+
+          const comment = await Api().comment.addComment({
+            postId,
+            content: { text: message, images: data },
+          });
+
+          setLocalComments([...localComments, comment]);
+          setAttachedImagesFormData([]);
+          setPreviews([]);
+          setMessage("");
+        }
+      } else {
+        if (attachedImagesFormData.length !== 0) {
+          setIsUploading(true);
+
+          const data = await onSubmitAttachedImages();
+
+          if (data.length !== 0) {
+            await setIsShowComments(true);
+
+            await commentInputRef?.current?.scrollIntoView({
+              block: "center",
+            });
+
+            setIsUploading(true);
+
+            const comment = await Api().comment.addComment({
+              postId,
+              content: { images: data },
+            });
+
+            setLocalComments([...localComments, comment]);
+            setAttachedImagesFormData([]);
+            setPreviews([]);
+            setMessage("");
+          }
+        }
+        if (message) {
+          setIsUploading(true);
+
+          await setIsShowComments(true);
+
+          await commentInputRef?.current?.scrollIntoView({ block: "center" });
+
+          setIsUploading(true);
+
+          const comment = await Api().comment.addComment({
+            postId,
+            content: { text: message },
+          });
+
+          setLocalComments([...localComments, comment]);
+
+          setIsUploading(false);
+
+          setMessage("");
+        }
+      }
+    } catch (err) {
+      console.warn(err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const onClickLike = React.useCallback(async () => {
+    try {
+      setLikesCount((likesCount) => likesCount + 1);
+
+      await Api().post.addLike(postId);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
+  const onClickDislike = React.useCallback(async (likeId: string) => {
+    try {
+      setLikesCount((likesCount) => likesCount - 1);
+
+      await Api().post.removeLike(postId, likeId);
+    } catch (err) {
+      console.warn(err);
+    }
+  }, []);
+
+  const onClickCommentIcon = async () => {
+    await setIsCommentInputVisible(true);
+
+    await commentInputRef?.current?.focus();
+  };
+
+  const onPinPost = async () => {
+    try {
+      await Api().post.togglePin(postId);
+
+      setIsPinned(!isPinned);
+
+      handlePin(postId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const onUnpinPost = async () => {
+    try {
+      await Api().post.togglePin(postId);
+
+      setIsPinned(!isPinned);
+
+      handleUnpin(postId);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const onSubmitAttachedImages = async () => {
+    try {
+      setIsUploading(true);
+
+      const promises = [];
+
+      for (let i: number = 0; i < attachedImagesFormData.length; i++) {
+        const { data } = await CloudinaryApi().cloudinary.changeImage(
+          attachedImagesFormData[i]
+        );
+
+        promises.push(data);
+      }
+
+      await Promise.all(promises);
+
+      setIsUploading(false);
+
+      return promises;
+    } catch (err) {
+      console.warn(err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleChangeAttachedImages = (
+    images: File[],
+    imagesFormData: FormData[]
+  ) => {
+    setAttachedImages([...attachedImages.concat(images)]);
+    setAttachedImagesFormData([
+      ...attachedImagesFormData.concat(imagesFormData),
+    ]);
+  };
+
+  const onRemoveAttachedImage = (preview) => {
+    setAttachedImages([]);
+    setAttachedImagesFormData([]);
+    setPreviews([...previews.filter((img) => img !== preview)]);
   };
 
   React.useEffect(() => {
@@ -136,152 +308,6 @@ const Index: React.FC<PostProps> = ({
     })();
   }, [inView]);
 
-  React.useEffect(() => {
-    if (attachedImage) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-
-      reader.readAsDataURL(attachedImage);
-    } else {
-      setPreview(null);
-    }
-  }, [attachedImage]);
-
-  const submitComment = React.useCallback(
-    async (e: FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-
-      try {
-        if (attachedImageFormData) {
-          const { secure_url } = await onSubmitAttachImage();
-
-          if (secure_url) {
-            await setIsShowComments(true);
-
-            await commentInputRef?.current?.scrollIntoView({ block: "center" });
-
-            setIsUploading(true);
-
-            const comment = await Api().comment.addComment({
-              postId,
-              author: userData?.userId,
-              text: secure_url,
-            });
-
-            setAttachedImageFormData(null);
-            setAttachedImage(null);
-
-            setPreview("");
-
-            setLocalComments([...localComments, comment]);
-
-            setIsUploading(false);
-          }
-        }
-        if (message) {
-          await setIsShowComments(true);
-
-          await commentInputRef?.current?.scrollIntoView({ block: "center" });
-
-          setIsUploading(true);
-
-          const comment = await Api().comment.addComment({
-            postId,
-            author: userData?.userId,
-            text: message,
-          });
-
-          setLocalComments([...localComments, comment]);
-
-          setIsUploading(false);
-        }
-      } catch (err) {
-        console.warn(err);
-      } finally {
-        setMessage("");
-        setIsUploading(false);
-      }
-    },
-    [attachedImageFormData, localComments, message, postId, userData?.userId]
-  );
-
-  const onClickLike = React.useCallback(async () => {
-    try {
-      setLikesCount((likesCount) => likesCount + 1);
-
-      await Api().post.addLike(postId);
-    } catch (err) {
-      console.warn(err);
-    }
-  }, []);
-
-  const onClickDislike = React.useCallback(async (likeId: string) => {
-    try {
-      setLikesCount((likesCount) => likesCount - 1);
-
-      await Api().post.removeLike(postId, likeId);
-    } catch (err) {
-      console.warn(err);
-    }
-  }, []);
-
-  const onClickCommentIcon = async () => {
-    await setIsCommentInputVisible(true);
-
-    await commentInputRef?.current?.focus();
-  };
-
-  const onPinPost = async () => {
-    try {
-      await Api().post.addPin(postId);
-
-      setIsPinned(!isPinned);
-
-      handlePin(postId);
-    } catch (err) {
-      console.warn(err);
-    }
-  };
-
-  const onSubmitAttachImage = async () => {
-    try {
-      setIsUploading(true);
-
-      const { data } = await CloudinaryApi().cloudinary.changeImage(
-        attachedImageFormData
-      );
-
-      setIsUploading(false);
-
-      return data;
-    } catch (err) {
-      console.warn(err);
-
-      alert("Update image error");
-    } finally {
-      setIsUploading(false);
-    }
-  };
-
-  const handleChangeAttachedImages = (
-    images: File[],
-    imagesFormData: FormData[]
-  ) => {
-    setAttachedImages([...attachedImages.concat(images)]);
-    setAttachedImagesFormData([
-      ...attachedImagesFormData.concat(imagesFormData),
-    ]);
-  };
-
-  const onRemoveAttachedImage = (preview) => {
-    setAttachedImages([]);
-    setAttachedImagesFormData([]);
-    setPreviews([...previews.filter((img) => img !== preview)]);
-  };
-
   return (
     <div className={styles.container} ref={innerRef}>
       <div className={styles.head}>
@@ -319,6 +345,7 @@ const Index: React.FC<PostProps> = ({
             isPinned={pinned}
             handleDelete={onDeletePost}
             handlePin={onPinPost}
+            handleUnpin={onUnpinPost}
             isVisiblePin={asPath.includes("/users")}
           />
         )}

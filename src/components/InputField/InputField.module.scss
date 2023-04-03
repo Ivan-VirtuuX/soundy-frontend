@@ -64,14 +64,13 @@
 .emojiPicker {
   position: absolute;
   bottom: 75px;
+  z-index: 20000;
 }
 
 .emojiButton {
   position: absolute !important;
-  top: 8px;
-  left: 10px;
-  width: 35px;
-  height: 35px;
+  top: 12px;
+  left: 13px;
   border-radius: 50% !important;
 }
 
