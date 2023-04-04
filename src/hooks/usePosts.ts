@@ -26,7 +26,7 @@ export const usePosts = (
         } else if (page === 1 && userId) {
           const arr = await Api().post.getUserPosts(1, userId);
 
-          setPosts(arr);
+          await setPosts(arr);
         } else if (page > 1 && userId) {
           const arr = await Api().post.getUserPosts(page, userId);
 

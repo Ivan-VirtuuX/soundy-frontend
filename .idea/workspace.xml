@@ -6,20 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/Header.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/Header.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/Post.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/Post.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileActions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ui/KebabMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/KebabMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Like/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Like/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/usePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePosts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/api/post.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/post.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/search/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/search/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/api/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +133,8 @@
       <workItem from="1680060227326" duration="10855000" />
       <workItem from="1680236075637" duration="7908000" />
       <workItem from="1680412123437" duration="15731000" />
-      <workItem from="1680496666769" duration="5013000" />
+      <workItem from="1680496666769" duration="5751000" />
+      <workItem from="1680581025951" duration="5796000" />
     </task>
     <servers />
   </component>

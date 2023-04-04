@@ -32,9 +32,9 @@ const Posts: NextPage = () => {
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
 
-  const { posts, setPosts } = usePosts(newPosts, page);
-
   const router = useRouter();
+
+  const { posts, setPosts } = usePosts(newPosts, page);
 
   const { ref, inView } = useInView({
     threshold: 1,

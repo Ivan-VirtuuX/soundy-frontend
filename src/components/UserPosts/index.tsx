@@ -12,6 +12,7 @@ import { Api } from "@/api/index";
 import { usePosts } from "@/hooks/usePosts";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import styles from "./UserPosts.module.scss";
+import { useRouter } from "next/router";
 
 interface UserPostsProps {
   pinnedPost: IPost;
@@ -29,12 +30,14 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
 
+  const router = useRouter();
+
   const { ref, inView } = useInView({
     threshold: 1,
     triggerOnce: true,
   });
 
-  const { posts } = usePosts(newPosts, page, pinnedPost, userId);
+  const { posts } = usePosts(newPosts, page, pinnedPost, router?.query?.id);
 
   const [parent] = useAutoAnimate();
 
@@ -51,6 +54,8 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
+        setFilteredPosts([]);
+
         const data = await Api().post.getPinnedPost(userId);
 
         if (data) {
@@ -69,7 +74,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
         console.warn(err);
       }
     })();
-  }, [posts, userId]);
+  }, [posts, router?.query?.id]);
 
   React.useEffect(() => {
     (async () => {

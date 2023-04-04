@@ -10,8 +10,11 @@ import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
 import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
 import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
-import styles from "./UserItem.module.scss";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
+
+import { Api } from "@/api/index";
+
+import styles from "./UserItem.module.scss";
 
 interface UserItemProps {
   userId: string;
@@ -42,12 +45,33 @@ export const UserItem: React.FC<UserItemProps> = ({
   isCancelled,
   menuHidden,
 }) => {
+  const [isLoadingConversation, setIsLoadingConversation] =
+    React.useState(false);
+
   const router = useRouter();
 
   const friendItemRef = React.useRef(null);
 
   const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(friendItemRef);
+
+  const createConversation = async () => {
+    try {
+      setIsLoadingConversation(true);
+
+      const data = await Api().conversation.createConversation({
+        receiver: userId,
+      });
+
+      await router.push(`/conversations/${data.conversationId}`);
+
+      setIsLoadingConversation(false);
+    } catch (err) {
+      console.warn(err);
+    } finally {
+      setIsLoadingConversation(false);
+    }
+  };
 
   return (
     <div
@@ -115,7 +139,13 @@ export const UserItem: React.FC<UserItemProps> = ({
               )}
             </div>
           ) : (
-            <BlueButton size="sm" text="Сообщение" color="primary">
+            <BlueButton
+              size="sm"
+              text="Сообщение"
+              color="primary"
+              handleClick={createConversation}
+              disabled={isLoadingConversation}
+            >
               <MessageIcon width={18} height={18} color="white" />
             </BlueButton>
           )}

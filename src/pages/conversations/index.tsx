@@ -18,6 +18,9 @@ import { socket } from "@/utils/SocketContext";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
+
 import styles from "./Conversations.module.scss";
 
 interface ConversationsProps {
@@ -25,11 +28,13 @@ interface ConversationsProps {
 }
 
 const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
-  const [searchText, setSearchText] = React.useState("");
   const [localConversations, setLocalConversations] =
     React.useState<IConversation[]>(conversations);
+  const [searchText, setSearchText] = React.useState("");
 
   const [parent] = useAutoAnimate();
+
+  const userData = useAppSelector(selectUserData);
 
   const onDeleteConversation = async (conversationId: string) => {
     try {
@@ -46,26 +51,39 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   };
 
   const filterConversations = (searchText: string): IConversation[] => {
-    return localConversations.filter(
-      (conversation) =>
-        conversation.sender.name.toLowerCase().includes(searchText) ||
-        conversation.sender.surname.toLowerCase().includes(searchText) ||
-        conversation.sender.login.toLowerCase().includes(searchText) ||
-        conversation.sender.name
+    return localConversations.filter((conversation) => {
+      const conversationUser =
+        conversation.receiver?.userId === userData?.id
+          ? conversation.sender
+          : conversation.receiver;
+
+      return (
+        conversationUser.name
           .toLowerCase()
-          .includes(searchText.split("")[0]) ||
-        conversation.sender.surname
+          .includes(searchText.toLowerCase()) ||
+        conversationUser.surname
           .toLowerCase()
-          .includes(searchText.split("")[1])
-    );
+          .includes(searchText.toLowerCase()) ||
+        conversationUser.login
+          .toLowerCase()
+          .includes(searchText.toLowerCase()) ||
+        (conversationUser.name
+          .toLowerCase()
+          .includes(searchText.split("")[0]?.toLowerCase()) &&
+          conversationUser.surname
+            .toLowerCase()
+            .includes(searchText.split("")[1]?.toLowerCase())) ||
+        conversation.messages.some((msg) =>
+          msg.content.text.toLowerCase().includes(searchText.toLowerCase())
+        )
+      );
+    });
   };
 
   React.useEffect(() => {
     (async () => {
       try {
         socket.on("onMessage", async (payload) => {
-          const { ...message } = payload;
-
           const data = await Api().conversation.getAll();
 
           setLocalConversations(data);

@@ -127,6 +127,7 @@ const Search: NextPage = () => {
             <SearchInput handleChange={(text) => setSearchQuery(text)} />
             <div className={styles.actions}>
               <BlueButton
+                disabled={!searchQuery}
                 text="Найти"
                 color="primary"
                 handleClick={() => searchData("users")}
@@ -134,6 +135,7 @@ const Search: NextPage = () => {
                 <UsersIcon color="white" />
               </BlueButton>
               <BlueButton
+                disabled={!searchQuery}
                 text="Найти"
                 color="primary"
                 handleClick={() => searchData("posts")}

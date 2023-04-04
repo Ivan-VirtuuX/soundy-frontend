@@ -314,19 +314,26 @@ const Conversation: NextPage<ConversationProps> = ({
 export default Conversation;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  if (!ctx.req.cookies.authToken) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  const data = await Api().conversation.getMessages(ctx.query.id);
-
   const conversation = await Api(ctx).conversation.getOne(ctx.query.id);
 
+  const user = await Api(ctx).user.getMe();
+
+  if (
+    ctx.req.cookies.authToken &&
+    (conversation?.sender?.userId === user.id ||
+      conversation?.receiver?.userId === user.id) &&
+    conversation
+  ) {
+    const data = await Api().conversation.getMessages(ctx.query.id);
+
+    return {
+      props: { messages: data, ...conversation },
+    };
+  }
   return {
-    props: { messages: data, ...conversation },
+    redirect: {
+      destination: "/",
+      permanent: false,
+    },
   };
 };

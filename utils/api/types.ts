@@ -111,6 +111,7 @@ export interface IConversation {
   conversationId: string;
   sender: IUser;
   receiver: IUser;
+  messages: IMessage[];
 }
 
 export type IMessage = {

@@ -5,8 +5,6 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { MoreHoriz } from "@material-ui/icons";
 
-const ITEM_HEIGHT = 48;
-
 export const KebabMenu = ({
   handleDelete,
   handlePin,
@@ -64,7 +62,7 @@ export const KebabMenu = ({
         onClose={() => setAnchorEl(null)}
         PaperProps={{
           style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
+            maxHeight: 48 * 4.5,
             width: "20ch",
           },
         }}

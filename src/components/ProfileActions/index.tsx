@@ -8,14 +8,14 @@ import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { BlueButton } from "@/components/ui/BlueButton";
-import { EditUserIcon } from "@/components/ui/Icons/EditUserIcon";
 import { EditProfilePopup } from "@/components/EditProfilePopup";
-import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
-import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
 import { DeleteUserIcon } from "@/components/ui/Icons/DeleteUserIcon";
-import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
+import { EditUserIcon } from "@/components/ui/Icons/EditUserIcon";
+import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
 import { AddUserIcon } from "@/components/ui/Icons/AddUserIcon";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
+import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
 
 import styles from "./ProfileActions.module.scss";
 
@@ -24,16 +24,16 @@ interface ProfileActionsProps {
   localName: string;
   localSurname: string;
   localBirthDate: Date;
-  handleChangeName: (text: string) => void;
-  handleChangeSurname: (text: string) => void;
-  handleChangeBirthDate: (date: Date) => void;
   onOpenEdit: () => void;
   onCloseEdit: () => void;
   friends: IUser[];
   handleAddFriend: (isAdd: boolean) => void;
   isAddFriend: boolean;
-  handleClickMessageButton: () => void;
   isLoadingConversation: boolean;
+  handleChangeName: (text: string) => void;
+  handleChangeSurname: (text: string) => void;
+  handleChangeBirthDate: (date: Date) => void;
+  handleClickMessageButton: () => void;
 }
 
 export const ProfileActions: React.FC<ProfileActionsProps> = ({
@@ -41,19 +41,19 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
   localName,
   localSurname,
   localBirthDate,
-  handleChangeName,
-  handleChangeSurname,
-  handleChangeBirthDate,
   onOpenEdit,
   onCloseEdit,
   friends,
   handleAddFriend,
   isAddFriend,
-  handleClickMessageButton,
   isLoadingConversation,
+  handleChangeName,
+  handleChangeSurname,
+  handleChangeBirthDate,
+  handleClickMessageButton,
 }) => {
-  const [isDeleteFriend, setIsDeleteFriend] = React.useState(false);
   const [isLoadingUserAction, setIsLoadingUserAction] = React.useState(false);
+  const [isDeleteFriend, setIsDeleteFriend] = React.useState(false);
 
   const userData = useAppSelector(selectUserData);
 

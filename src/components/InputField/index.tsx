@@ -1,5 +1,7 @@
 import React, { FormEvent } from "react";
+
 import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
 
 import { AttachImagePopup } from "@/components/AttachImagePopup";
 import { SendIcon } from "@/components/ui/Icons/SendIcon";
@@ -12,9 +14,9 @@ import { EmojiStyle } from "emoji-picker-react";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
 
-import styles from "./InputField.module.scss";
-import { router } from "next/client";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
+
+import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -53,6 +55,8 @@ export const InputField: React.FC<InputFieldProps> = ({
     { ssr: false }
   );
 
+  const router = useRouter();
+
   useClickOutside(pickerRef, () => onMouseLeave());
 
   const { isVisible, onMouseOver, onMouseLeave } =
@@ -82,7 +86,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         <div
           className={styles.emojiPicker}
           ref={pickerRef}
-          style={{ bottom: router.asPath === "/posts" ? 140 : 75 }}
+          style={{ bottom: router.asPath.includes("conversations") ? 75 : 140 }}
         >
           <Picker
             onEmojiClick={({ emoji }) => handleChangeText((text += emoji))}
