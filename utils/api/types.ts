@@ -112,6 +112,7 @@ export interface IConversation {
   sender: IUser;
   receiver: IUser;
   messages: IMessage[];
+  updatedAt: Date;
 }
 
 export type IMessage = {

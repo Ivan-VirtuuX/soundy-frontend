@@ -9,6 +9,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
+import { useInterval } from "@/hooks/useInterval";
 
 import { truncateString } from "@/utils/truncateString";
 import { socket } from "@/utils/SocketContext";
@@ -28,20 +29,25 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   receiver,
   conversationId,
   handleDeleteConversation,
+  messages,
 }) => {
-  const [lastMessage, setLastMessage] = React.useState<IMessage>(null);
+  const [lastMessage, setLastMessage] = React.useState<IMessage>(
+    messages[messages.length - 1]
+  );
 
   const kebabMenuRef = React.useRef(null);
 
-  const userData = useAppSelector(selectUserData);
-
   const router = useRouter();
+
+  const userData = useAppSelector(selectUserData);
 
   const conversationUser =
     receiver?.userId === userData?.id ? sender : receiver;
 
   const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(kebabMenuRef);
+
+  const { convertedDate } = useInterval(5000, lastMessage.createdAt);
 
   React.useEffect(() => {
     (async () => {
@@ -61,7 +67,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
         socket.on("onMessage", async (payload) => {
           const { ...message } = payload;
 
-          message.sender.id === receiver.userId && setLastMessage(message);
+          (message.sender.id === receiver.userId ||
+            message.sender.id === sender.userId) &&
+            setLastMessage(message);
         });
       } catch (err) {
         console.warn(err);
@@ -104,10 +112,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             lastMessage?.content.text
               ? "Вы: " + truncateString(lastMessage?.content.text, 20)
               : truncateString(lastMessage?.content.text, 20)}
-            {lastMessage?.sender &&
-              userData?.id &&
-              lastMessage?.content.images[
-                lastMessage?.content.images.length - 1
+            {lastMessage?.sender.userId === userData?.id &&
+              lastMessage?.content?.images[
+                lastMessage?.content?.images?.length - 1
               ] && (
                 <div className={styles.imageMessageBlock}>
                   <span>Вы: Картинка</span>
@@ -125,9 +132,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
           />
         )}
         {lastMessage?.createdAt && (
-          <span className={styles.lastMessageDate}>
-            {new Date(lastMessage?.createdAt)?.toLocaleDateString()}
-          </span>
+          <span className={styles.lastMessageDate}>{convertedDate}</span>
         )}
       </div>
     </div>

@@ -130,17 +130,23 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
                         ?.conversationId && <Line />}
                   </li>
                 ))
-              : localConversations?.map((obj) => (
-                  <li key={obj.conversationId}>
-                    <ConversationItem
-                      {...obj}
-                      handleDeleteConversation={onDeleteConversation}
-                    />
-                    {obj.conversationId !==
-                      localConversations[localConversations.length - 1]
-                        ?.conversationId && <Line />}
-                  </li>
-                ))}
+              : localConversations
+                  ?.sort(
+                    (a, b) =>
+                      Number(new Date(b.updatedAt)) -
+                      Number(new Date(a.updatedAt))
+                  )
+                  .map((obj) => (
+                    <li key={obj.conversationId}>
+                      <ConversationItem
+                        {...obj}
+                        handleDeleteConversation={onDeleteConversation}
+                      />
+                      {obj.conversationId !==
+                        localConversations[localConversations.length - 1]
+                          ?.conversationId && <Line />}
+                    </li>
+                  ))}
           </ul>
         ) : (
           <NullResultsBlock text="Список диалогов пуст" />

@@ -3,13 +3,15 @@ import React from "react";
 import { convertDate } from "@/utils/dateConverter";
 
 export const useInterval = (interval: number, date: Date) => {
-  const [convertedDate, setConvertedDate] = React.useState(
-    convertDate(new Date(date))
-  );
+  const [convertedDate, setConvertedDate] = React.useState("");
 
   const intervalCallback = React.useCallback(() => {
     setConvertedDate(convertDate(new Date(date)));
-  }, []);
+  }, [date]);
+
+  React.useEffect(() => {
+    setConvertedDate(convertDate(new Date(date)));
+  }, [date]);
 
   React.useEffect(() => {
     const timeout = setInterval(() => {
@@ -26,7 +28,7 @@ export const useInterval = (interval: number, date: Date) => {
     }, interval);
 
     return () => clearInterval(timeout);
-  }, [intervalCallback]);
+  }, [intervalCallback, date]);
 
   return { convertedDate };
 };
