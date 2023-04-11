@@ -12,7 +12,6 @@ export const KebabMenu = ({
   isPinned,
   isVisiblePin,
   innerRef,
-                            className
 }: {
   handleDelete?: () => void;
   handlePin?: () => void;
@@ -20,7 +19,6 @@ export const KebabMenu = ({
   isPinned?: boolean;
   isVisiblePin?: boolean;
   innerRef?: React.Ref<HTMLDivElement>;
-  className?:string
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -45,9 +43,8 @@ export const KebabMenu = ({
   };
 
   return (
-    <div ref={innerRef} >
+    <div ref={innerRef}>
       <IconButton
-        className={className}
         aria-label="more"
         aria-controls="long-menu"
         aria-haspopup="true"

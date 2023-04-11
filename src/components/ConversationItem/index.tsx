@@ -9,7 +9,6 @@ import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
-import { useInterval } from "@/hooks/useInterval";
 
 import { truncateString } from "@/utils/truncateString";
 import { socket } from "@/utils/SocketContext";
@@ -47,7 +46,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const { isVisible, onMouseOver, onMouseLeave } =
     useTransitionOpacity(kebabMenuRef);
 
-  const { convertedDate } = useInterval(5000, lastMessage.createdAt);
+  // const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
 
   React.useEffect(() => {
     (async () => {
@@ -131,9 +130,11 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             innerRef={kebabMenuRef}
           />
         )}
-        {lastMessage?.createdAt && (
-          <span className={styles.lastMessageDate}>{convertedDate}</span>
-        )}
+        {/*{lastMessage && lastMessage?.createdAt && (*/}
+        {/*  <span className={styles.lastMessageDate}>*/}
+        {/*    {convertDate(lastMessage?.createdAt)}*/}
+        {/*  </span>*/}
+        {/*)}*/}
       </div>
     </div>
   );
