@@ -114,6 +114,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
           <div className={styles.rightSide}>
             {isVisible && (
               <KebabMenu
+                className={styles.kebabMenu}
                 handleDelete={onDeleteComment}
                 innerRef={kebabMenuRef}
               />
