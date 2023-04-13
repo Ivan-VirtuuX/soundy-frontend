@@ -1,5 +1,5 @@
 export const convertDate = (date: Date): string => {
-  const timeMs = date.getTime();
+  const timeMs = new Date(date).getTime();
 
   const deltaSeconds = Math.round((timeMs - Date.now()) / 1000);
 

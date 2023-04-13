@@ -8,16 +8,16 @@ import { Api } from "@/api/index";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
-
 import { truncateString } from "@/utils/truncateString";
 import { socket } from "@/utils/SocketContext";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { ImageIcon } from "@/components/ui/Icons/ImageIcon";
-import { KebabMenu } from "@/components/ui/KebabMenu";
 
 import styles from "./ConversationItem.module.scss";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useInterval } from "@/hooks/useInterval";
 
 interface ConversationItemProps extends IConversation {
   handleDeleteConversation: (conversationId: string) => void;
@@ -33,8 +33,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const [lastMessage, setLastMessage] = React.useState<IMessage>(
     messages[messages.length - 1]
   );
-
-  const kebabMenuRef = React.useRef(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const router = useRouter();
 
@@ -43,10 +42,13 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const conversationUser =
     receiver?.userId === userData?.id ? sender : receiver;
 
-  const { isVisible, onMouseOver, onMouseLeave } =
-    useTransitionOpacity(kebabMenuRef);
+  const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
 
-  // const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
+  const onShowMessageActions = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    setAnchorEl(e.currentTarget);
+  };
 
   React.useEffect(() => {
     (async () => {
@@ -70,6 +72,11 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             message.sender.id === sender.userId) &&
             setLastMessage(message);
         });
+        socket.on("onDeleteMessage", async (payload) => {
+          const { ...message } = payload;
+
+          setLastMessage(messages[messages.length - 2]);
+        });
       } catch (err) {
         console.warn(err);
       }
@@ -83,59 +90,61 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   }, [socket]);
 
   return (
-    <div
-      className={styles.container}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className={styles.wrapper} onContextMenu={onShowMessageActions}>
       <div
-        className={styles.leftSide}
+        className={styles.container}
         onClick={() => router.push(`/conversations/${conversationId}`)}
       >
-        {conversationUser.avatarUrl ? (
-          <img
-            className={styles.avatar}
-            src={conversationUser.avatarUrl}
-            alt="avatar"
-          />
-        ) : (
-          <EmptyAvatar width={50} />
-        )}
-        <div className={styles.leftSideText}>
-          <div className={styles.receiverInfo}>
-            <span>{conversationUser.name}</span>
-            <span>{truncateString(conversationUser.surname, 10)}</span>
+        <div className={styles.leftSide}>
+          {conversationUser.avatarUrl ? (
+            <img
+              className={styles.avatar}
+              src={conversationUser.avatarUrl}
+              alt="avatar"
+            />
+          ) : (
+            <EmptyAvatar width={50} />
+          )}
+          <div className={styles.leftSideText}>
+            <div className={styles.receiverInfo}>
+              <span>{conversationUser.name}</span>
+              <span>{truncateString(conversationUser.surname, 10)}</span>
+            </div>
+            <p className={styles.lastMessageText}>
+              {lastMessage?.sender.userId === userData?.id &&
+              lastMessage?.content.text
+                ? "Вы: " + truncateString(lastMessage?.content.text, 20)
+                : truncateString(lastMessage?.content.text, 20)}
+              {lastMessage?.sender.userId === userData?.id &&
+                lastMessage?.content?.images[
+                  lastMessage?.content?.images?.length - 1
+                ] && (
+                  <div className={styles.imageMessageBlock}>
+                    <span>Вы: Картинка</span>
+                    <ImageIcon />
+                  </div>
+                )}
+            </p>
           </div>
-          <p className={styles.lastMessageText}>
-            {lastMessage?.sender.userId === userData?.id &&
-            lastMessage?.content.text
-              ? "Вы: " + truncateString(lastMessage?.content.text, 20)
-              : truncateString(lastMessage?.content.text, 20)}
-            {lastMessage?.sender.userId === userData?.id &&
-              lastMessage?.content?.images[
-                lastMessage?.content?.images?.length - 1
-              ] && (
-                <div className={styles.imageMessageBlock}>
-                  <span>Вы: Картинка</span>
-                  <ImageIcon />
-                </div>
-              )}
-          </p>
+        </div>
+        <div className={styles.rightSide}>
+          {lastMessage && lastMessage?.createdAt && (
+            <span className={styles.lastMessageDate}>{convertedDate}</span>
+          )}
         </div>
       </div>
-      <div className={styles.rightSide}>
-        {isVisible && (
-          <KebabMenu
-            handleDelete={() => handleDeleteConversation(conversationId)}
-            innerRef={kebabMenuRef}
-          />
-        )}
-        {/*{lastMessage && lastMessage?.createdAt && (*/}
-        {/*  <span className={styles.lastMessageDate}>*/}
-        {/*    {convertDate(lastMessage?.createdAt)}*/}
-        {/*  </span>*/}
-        {/*)}*/}
-      </div>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={!!anchorEl}
+        onClose={() => setAnchorEl(null)}
+        variant="menu"
+      >
+        <MenuItem onClick={() => handleDeleteConversation(conversationId)}>
+          Удалить
+        </MenuItem>
+      </Menu>
     </div>
   );
 };

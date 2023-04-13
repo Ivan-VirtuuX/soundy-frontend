@@ -1,5 +1,9 @@
 @import "@/styles/variables.scss";
 
+.wrapper {
+  height: 80px;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -75,4 +79,5 @@
   display: flex;
   align-items: center;
   column-gap: 10px;
+  position: relative;
 }

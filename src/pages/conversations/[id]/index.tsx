@@ -32,7 +32,7 @@ interface ConversationProps extends IConversation {
   messages: IMessage[];
 }
 
-const Conversation: NextPage<ConversationProps> = ({
+const Conversation: NextPage<IConversation> = ({
   messages,
   sender,
   receiver,
@@ -203,7 +203,6 @@ const Conversation: NextPage<ConversationProps> = ({
             }
           }
         });
-
         socket.on("onDeleteMessage", (messageId) => {
           setLocalMessages((localMessages) => [
             ...localMessages.filter(
@@ -287,6 +286,20 @@ const Conversation: NextPage<ConversationProps> = ({
                     ) + 1
                   ]?.sender?.userId
                 }
+                lastSenderMessage={
+                  localMessages
+                    .filter(
+                      (msg) => msg.sender.userId === message.sender.userId
+                    )
+                    .slice(-1)[0]
+                }
+                lastReceiverMessage={
+                  localMessages
+                    .filter(
+                      (msg) => msg.sender.userId !== message.sender.userId
+                    )
+                    .slice(-1)[0]
+                }
               />
             ))
             .reverse()}
@@ -324,10 +337,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       conversation?.receiver?.userId === user.id) &&
     conversation
   ) {
-    const data = await Api().conversation.getMessages(ctx.query.id);
+    // const data = await Api().conversation.getMessages(ctx.query.id);
 
     return {
-      props: { messages: data, ...conversation },
+      props: { ...conversation },
     };
   }
   return {

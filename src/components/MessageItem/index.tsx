@@ -15,6 +15,8 @@ import styles from "./MessageItem.module.scss";
 interface MessageItemProps extends IMessage {
   innerRef: React.Ref<HTMLDivElement>;
   nextMessageSenderId: string;
+  lastSenderMessage: IMessage;
+  lastReceiverMessage: IMessage;
 }
 
 export const MessageItem: React.FC<MessageItemProps> = ({
@@ -23,6 +25,9 @@ export const MessageItem: React.FC<MessageItemProps> = ({
   innerRef,
   messageId,
   nextMessageSenderId,
+  createdAt,
+  lastSenderMessage,
+  lastReceiverMessage,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -42,6 +47,11 @@ export const MessageItem: React.FC<MessageItemProps> = ({
     }
   };
 
+  const isLastMessage =
+    lastSenderMessage?.messageId === messageId ||
+    lastReceiverMessage?.messageId === messageId ||
+    nextMessageSenderId !== sender.userId;
+
   return (
     <>
       <Menu
@@ -59,15 +69,13 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           className={styles.containerRightSide}
           ref={innerRef}
           style={{
-            padding:
-              content?.images?.length !== 0 && content?.images !== undefined
-                ? "0 0 10px 0"
-                : 10,
+            padding: content.images?.length ? "0 0 10px 0" : 10,
+            borderRadius: isLastMessage ? "10px 10px 0 10px" : 10,
           }}
         >
           <div className={styles.contentRightSide}>
             <div className={styles.inner}>
-              {content?.images?.length !== 0 &&
+              {content.images?.length !== 0 &&
                 content?.images?.map((img) => (
                   <img
                     key={img.asset_id}
@@ -81,8 +89,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
                   className={styles.text}
                   style={{
                     marginRight:
-                      content?.images?.length !== 0 &&
-                      content?.images !== undefined
+                      content.images?.length && content?.images !== undefined
                         ? 10
                         : 0,
                   }}
@@ -95,18 +102,18 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               className={styles.date}
               style={{
                 marginRight:
-                  content?.images?.length !== 0 && content?.images !== undefined
+                  content.images?.length && content?.images !== undefined
                     ? 10
                     : 0,
               }}
             >
-              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
-              {/*  hour: "2-digit",*/}
-              {/*  minute: "2-digit",*/}
-              {/*})}*/}
+              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
           </div>
-          {nextMessageSenderId !== sender.userId && (
+          {isLastMessage && (
             <div className={styles.svgAppendixRightSide}>
               <svg
                 width="9"
@@ -140,7 +147,8 @@ export const MessageItem: React.FC<MessageItemProps> = ({
           className={styles.containerLeftSide}
           ref={innerRef}
           style={{
-            padding: content?.images?.length !== 0 ? "0 0 10px 0" : 10,
+            padding: content.images?.length ? "0 0 10px 0" : 10,
+            borderRadius: isLastMessage ? "10px 10px 10px 0" : 10,
           }}
         >
           <div className={styles.contentLeftSide}>
@@ -157,7 +165,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               {content.text && (
                 <p
                   className={styles.text}
-                  style={{ marginLeft: content?.images?.length !== 0 ? 10 : 0 }}
+                  style={{ marginLeft: content.images?.length ? 10 : 0 }}
                 >
                   {content.text}
                 </p>
@@ -165,15 +173,15 @@ export const MessageItem: React.FC<MessageItemProps> = ({
             </div>
             <p
               className={styles.dateLeftSide}
-              style={{ marginLeft: content?.images?.length !== 0 ? 10 : 0 }}
+              style={{ marginLeft: content.images?.length ? 10 : 0 }}
             >
-              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
-              {/*  hour: "2-digit",*/}
-              {/*  minute: "2-digit",*/}
-              {/*})}*/}
+              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
           </div>
-          {nextMessageSenderId !== sender.userId && (
+          {isLastMessage && (
             <div className={styles.svgAppendixLeftSide}>
               <svg width="9" height="20" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" fillRule="evenodd">

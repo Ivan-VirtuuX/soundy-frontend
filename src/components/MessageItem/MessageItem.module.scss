@@ -6,29 +6,19 @@
   border-radius: 10px;
 }
 
-.containerLeftSide {
-  position: relative;
-  background: $lightGraySecondary;
-  padding: 10px;
-  border-radius: 10px 10px 10px 0;
-  width: fit-content;
-}
-
+.containerLeftSide,
 .containerRightSide {
   position: relative;
   background: $lightGraySecondary;
   padding: 10px;
-  border-radius: 10px 10px 0 10px;
   width: fit-content;
+}
+
+.containerRightSide {
   align-self: flex-end;
 }
 
-.contentRightSide {
-  display: flex;
-  flex-direction: column;
-  row-gap: 5px;
-}
-
+.contentRightSide,
 .contentLeftSide {
   display: flex;
   flex-direction: column;

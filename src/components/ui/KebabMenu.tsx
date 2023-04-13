@@ -5,20 +5,24 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import { MoreHoriz } from "@material-ui/icons";
 
-export const KebabMenu = ({
-  handleDelete,
-  handlePin,
-  handleUnpin,
-  isPinned,
-  isVisiblePin,
-  innerRef,
-}: {
+interface KebabMenuProps {
   handleDelete?: () => void;
   handlePin?: () => void;
   handleUnpin?: () => void;
   isPinned?: boolean;
   isVisiblePin?: boolean;
   innerRef?: React.Ref<HTMLDivElement>;
+  className?: string;
+}
+
+export const KebabMenu: React.FC<KebabMenuProps> = ({
+  handleDelete,
+  handlePin,
+  handleUnpin,
+  isPinned,
+  isVisiblePin,
+  innerRef,
+  className,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -43,7 +47,7 @@ export const KebabMenu = ({
   };
 
   return (
-    <div ref={innerRef}>
+    <div ref={innerRef} className={className}>
       <IconButton
         aria-label="more"
         aria-controls="long-menu"

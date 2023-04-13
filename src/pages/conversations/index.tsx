@@ -83,7 +83,7 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   React.useEffect(() => {
     (async () => {
       try {
-        socket.on("onMessage", async (payload) => {
+        socket.on("onMessage", async () => {
           const data = await Api().conversation.getAll();
 
           setLocalConversations(data);
