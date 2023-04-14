@@ -187,9 +187,7 @@ const Conversation: NextPage<IConversation> = ({
   React.useEffect(() => {
     (async () => {
       try {
-        socket.on("onMessage", async (payload) => {
-          const { ...message } = payload;
-
+        socket.on("onMessage", async ({ ...message }) => {
           if (conversationId === message.conversationId) {
             const data = await Api().conversation.getOne(
               message.conversationId

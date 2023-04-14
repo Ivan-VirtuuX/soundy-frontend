@@ -12,9 +12,7 @@ export const useNotifications = (userId: string | string[]) => {
   React.useEffect(() => {
     (async () => {
       try {
-        socket.on("onMessage", async (payload) => {
-          const { ...message } = payload;
-
+        socket.on("onMessage", async ({ ...message }) => {
           const data = await Api().conversation.getOne(message.conversationId);
 
           if (

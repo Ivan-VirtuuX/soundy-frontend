@@ -30,6 +30,8 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   handleDeleteConversation,
   messages,
 }) => {
+  const [localMessages, setLocalMessages] =
+    React.useState<IMessage[]>(messages);
   const [lastMessage, setLastMessage] = React.useState<IMessage>(
     messages[messages.length - 1]
   );
@@ -65,17 +67,19 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
-        socket.on("onMessage", async (payload) => {
-          const { ...message } = payload;
-
+        socket.on("onMessage", async ({ ...message }) => {
           (message.sender.id === receiver.userId ||
             message.sender.id === sender.userId) &&
             setLastMessage(message);
         });
-        socket.on("onDeleteMessage", async (payload) => {
-          const { ...message } = payload;
+        socket.on("onDeleteMessage", async (messageId) => {
+          const filteredMessages = localMessages.filter(
+            (msg) => msg.messageId !== messageId
+          );
 
-          setLastMessage(messages[messages.length - 2]);
+          setLocalMessages(filteredMessages);
+
+          setLastMessage(filteredMessages.at(-1));
         });
       } catch (err) {
         console.warn(err);

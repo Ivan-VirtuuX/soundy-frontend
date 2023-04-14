@@ -229,6 +229,14 @@ h6 {
   font-weight: 700 !important;
 }
 
+.MuiButton-root {
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
 .MuiButton-label {
   align-items: center !important;
 }
@@ -351,17 +359,22 @@ h6 {
   svg {
     path {
       fill: #9b9b9b !important;
-      -webkit-transition: all 0.3s ease-in-out;
-      -moz-transition: all 0.3s ease-in-out;
-      -ms-transition: all 0.3s ease-in-out;
-      -o-transition: all 0.3s ease-in-out;
-      transition: all 0.3s ease-in-out;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
   }
 }
 
 .MuiButton-contained {
   box-shadow: none !important;
+  -webkit-transition: all 0.2s ease-in-out !important;
+  -moz-transition: all 0.2s ease-in-out !important;
+  -ms-transition: all 0.2s ease-in-out !important;
+  -o-transition: all 0.2s ease-in-out !important;
+  transition: all 0.2s ease-in-out !important;
 
   &.Mui-disabled {
     background: #e8e8e8 !important;
