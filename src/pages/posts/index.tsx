@@ -43,7 +43,7 @@ const Posts: NextPage = () => {
 
   const userData = useAppSelector(selectUserData);
 
-  const { notificationMessage, setNotificationMessage } = useNotifications(
+  const { notificationMessages, setNotificationMessages } = useNotifications(
     userData?.id
   );
 
@@ -108,12 +108,19 @@ const Posts: NextPage = () => {
             <InfinitySpin width="200" color="#181F92" />
           </div>
         )}
-        {notificationMessage && (
+        {notificationMessages.map((obj) => (
           <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
+            key={obj.messageId}
+            {...obj}
+            handleCloseNotificationMessage={(messageId) =>
+              setNotificationMessages([
+                ...notificationMessages.filter(
+                  (msg) => msg.messageId !== messageId
+                ),
+              ])
+            }
           />
-        )}
+        ))}
       </main>
     </MainLayout>
   );

@@ -99,7 +99,7 @@ export const InputField: React.FC<InputFieldProps> = ({
           <div className={styles.textInputFieldContainer}>
             <input
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChangeText(e.target.value)
+                text.length < 255 && handleChangeText(e.target.value)
               }
               ref={innerRef}
               value={text}

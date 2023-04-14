@@ -14,10 +14,12 @@ import { socket } from "@/utils/SocketContext";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { ImageIcon } from "@/components/ui/Icons/ImageIcon";
 
-import styles from "./ConversationItem.module.scss";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+
 import { useInterval } from "@/hooks/useInterval";
+
+import styles from "./ConversationItem.module.scss";
 
 interface ConversationItemProps extends IConversation {
   handleDeleteConversation: (conversationId: string) => void;

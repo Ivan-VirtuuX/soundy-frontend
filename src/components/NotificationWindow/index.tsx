@@ -13,14 +13,16 @@ import { IMessage } from "@/api/types";
 
 import styles from "./NotificationWindow.module.scss";
 
-interface NotificationWindowProps {
-  notificationMessage: IMessage;
-  handleCloseNotificationMessage: () => void;
+interface NotificationWindowProps extends IMessage {
+  handleCloseNotificationMessage: (messageId: string) => void;
 }
 
 export const NotificationWindow: React.FC<NotificationWindowProps> = ({
-  notificationMessage,
   handleCloseNotificationMessage,
+  messageId,
+  content,
+  sender,
+  conversationId,
 }) => {
   const notificationBlockRef = React.useRef(null);
 
@@ -52,38 +54,34 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
     notificationBlockRef?.current?.animate(moveDown, 100);
 
     setTimeout(() => {
-      handleCloseNotificationMessage();
+      handleCloseNotificationMessage(messageId);
     }, 100);
   };
 
   React.useEffect(() => {
-    notificationMessage &&
+    content &&
       setTimeout(() => {
         notificationBlockRef?.current?.animate(moveDown, 1000);
 
         setTimeout(() => {
-          handleCloseNotificationMessage();
+          handleCloseNotificationMessage(messageId);
         }, 900);
       }, 5000);
-  }, [notificationMessage]);
+  }, [content]);
 
   React.useEffect(() => {
-    notificationMessage && notificationBlockRef?.current?.animate(moveUp, 100);
-  }, [notificationMessage]);
+    content && notificationBlockRef?.current?.animate(moveUp, 100);
+  }, [content]);
 
   return (
     <div className={styles.notificationBlock} ref={notificationBlockRef}>
       <div className={styles.notificationBlockInner}>
-        {notificationMessage?.sender?.avatarUrl ? (
+        {sender?.avatarUrl ? (
           <img
             className={styles.notificationUserAvatar}
-            src={notificationMessage.sender.avatarUrl}
+            src={sender.avatarUrl}
             alt="user avatar"
-            onClick={() =>
-              router.push(
-                `/conversations/${notificationMessage.conversationId}`
-              )
-            }
+            onClick={() => router.push(`/conversations/${conversationId}`)}
           />
         ) : (
           <EmptyAvatar width={50} />
@@ -91,35 +89,21 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
         <div className={styles.notificationBlockRightSide}>
           <div className={styles.notificationBlockContent}>
             <span
-              onClick={() =>
-                router.push(
-                  `/conversations/${notificationMessage.conversationId}`
-                )
-              }
+              onClick={() => router.push(`/conversations/${conversationId}`)}
             >
-              {notificationMessage?.sender?.name}
+              {sender?.name}
             </span>
             <span
-              onClick={() =>
-                router.push(
-                  `/conversations/${notificationMessage.conversationId}`
-                )
-              }
+              onClick={() => router.push(`/conversations/${conversationId}`)}
             >
-              {notificationMessage?.sender?.surname}
+              {sender?.surname}
             </span>
             <IconButton onClick={onCloseNotification}>
               <CrossIcon color="#898989" />
             </IconButton>
           </div>
-          <p
-            onClick={() =>
-              router.push(
-                `/conversations/${notificationMessage.conversationId}`
-              )
-            }
-          >
-            {truncateString(notificationMessage?.content.text, 15)}
+          <p onClick={() => router.push(`/conversations/${conversationId}`)}>
+            {truncateString(content.text, 15)}
           </p>
         </div>
       </div>

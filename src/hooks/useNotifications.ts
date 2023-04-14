@@ -6,8 +6,9 @@ import { Api } from "@/api/index";
 import { socket } from "@/utils/SocketContext";
 
 export const useNotifications = (userId: string | string[]) => {
-  const [notificationMessage, setNotificationMessage] =
-    React.useState<IMessage>(null);
+  const [notificationMessages, setNotificationMessages] = React.useState<
+    IMessage[]
+  >([]);
 
   React.useEffect(() => {
     (async () => {
@@ -18,9 +19,8 @@ export const useNotifications = (userId: string | string[]) => {
           if (
             data.receiver?.userId === userId ||
             data.sender?.userId === userId
-          ) {
-            setNotificationMessage(message);
-          }
+          )
+            setNotificationMessages([...notificationMessages, message]);
         });
       } catch (err) {
         console.warn(err);
@@ -34,5 +34,5 @@ export const useNotifications = (userId: string | string[]) => {
     };
   }, [socket]);
 
-  return { notificationMessage, setNotificationMessage };
+  return { notificationMessages, setNotificationMessages };
 };

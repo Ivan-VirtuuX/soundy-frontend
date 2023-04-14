@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/NavbarItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/NavbarItem.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hooks/useNotifications.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useNotifications.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/SocketContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/SocketContext.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/api/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,9 +59,9 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "yarn",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier",
+    "prettierjs.PrettierConfiguration.Package": "/mnt/space/work/soundy-frontend/node_modules/prettier",
     "settings.editor.selected.configurable": "settings.typescriptcompiler",
-    "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "/mnt/space/work/soundy-frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
