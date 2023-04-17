@@ -53,7 +53,7 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const filterConversations = (searchText: string): IConversation[] => {
     return localConversations.filter((conversation) => {
       const conversationUser =
-        conversation.receiver?.userId === userData?.id
+        conversation.receiver?.userId === userData.userId
           ? conversation.sender
           : conversation.receiver;
 
@@ -84,9 +84,11 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
     (async () => {
       try {
         socket.on("onMessage", async () => {
-          const data = await Api().conversation.getAll();
+          setTimeout(async () => {
+            const data = await Api().conversation.getAll();
 
-          setLocalConversations(data);
+            await setLocalConversations(data);
+          }, 200);
         });
       } catch (err) {
         console.warn(err);

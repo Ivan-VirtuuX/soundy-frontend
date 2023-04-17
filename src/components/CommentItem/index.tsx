@@ -120,14 +120,14 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             )}
             <Like
               isLiked={likes?.some(
-                (like) => like?.author?.userId === userData?.id
+                (like) => like?.author?.userId === userData.userId
               )}
               handleClickLike={onClickLike}
               handleClickDislike={onClickDislike}
               likesCount={likesCount > 0 && likesCount}
               size="small"
               likeId={
-                likes?.find((like) => like?.author?.userId === userData?.id)
+                likes?.find((like) => like?.author?.userId === userData.userId)
                   ?.likeId
               }
             />

@@ -53,7 +53,7 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
         attachedImageFormData
       );
 
-      await Api().user.updateAvatar(userData.id, data.secure_url);
+      await Api().user.updateAvatar(userData.userId, data.secure_url);
 
       setIsUploading(false);
 

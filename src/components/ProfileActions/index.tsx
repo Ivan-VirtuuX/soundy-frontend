@@ -86,7 +86,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
     try {
       setIsLoadingUserAction(true);
 
-      await Api().user.deleteFriend(userData?.id, query?.id);
+      await Api().user.deleteFriend(userData.userId, query?.id);
 
       setIsDeleteFriend(true);
 
@@ -100,7 +100,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
     try {
       setIsLoadingUserAction(true);
 
-      await Api().user.cancelFriendRequest(userData?.id, query?.id);
+      await Api().user.cancelFriendRequest(userData.userId, query?.id);
 
       handleAddFriend(false);
 
@@ -112,7 +112,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
 
   return (
     <div className={styles.profileActionsBlock}>
-      {userData?.id === query?.id && (
+      {userData.userId === query?.id && (
         <>
           <BlueButton handleClick={onOpenEdit} size="sm" text="Редактировать">
             <EditUserIcon />
@@ -127,7 +127,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           />
         </>
       )}
-      {userData?.id !== query?.id && (
+      {userData.userId !== query?.id && (
         <BlueButton
           size="sm"
           text="Сообщение"
@@ -137,7 +137,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           <MessageIcon width={15} height={15} color="white" />
         </BlueButton>
       )}
-      {userData?.id === query?.id && (
+      {userData.userId === query?.id && (
         <BlueButton
           handleClick={() => router.push("/write")}
           size="sm"
@@ -147,7 +147,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
         </BlueButton>
       )}
 
-      {friends.find((friend) => friend.userId === userData?.id) &&
+      {friends.find((friend) => friend.userId === userData.userId) &&
       !isDeleteFriend ? (
         <BlueButton
           size="sm"
@@ -157,7 +157,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
         >
           <DeleteUserIcon />
         </BlueButton>
-      ) : query?.id !== userData?.id && isAddFriend ? (
+      ) : query?.id !== userData.userId && isAddFriend ? (
         <BlueButton
           handleClick={onClickCancel}
           size="sm"
@@ -168,7 +168,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           <CrossIcon />
         </BlueButton>
       ) : (
-        query?.id !== userData?.id &&
+        query?.id !== userData.userId &&
         !friends.find((friend) => friend.userId === query?.id) &&
         !isAddFriend && (
           <BlueButton

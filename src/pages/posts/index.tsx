@@ -44,7 +44,7 @@ const Posts: NextPage = () => {
   const userData = useAppSelector(selectUserData);
 
   const { notificationMessages, setNotificationMessages } = useNotifications(
-    userData?.id
+    userData.userId
   );
 
   const [parent] = useAutoAnimate();

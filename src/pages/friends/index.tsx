@@ -37,7 +37,7 @@ const Friends: NextPage = () => {
   const router = useRouter();
 
   const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData?.id
+    userData.userId
   );
 
   const [parent] = useAutoAnimate();
@@ -46,7 +46,7 @@ const Friends: NextPage = () => {
     try {
       setFriends([...friends.filter((friend) => friend.userId !== userId)]);
 
-      await Api().user.deleteFriend(userData?.id, userId);
+      await Api().user.deleteFriend(userData.userId, userId);
     } catch (err) {
       console.warn(err);
     }
@@ -55,7 +55,7 @@ const Friends: NextPage = () => {
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await Api().user.getFriends(userData?.id);
+        const data = await Api().user.getFriends(userData.userId);
 
         setFriends(data);
       } catch (err) {

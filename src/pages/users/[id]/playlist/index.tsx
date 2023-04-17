@@ -35,7 +35,7 @@ const Playlist: NextPage = ({
   const userData = useAppSelector(selectUserData);
 
   const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData?.id
+    userData.userId
   );
 
   return (

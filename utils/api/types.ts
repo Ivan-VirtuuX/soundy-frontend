@@ -42,7 +42,6 @@ export interface ILike {
 }
 
 export interface IUser {
-  id?: string;
   userId: string;
   login: string;
   name: string;
@@ -55,7 +54,6 @@ export interface IUser {
 }
 
 export interface ResponseUser {
-  id?: string;
   _id?: string;
   userId: string;
   avatarUrl: string;

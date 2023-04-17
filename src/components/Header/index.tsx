@@ -56,15 +56,15 @@ export const Header = () => {
                 alt="avatar"
                 width={40}
                 height={40}
-                onClick={() => router.push(`/users/${userData?.id}`)}
+                onClick={() => router.push(`/users/${userData.userId}`)}
               />
             ) : (
               <EmptyAvatar
                 width={30}
-                handleClick={() => router.push(`/users/${userData?.id}`)}
+                handleClick={() => router.push(`/users/${userData.userId}`)}
               />
             )}
-            <div onClick={() => router.push(`/users/${userData?.id}`)}>
+            <div onClick={() => router.push(`/users/${userData.userId}`)}>
               <span className={styles.name}>{userData?.name}</span>
               <span className={styles.surname}>
                 {truncateString(userData?.surname, 10)}

@@ -62,7 +62,7 @@ const Conversation: NextPage<IConversation> = ({
   const [parent] = useAutoAnimate();
 
   const conversationUser =
-    receiver?.userId === userData?.id ? sender : receiver;
+    receiver?.userId === userData.userId ? sender : receiver;
 
   const moveUp = [
     {
@@ -194,8 +194,8 @@ const Conversation: NextPage<IConversation> = ({
             );
 
             if (
-              data.receiver?.userId === userData.id ||
-              data.sender?.userId === userData.id
+              data.receiver?.userId === userData.userId ||
+              data.sender?.userId === userData.userId
             ) {
               setLocalMessages((localMessages) => [...localMessages, message]);
             }
@@ -282,7 +282,7 @@ const Conversation: NextPage<IConversation> = ({
                     localMessages?.findIndex(
                       (msg) => msg.messageId === message.messageId
                     ) + 1
-                  ]?.sender?.userId
+                  ]?.sender.userId
                 }
                 lastSenderMessage={
                   localMessages
@@ -331,12 +331,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   if (
     ctx.req.cookies.authToken &&
-    (conversation?.sender?.userId === user.id ||
-      conversation?.receiver?.userId === user.id) &&
+    (conversation?.sender?.userId === user.userId ||
+      conversation?.receiver?.userId === user.userId) &&
     conversation
   ) {
-    // const data = await Api().conversation.getMessages(ctx.query.id);
-
     return {
       props: { ...conversation },
     };

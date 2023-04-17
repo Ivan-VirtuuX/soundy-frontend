@@ -35,12 +35,12 @@ const FriendRequests: NextPage = ({
   const router = useRouter();
 
   const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData?.id
+    userData.userId
   );
 
   const onClickAccept = async (userId: string) => {
     try {
-      await Api().user.confirmFriendRequest(userData?.id, userId);
+      await Api().user.confirmFriendRequest(userData.userId, userId);
 
       setIsConfirmed(true);
     } catch (err) {
@@ -49,7 +49,7 @@ const FriendRequests: NextPage = ({
   };
 
   const onClickCancel = async (userId: string) => {
-    await Api().user.cancelFriendRequest(userId, userData?.id);
+    await Api().user.cancelFriendRequest(userId, userData.userId);
 
     setIsCancelled(true);
   };
@@ -119,7 +119,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const user = await Api(ctx).user.getMe();
 
-  const friendRequests = await Api().user.getFriendRequests(user.id);
+  const friendRequests = await Api().user.getFriendRequests(user.userId);
 
   return {
     props: { friendRequests },

@@ -44,7 +44,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const userData = useAppSelector(selectUserData);
 
   const conversationUser =
-    receiver?.userId === userData?.id ? sender : receiver;
+    receiver?.userId === userData.userId ? sender : receiver;
 
   const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
 
@@ -70,14 +70,14 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
     (async () => {
       try {
         socket.on("onMessage", async ({ ...message }) => {
-          (message.sender.id === receiver.userId ||
-            message.sender.id === sender.userId) &&
+          (message.sender.userId === receiver.userId ||
+            message.sender.userId === sender.userId) &&
             setLastMessage(message);
         });
         socket.on("onDeleteMessage", async (messageId) => {
-          const filteredMessages = localMessages.filter(
-            (msg) => msg.messageId !== messageId
-          );
+          const filteredMessages = [
+            ...localMessages.filter((msg) => msg.messageId !== messageId),
+          ];
 
           setLocalMessages(filteredMessages);
 
@@ -93,7 +93,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
       socket.off("onDeleteMessage");
       socket.off("message");
     };
-  }, [socket]);
+  }, [socket, localMessages]);
 
   return (
     <div className={styles.wrapper} onContextMenu={onShowMessageActions}>
@@ -117,11 +117,11 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
               <span>{truncateString(conversationUser.surname, 10)}</span>
             </div>
             <p className={styles.lastMessageText}>
-              {lastMessage?.sender.userId === userData?.id &&
+              {lastMessage?.sender.userId === userData.userId &&
               lastMessage?.content.text
                 ? "Вы: " + truncateString(lastMessage?.content.text, 20)
                 : truncateString(lastMessage?.content.text, 20)}
-              {lastMessage?.sender.userId === userData?.id &&
+              {lastMessage?.sender.userId === userData.userId &&
                 lastMessage?.content?.images[
                   lastMessage?.content?.images?.length - 1
                 ] && (

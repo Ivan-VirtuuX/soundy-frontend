@@ -63,7 +63,7 @@ export const MessageItem: React.FC<MessageItemProps> = ({
       >
         <MenuItem onClick={onDeleteMessage}>Удалить</MenuItem>
       </Menu>
-      {sender?.id === userData.id || sender?.userId === userData.id ? (
+      {sender.userId === userData.userId ? (
         <div
           onContextMenu={onShowMessageActions}
           className={styles.containerRightSide}

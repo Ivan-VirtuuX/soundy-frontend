@@ -293,7 +293,7 @@ const Index: React.FC<PostProps> = ({
         if (
           (inView &&
             !isView &&
-            !views.find((user) => user.userId === userData.id)) ||
+            !views.find((user) => user.userId === userData.userId)) ||
           (inView && views.length === 0)
         ) {
           await setIsView(true);
@@ -340,7 +340,7 @@ const Index: React.FC<PostProps> = ({
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
         </div>
-        {!menuHidden && author?.userId === userData?.id && (
+        {!menuHidden && author?.userId === userData.userId && (
           <KebabMenu
             isPinned={pinned}
             handleDelete={onDeletePost}
@@ -387,9 +387,12 @@ const Index: React.FC<PostProps> = ({
           handleClickLike={onClickLike}
           handleClickDislike={onClickDislike}
           likesCount={likesCount > 0 && likesCount}
-          isLiked={likes?.some((like) => like?.author?.userId === userData?.id)}
+          isLiked={likes?.some(
+            (like) => like?.author?.userId === userData.userId
+          )}
           likeId={
-            likes?.find((like) => like?.author?.userId === userData?.id)?.likeId
+            likes?.find((like) => like?.author?.userId === userData.userId)
+              ?.likeId
           }
         />
         <Comment
