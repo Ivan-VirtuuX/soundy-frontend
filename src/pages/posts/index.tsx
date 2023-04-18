@@ -12,16 +12,12 @@ import { Post } from "@/components/Post";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { PencilIcon } from "@/components/ui/Icons/PencilIcon";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
 import { usePosts } from "@/hooks/usePosts";
-import { useNotifications } from "@/hooks/useNotifications";
 
 import { IPost } from "@/api/types";
-import { Api } from "@/api/index";
-
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
+import { Api } from "@/api";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
@@ -40,12 +36,6 @@ const Posts: NextPage = () => {
     threshold: 1,
     triggerOnce: true,
   });
-
-  const userData = useAppSelector(selectUserData);
-
-  const { notificationMessages, setNotificationMessages } = useNotifications(
-    userData.userId
-  );
 
   const [parent] = useAutoAnimate();
 
@@ -108,19 +98,7 @@ const Posts: NextPage = () => {
             <InfinitySpin width="200" color="#181F92" />
           </div>
         )}
-        {notificationMessages.map((obj) => (
-          <NotificationWindow
-            key={obj.messageId}
-            {...obj}
-            handleCloseNotificationMessage={(messageId) =>
-              setNotificationMessages([
-                ...notificationMessages.filter(
-                  (msg) => msg.messageId !== messageId
-                ),
-              ])
-            }
-          />
-        ))}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

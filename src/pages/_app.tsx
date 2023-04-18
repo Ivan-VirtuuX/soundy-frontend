@@ -6,7 +6,7 @@ import { Router, useRouter } from "next/router";
 import { wrapper } from "@/redux/store";
 import { setUserData } from "@/redux/slices/user";
 
-import { Api } from "@/utils/api";
+import { Api } from "@/api";
 
 import { Header } from "@/components/Header";
 

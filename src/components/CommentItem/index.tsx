@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { IComment } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { KebabMenu } from "@/components/ui/KebabMenu";

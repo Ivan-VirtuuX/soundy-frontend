@@ -10,15 +10,13 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { BlueButton } from "@/components/ui/BlueButton";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
 import { IUser } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "./FriendRequests.module.scss";
 
@@ -33,10 +31,6 @@ const FriendRequests: NextPage = ({
   const userData = useAppSelector(selectUserData);
 
   const router = useRouter();
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData.userId
-  );
 
   const onClickAccept = async (userId: string) => {
     try {
@@ -94,12 +88,7 @@ const FriendRequests: NextPage = ({
             )}
           </div>
         </div>
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

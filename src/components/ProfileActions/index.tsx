@@ -3,7 +3,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { ChangeUserDataDto, IUser } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";

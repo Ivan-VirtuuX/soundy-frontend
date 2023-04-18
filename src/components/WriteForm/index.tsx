@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { BlueButton } from "@/components/ui/BlueButton";
 

@@ -8,17 +8,15 @@ import { MainLayout } from "@/layouts/MainLayout";
 import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { musicTracks } from "@/musicTracks.data";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { ITrack } from "@/api/types";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "./Music.module.scss";
 
@@ -27,10 +25,6 @@ const Music: NextPage = () => {
   const [searchText, setSearchText] = React.useState("");
 
   const userData = useAppSelector(selectUserData);
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData.userId
-  );
 
   React.useEffect(() => {
     (async () => {
@@ -76,12 +70,7 @@ const Music: NextPage = () => {
             }
           />
         </div>
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

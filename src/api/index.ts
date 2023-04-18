@@ -7,9 +7,8 @@ import Cookies, { parseCookies } from "nookies";
 import { UserApi } from "./user";
 import { PostApi } from "./post";
 import { CommentApi } from "./comment";
-
-import { MessageApi } from "@/api/message";
-import { ConversationApi } from "@/api/conversation";
+import { MessageApi } from "./message";
+import { ConversationApi } from "./conversation";
 
 export type ApiReturnType = {
   user: ReturnType<typeof UserApi>;

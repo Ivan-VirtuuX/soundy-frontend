@@ -12,7 +12,7 @@ import { Line } from "@/components/ui/Line";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 
 import { IConversation } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { socket } from "@/utils/SocketContext";
 

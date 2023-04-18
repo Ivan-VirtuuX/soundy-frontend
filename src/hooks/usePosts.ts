@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IPost } from "@/api/types";
 
 type UsePostsProps = {

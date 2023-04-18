@@ -11,13 +11,11 @@ import { SearchInput } from "@/components/SearchInput";
 import { BlueButton } from "@/components/ui/BlueButton";
 import { UsersIcon } from "@/components/ui/Icons/UsersIcon";
 import { PostIcon } from "@/components/ui/Icons/PostIcon";
-import { NotificationWindow } from "@/components/NotificationWindow";
 import { SearchedData } from "@/components/SearchedData";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IPost, IUser } from "@/api/types";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
@@ -33,10 +31,6 @@ const Search: NextPage = () => {
   const [type, setType] = React.useState<"users" | "posts">("users");
 
   const userData = useAppSelector(selectUserData);
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData.userId
-  );
 
   const searchData = React.useCallback(
     async (type: "users" | "posts") => {
@@ -157,12 +151,7 @@ const Search: NextPage = () => {
           />
         </div>
         {isLoading && <InfinitySpin width="200" color="#181F92" />}
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

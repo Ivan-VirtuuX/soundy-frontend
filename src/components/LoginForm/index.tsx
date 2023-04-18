@@ -13,7 +13,7 @@ import { LoginFormSchema } from "@/utils/validations";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { LoginDto } from "@/api/types";
 
 import { Alert } from "@mui/material";

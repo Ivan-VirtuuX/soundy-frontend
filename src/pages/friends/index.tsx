@@ -12,17 +12,15 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { ArrowRightIcon } from "@/components/ui/Icons/ArrowRightIcon";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IUser } from "@/api/types";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { filterItems } from "@/utils/filterItems";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
@@ -35,10 +33,6 @@ const Friends: NextPage = () => {
   const userData = useAppSelector(selectUserData);
 
   const router = useRouter();
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData.userId
-  );
 
   const [parent] = useAutoAnimate();
 
@@ -124,12 +118,7 @@ const Friends: NextPage = () => {
             </ul>
           )}
         </div>
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IPost, IUser } from "@/api/types";
 
 import { NotFoundBlock } from "@/components/ui/NotFoundBlock";

@@ -15,6 +15,7 @@ import styles from "./NotificationWindow.module.scss";
 
 interface NotificationWindowProps extends IMessage {
   handleCloseNotificationMessage: (messageId: string) => void;
+  bottomCoords: number;
 }
 
 export const NotificationWindow: React.FC<NotificationWindowProps> = ({
@@ -23,36 +24,13 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
   content,
   sender,
   conversationId,
+  bottomCoords,
 }) => {
   const notificationBlockRef = React.useRef(null);
 
   const router = useRouter();
 
-  const moveUp = [
-    {
-      opacity: 0,
-      transition: "opacity 0.5s ease-in-out",
-    },
-    {
-      opacity: 100,
-      transition: "opacity 0.5s ease-in-out",
-    },
-  ];
-
-  const moveDown = [
-    {
-      opacity: 100,
-      transition: "opacity 0.5s ease-in-out",
-    },
-    {
-      opacity: 0,
-      transition: "opacity 0.5s ease-in-out",
-    },
-  ];
-
   const onCloseNotification = () => {
-    notificationBlockRef?.current?.animate(moveDown, 100);
-
     setTimeout(() => {
       handleCloseNotificationMessage(messageId);
     }, 100);
@@ -61,20 +39,16 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
   React.useEffect(() => {
     content &&
       setTimeout(() => {
-        notificationBlockRef?.current?.animate(moveDown, 1000);
-
-        setTimeout(() => {
-          handleCloseNotificationMessage(messageId);
-        }, 900);
+        handleCloseNotificationMessage(messageId);
       }, 5000);
   }, [content]);
 
-  React.useEffect(() => {
-    content && notificationBlockRef?.current?.animate(moveUp, 100);
-  }, [content]);
-
   return (
-    <div className={styles.notificationBlock} ref={notificationBlockRef}>
+    <li
+      className={styles.notificationBlock}
+      ref={notificationBlockRef}
+      style={{ bottom: bottomCoords ? bottomCoords : 0 }}
+    >
       <div className={styles.notificationBlockInner}>
         {sender?.avatarUrl ? (
           <img
@@ -107,6 +81,6 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
           </p>
         </div>
       </div>
-    </div>
+    </li>
   );
 };

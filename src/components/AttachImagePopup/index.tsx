@@ -28,7 +28,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
 }) => {
   const [isChangeAttachImageOpen, setIsChangeAttachImageOpen] =
     React.useState(false);
-  const [attachedImagesFormData, setAttachedImageFormData] = React.useState<
+  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
     FormData[]
   >([]);
   const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
@@ -40,20 +40,20 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   const onCloseImage = async () => {
     await setIsChangeAttachImageOpen(false);
     await setIsSaveImage(false);
-    await setAttachedImageFormData(null);
-    await setAttachedImageFormData(null);
+    await setAttachedImagesFormData(null);
+    await setAttachedImagesFormData(null);
     await setAttachedImages([]);
     await setPreviews([]);
   };
 
-  const handleChangeImage = async (files) => {
+  const handleChangeImage = async (files: FileList) => {
     try {
-      const formData: any = new FormData();
+      const formData: FormData = new FormData();
 
       formData.append("file", files[0]);
       formData.append("upload_preset", "cqxjdiz4");
 
-      setAttachedImageFormData(formData);
+      // setAttachedImagesFormData([...attachedImagesFormData, formData]);
 
       setAttachedImages([...attachedImages, files[0]]);
 
@@ -100,7 +100,9 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
           accept="image/*"
           ref={attachedImageRef}
           type="file"
-          onChange={(e) => handleChangeImage(e.target.files)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleChangeImage(e.target.files)
+          }
           hidden
         />
         <AttachImageIcon />

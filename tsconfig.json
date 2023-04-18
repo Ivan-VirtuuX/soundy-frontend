@@ -31,13 +31,13 @@
         "public/images/*"
       ],
       "@/api/*": [
-        "./utils/api/*"
+        "./src/api/*"
       ],
       "@/redux/*": [
-        "redux/*"
+        "./src/redux/*"
       ],
       "@/utils/*": [
-        "./utils/*"
+        "./src/utils/*"
       ]
     }
   },

@@ -3,7 +3,7 @@ import React from "react";
 import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { WriteForm } from "@/components/WriteForm";
 

@@ -11,7 +11,7 @@ import { BlueButton } from "@/components/ui/BlueButton";
 import { CameraIcon } from "@/components/ui/Icons/CameraIcon";
 
 import { CloudinaryApi } from "@/api/CloudinaryApi";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";

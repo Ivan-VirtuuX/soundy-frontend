@@ -116,8 +116,8 @@ export const InputField: React.FC<InputFieldProps> = ({
             {attachedImages.length <= 5 && (
               <AttachImagePopup
                 className={styles.attachImageButton}
-                handleChangeAttachedImages={(image, imageFormData) =>
-                  handleChangeAttachedImages(image, imageFormData)
+                handleChangeAttachedImages={(images, imagesFormData) =>
+                  handleChangeAttachedImages(images, imagesFormData)
                 }
               />
             )}

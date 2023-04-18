@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IMessage } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { socket } from "@/utils/SocketContext";
 
@@ -20,7 +20,8 @@ export const useNotifications = (userId: string | string[]) => {
             data.receiver?.userId === userId ||
             data.sender?.userId === userId
           )
-            setNotificationMessages([...notificationMessages, message]);
+            notificationMessages.length <= 3 &&
+              setNotificationMessages((prev) => [...prev, message]);
         });
       } catch (err) {
         console.warn(err);

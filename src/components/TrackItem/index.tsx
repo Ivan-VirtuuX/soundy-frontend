@@ -9,7 +9,7 @@ import { PauseIcon } from "@/components/ui/Icons/PauseIcon";
 import { PlusIcon } from "@/components/ui/Icons/PlusIcon";
 import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { ITrack } from "@/api/types";
 
 import { useAppSelector } from "@/redux/hooks";

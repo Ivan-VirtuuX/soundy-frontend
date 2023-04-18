@@ -12,7 +12,7 @@ import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import styles from "./UserItem.module.scss";
 

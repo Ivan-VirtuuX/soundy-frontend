@@ -5,19 +5,17 @@ import Head from "next/head";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { ITrack, IUser } from "@/api/types";
 
 import { PageTitle } from "@/components/ui/PageTitle";
 import { SearchInput } from "@/components/SearchInput";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "@/pages/music/Music.module.scss";
 
@@ -33,10 +31,6 @@ const Playlist: NextPage = ({
   const [searchText, setSearchText] = React.useState("");
 
   const userData = useAppSelector(selectUserData);
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    userData.userId
-  );
 
   return (
     <MainLayout fullWidth>
@@ -77,12 +71,7 @@ const Playlist: NextPage = ({
             style={{ marginTop: 20 }}
           />
         )}
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

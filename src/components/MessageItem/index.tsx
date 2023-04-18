@@ -8,7 +8,7 @@ import { selectUserData } from "@/redux/slices/user";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import styles from "./MessageItem.module.scss";
 

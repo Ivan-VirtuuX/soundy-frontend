@@ -9,13 +9,12 @@ import { setCookie } from "nookies";
 import { useAppDispatch } from "@/redux/hooks";
 import { setUserData } from "@/redux/slices/user";
 
-
 import { RegisterFormSchema } from "@/utils/validations";
 import { capitalize } from "@/utils/capitalizeString";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { CreateUserDto } from "@/api/types";
 
 import { Alert } from "@mui/material";
@@ -27,7 +26,6 @@ import { ArrowLeftIcon } from "@/components/ui/Icons/ArrowLeftIcon";
 import helloSticker from "@/images/helloSticker.png";
 import wrongSticker from "@/images/wrongSticker.png";
 import logo from "@/images/logo.svg";
-
 
 import styles from "./RegisterForm.module.scss";
 

@@ -7,7 +7,7 @@ import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { Post } from "@/components/Post";
 
 import { IPost } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { usePosts } from "@/hooks/usePosts";
 import { useAutoAnimate } from "@formkit/auto-animate/react";

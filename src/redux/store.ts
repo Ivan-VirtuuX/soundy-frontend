@@ -1,5 +1,7 @@
 import { userReducer } from "./slices/user";
+
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+
 import { createWrapper } from "next-redux-wrapper";
 
 export function makeStore() {

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import React from "react";
 
 import { IPost, IUser } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
@@ -19,11 +19,9 @@ import { Line } from "@/components/ui/Line";
 import { ChangeAvatarPopup } from "@/components/ChangeAvatarPopup";
 import { ProfileActions } from "@/components/ProfileActions";
 import { UserPosts } from "@/components/UserPosts";
-import { NotificationWindow } from "@/components/NotificationWindow";
+import { NotificationsBlock } from "@/components/NotificationsBlock";
 
 import { truncateString } from "@/utils/truncateString";
-
-import { useNotifications } from "@/hooks/useNotifications";
 
 import styles from "./Users.module.scss";
 
@@ -48,10 +46,6 @@ const Users: NextPage<IUser> = ({
   const [avatar, setAvatar] = React.useState(avatarUrl);
 
   const router = useRouter();
-
-  const { notificationMessage, setNotificationMessage } = useNotifications(
-    router.query.id
-  );
 
   const { query } = useRouter();
 
@@ -236,12 +230,7 @@ const Users: NextPage<IUser> = ({
           pinnedPost={pinnedPost}
           userId={query.id}
         />
-        {notificationMessage && (
-          <NotificationWindow
-            notificationMessage={notificationMessage}
-            handleCloseNotificationMessage={() => setNotificationMessage(null)}
-          />
-        )}
+        <NotificationsBlock />
       </main>
     </MainLayout>
   );

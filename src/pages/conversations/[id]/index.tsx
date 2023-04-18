@@ -20,7 +20,7 @@ import { SocketContext } from "@/utils/SocketContext";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IConversation, IMessage } from "@/api/types";
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 

@@ -7,7 +7,7 @@ import { IconButton, Tooltip, Typography } from "@mui/material";
 
 import { Line } from "../ui/Line";
 
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 import { IComment, IPost } from "@/api/types";
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 
@@ -261,6 +261,13 @@ const Index: React.FC<PostProps> = ({
     setAttachedImagesFormData([
       ...attachedImagesFormData.concat(imagesFormData),
     ]);
+
+    // console.log(
+    //   "attachedImages",
+    //   [...attachedImages.concat(images)],
+    //   "imagesFormData",
+    //   imagesFormData
+    // );
   };
 
   const onRemoveAttachedImage = (preview) => {

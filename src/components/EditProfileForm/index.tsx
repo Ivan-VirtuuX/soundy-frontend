@@ -2,7 +2,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import { ChangeUserDataDto } from "@/api/types";
-import { Api } from "@/api/index";
+import { Api } from "@/api";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
