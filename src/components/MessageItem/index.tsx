@@ -19,7 +19,7 @@ interface MessageItemProps extends IMessage {
   lastReceiverMessage: IMessage;
 }
 
-export const MessageItem: React.FC<MessageItemProps> = ({
+export const Index: React.FC<MessageItemProps> = ({
   sender,
   content,
   innerRef,
@@ -107,10 +107,10 @@ export const MessageItem: React.FC<MessageItemProps> = ({
                     : 0,
               }}
             >
-              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
-              {/*  hour: "2-digit",*/}
-              {/*  minute: "2-digit",*/}
-              {/*})}*/}
+              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
           </div>
           {isLastMessage && (
@@ -175,10 +175,10 @@ export const MessageItem: React.FC<MessageItemProps> = ({
               className={styles.dateLeftSide}
               style={{ marginLeft: content.images?.length ? 10 : 0 }}
             >
-              {/*{new Date(createdAt).toLocaleTimeString("ru-Ru", {*/}
-              {/*  hour: "2-digit",*/}
-              {/*  minute: "2-digit",*/}
-              {/*})}*/}
+              {new Date(createdAt).toLocaleTimeString("ru-Ru", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
             </p>
           </div>
           {isLastMessage && (
@@ -199,3 +199,5 @@ export const MessageItem: React.FC<MessageItemProps> = ({
     </>
   );
 };
+
+export const MessageItem = React.memo(Index);

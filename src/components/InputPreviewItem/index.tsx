@@ -27,19 +27,23 @@ export const InputPreviewItem: React.FC<InputPreviewItemProps> = ({
     useTransitionOpacity(closeImageButtonRef);
 
   return (
-    <div
+    <li
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
-      style={{ marginTop: preview ? 20 : 0 }}
+      style={{
+        marginTop: preview ? 20 : 0,
+        width: previews.length >= 4 ? 75 : 100,
+        height: previews.length >= 4 ? 75 : 100,
+      }}
       className={styles.previewBlock}
     >
       <Image
         style={{
-          width: previews.length >= 4 ? 50 : 100,
-          height: previews.length >= 4 ? 50 : 100,
+          width: previews.length >= 4 ? 75 : 100,
+          height: previews.length >= 4 ? 75 : 100,
         }}
-        width={previews.length >= 4 ? 50 : 100}
-        height={previews.length >= 4 ? 50 : 100}
+        width={previews.length >= 4 ? 75 : 100}
+        height={previews.length >= 4 ? 75 : 100}
         quality={100}
         className={styles.preview}
         src={preview}
@@ -62,6 +66,6 @@ export const InputPreviewItem: React.FC<InputPreviewItemProps> = ({
           </IconButton>
         </Tooltip>
       )}
-    </div>
+    </li>
   );
 };

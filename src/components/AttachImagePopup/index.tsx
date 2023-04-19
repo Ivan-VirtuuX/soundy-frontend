@@ -53,7 +53,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
       formData.append("file", files[0]);
       formData.append("upload_preset", "cqxjdiz4");
 
-      // setAttachedImagesFormData([...attachedImagesFormData, formData]);
+      setAttachedImagesFormData([...attachedImagesFormData, formData]);
 
       setAttachedImages([...attachedImages, files[0]]);
 

@@ -120,6 +120,7 @@ const Index: React.FC<PostProps> = ({
 
           setLocalComments([...localComments, comment]);
           setAttachedImagesFormData([]);
+          setAttachedImages([]);
           setPreviews([]);
           setMessage("");
         }
@@ -145,6 +146,7 @@ const Index: React.FC<PostProps> = ({
 
             setLocalComments([...localComments, comment]);
             setAttachedImagesFormData([]);
+            setAttachedImages([]);
             setPreviews([]);
             setMessage("");
           }
@@ -257,17 +259,8 @@ const Index: React.FC<PostProps> = ({
     images: File[],
     imagesFormData: FormData[]
   ) => {
-    setAttachedImages([...attachedImages.concat(images)]);
-    setAttachedImagesFormData([
-      ...attachedImagesFormData.concat(imagesFormData),
-    ]);
-
-    // console.log(
-    //   "attachedImages",
-    //   [...attachedImages.concat(images)],
-    //   "imagesFormData",
-    //   imagesFormData
-    // );
+    setAttachedImages(images);
+    setAttachedImagesFormData(imagesFormData);
   };
 
   const onRemoveAttachedImage = (preview) => {

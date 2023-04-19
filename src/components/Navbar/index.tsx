@@ -7,7 +7,7 @@ import { selectUserData } from "@/redux/slices/user";
 
 import styles from "./Navbar.module.scss";
 
-export const Navbar: React.FC = () => {
+export const Index: React.FC = () => {
   const userData = useAppSelector(selectUserData);
 
   const navItems = [
@@ -27,3 +27,5 @@ export const Navbar: React.FC = () => {
     </ul>
   );
 };
+
+export const Navbar = React.memo(Index);

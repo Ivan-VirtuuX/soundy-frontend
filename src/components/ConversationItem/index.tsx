@@ -70,9 +70,13 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
     (async () => {
       try {
         socket.on("onMessage", async ({ ...message }) => {
-          (message.sender.userId === receiver.userId ||
-            message.sender.userId === sender.userId) &&
+          if (
+            message.sender.userId === receiver.userId ||
+            message.sender.userId === sender.userId
+          ) {
             setLastMessage(message);
+            setLocalMessages([...localMessages, message]);
+          }
         });
         socket.on("onDeleteMessage", async (messageId) => {
           const filteredMessages = [

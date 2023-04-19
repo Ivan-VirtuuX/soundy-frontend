@@ -59,7 +59,6 @@
 
 .commentImage {
   border-radius: 10px;
-  margin-top: 15px;
   object-fit: cover;
 }
 
@@ -70,4 +69,11 @@
 
 .rightSide {
   display: flex;
+}
+
+.commentImagesBlock {
+  display: grid;
+  margin-top: 15px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }

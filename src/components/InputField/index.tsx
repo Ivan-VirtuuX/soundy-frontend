@@ -13,8 +13,9 @@ import { IconButton } from "@mui/material";
 import { EmojiStyle } from "emoji-picker-react";
 
 import { useClickOutside } from "@/hooks/useClickOutside";
-
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
+
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./InputField.module.scss";
 
@@ -56,6 +57,8 @@ export const InputField: React.FC<InputFieldProps> = ({
   );
 
   const router = useRouter();
+
+  const [parent] = useAutoAnimate();
 
   useClickOutside(pickerRef, () => onMouseLeave());
 
@@ -113,7 +116,7 @@ export const InputField: React.FC<InputFieldProps> = ({
             >
               <SmileIcon />
             </IconButton>
-            {attachedImages.length <= 5 && (
+            {attachedImages.length < 5 && (
               <AttachImagePopup
                 className={styles.attachImageButton}
                 handleChangeAttachedImages={(images, imagesFormData) =>
@@ -133,7 +136,7 @@ export const InputField: React.FC<InputFieldProps> = ({
         </IconButton>
       </div>
       {previews && (
-        <div className={styles.previewsBlock}>
+        <ul className={styles.previewsBlock} ref={parent}>
           {previews?.map((preview, index) => (
             <InputPreviewItem
               key={index}
@@ -144,7 +147,7 @@ export const InputField: React.FC<InputFieldProps> = ({
               }
             />
           ))}
-        </div>
+        </ul>
       )}
     </form>
   );

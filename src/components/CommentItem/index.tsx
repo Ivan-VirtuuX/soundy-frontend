@@ -133,18 +133,20 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             />
           </div>
         </div>
-        {content?.images?.length !== 0 &&
-          content?.images?.map((img, index) => (
-            <Image
-              key={index}
-              className={styles.commentImage}
-              width={200}
-              height={200}
-              src={content.text}
-              quality={100}
-              alt="comment image"
-            />
-          ))}
+        <div className={styles.commentImagesBlock}>
+          {content?.images?.length !== 0 &&
+            content?.images?.map((img, index) => (
+              <Image
+                key={index}
+                className={styles.commentImage}
+                width={200}
+                height={200}
+                src={img.url}
+                quality={100}
+                alt="comment image"
+              />
+            ))}
+        </div>
         {content.text && <p className={styles.text}>{content.text}</p>}
       </div>
     </div>
