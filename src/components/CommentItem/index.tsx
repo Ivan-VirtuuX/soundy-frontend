@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { IComment } from "@/api/types";
+import { IComment, ILike } from "@/api/types";
 import { Api } from "@/api";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
@@ -31,7 +31,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   likes,
   handleDeleteComment,
 }) => {
-  const [likesCount, setLikesCount] = React.useState(likes?.length);
+  const [likesCount, setLikesCount] = React.useState(0);
+  const [localLikes, setLocalLikes] = React.useState<ILike[]>([]);
 
   const kebabMenuRef = React.useRef(null);
 
@@ -48,7 +49,9 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     try {
       setLikesCount((likesCount) => likesCount + 1);
 
-      await Api().comment.addCommentLike(commentId, postId);
+      const data = await Api().comment.addCommentLike(commentId, postId);
+
+      setLocalLikes([...localLikes, data]);
     } catch (err) {
       console.warn(err);
     }
@@ -59,6 +62,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
       setLikesCount((likesCount) => likesCount - 1);
 
       await Api().comment.removeCommentLike(commentId, likeId);
+
+      setLocalLikes([...localLikes.filter((like) => like.likeId !== likeId)]);
     } catch (err) {
       console.warn(err);
     }
@@ -73,6 +78,11 @@ export const CommentItem: React.FC<CommentItemProps> = ({
       console.warn(err);
     }
   };
+
+  React.useEffect(() => {
+    setLocalLikes(likes);
+    setLikesCount(likes.length);
+  }, [likes]);
 
   return (
     <div
@@ -119,23 +129,24 @@ export const CommentItem: React.FC<CommentItemProps> = ({
               />
             )}
             <Like
-              isLiked={likes?.some(
-                (like) => like?.author?.userId === userData.userId
+              isLiked={localLikes.some(
+                (like) => like.author.userId === userData.userId
               )}
+              likeId={
+                localLikes?.find(
+                  (like) => like?.author?.userId === userData.userId
+                )?.likeId
+              }
               handleClickLike={onClickLike}
               handleClickDislike={onClickDislike}
               likesCount={likesCount > 0 && likesCount}
               size="small"
-              likeId={
-                likes?.find((like) => like?.author?.userId === userData.userId)
-                  ?.likeId
-              }
             />
           </div>
         </div>
-        <div className={styles.commentImagesBlock}>
-          {content?.images?.length !== 0 &&
-            content?.images?.map((img, index) => (
+        {content?.images?.length !== 0 && (
+          <div className={styles.commentImagesBlock}>
+            {content?.images?.map((img, index) => (
               <Image
                 key={index}
                 className={styles.commentImage}
@@ -146,7 +157,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
                 alt="comment image"
               />
             ))}
-        </div>
+          </div>
+        )}
         {content.text && <p className={styles.text}>{content.text}</p>}
       </div>
     </div>

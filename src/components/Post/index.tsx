@@ -436,7 +436,7 @@ const Index: React.FC<PostProps> = ({
           </ul>
         </div>
       )}
-      {localComments[0] && !isShowComments && (
+      {localComments.length !== 0 && !isShowComments && (
         <div className={styles.comment}>
           <CommentItem
             handleDeleteComment={(commentId) =>
@@ -446,7 +446,7 @@ const Index: React.FC<PostProps> = ({
                 ),
               ])
             }
-            {...localComments[0]}
+            {...localComments[localComments.length - 1]}
           />
         </div>
       )}

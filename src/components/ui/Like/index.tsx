@@ -19,7 +19,11 @@ export const Like = ({
   isLiked?: boolean;
   likeId?: string;
 }) => {
-  const [liked, setLiked] = React.useState(isLiked);
+  const [liked, setLiked] = React.useState(false);
+
+  React.useEffect(() => {
+    setLiked(isLiked);
+  }, [isLiked]);
 
   const onDislike = () => {
     setLiked(false);
@@ -57,7 +61,8 @@ export const Like = ({
               </svg>
             ) : (
               <svg
-                width="15"
+                style={{ padding: 5 }}
+                width="14"
                 height="14"
                 viewBox="0 0 12 11"
                 fill="none"

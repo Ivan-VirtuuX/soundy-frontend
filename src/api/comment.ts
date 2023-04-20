@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 
-import { CreateCommentDto, IComment } from "./types";
+import { CreateCommentDto, IComment, ILike } from "./types";
 
 export const CommentApi = (instance: AxiosInstance) => ({
   async getAll(postId?: string | string[]) {
@@ -24,7 +24,7 @@ export const CommentApi = (instance: AxiosInstance) => ({
   },
 
   async addCommentLike(commentId: string, postId: string) {
-    const { data } = await instance.post(`/comments/${commentId}`, {
+    const { data } = await instance.post<ILike>(`/comments/${commentId}`, {
       postId,
     });
 
