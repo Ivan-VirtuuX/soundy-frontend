@@ -63,6 +63,7 @@ const Index: React.FC<PostProps> = ({
   const [localComments, setLocalComments] =
     React.useState<IComment[]>(comments);
   const [isUploading, setIsUploading] = React.useState(false);
+  const [lastComment, setLastComment] = React.useState<IComment>();
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
   const [isPinned, setIsPinned] = React.useState(false);
@@ -269,6 +270,27 @@ const Index: React.FC<PostProps> = ({
     setPreviews([...previews.filter((img) => img !== preview)]);
   };
 
+  const onShowAllComments = async () => {
+    try {
+      const data = await Api().comment.getAll(postId);
+
+      setLocalComments(data);
+      setLastComment(data.at(-1));
+      setIsShowComments(true);
+    } catch (err) {
+      console.warn(err);
+    }
+  };
+
+  const onDeleteComment = (commentId) => {
+    const filteredComments = [
+      ...localComments.filter((comment) => comment.commentId !== commentId),
+    ];
+
+    setLocalComments(filteredComments);
+    setLastComment(filteredComments.at(-1));
+  };
+
   React.useEffect(() => {
     (async () => {
       try {
@@ -282,6 +304,18 @@ const Index: React.FC<PostProps> = ({
       }
     })();
   }, []);
+
+  React.useEffect(() => {
+    (async () => {
+      try {
+        const data = await Api().comment.getAll(postId);
+
+        setLastComment(data.at(-1));
+      } catch (err) {
+        console.warn(err);
+      }
+    })();
+  }, [isShowComments]);
 
   React.useEffect(() => {
     pinned && setIsPinned(true);
@@ -420,39 +454,22 @@ const Index: React.FC<PostProps> = ({
               <li key={comment.commentId}>
                 <CommentItem
                   {...comment}
-                  handleDeleteComment={(commentId) =>
-                    setLocalComments([
-                      ...localComments.filter(
-                        (comment) => comment.commentId !== commentId
-                      ),
-                    ])
-                  }
+                  handleDeleteComment={onDeleteComment}
                 />
-                {localComments[localComments.length - 1] !== comment && (
-                  <Line />
-                )}
+                {localComments.at(-1) !== comment && <Line />}
               </li>
             ))}
           </ul>
         </div>
       )}
       {localComments.length !== 0 && !isShowComments && (
-        <div className={styles.comment}>
-          <CommentItem
-            handleDeleteComment={(commentId) =>
-              setLocalComments([
-                ...localComments.filter(
-                  (comment) => comment.commentId !== commentId
-                ),
-              ])
-            }
-            {...localComments[localComments.length - 1]}
-          />
+        <div className={styles.lastComment}>
+          <CommentItem handleDeleteComment={onDeleteComment} {...lastComment} />
         </div>
       )}
       {localComments.length > 1 && !isShowComments && (
         <button
-          onClick={() => setIsShowComments(true)}
+          onClick={onShowAllComments}
           className={styles.showCommentsButton}
         >
           Показать все

@@ -2,6 +2,7 @@
 
 .wrapper {
   height: 80px;
+  cursor: pointer;
 }
 
 .container {
@@ -14,7 +15,6 @@
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  cursor: pointer;
   margin-bottom: 20px;
   align-items: center;
 
@@ -34,6 +34,7 @@
   object-fit: cover;
   width: 50px;
   height: 50px;
+  cursor: pointer !important;
 }
 
 .leftSideText {

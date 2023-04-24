@@ -113,7 +113,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
               alt="avatar"
             />
           ) : (
-            <EmptyAvatar width={50} />
+            <EmptyAvatar width={50} className={styles.avatar} />
           )}
           <div className={styles.leftSideText}>
             <div className={styles.receiverInfo}>

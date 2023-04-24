@@ -2,6 +2,8 @@ import React from "react";
 import { InfinitySpin } from "react-loader-spinner";
 import { useInView } from "react-intersection-observer";
 
+import { useRouter } from "next/router";
+
 import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { Post } from "@/components/Post";
@@ -10,9 +12,10 @@ import { IPost } from "@/api/types";
 import { Api } from "@/api";
 
 import { usePosts } from "@/hooks/usePosts";
+
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 import styles from "./UserPosts.module.scss";
-import { useRouter } from "next/router";
 
 interface UserPostsProps {
   pinnedPost: IPost;
@@ -54,8 +57,6 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
-        setFilteredPosts([]);
-
         const data = await Api().post.getPinnedPost(userId);
 
         if (data) {
@@ -74,18 +75,20 @@ export const UserPosts: React.FC<UserPostsProps> = ({
         console.warn(err);
       }
     })();
-  }, [posts, router?.query?.id]);
+  }, [posts, router?.query?.id, pinnedPost]);
 
   React.useEffect(() => {
     (async () => {
       if (posts.length >= 4) {
         try {
-          if (inView && posts.length) {
+          if (inView && posts.length !== 0) {
             setIsLoading(true);
 
             const data = await Api().post.getUserPosts(page, userId);
 
             setNewPosts(data);
+
+            setFilteredPosts([...posts.filter((post) => !post.pinned)]);
 
             setPage((page) => page + 1);
 
@@ -98,13 +101,13 @@ export const UserPosts: React.FC<UserPostsProps> = ({
         }
       }
     })();
-  }, [inView, userId]);
+  }, [inView, userId, posts.length]);
 
   return (
     <div>
       <PageTitle pageTitle="Посты" marginBottom={20} marginTop={15} />
       <ul className={styles.posts} ref={parent}>
-        {!filteredPosts.length ? (
+        {filteredPosts.length === 0 ? (
           <li>
             <NullResultsBlock text="Список постов пуст" />
           </li>

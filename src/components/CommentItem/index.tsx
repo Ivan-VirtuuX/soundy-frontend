@@ -81,7 +81,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
 
   React.useEffect(() => {
     setLocalLikes(likes);
-    setLikesCount(likes.length);
+    setLikesCount(likes?.length);
   }, [likes]);
 
   return (
@@ -129,8 +129,8 @@ export const CommentItem: React.FC<CommentItemProps> = ({
               />
             )}
             <Like
-              isLiked={localLikes.some(
-                (like) => like.author.userId === userData.userId
+              isLiked={localLikes?.some(
+                (like) => like?.author?.userId === userData.userId
               )}
               likeId={
                 localLikes?.find(
@@ -159,7 +159,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             ))}
           </div>
         )}
-        {content.text && <p className={styles.text}>{content.text}</p>}
+        {content?.text && <p className={styles.text}>{content?.text}</p>}
       </div>
     </div>
   );
