@@ -16,6 +16,11 @@
   object-fit: cover;
   border-radius: 50%;
   cursor: pointer;
+
+  @media (max-width: 1400px) {
+    width: 110px;
+    height: 110px;
+  }
 }
 
 .userInfoBlock {
@@ -28,6 +33,10 @@
 .nameSurnameBlock {
   cursor: pointer;
   display: flex;
+
+  @media (max-width: 1400px) {
+    flex-direction: column;
+  }
 }
 
 .name {

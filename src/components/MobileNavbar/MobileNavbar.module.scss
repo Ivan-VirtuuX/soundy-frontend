@@ -1,0 +1,26 @@
+@import "@/styles/variables.scss";
+
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -1px 15px rgba(0, 0, 0, 0.1);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #fff;
+  height: 70px;
+  z-index: 10000;
+
+  li {
+    a {
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 17px;
+      color: $primary;
+    }
+  }
+}

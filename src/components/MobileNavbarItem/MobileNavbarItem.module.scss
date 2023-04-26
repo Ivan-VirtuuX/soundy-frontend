@@ -1,0 +1,123 @@
+@import "@/styles/variables.scss";
+
+.activeLink {
+  border-radius: 10px;
+  pointer-events: none;
+
+  span {
+    color: $secondary;
+  }
+
+  &:not(:nth-child(3)) {
+    a {
+      svg {
+        path {
+          fill: $secondary !important;
+        }
+      }
+    }
+  }
+}
+
+.messagesIcon {
+  &:hover {
+    svg {
+      path {
+        stroke: white !important;
+      }
+    }
+  }
+
+  svg {
+    path {
+      stroke: $primary !important;
+      fill: transparent !important;
+    }
+  }
+
+  a div button span svg path {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.messagesIcon.activeLink {
+  svg {
+    path {
+      stroke: $primary !important;
+    }
+  }
+}
+
+.link {
+  a {
+    display: flex;
+    align-items: center;
+
+    div {
+      button {
+        width: 100px;
+
+        span {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+          width: 75px;
+        }
+
+        @media (max-width: 576px) {
+          width: 50px;
+          padding: 0 !important;
+
+          span {
+            width: 50px !important;
+          }
+        }
+      }
+
+      @media (max-width: 576px) {
+        width: 50px !important;
+      }
+    }
+
+    svg {
+      path {
+        fill: $primary;
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -ms-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+
+  span {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover {
+    a {
+      svg {
+        path {
+          fill: white;
+        }
+      }
+    }
+
+    span {
+      color: white;
+    }
+  }
+}

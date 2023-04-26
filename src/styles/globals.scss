@@ -49,6 +49,14 @@ body {
   scroll-behavior: smooth;
 }
 
+body {
+  &::-webkit-scrollbar {
+    @media (max-width: 992px) {
+      display: none;
+    }
+  }
+}
+
 input,
 button,
 textarea {
@@ -298,6 +306,10 @@ h6 {
 .layoutContent {
   padding-top: 25px;
   margin: 0 auto;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 /** 404 page **/

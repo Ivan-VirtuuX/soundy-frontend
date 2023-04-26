@@ -78,7 +78,7 @@ const Posts: NextPage = () => {
             <PencilIcon width={17} height={17} />
           </BlueButton>
         </div>
-        <ul ref={parent}>
+        <ul ref={parent} className={styles.postsBlock}>
           {posts.map((post) => (
             <li key={post.postId}>
               <Post

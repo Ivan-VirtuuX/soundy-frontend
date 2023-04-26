@@ -362,12 +362,17 @@ const Index: React.FC<PostProps> = ({
           )}
           <div className={styles.userInfoBlock}>
             <div className={styles.userInfo}>
-              <div onClick={() => router.push(`/users/${author?.userId}`)}>
-                <span className={styles.name}>{author?.name}</span>
-                <span className={styles.surname}>{author?.surname}</span>
+              <div
+                onClick={() => router.push(`/users/${author?.userId}`)}
+                className={styles.userInfoBlockContainer}
+              >
+                <div className={styles.nameSurnameBlock}>
+                  <span className={styles.name}>{author?.name}</span>
+                  <span className={styles.surname}>{author?.surname}</span>
+                </div>
                 <span className={styles.login}>{author?.login}</span>
               </div>
-              {pinned && asPath !== "/posts" && (
+              {pinned && asPath.includes("/users") && (
                 <PinIcon className={styles.pinIcon} />
               )}
             </div>

@@ -37,76 +37,78 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({
     <ul className={styles.tracks} ref={parent}>
       {searchText
         ? filterItems(tracks, ["artist", "name"], searchText).map((track) => (
-            <li key={track.id}>
-              <TrackItem
-                {...track}
-                currentTrack={currentTrack}
-                currentTrackSrc={currentTrack?.trackSrc}
-                handleClickTrack={(track) => setCurrentTrack(track)}
-                playlistTracks={playlistTracks}
-                handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-                handleClickStop={() => setIsCurrentTrackPlaying(false)}
-                isTrackPlaying={isCurrentTrackPlaying}
-                handleAddTrack={(track) => handleChangeUserTracks(track)}
-                handleRemoveTrack={(track) => handleRemoveTrack(track)}
-              />
-            </li>
+            <TrackItem
+              key={track.id}
+              {...track}
+              currentTrack={currentTrack}
+              currentTrackSrc={currentTrack?.trackSrc}
+              handleClickTrack={(track) => setCurrentTrack(track)}
+              playlistTracks={playlistTracks}
+              handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+              handleClickStop={() => setIsCurrentTrackPlaying(false)}
+              isTrackPlaying={isCurrentTrackPlaying}
+              handleAddTrack={(track) => handleChangeUserTracks(track)}
+              handleRemoveTrack={(track) => handleRemoveTrack(track)}
+            />
           ))
         : tracks.map((track) => (
-            <li key={track.id}>
-              <TrackItem
-                {...track}
-                currentTrack={currentTrack}
-                currentTrackSrc={currentTrack?.trackSrc}
-                handleClickTrack={(track) => setCurrentTrack(track)}
-                playlistTracks={playlistTracks}
-                handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-                handleClickStop={() => setIsCurrentTrackPlaying(false)}
-                isTrackPlaying={isCurrentTrackPlaying}
-                handleAddTrack={(track) => handleChangeUserTracks(track)}
-                handleRemoveTrack={(track) => handleRemoveTrack(track)}
-              />
-            </li>
+            <TrackItem
+              key={track.id}
+              {...track}
+              currentTrack={currentTrack}
+              currentTrackSrc={currentTrack?.trackSrc}
+              handleClickTrack={(track) => setCurrentTrack(track)}
+              playlistTracks={playlistTracks}
+              handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+              handleClickStop={() => setIsCurrentTrackPlaying(false)}
+              isTrackPlaying={isCurrentTrackPlaying}
+              handleAddTrack={(track) => handleChangeUserTracks(track)}
+              handleRemoveTrack={(track) => handleRemoveTrack(track)}
+            />
           ))}
       {currentTrack && (
         <div className={styles.currentTrackBlock}>
           <div className={styles.trackActionsBlock}>
-            <PreviousTrackIcon
-              handleClick={() =>
-                currentTrack.id !== tracks[0].id &&
-                setCurrentTrack(
-                  tracks[
-                    tracks.findIndex((track) => track.id === currentTrack?.id) -
-                      1
-                  ]
-                )
-              }
-            />
-            <NextTrackIcon
-              handleClick={() =>
-                currentTrack.id !== tracks[tracks.length - 1].id &&
-                setCurrentTrack(
-                  tracks[
-                    tracks.findIndex((track) => track.id === currentTrack?.id) +
-                      1
-                  ]
-                )
-              }
-            />
+            <div className={styles.trackActionsBlockButtonsBlock}>
+              <PreviousTrackIcon
+                handleClick={() =>
+                  currentTrack.id !== tracks[0].id &&
+                  setCurrentTrack(
+                    tracks[
+                      tracks.findIndex(
+                        (track) => track.id === currentTrack?.id
+                      ) - 1
+                    ]
+                  )
+                }
+              />
+              <NextTrackIcon
+                handleClick={() =>
+                  currentTrack.id !== tracks[tracks.length - 1].id &&
+                  setCurrentTrack(
+                    tracks[
+                      tracks.findIndex(
+                        (track) => track.id === currentTrack?.id
+                      ) + 1
+                    ]
+                  )
+                }
+              />
+            </div>
+            <TrackItem
+              {...currentTrack}
+              currentTrack={currentTrack}
+              currentTrackSrc={currentTrack?.trackSrc}
+              handleClickTrack={(track) => setCurrentTrack(track)}
+              handleClickPlay={() => setIsCurrentTrackPlaying(true)}
+              handleClickStop={() => setIsCurrentTrackPlaying(false)}
+              isTrackPlaying={isCurrentTrackPlaying}
+              playlistTracks={playlistTracks}
+              handleAddTrack={(track) => handleChangeUserTracks(track)}
+              handleRemoveTrack={(track) => handleRemoveTrack(track)}
+              muted={false}
+            />{" "}
           </div>
-          <TrackItem
-            {...currentTrack}
-            currentTrack={currentTrack}
-            currentTrackSrc={currentTrack?.trackSrc}
-            handleClickTrack={(track) => setCurrentTrack(track)}
-            handleClickPlay={() => setIsCurrentTrackPlaying(true)}
-            handleClickStop={() => setIsCurrentTrackPlaying(false)}
-            isTrackPlaying={isCurrentTrackPlaying}
-            playlistTracks={playlistTracks}
-            handleAddTrack={(track) => handleChangeUserTracks(track)}
-            handleRemoveTrack={(track) => handleRemoveTrack(track)}
-            muted={false}
-          />
         </div>
       )}
     </ul>

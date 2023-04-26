@@ -7,8 +7,6 @@ import { IComment, ILike } from "@/api/types";
 import { Api } from "@/api";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-import { KebabMenu } from "@/components/ui/KebabMenu";
-import { Like } from "@/components/ui/Like";
 
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
@@ -17,6 +15,8 @@ import { useInterval } from "@/hooks/useInterval";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import styles from "./CommentItem.module.scss";
+import { KebabMenu } from "@/components/ui/KebabMenu";
+import { Like } from "@/components/ui/Like";
 
 interface CommentItemProps extends IComment {
   handleDeleteComment: (commentId: string) => void;
@@ -107,18 +107,20 @@ export const CommentItem: React.FC<CommentItemProps> = ({
       <div className={styles.content}>
         <div className={styles.head}>
           <div className={styles.infoBlock}>
-            <span
-              className={styles.name}
-              onClick={() => router.push(`/users/${author?.userId}`)}
-            >
-              {author?.name}
-            </span>
-            <span
-              className={styles.surname}
-              onClick={() => router.push(`/users/${author?.userId}`)}
-            >
-              {author?.surname}
-            </span>
+            <div className={styles.nameSurnameBlock}>
+              <span
+                className={styles.name}
+                onClick={() => router.push(`/users/${author?.userId}`)}
+              >
+                {author?.name}
+              </span>
+              <span
+                className={styles.surname}
+                onClick={() => router.push(`/users/${author?.userId}`)}
+              >
+                {author?.surname}
+              </span>
+            </div>
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <div className={styles.rightSide}>

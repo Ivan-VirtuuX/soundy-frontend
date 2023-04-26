@@ -4,6 +4,10 @@
   align-items: center;
   user-select: none;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   svg {
     position: absolute;
     left: 15px;
@@ -20,6 +24,10 @@
 
     &::placeholder {
       color: #8b8b8b;
+    }
+
+    @media (max-width: 768px) {
+      width: 100% !important;
     }
   }
 }

@@ -1,12 +1,15 @@
 @import "@/styles/variables.scss";
 
 .container {
-  width: 700px;
   background: white;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 50px;
+
+  @media (min-width: 768px) {
+    width: 700px;
+  }
 }
 
 .head {
@@ -20,18 +23,22 @@
   }
 }
 
-.userInfoBlock {
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
 .userInfo {
+  cursor: pointer;
   display: flex;
-  align-items: center;
 
-  div {
-    cursor: pointer;
+  &Block {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &BlockContainer {
+    display: flex;
+
+    @media (max-width: 576px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -52,6 +59,10 @@
   &:first-letter {
     text-transform: uppercase;
   }
+}
+
+.nameSurnameBlock {
+  display: flex;
 }
 
 .name {

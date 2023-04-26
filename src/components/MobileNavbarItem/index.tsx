@@ -11,15 +11,18 @@ import { SearchIcon } from "@/components/ui/Icons/SearchIcon";
 import { MusicIcon } from "@/components/ui/Icons/MusicIcon";
 import { BlueButton } from "@/components/ui/BlueButton";
 
-import styles from "./NavbarItem.module.scss";
+import styles from "./MobileNavbarItem.module.scss";
+import { useMediaQuery } from "@mui/material";
 
 interface NavbarItemProps {
   name: string;
   text: string;
 }
 
-export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
+export const MobileNavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   const router = useRouter();
+
+  const matches768 = useMediaQuery("(max-width: 768px)");
 
   const iconsComponents = {
     posts: <PostIcon />,
@@ -45,7 +48,7 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
       } ${isHighlighted}`}
     >
       <Link href={"/" + name}>
-        <BlueButton variant="transparent" text={text}>
+        <BlueButton variant="transparent" text={matches768 ? "" : text}>
           {name.includes("users")
             ? iconsComponents["profile"]
             : name.includes("/conversations")

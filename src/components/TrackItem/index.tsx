@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip, useMediaQuery } from "@mui/material";
 
 import { PlayIcon } from "@/components/ui/Icons/PlayIcon";
 import { PauseIcon } from "@/components/ui/Icons/PauseIcon";
@@ -62,6 +62,8 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   const volumeRef = React.useRef(null);
 
   const userData = useAppSelector(selectUserData);
+
+  const matches576 = useMediaQuery("(max-width: 576px)");
 
   const opacityUp = [
     {
@@ -297,131 +299,104 @@ export const TrackItem: React.FC<TrackItemProps> = ({
   }, [isAddButtonVisible]);
 
   return (
-    <div
-      className={styles.container}
-      onMouseEnter={onMouseEnterTrack}
-      onMouseLeave={onMouseLeaveTrack}
-      style={{
-        padding: id === currentTrack?.id && !muted ? 0 : "15px 15px 20px",
-        background:
-          id === currentTrack?.id && muted ? "#f9f9f9" : "transparent",
-      }}
-      ref={containerRef}
-    >
-      <audio
-        ref={playerRef}
-        src={trackSrc}
-        preload="metadata"
-        onLoadedMetadata={(e: any) => setDuration(e.target.duration)}
-      />
-      <div className={styles.leftSide}>
-        <div className={styles.imageBlock}>
-          <Image
-            className={styles.image}
-            src={coverUrl}
-            alt="musicImage"
-            quality={100}
-            width={65}
-            height={65}
-          />
-          <div
-            className={`${
-              id === currentTrack?.id ? styles.overlayOpen : styles.overlay
-            }`}
-          />
-          {isPlaying ? (
-            <PauseIcon
-              handleClick={onClickPause}
-              className={`${
-                id === currentTrack?.id
-                  ? styles.playButtonOverlayOpen
-                  : styles.playButton
-              }`}
-            />
-          ) : (
-            <PlayIcon
-              handleClick={onClickStart}
-              className={`${
-                id === currentTrack?.id
-                  ? styles.playButtonOverlayOpen
-                  : styles.playButton
-              }`}
-            />
-          )}
-        </div>
-        <div className={styles.trackInfoBlock}>
-          {id !== currentTrack?.id ? (
-            <>
+    <li className={styles.wrapper}>
+      <div
+        className={styles.container}
+        onMouseEnter={onMouseEnterTrack}
+        onMouseLeave={onMouseLeaveTrack}
+        style={{
+          padding: id === currentTrack?.id && !muted ? 0 : "15px 15px 20px",
+          background:
+            id === currentTrack?.id && muted ? "#f9f9f9" : "transparent",
+          width: !muted ? "100%" : 600,
+        }}
+        ref={containerRef}
+      >
+        <audio
+          ref={playerRef}
+          src={trackSrc}
+          preload="metadata"
+          onLoadedMetadata={(e: any) => setDuration(e.target.duration)}
+        />
+        <div className={styles.leftSide}>
+          {!matches576 || muted ? (
+            <div className={styles.imageBlock}>
+              <Image
+                className={styles.image}
+                src={coverUrl}
+                alt="musicImage"
+                quality={100}
+                width={65}
+                height={65}
+              />
               <div
-                className={styles.trackHead}
-                style={{ alignItems: "center" }}
-              >
-                <div className={styles.trackInfo}>
-                  <span className={styles.name}>{name}</span>
-                  <span className={styles.artist}>{artist}</span>
-                </div>
-                <div className={styles.timeBlock}>
-                  {!isAddedTrack ? (
-                    isAddButtonVisible && (
-                      <Tooltip title="В мою музыку" arrow>
-                        <IconButton
-                          ref={addTrackButtonRef}
-                          size="medium"
-                          onClick={onAddToUserPlaylist}
-                        >
-                          <PlusIcon color="#898989" />
-                        </IconButton>
-                      </Tooltip>
-                    )
-                  ) : (
-                    <Tooltip title="Удалить трек" arrow>
-                      <IconButton
-                        ref={removeTrackButtonRef}
-                        size="medium"
-                        onClick={onRemoveFromUserPlaylist}
-                      >
-                        <CheckMarkIcon color="#898989" size={14} />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                  <span className={styles.duration}>
-                    {duration && !isNaN(duration) && calculateTime(duration)}
-                  </span>
-                </div>
-              </div>
-            </>
+                className={`${
+                  id === currentTrack?.id ? styles.overlayOpen : styles.overlay
+                }`}
+              />
+              {isPlaying ? (
+                <PauseIcon
+                  handleClick={onClickPause}
+                  className={`${
+                    id === currentTrack?.id
+                      ? styles.playButtonOverlayOpen
+                      : styles.playButton
+                  }`}
+                />
+              ) : (
+                <PlayIcon
+                  handleClick={onClickStart}
+                  className={`${
+                    id === currentTrack?.id
+                      ? styles.playButtonOverlayOpen
+                      : styles.playButton
+                  }`}
+                />
+              )}
+            </div>
           ) : (
-            <>
-              <div className={styles.trackHead}>
-                <div className={styles.trackInfo}>
-                  <span className={styles.name}>{name}</span>
-                  <span className={styles.artist}>{artist}</span>
-                </div>
-                <div className={styles.timeBlock}>
-                  {!muted && (
-                    <div>
-                      <input
-                        ref={volumeRef}
-                        className={styles.volumeBar}
-                        type="range"
-                        onChange={(e) => onChangeVolume(e)}
-                        max={0.5}
-                        defaultValue={playerRef?.current?.volume}
-                        step={0.01}
-                      />
-                    </div>
-                  )}
-                  {!muted &&
-                    (!isAddedTrack ? (
-                      <Tooltip title="В мою музыку" arrow>
-                        <IconButton
-                          ref={addTrackButtonRef}
-                          size="medium"
-                          onClick={onAddToUserPlaylist}
-                        >
-                          <PlusIcon color="#898989" />
-                        </IconButton>
-                      </Tooltip>
+            !muted && (
+              <div className={styles.trackPlayButtonBlock}>
+                {isPlaying ? (
+                  <PauseIcon
+                    handleClick={onClickPause}
+                    className={styles.playButtonActive}
+                  />
+                ) : (
+                  !muted && (
+                    <PlayIcon
+                      handleClick={onClickStart}
+                      className={styles.playButtonActive}
+                    />
+                  )
+                )}
+              </div>
+            )
+          )}
+          <div className={styles.trackInfoBlock}>
+            {id !== currentTrack?.id ? (
+              <>
+                <div
+                  className={styles.trackHead}
+                  style={{ alignItems: "center" }}
+                >
+                  <div className={styles.trackInfo}>
+                    <span className={styles.name}>{name}</span>
+                    <span className={styles.artist}>{artist}</span>
+                  </div>
+                  <div className={styles.timeBlock}>
+                    {!isAddedTrack ? (
+                      isAddButtonVisible && (
+                        <Tooltip title="В мою музыку" arrow>
+                          <IconButton
+                            ref={addTrackButtonRef}
+                            size="medium"
+                            onClick={onAddToUserPlaylist}
+                          >
+                            <PlusIcon color="#898989" />
+                          </IconButton>
+                        </Tooltip>
+                      )
                     ) : (
                       <Tooltip title="Удалить трек" arrow>
                         <IconButton
@@ -432,32 +407,100 @@ export const TrackItem: React.FC<TrackItemProps> = ({
                           <CheckMarkIcon color="#898989" size={14} />
                         </IconButton>
                       </Tooltip>
-                    ))}
-                  {!muted && (
-                    <span className={styles.currentTime}>
-                      {calculateTime(currentTime)}
+                    )}
+                    <span className={styles.duration}>
+                      {duration && !isNaN(duration) && calculateTime(duration)}
                     </span>
-                  )}
-                  <span className={styles.duration}>
-                    {duration && !isNaN(duration) && calculateTime(duration)}
-                  </span>
+                  </div>
                 </div>
-              </div>
-              {!muted && (
-                <div>
-                  <input
-                    ref={progressBarRef}
-                    className={styles.progressBar}
-                    type="range"
-                    defaultValue={0}
-                    onChange={onChangeRange}
-                  />
+              </>
+            ) : (
+              <>
+                <div className={styles.trackHead}>
+                  <div className={styles.trackInfo}>
+                    <span
+                      className={styles.name}
+                      style={{
+                        fontSize: matches576 && !muted ? 17 : 20,
+                      }}
+                    >
+                      {name}
+                    </span>
+                    <span
+                      className={styles.artist}
+                      style={{
+                        fontSize: matches576 && !muted ? 17 : 20,
+                      }}
+                    >
+                      {artist}
+                    </span>
+                  </div>
+                  <div className={styles.timeBlock}>
+                    {!muted && (
+                      <div>
+                        <input
+                          ref={volumeRef}
+                          className={styles.volumeBar}
+                          type="range"
+                          onChange={(e) => onChangeVolume(e)}
+                          max={0.5}
+                          defaultValue={playerRef?.current?.volume}
+                          step={0.01}
+                        />
+                      </div>
+                    )}
+                    {!muted &&
+                      (!isAddedTrack ? (
+                        <Tooltip title="В мою музыку" arrow>
+                          <IconButton
+                            ref={addTrackButtonRef}
+                            size="medium"
+                            onClick={onAddToUserPlaylist}
+                          >
+                            <PlusIcon color="#898989" />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Удалить трек" arrow>
+                          <IconButton
+                            ref={removeTrackButtonRef}
+                            size="medium"
+                            onClick={onRemoveFromUserPlaylist}
+                          >
+                            <CheckMarkIcon color="#898989" size={14} />
+                          </IconButton>
+                        </Tooltip>
+                      ))}
+                    <div className={styles.timeBlockContainer}>
+                      {!muted && (
+                        <span className={styles.currentTime}>
+                          {calculateTime(currentTime)}
+                        </span>
+                      )}
+                      <span className={styles.duration}>
+                        {duration &&
+                          !isNaN(duration) &&
+                          calculateTime(duration)}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              )}
-            </>
-          )}
+                {!muted && (
+                  <div>
+                    <input
+                      ref={progressBarRef}
+                      className={styles.progressBar}
+                      type="range"
+                      defaultValue={0}
+                      onChange={onChangeRange}
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </li>
   );
 };

@@ -1,6 +1,8 @@
 import React from "react";
 
 import { Navbar } from "@/components/Navbar";
+import { useMediaQuery } from "@mui/material";
+import { MobileNavbar } from "@/components/MobileNavbar";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -13,17 +15,15 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   fullWidth,
   hidden,
 }) => {
+  const match992 = useMediaQuery("(max-width: 992px)");
+
   return (
     <div
       className={`${
         fullWidth ? "fullWidthLayoutContainer" : "layoutContainer"
       }`}
     >
-      {!hidden && (
-        <div className="leftSide">
-          <Navbar />
-        </div>
-      )}
+      {!hidden && (match992 ? <MobileNavbar /> : <Navbar />)}
       <div className="layoutContent">{children}</div>
     </div>
   );

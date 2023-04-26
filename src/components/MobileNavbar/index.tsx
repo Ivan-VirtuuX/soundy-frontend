@@ -1,11 +1,10 @@
 import React from "react";
 
-import { NavbarItem } from "@/components/NavbarItem";
-
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import styles from "./Navbar.module.scss";
+import styles from "./MobileNavbar.module.scss";
+import { MobileNavbarItem } from "@/components/MobileNavbarItem";
 
 export const Index: React.FC = () => {
   const userData = useAppSelector(selectUserData);
@@ -22,10 +21,10 @@ export const Index: React.FC = () => {
   return (
     <ul className={styles.container}>
       {navItems.map((item) => (
-        <NavbarItem {...item} key={item.id} />
+        <MobileNavbarItem {...item} key={item.id} />
       ))}
     </ul>
   );
 };
 
-export const Navbar = React.memo(Index);
+export const MobileNavbar = React.memo(Index);

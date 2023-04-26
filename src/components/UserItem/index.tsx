@@ -15,6 +15,7 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 import { Api } from "@/api";
 
 import styles from "./UserItem.module.scss";
+import { truncateString } from "@/utils/truncateString";
 
 interface UserItemProps {
   userId: string;
@@ -93,6 +94,7 @@ export const UserItem: React.FC<UserItemProps> = ({
           />
         ) : (
           <EmptyAvatar
+            className={styles.avatar}
             width={80}
             handleClick={() => router.push(`/users/${userId}`)}
           />
@@ -103,7 +105,9 @@ export const UserItem: React.FC<UserItemProps> = ({
             onClick={() => router.push(`/users/${userId}`)}
           >
             <span className={styles.name}>{name}</span>
-            <span className={styles.surname}>{surname}</span>
+            <span className={styles.surname}>
+              {truncateString(surname, 10)}
+            </span>
           </div>
           <span
             className={styles.login}

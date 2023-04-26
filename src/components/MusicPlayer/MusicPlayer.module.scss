@@ -8,6 +8,20 @@
   margin-top: 30px;
   align-items: center;
   padding-right: 10px;
+
+  @media (max-width: 992px) {
+    height: 550px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-right: 0;
+  }
 }
 
 .currentTrackBlock {
@@ -25,11 +39,17 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
+  @media (max-width: 992px) {
+    bottom: 70px;
+    width: 100%;
+  }
 }
 
 .trackActionsBlock {
   display: flex;
-  column-gap: 10px;
+  column-gap: 15px;
+  align-items: center;
 
   svg {
     cursor: pointer;
@@ -47,5 +67,19 @@
         fill: $secondary;
       }
     }
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+  }
+}
+
+.trackActionsBlockButtonsBlock {
+  display: flex;
+  column-gap: 15px;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    row-gap: 15px;
   }
 }
