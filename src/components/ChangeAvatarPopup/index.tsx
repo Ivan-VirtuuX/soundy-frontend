@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 
 import { BlueButton } from "@/components/ui/BlueButton";
@@ -110,13 +111,13 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
 
   return (
     <>
-      <div className={styles.changeAvatarButton}>
-        <IconButton
-          size="large"
-          color="primary"
-          onClick={() => attachedImageRef?.current?.click()}
-        >
-          <form>
+      <Tooltip title="Загрузить аватар" arrow placement="bottom">
+        <div className={styles.changeAvatarButton}>
+          <IconButton
+            size="large"
+            color="primary"
+            onClick={() => attachedImageRef?.current?.click()}
+          >
             <input
               accept="image/*"
               ref={attachedImageRef}
@@ -124,10 +125,10 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
               onChange={(e) => handleChangeImage(e.target.files)}
               hidden
             />
-          </form>
-          <CameraIcon />
-        </IconButton>
-      </div>
+            <CameraIcon />
+          </IconButton>
+        </div>
+      </Tooltip>
       <Dialog
         open={isChangeAvatarOpen}
         onClose={() => setIsChangeAvatarOpen(false)}

@@ -73,17 +73,8 @@
         }
 
         @media (max-width: 576px) {
-          width: 50px;
-          padding: 0 !important;
-
-          span {
-            width: 50px !important;
-          }
+          width: 30px !important;
         }
-      }
-
-      @media (max-width: 576px) {
-        width: 50px !important;
       }
     }
 

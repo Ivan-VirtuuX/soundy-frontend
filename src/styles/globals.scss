@@ -251,6 +251,15 @@ h6 {
 
 .MuiDialogContent-root {
   padding: 40px !important;
+  overflow: hidden !important;
+
+  @media (max-width: 576px) {
+    padding: 30px !important;
+  }
+
+  @media (max-width: 440px) {
+    padding: 20px !important;
+  }
 }
 
 .MuiPaper-rounded {
@@ -391,5 +400,14 @@ h6 {
   &.Mui-disabled {
     background: #e8e8e8 !important;
     color: #9b9b9b !important;
+
+    &:hover {
+      background: #e8e8e8 !important;
+      color: #9b9b9b !important;
+    }
+  }
+
+  &:hover {
+    background: $secondary !important;
   }
 }

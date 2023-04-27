@@ -13,7 +13,7 @@ export const FriendsList = ({ friends }: { friends: IUser[] }) => {
 
   return (
     <ul className={styles.container}>
-      {friends.map((friend) => (
+      {friends.slice(0, 6).map((friend) => (
         <li className={styles.friend} key={friend.userId}>
           {friend?.avatarUrl ? (
             <img

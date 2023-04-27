@@ -114,7 +114,12 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
     <div className={styles.profileActionsBlock}>
       {userData.userId === query?.id && (
         <>
-          <BlueButton handleClick={onOpenEdit} size="sm" text="Редактировать">
+          <BlueButton
+            handleClick={onOpenEdit}
+            size="sm"
+            text="Редактировать"
+            width={170}
+          >
             <EditUserIcon />
           </BlueButton>
           <EditProfilePopup
@@ -133,6 +138,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           text="Сообщение"
           handleClick={handleClickMessageButton}
           disabled={isLoadingConversation}
+          width={130}
         >
           <MessageIcon width={15} height={15} color="white" />
         </BlueButton>
@@ -142,18 +148,20 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           handleClick={() => router.push("/write")}
           size="sm"
           text="Создать пост"
+          width={170}
         >
           <PencilIcon />
         </BlueButton>
       )}
 
       {friends.find((friend) => friend.userId === userData.userId) &&
-      !isDeleteFriend ? (
+      isDeleteFriend ? (
         <BlueButton
           size="sm"
           text="Удалить"
           handleClick={deleteFriend}
           disabled={isLoadingUserAction}
+          width={130}
         >
           <DeleteUserIcon />
         </BlueButton>
@@ -176,6 +184,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
             text="Добавить"
             handleClick={addFriend}
             disabled={isLoadingUserAction}
+            width={130}
           >
             <AddUserIcon />
           </BlueButton>

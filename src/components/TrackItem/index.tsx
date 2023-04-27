@@ -308,7 +308,6 @@ export const TrackItem: React.FC<TrackItemProps> = ({
           padding: id === currentTrack?.id && !muted ? 0 : "15px 15px 20px",
           background:
             id === currentTrack?.id && muted ? "#f9f9f9" : "transparent",
-          width: !muted ? "100%" : 600,
         }}
         ref={containerRef}
       >
