@@ -14,9 +14,19 @@
     line-height: 56px;
     color: $primary;
     margin-bottom: 40px;
+    text-align: center;
 
     span {
       color: $secondary;
     }
   }
+
+  @media (max-width: 1400px) {
+    padding: 50px 20px;
+    width: 100%;
+  }
+}
+
+.formContainer {
+  width: 100%;
 }

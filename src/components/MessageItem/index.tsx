@@ -11,6 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { Api } from "@/api";
 
 import styles from "./MessageItem.module.scss";
+import { useMediaQuery } from "@mui/material";
 
 interface MessageItemProps extends IMessage {
   innerRef: React.Ref<HTMLDivElement>;
@@ -52,6 +53,8 @@ export const Index: React.FC<MessageItemProps> = ({
     lastReceiverMessage?.messageId === messageId ||
     nextMessageSenderId !== sender.userId;
 
+  const matches992 = useMediaQuery("(max-width: 992px)");
+
   return (
     <>
       <Menu
@@ -72,6 +75,7 @@ export const Index: React.FC<MessageItemProps> = ({
             padding: content.images?.length ? "0 0 10px 0" : 10,
             borderRadius: isLastMessage ? "10px 10px 0 10px" : 10,
           }}
+          onClick={(e) => matches992 && onShowMessageActions(e)}
         >
           <div className={styles.contentRightSide}>
             <div className={styles.inner}>
@@ -165,7 +169,9 @@ export const Index: React.FC<MessageItemProps> = ({
               {content.text && (
                 <p
                   className={styles.text}
-                  style={{ marginLeft: content.images?.length ? 10 : 0 }}
+                  style={{
+                    marginLeft: content.images?.length ? 10 : 0,
+                  }}
                 >
                   {content.text}
                 </p>

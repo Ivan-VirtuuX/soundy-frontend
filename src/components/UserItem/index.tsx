@@ -81,7 +81,6 @@ export const UserItem: React.FC<UserItemProps> = ({
       className={styles.container}
       style={{
         marginTop: type === "requestFriends" && 20,
-        width: type === "friends" ? 350 : 300,
       }}
     >
       <div className={styles.leftSide}>

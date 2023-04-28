@@ -6,6 +6,10 @@
   flex-direction: column;
   align-items: center;
   row-gap: 15px;
+
+  @media (max-width: 440px) {
+    width: 100%;
+  }
 }
 
 .searchActionsBlock {
@@ -18,6 +22,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1200px) {
+    margin-bottom: 100px;
+  }
 }
 
 .friendsBlock {
@@ -25,4 +33,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 }

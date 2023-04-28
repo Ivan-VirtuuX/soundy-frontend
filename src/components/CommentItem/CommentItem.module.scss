@@ -18,6 +18,11 @@
   width: 100%;
 }
 
+.nameSurnameBlock {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .name {
   margin-right: 5px;
 }
@@ -25,7 +30,7 @@
 .name,
 .surname {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 22px;
   color: $primary;
   cursor: pointer;

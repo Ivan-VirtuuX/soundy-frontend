@@ -13,8 +13,6 @@ import { selectUserData, setUserData } from "@/redux/slices/user";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { LogoutIcon } from "@/components/ui/Icons/LogoutIcon";
 
-import { truncateString } from "@/utils/truncateString";
-
 import { IconButton } from "@mui/material";
 
 import styles from "./Header.module.scss";
@@ -66,9 +64,6 @@ export const Header = () => {
             )}
             <div onClick={() => router.push(`/users/${userData.userId}`)}>
               <span className={styles.name}>{userData?.name}</span>
-              <span className={styles.surname}>
-                {truncateString(userData?.surname, 10)}
-              </span>
             </div>
             <IconButton
               onClick={onLogout}

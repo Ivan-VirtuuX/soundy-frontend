@@ -1,9 +1,12 @@
 @import "@/styles/variables.scss";
 
 .form {
-  width: 1200px;
   display: flex;
   justify-content: space-between;
+
+  @media (max-width: 1400px) {
+    width: 100%;
+  }
 }
 
 .formWrapper {

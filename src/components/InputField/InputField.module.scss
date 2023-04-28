@@ -4,6 +4,10 @@
   width: 100%;
   margin-right: 50px;
 
+  @media (max-width: 440px) {
+    margin-right: 35px;
+  }
+
   input {
     padding: 15px;
     background: #f1f1f1;
@@ -32,9 +36,17 @@
     padding-right: 75px;
     height: 50px;
 
+    @media (max-width: 440px) {
+      width: calc(100% - 80px);
+    }
+
     input {
       padding-left: 50px;
       padding-right: 50px;
+
+      @media (max-width: 440px) {
+        width: 100%;
+      }
     }
   }
 }

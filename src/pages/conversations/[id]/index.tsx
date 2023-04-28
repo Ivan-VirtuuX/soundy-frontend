@@ -28,10 +28,6 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./Conversation.module.scss";
 
-interface ConversationProps extends IConversation {
-  messages: IMessage[];
-}
-
 const Conversation: NextPage<IConversation> = ({
   messages,
   sender,

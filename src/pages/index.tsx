@@ -38,7 +38,7 @@ const Home: NextPage = () => {
           <h1>
             Добро пожаловать в <span>Soundy</span>
           </h1>
-          <div className="form">
+          <div className={styles.formContainer}>
             {formType === "login" && (
               <LoginForm onOpenRegister={() => setFormType("register")} />
             )}

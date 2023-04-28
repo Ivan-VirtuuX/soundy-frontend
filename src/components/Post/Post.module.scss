@@ -14,7 +14,7 @@
 
 .head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 25px;
 
@@ -44,6 +44,7 @@
 
 .pinIcon {
   margin-left: 10px;
+  margin-right: 10px;
 
   path {
     fill: $gray;
@@ -63,6 +64,7 @@
 
 .nameSurnameBlock {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .name {

@@ -373,7 +373,9 @@ const Index: React.FC<PostProps> = ({
                 <span className={styles.login}>{author?.login}</span>
               </div>
               {pinned && asPath.includes("/users") && (
-                <PinIcon className={styles.pinIcon} />
+                <div>
+                  <PinIcon className={styles.pinIcon} />
+                </div>
               )}
             </div>
             <span className={styles.createdAt}>{convertedDate}</span>

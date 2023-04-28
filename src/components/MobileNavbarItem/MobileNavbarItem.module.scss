@@ -75,6 +75,10 @@
         @media (max-width: 576px) {
           width: 30px !important;
         }
+
+        @media (max-width: 440px) {
+          min-width: 50px !important;
+        }
       }
     }
 
