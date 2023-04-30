@@ -19,14 +19,26 @@
     span {
       color: $secondary;
     }
+
+    @media (max-width: 992px) {
+      font-size: 45px;
+      line-height: 51px;
+    }
   }
 
   @media (max-width: 1400px) {
-    padding: 50px 20px;
     width: 100%;
+  }
+
+  @media (max-width: 992px) {
+    padding-bottom: 50px;
   }
 }
 
 .formContainer {
   width: 100%;
+
+  @media (max-width: 1400px) {
+    width: calc(100vw - 20px);
+  }
 }

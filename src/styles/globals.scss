@@ -315,10 +315,6 @@ h6 {
 .layoutContent {
   padding-top: 25px;
   margin: 0 auto;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
 }
 
 /** 404 page **/

@@ -4,30 +4,48 @@
   display: flex;
   justify-content: space-between;
 
+  &Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 338px;
+
+    @media (max-width: 378px) {
+      width: calc(100vw - 30px);
+    }
+  }
+
+  &Type {
+    font-weight: 700;
+    font-size: 39px;
+    line-height: 43px;
+    color: $primary;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &Actions {
+    button {
+      margin-top: 10px;
+    }
+  }
+
   @media (max-width: 1400px) {
     width: 100%;
   }
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+  }
 }
 
-.formWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 338px;
-}
-
-.formType {
-  font-weight: 700;
-  font-size: 38.9871px;
-  line-height: 43px;
-  color: $primary;
-  margin-top: 20px;
-  margin-bottom: 30px;
-}
-
-.formActions {
-  button {
-    margin-top: 10px;
+.sticker {
+  @media (max-width: 992px) {
+    width: 50%;
+    height: auto;
   }
 }
 
@@ -36,14 +54,21 @@
   width: 100%;
 }
 
+.registerButton {
+  @media (max-width: 378px) {
+    font-size: 6vw !important;
+  }
+}
+
 .registerBlock {
   margin-top: 40px;
 
   h2 {
     font-weight: 700;
-    font-size: 38.9871px;
+    font-size: 39px;
     line-height: 43px;
     color: $primary;
     margin-bottom: 25px;
+    text-align: center;
   }
 }

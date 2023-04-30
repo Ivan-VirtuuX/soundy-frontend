@@ -10,8 +10,6 @@ import { RegisterForm } from "@/components/RegisterForm";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
-import { MainLayout } from "@/layouts/MainLayout";
-
 import styles from "@/styles/Home.module.scss";
 
 const Home: NextPage = () => {
@@ -33,21 +31,19 @@ const Home: NextPage = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicons/favicon.ico" />
       </Head>
-      <MainLayout hidden>
-        <main className={styles.container}>
-          <h1>
-            Добро пожаловать в <span>Soundy</span>
-          </h1>
-          <div className={styles.formContainer}>
-            {formType === "login" && (
-              <LoginForm onOpenRegister={() => setFormType("register")} />
-            )}
-            {formType === "register" && (
-              <RegisterForm onOpenLogin={() => setFormType("login")} />
-            )}
-          </div>
-        </main>
-      </MainLayout>
+      <main className={styles.container}>
+        <h1>
+          Добро пожаловать в <span>Soundy</span>
+        </h1>
+        <div className={styles.formContainer}>
+          {formType === "login" && (
+            <LoginForm onOpenRegister={() => setFormType("register")} />
+          )}
+          {formType === "register" && (
+            <RegisterForm onOpenLogin={() => setFormType("login")} />
+          )}
+        </div>
+      </main>
     </>
   );
 };

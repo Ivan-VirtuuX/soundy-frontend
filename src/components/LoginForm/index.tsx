@@ -138,6 +138,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onOpenRegister }) => {
                 variant="contained"
                 fullWidth
                 onClick={onOpenRegister}
+                className={styles.registerButton}
               >
                 Зарегистрироваться
               </Button>
