@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MobileNavbarItem/MobileNavbarItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MobileNavbarItem/MobileNavbarItem.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MusicPlayer/MusicPlayer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MusicPlayer/MusicPlayer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RegisterForm/RegisterForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RegisterForm/RegisterForm.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/music/Music.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/music/Music.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +139,7 @@
       <workItem from="1682486220393" duration="14111000" />
       <workItem from="1682568238359" duration="5036000" />
       <workItem from="1682654727586" duration="6346000" />
-      <workItem from="1682836242749" duration="4646000" />
+      <workItem from="1682836242749" duration="5010000" />
     </task>
     <servers />
   </component>

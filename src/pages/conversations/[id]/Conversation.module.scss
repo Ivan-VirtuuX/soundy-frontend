@@ -4,17 +4,13 @@
   border-radius: 10px;
   box-shadow: 0 0 27px rgba(0, 0, 0, 0.1);
   padding: 25px;
-  height: calc(100vh - 150px);
+  height: calc(100vh - 225px);
   display: grid;
   grid-template-rows: 60px 2fr;
   position: relative;
 
   @media (min-width: 992px) {
     width: 600px;
-  }
-
-  @media (max-width: 992px) {
-    height: calc(100vh - 250px);
   }
 }
 
