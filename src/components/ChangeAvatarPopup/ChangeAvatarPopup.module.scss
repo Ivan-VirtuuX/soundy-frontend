@@ -31,6 +31,11 @@
   line-height: 39px;
   text-align: center;
   color: $primary;
+
+  @media (max-width: 576px) {
+    font-size: calc(8vw - 2px);
+    line-height: calc(8vw - 2px);
+  }
 }
 
 .avatar {
