@@ -7,13 +7,4 @@
   align-items: center;
   row-gap: 15px;
   height: 610px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (max-width: 992px) {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
 }

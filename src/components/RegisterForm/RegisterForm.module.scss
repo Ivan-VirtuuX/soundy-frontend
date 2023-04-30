@@ -10,7 +10,7 @@
     align-items: center;
     width: 450px;
 
-    @media (max-width: 578px) {
+    @media (max-width: 576px) {
       width: calc(100vw - 30px);
     }
   }
@@ -100,7 +100,7 @@
     width: 215px !important;
   }
 
-  @media (max-width: 578px) {
+  @media (max-width: 576px) {
     flex-direction: column;
 
     div {

@@ -11,12 +11,7 @@
   width: 100%;
 
   @media (max-width: 992px) {
-    height: 550px;
-    overflow-y: auto;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
+    padding-bottom: 70px;
   }
 
   @media (max-width: 768px) {
