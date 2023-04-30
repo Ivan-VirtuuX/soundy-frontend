@@ -29,7 +29,6 @@
 }
 
 .friendsBlock {
-  margin-top: 50px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
@@ -41,4 +40,11 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+}
+
+.emptyRequestsBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
 }

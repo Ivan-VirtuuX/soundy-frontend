@@ -14,9 +14,6 @@ import { MusicPlayer } from "@/components/MusicPlayer";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { NotificationsBlock } from "@/components/NotificationsBlock";
 
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-
 import styles from "@/pages/music/Music.module.scss";
 
 const Playlist: NextPage = ({
@@ -29,8 +26,6 @@ const Playlist: NextPage = ({
   const [playlistTracks, setPlaylistTracks] =
     React.useState<ITrack[]>(userTracks);
   const [searchText, setSearchText] = React.useState("");
-
-  const userData = useAppSelector(selectUserData);
 
   return (
     <MainLayout fullWidth>

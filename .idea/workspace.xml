@@ -5,7 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NotificationsBlock/NotificationsBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationsBlock/NotificationsBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedData/SearchedData.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchedData/SearchedData.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/ArrowLeftIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/ArrowLeftIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/NotFoundBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/NotFoundBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NotFoundBlock/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/NullResultsBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/NullResultsBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/PageTitle/PageTitle.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/PageTitle/PageTitle.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friends/Friends.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/Friends.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/friends/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/playlist/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/playlist/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +150,7 @@
       <workItem from="1682486220393" duration="14111000" />
       <workItem from="1682568238359" duration="5036000" />
       <workItem from="1682654727586" duration="6346000" />
-      <workItem from="1682836242749" duration="5270000" />
+      <workItem from="1682836242749" duration="11634000" />
     </task>
     <servers />
   </component>

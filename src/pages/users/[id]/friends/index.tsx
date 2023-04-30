@@ -13,10 +13,10 @@ import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { NotificationsBlock } from "@/components/NotificationsBlock";
 
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-
 import styles from "@/pages/friends/Friends.module.scss";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { useRouter } from "next/router";
+import { ArrowLeftIcon } from "@/components/ui/Icons/ArrowLeftIcon";
 
 const Friends: NextPage = ({
   friends,
@@ -25,7 +25,7 @@ const Friends: NextPage = ({
   friends: IUser[];
   user: IUser;
 }) => {
-  const userData = useAppSelector(selectUserData);
+  const router = useRouter();
 
   return (
     <MainLayout fullWidth>
@@ -43,7 +43,17 @@ const Friends: NextPage = ({
             style={{ gridTemplateColumns: friends?.length < 3 && "1fr" }}
           >
             {!friends?.length ? (
-              <NullResultsBlock text="Список друзей пуст" />
+              <div className={styles.emptyRequestsBlock}>
+                <NullResultsBlock text="Список друзей пуст" />
+                <BlueButton
+                  handleClick={() => router.push(`/users/${router.query.id}`)}
+                  text="В профиль"
+                  color="primary"
+                  width={220}
+                >
+                  <ArrowLeftIcon color="#fff" width={20} height={20} />
+                </BlueButton>
+              </div>
             ) : (
               friends?.map((friend) => (
                 <UserItem key={friend?.userId} {...friend} menuHidden />

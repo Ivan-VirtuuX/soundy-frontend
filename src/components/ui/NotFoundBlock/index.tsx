@@ -1,8 +1,11 @@
 import React from "react";
-import styles from "./NotFoundBlock.module.scss";
+
 import Image from "next/image";
+
 import errorSticker from "@/images/errorSticker.png";
 import stopSticker from "@/images/stopSticker.png";
+
+import styles from "./NotFoundBlock.module.scss";
 
 export const NotFoundBlock = ({ text }: { text: string }) => {
   return (

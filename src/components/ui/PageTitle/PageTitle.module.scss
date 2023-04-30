@@ -7,4 +7,9 @@
   color: $primary;
   margin-bottom: 10px;
   text-align: center;
+
+  @media (max-width: 576px) {
+    font-size: calc(8vw - 2px);
+    line-height: 50px;
+  }
 }

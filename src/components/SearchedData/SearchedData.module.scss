@@ -7,9 +7,11 @@
 
   @media (max-width: 1200px) {
     grid-template-columns: 1fr 1fr;
+    margin-top: 30px;
   }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    margin-top: 20px;
   }
 }

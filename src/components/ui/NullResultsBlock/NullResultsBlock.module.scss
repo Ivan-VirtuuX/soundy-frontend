@@ -10,5 +10,17 @@
     line-height: 50px;
     color: #e8338b;
     text-align: center;
+
+    @media (max-width: 576px) {
+      font-size: calc(8vw - 2px);
+      line-height: calc(4vw - 2px);
+    }
+  }
+
+  img {
+    @media (max-width: 768px) {
+      width: 70%;
+      height: auto;
+    }
   }
 }
