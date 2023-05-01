@@ -1,4 +1,4 @@
-import React, { FormEvent, Ref } from "react";
+import React, { FormEvent, Ref, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
@@ -24,9 +24,11 @@ import { PinIcon } from "@/components/ui/Icons/PinIcon";
 import { InputField } from "@/components/InputField";
 import { HideDetailsIcon } from "@/components/ui/Icons/HideDetailsIcon";
 
-import { useInterval } from "@/hooks/useInterval";
-
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import { useInterval } from "@/hooks/useInterval";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import styles from "./Post.module.scss";
 
@@ -58,6 +60,7 @@ const Index: React.FC<PostProps> = ({
   >([]);
   const [isCommentInputVisible, setIsCommentInputVisible] =
     React.useState(false);
+  const [expandedImageUrl, setExpandedImageUrl] = React.useState("");
   const [isShowComments, setIsShowComments] = React.useState(false);
   const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
   const [localComments, setLocalComments] =
@@ -80,11 +83,18 @@ const Index: React.FC<PostProps> = ({
     triggerOnce: true,
   });
 
+  const expandedImageBlock = useRef(null);
+
   const commentInputRef = React.useRef<HTMLInputElement>(null);
 
   const router = useRouter();
 
   const { convertedDate } = useInterval(5000, createdAt);
+
+  useClickOutside(expandedImageBlock, () => onMouseLeave());
+
+  const { isVisible, onMouseOver, onMouseLeave } =
+    useTransitionOpacity(expandedImageBlock);
 
   const [parent] = useAutoAnimate();
 
@@ -282,13 +292,15 @@ const Index: React.FC<PostProps> = ({
     }
   };
 
-  const onDeleteComment = (commentId) => {
-    const filteredComments = [
-      ...localComments.filter((comment) => comment.commentId !== commentId),
-    ];
+  const onDeleteComment = (commentId: string, userId: string) => {
+    if (userId === userData.userId) {
+      const filteredComments = [
+        ...localComments.filter((comment) => comment.commentId !== commentId),
+      ];
 
-    setLocalComments(filteredComments);
-    setLastComment(filteredComments.at(-1));
+      setLocalComments(filteredComments);
+      setLastComment(filteredComments.at(-1));
+    }
   };
 
   React.useEffect(() => {
@@ -417,12 +429,26 @@ const Index: React.FC<PostProps> = ({
                     className={styles.image}
                     src={obj.data.file.url}
                     alt="post image"
+                    onClick={() => {
+                      setExpandedImageUrl(obj.data.file.url);
+                      onMouseOver();
+                    }}
                   />
                 )
             )}
           </div>
         )}
       </div>
+      {expandedImageUrl && isVisible && (
+        <div className={styles.expandedImageBlock}>
+          <img
+            className={styles.expandedImage}
+            src={expandedImageUrl}
+            alt="expanded image"
+            ref={expandedImageBlock}
+          />
+        </div>
+      )}
       <div className={styles.actions} ref={ref}>
         <Like
           handleClickLike={onClickLike}

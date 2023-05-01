@@ -24,6 +24,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import styles from "./Posts.module.scss";
 
 const Posts: NextPage = () => {
+  const [isPostsLoading, setIPostsLoading] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);

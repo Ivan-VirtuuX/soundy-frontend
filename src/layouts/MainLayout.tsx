@@ -1,8 +1,9 @@
 import React from "react";
 
 import { Navbar } from "@/components/Navbar";
-import { useMediaQuery } from "@mui/material";
 import { MobileNavbar } from "@/components/MobileNavbar";
+
+import { useMediaQuery } from "@mui/material";
 
 interface MainLayoutProps {
   children: React.ReactNode;

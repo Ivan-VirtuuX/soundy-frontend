@@ -50,7 +50,7 @@ const Music: NextPage = () => {
         <PageTitle pageTitle="Музыка" />
         <div className={styles.musicBlock}>
           <SearchInput
-            placeholder="Введите название трека"
+            placeholder="Название трека"
             width={600}
             handleChange={(text) => setSearchText(text)}
           />

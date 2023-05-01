@@ -4,9 +4,9 @@ import { useRouter } from "next/router";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 
-import styles from "./FriendsList.module.scss";
-
 import { IUser } from "@/api/types";
+
+import styles from "./FriendsList.module.scss";
 
 export const FriendsList = ({ friends }: { friends: IUser[] }) => {
   const router = useRouter();

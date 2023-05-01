@@ -11,8 +11,9 @@ import { SearchIcon } from "@/components/ui/Icons/SearchIcon";
 import { MusicIcon } from "@/components/ui/Icons/MusicIcon";
 import { BlueButton } from "@/components/ui/BlueButton";
 
-import styles from "./MobileNavbarItem.module.scss";
 import { useMediaQuery } from "@mui/material";
+
+import styles from "./MobileNavbarItem.module.scss";
 
 interface NavbarItemProps {
   name: string;

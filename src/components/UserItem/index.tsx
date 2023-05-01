@@ -14,8 +14,9 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import { Api } from "@/api";
 
-import styles from "./UserItem.module.scss";
 import { truncateString } from "@/utils/truncateString";
+
+import styles from "./UserItem.module.scss";
 
 interface UserItemProps {
   userId: string;

@@ -2,6 +2,7 @@ import React from "react";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
@@ -12,11 +13,10 @@ import { PageTitle } from "@/components/ui/PageTitle";
 import { NullResultsBlock } from "@/components/ui/NullResultsBlock";
 import { UserItem } from "@/components/UserItem";
 import { NotificationsBlock } from "@/components/NotificationsBlock";
+import { BlueButton } from "@/components/ui/BlueButton";
+import { ArrowLeftIcon } from "@/components/ui/Icons/ArrowLeftIcon";
 
 import styles from "@/pages/friends/Friends.module.scss";
-import { BlueButton } from "@/components/ui/BlueButton";
-import { useRouter } from "next/router";
-import { ArrowLeftIcon } from "@/components/ui/Icons/ArrowLeftIcon";
 
 const Friends: NextPage = ({
   friends,

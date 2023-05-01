@@ -1,17 +1,16 @@
 import React from "react";
 
-import { IMessage } from "@/api/types";
-
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useMediaQuery } from "@mui/material";
 
 import { Api } from "@/api";
+import { IMessage } from "@/api/types";
 
 import styles from "./MessageItem.module.scss";
-import { useMediaQuery } from "@mui/material";
 
 interface MessageItemProps extends IMessage {
   innerRef: React.Ref<HTMLDivElement>;

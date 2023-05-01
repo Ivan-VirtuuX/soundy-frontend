@@ -15,7 +15,7 @@ export const NotificationsBlock = () => {
   const userData = useAppSelector(selectUserData);
 
   const { notificationMessages, setNotificationMessages } = useNotifications(
-    userData.userId
+    userData?.userId
   );
 
   const [parent] = useAutoAnimate();

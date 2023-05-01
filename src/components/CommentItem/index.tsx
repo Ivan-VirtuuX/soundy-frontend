@@ -6,20 +6,20 @@ import { useRouter } from "next/router";
 import { IComment, ILike } from "@/api/types";
 import { Api } from "@/api";
 
-import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
-
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
 
 import { useInterval } from "@/hooks/useInterval";
 import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
-import styles from "./CommentItem.module.scss";
+import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { KebabMenu } from "@/components/ui/KebabMenu";
 import { Like } from "@/components/ui/Like";
 
+import styles from "./CommentItem.module.scss";
+
 interface CommentItemProps extends IComment {
-  handleDeleteComment: (commentId: string) => void;
+  handleDeleteComment: (commentId: string, userId: string) => void;
 }
 
 export const CommentItem: React.FC<CommentItemProps> = ({
@@ -73,7 +73,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     try {
       await Api().comment.remove(commentId);
 
-      handleDeleteComment(commentId);
+      handleDeleteComment(commentId, author.userId);
     } catch (err) {
       console.warn(err);
     }
@@ -124,7 +124,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <div className={styles.rightSide}>
-            {isVisible && (
+            {isVisible && userData.userId === author.userId && (
               <KebabMenu
                 handleDelete={onDeleteComment}
                 innerRef={kebabMenuRef}

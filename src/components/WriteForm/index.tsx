@@ -9,10 +9,11 @@ import { selectUserData } from "@/redux/slices/user";
 import { Api } from "@/api";
 
 import { BlueButton } from "@/components/ui/BlueButton";
+import { UploadIcon } from "@/components/ui/Icons/UploadIcon";
+
+import { OutputData } from "@editorjs/editorjs";
 
 import styles from "./WriteForm.module.scss";
-import { OutputData } from "@editorjs/editorjs";
-import { UploadIcon } from "@/components/ui/Icons/UploadIcon";
 
 const Editor = dynamic(() => import("../Editor"), {
   ssr: false,

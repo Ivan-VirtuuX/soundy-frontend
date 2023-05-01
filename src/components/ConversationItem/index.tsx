@@ -19,6 +19,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import { useInterval } from "@/hooks/useInterval";
 
+import { ConversationItemSkeleton } from "@/components/ConversationItem/ConversationItem.skeleton";
+
 import styles from "./ConversationItem.module.scss";
 
 interface ConversationItemProps extends IConversation {
@@ -37,6 +39,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const [lastMessage, setLastMessage] = React.useState<IMessage>(
     messages[messages.length - 1]
   );
+  const [isLoading, setIsLoading] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const router = useRouter();
@@ -57,11 +60,16 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
+
         const messages = await Api().conversation.getMessages(conversationId);
 
         setLastMessage(messages[messages.length - 1]);
+
+        setIsLoading(false);
       } catch (err) {
         console.warn(err);
+        setIsLoading(false);
       }
     })();
   }, []);
@@ -99,6 +107,10 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
     };
   }, [socket, localMessages]);
 
+  if (isLoading) {
+    return <ConversationItemSkeleton />;
+  }
+
   return (
     <div className={styles.wrapper} onContextMenu={onShowMessageActions}>
       <div
@@ -113,7 +125,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
               alt="avatar"
             />
           ) : (
-            <EmptyAvatar width={50} className={styles.avatar} />
+            <div>
+              <EmptyAvatar width={50} className={styles.avatar} />
+            </div>
           )}
           <div className={styles.leftSideText}>
             <div className={styles.receiverInfo}>

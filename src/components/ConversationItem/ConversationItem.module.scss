@@ -47,6 +47,7 @@
 .receiverInfo {
   display: flex;
   column-gap: 5px;
+  flex-wrap: wrap;
 
   span {
     font-weight: 700;

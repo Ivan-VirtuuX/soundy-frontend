@@ -41,7 +41,7 @@ export const useTransitionOpacity = (ref: React.RefObject<HTMLElement>) => {
 
     setTimeout(() => {
       setIsVisible(false);
-    }, 100);
+    }, 95);
   };
 
   return { isVisible, onMouseOver, onMouseLeave };

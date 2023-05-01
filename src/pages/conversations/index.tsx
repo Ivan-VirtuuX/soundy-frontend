@@ -31,6 +31,7 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const [localConversations, setLocalConversations] =
     React.useState<IConversation[]>(conversations);
   const [searchText, setSearchText] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const [parent] = useAutoAnimate();
 
@@ -101,6 +102,12 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
       socket.off("message");
     };
   }, [socket]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <MainLayout fullWidth>

@@ -125,7 +125,7 @@ h6 {
   font-weight: 700 !important;
   font-size: 23px !important;
   color: #181f92 !important;
-  background: white;
+  background: #fff;
   padding-left: 5px;
   padding-right: 5px;
   line-height: 20px !important;
@@ -310,6 +310,10 @@ h6 {
   display: flex;
   justify-content: space-between;
   padding: 0 13px;
+
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 }
 
 .layoutContent {

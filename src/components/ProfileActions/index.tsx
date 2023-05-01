@@ -53,7 +53,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
   handleClickMessageButton,
 }) => {
   const [isLoadingUserAction, setIsLoadingUserAction] = React.useState(false);
-  const [isDeleteFriend, setIsDeleteFriend] = React.useState(false);
+  const [isFriend, setIsFriend] = React.useState(false);
 
   const userData = useAppSelector(selectUserData);
 
@@ -88,7 +88,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
 
       await Api().user.deleteFriend(userData.userId, query?.id);
 
-      setIsDeleteFriend(true);
+      setIsFriend(false);
 
       setIsLoadingUserAction(false);
     } catch (err) {
@@ -109,6 +109,11 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
       console.warn(err);
     }
   };
+
+  React.useEffect(() => {
+    friends.find((friend) => friend.userId === userData.userId) &&
+      setIsFriend(true);
+  }, []);
 
   return (
     <div className={styles.profileActionsBlock}>
@@ -153,9 +158,7 @@ export const ProfileActions: React.FC<ProfileActionsProps> = ({
           <PencilIcon />
         </BlueButton>
       )}
-
-      {friends.find((friend) => friend.userId === userData.userId) &&
-      isDeleteFriend ? (
+      {isFriend ? (
         <BlueButton
           size="sm"
           text="Удалить"

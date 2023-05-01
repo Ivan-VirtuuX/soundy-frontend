@@ -40,7 +40,7 @@ const Playlist: NextPage = ({
         {userTracks.length !== 0 ? (
           <div className={styles.musicBlock}>
             <SearchInput
-              placeholder="Введите название трека"
+              placeholder="Название трека"
               width={600}
               handleChange={(text) => setSearchText(text)}
             />
