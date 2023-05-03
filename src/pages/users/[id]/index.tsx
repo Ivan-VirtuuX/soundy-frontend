@@ -91,7 +91,7 @@ const Users: NextPage<IUser> = ({
   }, [query?.id]);
 
   React.useEffect(() => {
-    friendRequests.find((user) => user.userId === userData.userId)
+    friendRequests.find((user) => user.userId === userData?.userId)
       ? setIsAddFriend(true)
       : setIsAddFriend(false);
   }, []);
@@ -133,7 +133,7 @@ const Users: NextPage<IUser> = ({
                 ) : (
                   <EmptyAvatar width={150} />
                 )}
-                {userData.userId === query?.id && (
+                {userData?.userId === query?.id && (
                   <ChangeAvatarPopup
                     handleChangeAvatar={(avatarUrl) => setAvatar(avatarUrl)}
                   />
@@ -194,7 +194,7 @@ const Users: NextPage<IUser> = ({
               <div
                 className={styles.friendsBlockHead}
                 onClick={() =>
-                  query?.id === userData.userId
+                  query?.id === userData?.userId
                     ? router.push("/friends")
                     : router.push(`/users/${query?.id}/friends`)
                 }

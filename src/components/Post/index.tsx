@@ -293,7 +293,7 @@ const Index: React.FC<PostProps> = ({
   };
 
   const onDeleteComment = (commentId: string, userId: string) => {
-    if (userId === userData.userId) {
+    if (userId === userData?.userId) {
       const filteredComments = [
         ...localComments.filter((comment) => comment.commentId !== commentId),
       ];
@@ -339,7 +339,7 @@ const Index: React.FC<PostProps> = ({
         if (
           (inView &&
             !isView &&
-            !views.find((user) => user.userId === userData.userId)) ||
+            !views.find((user) => user.userId === userData?.userId)) ||
           (inView && views.length === 0)
         ) {
           await setIsView(true);
@@ -393,7 +393,7 @@ const Index: React.FC<PostProps> = ({
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
         </div>
-        {!menuHidden && author?.userId === userData.userId && (
+        {!menuHidden && author?.userId === userData?.userId && (
           <KebabMenu
             isPinned={pinned}
             handleDelete={onDeletePost}
@@ -455,10 +455,10 @@ const Index: React.FC<PostProps> = ({
           handleClickDislike={onClickDislike}
           likesCount={likesCount > 0 && likesCount}
           isLiked={likes?.some(
-            (like) => like?.author?.userId === userData.userId
+            (like) => like?.author?.userId === userData?.userId
           )}
           likeId={
-            likes?.find((like) => like?.author?.userId === userData.userId)
+            likes?.find((like) => like?.author?.userId === userData?.userId)
               ?.likeId
           }
         />

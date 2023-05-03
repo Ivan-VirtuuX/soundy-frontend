@@ -124,7 +124,7 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             <span className={styles.createdAt}>{convertedDate}</span>
           </div>
           <div className={styles.rightSide}>
-            {isVisible && userData.userId === author.userId && (
+            {isVisible && userData?.userId === author.userId && (
               <KebabMenu
                 handleDelete={onDeleteComment}
                 innerRef={kebabMenuRef}
@@ -132,11 +132,11 @@ export const CommentItem: React.FC<CommentItemProps> = ({
             )}
             <Like
               isLiked={localLikes?.some(
-                (like) => like?.author?.userId === userData.userId
+                (like) => like?.author?.userId === userData?.userId
               )}
               likeId={
                 localLikes?.find(
-                  (like) => like?.author?.userId === userData.userId
+                  (like) => like?.author?.userId === userData?.userId
                 )?.likeId
               }
               handleClickLike={onClickLike}

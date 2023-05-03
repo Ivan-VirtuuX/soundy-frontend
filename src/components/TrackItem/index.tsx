@@ -191,7 +191,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       setIsAddedTrack(true);
 
       await Api().user.toggleMusicTrack(
-        userData.userId,
+        userData?.userId,
         {
           id,
           name,
@@ -213,7 +213,7 @@ export const TrackItem: React.FC<TrackItemProps> = ({
       setIsAddedTrack(false);
 
       await Api().user.toggleMusicTrack(
-        userData.userId,
+        userData?.userId,
         {
           id,
           name,

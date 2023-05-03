@@ -1,5 +1,6 @@
-import styles from "./Comment.module.scss";
 import { IconButton } from "@mui/material";
+
+import styles from "./Comment.module.scss";
 
 export const Comment = ({
   commentsCount,

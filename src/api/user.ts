@@ -86,7 +86,10 @@ export const UserApi = (instance: AxiosInstance) => ({
     return data;
   },
 
-  async confirmFriendRequest(userId: string, requestFriendId: string) {
+  async confirmFriendRequest(
+    userId: string,
+    requestFriendId: string | string[]
+  ) {
     const { data } = await instance.patch<IUser>(
       `/users/${userId}/friend-requests`,
       {
@@ -120,7 +123,7 @@ export const UserApi = (instance: AxiosInstance) => ({
   },
 
   async cancelFriendRequest(
-    userId: string,
+    userId: string | string[],
     requestFriendId: string | string[]
   ) {
     const { data } = await instance.delete<IUser>(

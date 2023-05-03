@@ -58,7 +58,7 @@ const Conversation: NextPage<IConversation> = ({
   const [parent] = useAutoAnimate();
 
   const conversationUser =
-    receiver?.userId === userData.userId ? sender : receiver;
+    receiver?.userId === userData?.userId ? sender : receiver;
 
   const moveUp = [
     {
@@ -190,8 +190,8 @@ const Conversation: NextPage<IConversation> = ({
             );
 
             if (
-              data.receiver?.userId === userData.userId ||
-              data.sender?.userId === userData.userId
+              data.receiver?.userId === userData?.userId ||
+              data.sender?.userId === userData?.userId
             ) {
               setLocalMessages((localMessages) => [...localMessages, message]);
             }
@@ -232,14 +232,16 @@ const Conversation: NextPage<IConversation> = ({
         <div className={styles.head}>
           <div className={styles.leftSide}>
             {conversationUser?.avatarUrl ? (
-              <img
-                className={styles.avatar}
-                src={conversationUser.avatarUrl}
-                alt="avatar"
-                onClick={() =>
-                  router.push(`/users/${conversationUser?.userId}`)
-                }
-              />
+              <div>
+                <img
+                  className={styles.avatar}
+                  src={conversationUser.avatarUrl}
+                  alt="avatar"
+                  onClick={() =>
+                    router.push(`/users/${conversationUser?.userId}`)
+                  }
+                />
+              </div>
             ) : (
               <EmptyAvatar
                 width={40}

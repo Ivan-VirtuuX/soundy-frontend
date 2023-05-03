@@ -54,7 +54,7 @@ const Conversations: NextPage<ConversationsProps> = ({ conversations }) => {
   const filterConversations = (searchText: string): IConversation[] => {
     return localConversations.filter((conversation) => {
       const conversationUser =
-        conversation.receiver?.userId === userData.userId
+        conversation.receiver?.userId === userData?.userId
           ? conversation.sender
           : conversation.receiver;
 

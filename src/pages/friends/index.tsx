@@ -40,7 +40,7 @@ const Friends: NextPage = () => {
     try {
       setFriends([...friends.filter((friend) => friend.userId !== userId)]);
 
-      await Api().user.deleteFriend(userData.userId, userId);
+      await Api().user.deleteFriend(userData?.userId, userId);
     } catch (err) {
       console.warn(err);
     }
@@ -49,7 +49,7 @@ const Friends: NextPage = () => {
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await Api().user.getFriends(userData.userId);
+        const data = await Api().user.getFriends(userData?.userId);
 
         setFriends(data);
       } catch (err) {

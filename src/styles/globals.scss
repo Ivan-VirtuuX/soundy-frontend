@@ -5,6 +5,7 @@
   padding: 0;
   border: 0;
   font-family: "Comfortaa", sans-serif;
+  -webkit-tap-highlight-color: transparent;
 
   ::selection {
     background: rgba(24, 31, 146, 0.1);
@@ -310,6 +311,10 @@ h6 {
   display: flex;
   justify-content: space-between;
   padding: 0 13px;
+
+  @media (max-width: 992px) {
+    height: 100vh;
+  }
 
   @media (max-width: 768px) {
     padding: 10px;

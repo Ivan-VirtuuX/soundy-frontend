@@ -54,7 +54,7 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
         attachedImageFormData
       );
 
-      await Api().user.updateAvatar(userData.userId, data.secure_url);
+      await Api().user.updateAvatar(userData?.userId, data.secure_url);
 
       setIsUploading(false);
 
@@ -146,17 +146,19 @@ export const ChangeAvatarPopup: React.FC<ChangeAvatarPopupProps> = ({
                 alt="image preview"
               />
             )}
-            <BlueButton
-              text="Отменить"
-              handleClick={onCloseImage}
-              color="secondary"
-            />
-            <BlueButton
-              text="Сохранить"
-              handleClick={onSubmitAttachedImage}
-              color="green"
-              disabled={isUploading || !preview}
-            />
+            <div className={styles.editAvatarActions}>
+              <BlueButton
+                text="Отменить"
+                handleClick={onCloseImage}
+                color="secondary"
+              />
+              <BlueButton
+                text="Сохранить"
+                handleClick={onSubmitAttachedImage}
+                color="green"
+                disabled={isUploading || !preview}
+              />
+            </div>
           </DialogContentText>
         </DialogContent>
       </Dialog>

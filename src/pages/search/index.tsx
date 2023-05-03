@@ -17,9 +17,6 @@ import { NotificationsBlock } from "@/components/NotificationsBlock";
 import { Api } from "@/api";
 import { IPost, IUser } from "@/api/types";
 
-import { useAppSelector } from "@/redux/hooks";
-import { selectUserData } from "@/redux/slices/user";
-
 import styles from "./Search.module.scss";
 
 const Search: NextPage = () => {
@@ -29,8 +26,6 @@ const Search: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [page, setPage] = React.useState(1);
   const [type, setType] = React.useState<"users" | "posts">("users");
-
-  const userData = useAppSelector(selectUserData);
 
   const searchData = React.useCallback(
     async (type: "users" | "posts") => {

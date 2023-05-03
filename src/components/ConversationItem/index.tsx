@@ -47,7 +47,7 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const userData = useAppSelector(selectUserData);
 
   const conversationUser =
-    receiver?.userId === userData.userId ? sender : receiver;
+    receiver?.userId === userData?.userId ? sender : receiver;
 
   const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
 
@@ -135,11 +135,11 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
               <span>{truncateString(conversationUser.surname, 10)}</span>
             </div>
             <p className={styles.lastMessageText}>
-              {lastMessage?.sender.userId === userData.userId &&
+              {lastMessage?.sender.userId === userData?.userId &&
               lastMessage?.content.text
                 ? "Вы: " + truncateString(lastMessage?.content.text, 20)
                 : truncateString(lastMessage?.content.text, 20)}
-              {lastMessage?.sender.userId === userData.userId &&
+              {lastMessage?.sender.userId === userData?.userId &&
                 lastMessage?.content?.images[
                   lastMessage?.content?.images?.length - 1
                 ] && (

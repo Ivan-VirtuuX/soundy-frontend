@@ -29,7 +29,7 @@ const Music: NextPage = () => {
   React.useEffect(() => {
     (async () => {
       try {
-        const data = await Api().user.getOne(userData.userId);
+        const data = await Api().user.getOne(userData?.userId);
 
         setPlaylistTracks(data.playlist);
       } catch (err) {

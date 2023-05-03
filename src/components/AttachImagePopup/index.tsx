@@ -40,10 +40,10 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   const onCloseImage = async () => {
     await setIsChangeAttachImageOpen(false);
     await setIsSaveImage(false);
-    await setAttachedImagesFormData(null);
-    await setAttachedImagesFormData(null);
+    await setAttachedImagesFormData([]);
     await setAttachedImages([]);
     await setPreviews([]);
+    await handleChangeAttachedImages([], []);
   };
 
   const handleChangeImage = async (files: FileList) => {
@@ -74,8 +74,8 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   React.useEffect(() => {
     if (isSaveImage) setIsChangeAttachImageOpen(true);
 
-    if (attachedImages.length !== 0) {
-      for (let i: number = 0; i < attachedImages.length; i++) {
+    if (attachedImages?.length !== 0) {
+      for (let i: number = 0; i < attachedImages?.length; i++) {
         const reader = new FileReader();
 
         reader.onloadend = () => {

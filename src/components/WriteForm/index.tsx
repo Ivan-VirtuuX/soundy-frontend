@@ -39,13 +39,13 @@ export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
 
       const obj = {
         body: blocks,
-        id: userData.userId,
+        id: userData?.userId,
       };
 
       if (blocks.length && fromUsersPage) {
         await Api().post.create(obj);
 
-        await router.push(`/users/${userData.userId}`);
+        await router.push(`/users/${userData?.userId}`);
       } else {
         if (blocks.length) {
           await Api().post.create(obj);

@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   user-select: none;
+  position: relative;
 
   svg {
     cursor: pointer;
@@ -15,5 +16,8 @@
     font-size: 15px;
     line-height: 20px;
     color: $green;
+    position: absolute;
+    right: -10px;
+    top: 11px;
   }
 }

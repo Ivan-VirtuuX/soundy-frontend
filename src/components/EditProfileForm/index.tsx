@@ -46,7 +46,7 @@ export const EditProfileForm: React.FC<EditProfileFormProps> = ({
     try {
       const data = await Api().user.changeUserData(
         { name: dto.name, surname: dto.surname, birthDate: date },
-        userData.userId
+        userData?.userId
       );
 
       await setDate(dto.birthDate);

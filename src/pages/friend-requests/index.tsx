@@ -34,7 +34,7 @@ const FriendRequests: NextPage = ({
 
   const onClickAccept = async (userId: string) => {
     try {
-      await Api().user.confirmFriendRequest(userData.userId, userId);
+      await Api().user.confirmFriendRequest(userData?.userId, userId);
 
       setIsConfirmed(true);
     } catch (err) {
@@ -43,7 +43,7 @@ const FriendRequests: NextPage = ({
   };
 
   const onClickCancel = async (userId: string) => {
-    await Api().user.cancelFriendRequest(userId, userData.userId);
+    await Api().user.cancelFriendRequest(userId, userData?.userId);
 
     setIsCancelled(true);
   };

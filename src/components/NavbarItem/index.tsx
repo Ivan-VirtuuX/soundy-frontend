@@ -12,6 +12,8 @@ import { MusicIcon } from "@/components/ui/Icons/MusicIcon";
 import { BlueButton } from "@/components/ui/BlueButton";
 
 import styles from "./NavbarItem.module.scss";
+import { useAppSelector } from "@/redux/hooks";
+import { selectUserData } from "@/redux/slices/user";
 
 interface NavbarItemProps {
   name: string;
@@ -20,6 +22,8 @@ interface NavbarItemProps {
 
 export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
   const router = useRouter();
+
+  const userData = useAppSelector(selectUserData);
 
   const iconsComponents = {
     posts: <PostIcon />,
@@ -51,6 +55,11 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
             : name.includes("/conversations")
             ? iconsComponents["conversations"]
             : iconsComponents[name]}
+          {userData.friendRequests.length !== 0 && name === "friends" && (
+            <div className={styles.friendRequestsCount}>
+              +{userData.friendRequests.length}
+            </div>
+          )}
         </BlueButton>
       </Link>
     </li>

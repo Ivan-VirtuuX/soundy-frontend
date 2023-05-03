@@ -13,6 +13,11 @@
   line-height: 39px;
   text-align: center;
   color: $primary;
+
+  @media (max-width: 440px) {
+    font-size: 30px;
+    line-height: 34px;
+  }
 }
 
 .preview {

@@ -25,6 +25,13 @@
   row-gap: 30px;
 }
 
+.editAvatarActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
 .editAvatarTitle {
   font-weight: 700;
   font-size: 35px;
@@ -39,8 +46,8 @@
 }
 
 .avatar {
-  width: 150px;
-  height: 150px;
+  width: 75%;
+  height: 75%;
   object-fit: cover;
   border-radius: 50%;
 }

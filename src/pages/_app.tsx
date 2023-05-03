@@ -21,6 +21,7 @@ import NProgress from "nprogress";
 import { socket, SocketContext } from "@/utils/SocketContext";
 
 import "@/styles/globals.scss";
+import { useMediaQuery } from "@mui/material";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   Router.events.on("routeChangeStart", () => {
@@ -31,11 +32,18 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   });
   Router.events.on("routeChangeError", () => NProgress.done());
 
+  const match992 = useMediaQuery("(max-width: 992px)");
+
   const router = useRouter();
 
   return (
     <>
-      {router.asPath !== "/" && <Header />}
+      {router.asPath !== "/" &&
+        !(
+          match992 &&
+          router.asPath.includes("conversations") &&
+          router.query.id
+        ) && <Header />}
       <SocketContext.Provider value={socket}>
         <MuiThemeProvider theme={theme}>
           <Component {...pageProps} />

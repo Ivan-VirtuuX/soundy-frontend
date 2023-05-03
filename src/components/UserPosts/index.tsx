@@ -81,7 +81,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
     (async () => {
       if (posts.length >= 4) {
         try {
-          if (inView && posts.length !== 0) {
+          if (inView) {
             setIsLoading(true);
 
             const data = await Api().post.getUserPosts(page, userId);

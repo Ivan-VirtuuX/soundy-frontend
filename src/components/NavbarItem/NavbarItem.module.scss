@@ -100,3 +100,19 @@
     }
   }
 }
+
+.friendRequestsCount {
+  position: absolute;
+  right: 0;
+  top: 12px;
+  width: 37px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $secondary;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
+}
