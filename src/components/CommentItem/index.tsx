@@ -91,14 +91,16 @@ export const CommentItem: React.FC<CommentItemProps> = ({
       onMouseLeave={onMouseLeave}
     >
       {author?.avatarUrl ? (
-        <img
-          width={40}
-          height={40}
-          className={styles.avatar}
-          src={author?.avatarUrl}
-          alt="avatar"
-          onClick={() => router.push(`/users/${author?.userId}`)}
-        />
+        <div>
+          <img
+            width={40}
+            height={40}
+            className={styles.avatar}
+            src={author?.avatarUrl}
+            alt="avatar"
+            onClick={() => router.push(`/users/${author?.userId}`)}
+          />
+        </div>
       ) : (
         <EmptyAvatar
           handleClick={() => router.push(`/users/${author?.userId}`)}

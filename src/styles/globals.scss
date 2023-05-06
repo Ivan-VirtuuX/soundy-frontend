@@ -315,14 +315,9 @@ h6 {
   @media (max-width: 992px) {
     height: 100vh;
   }
-
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
 }
 
 .layoutContent {
-  padding-top: 25px;
   margin: 0 auto;
   width: 100%;
   display: flex;

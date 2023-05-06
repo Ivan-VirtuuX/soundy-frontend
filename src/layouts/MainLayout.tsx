@@ -1,10 +1,11 @@
 import React from "react";
 
+import { useRouter } from "next/router";
+
 import { Navbar } from "@/components/Navbar";
 import { MobileNavbar } from "@/components/MobileNavbar";
 
 import { useMediaQuery } from "@mui/material";
-import { useRouter } from "next/router";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -18,7 +19,6 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   hidden,
 }) => {
   const match992 = useMediaQuery("(max-width: 992px)");
-  const match768 = useMediaQuery("(max-width: 768px)");
 
   const router = useRouter();
 
@@ -44,7 +44,12 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             router.query.id
           )
             ? 25
-            : 10,
+            : 0,
+          alignItems:
+            match992 &&
+            router.asPath.includes("conversations") &&
+            router.query.id &&
+            "center",
         }}
       >
         {children}
