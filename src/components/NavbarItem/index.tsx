@@ -55,11 +55,13 @@ export const NavbarItem: React.FC<NavbarItemProps> = ({ name, text }) => {
             : name.includes("/conversations")
             ? iconsComponents["conversations"]
             : iconsComponents[name]}
-          {userData.friendRequests.length !== 0 && name === "friends" && (
-            <div className={styles.friendRequestsCount}>
-              +{userData.friendRequests.length}
-            </div>
-          )}
+          {userData &&
+            userData?.friendRequests.length !== 0 &&
+            name === "friends" && (
+              <div className={styles.friendRequestsCount}>
+                +{userData?.friendRequests.length}
+              </div>
+            )}
         </BlueButton>
       </Link>
     </li>

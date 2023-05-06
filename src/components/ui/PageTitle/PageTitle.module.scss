@@ -9,7 +9,7 @@
   text-align: center;
 
   @media (max-width: 576px) {
-    font-size: calc(8vw - 2px);
-    line-height: 50px;
+    font-size: calc(8vw);
+    line-height: calc(8vw);
   }
 }

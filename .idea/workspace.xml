@@ -6,9 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/layouts/MainLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/MainLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserPosts/UserPosts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPosts/UserPosts.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WriteForm/WriteForm.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WriteForm/WriteForm.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/NullResultsBlock.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/NullResultsBlock/NullResultsBlock.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/PageTitle/PageTitle.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/PageTitle/PageTitle.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +151,8 @@
       <workItem from="1683085141463" duration="14269000" />
       <workItem from="1683375717043" duration="1396000" />
       <workItem from="1683377296992" duration="4936000" />
-      <workItem from="1683382479860" duration="329000" />
+      <workItem from="1683382479860" duration="369000" />
+      <workItem from="1683383157092" duration="1323000" />
     </task>
     <servers />
   </component>

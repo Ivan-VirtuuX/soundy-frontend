@@ -19,7 +19,7 @@
 
   img {
     @media (max-width: 768px) {
-      width: 70%;
+      width: calc(45vw);
       height: auto;
     }
   }
