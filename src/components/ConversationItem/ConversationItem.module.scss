@@ -55,6 +55,10 @@
     line-height: 22px;
     color: $primary;
     cursor: pointer;
+
+    @media (max-width: 576px) {
+      font-size: 16px;
+    }
   }
 }
 
@@ -63,6 +67,10 @@
   font-weight: 500;
   font-size: 20px;
   color: $darkGray;
+
+  @media (max-width: 576px) {
+    font-size: 16px;
+  }
 }
 
 .lastMessageDate {
@@ -70,6 +78,10 @@
   font-size: 15px;
   color: $secondary;
   text-align: right;
+
+  @media (max-width: 576px) {
+    font-size: 11px;
+  }
 }
 
 .imageMessageBlock {

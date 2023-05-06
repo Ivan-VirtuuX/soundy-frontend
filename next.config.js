@@ -5,7 +5,12 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ["res.cloudinary.com", "upload.wikimedia.org"],
+    domains: [
+      "res.cloudinary.com",
+      "upload.wikimedia.org",
+      "kpopmerchandiseguide.com",
+      "news.koreadaily.com",
+    ],
   },
 };
 

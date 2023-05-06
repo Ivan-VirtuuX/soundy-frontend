@@ -22,6 +22,7 @@ import { useInterval } from "@/hooks/useInterval";
 import { ConversationItemSkeleton } from "@/components/ConversationItem/ConversationItem.skeleton";
 
 import styles from "./ConversationItem.module.scss";
+import { useMediaQuery } from "@mui/material";
 
 interface ConversationItemProps extends IConversation {
   handleDeleteConversation: (conversationId: string) => void;
@@ -50,6 +51,8 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
     receiver?.userId === userData?.userId ? sender : receiver;
 
   const { convertedDate } = useInterval(5000, lastMessage?.createdAt);
+
+  const match576 = useMediaQuery("(max-width: 576px)");
 
   const onShowMessageActions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -119,11 +122,13 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
       >
         <div className={styles.leftSide}>
           {conversationUser.avatarUrl ? (
-            <img
-              className={styles.avatar}
-              src={conversationUser.avatarUrl}
-              alt="avatar"
-            />
+            <div>
+              <img
+                className={styles.avatar}
+                src={conversationUser.avatarUrl}
+                alt="avatar"
+              />
+            </div>
           ) : (
             <div>
               <EmptyAvatar width={50} className={styles.avatar} />
@@ -137,8 +142,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
             <p className={styles.lastMessageText}>
               {lastMessage?.sender.userId === userData?.userId &&
               lastMessage?.content.text
-                ? "Вы: " + truncateString(lastMessage?.content.text, 20)
-                : truncateString(lastMessage?.content.text, 20)}
+                ? "Вы: " +
+                  truncateString(lastMessage?.content.text, match576 ? 10 : 20)
+                : truncateString(lastMessage?.content.text, match576 ? 10 : 20)}
               {lastMessage?.sender.userId === userData?.userId &&
                 lastMessage?.content?.images[
                   lastMessage?.content?.images?.length - 1

@@ -18,6 +18,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   fullWidth,
   hidden,
 }) => {
+  const match1200 = useMediaQuery("(max-width: 1200px)");
   const match992 = useMediaQuery("(max-width: 992px)");
 
   const router = useRouter();
@@ -34,7 +35,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         router.query.id
       ) &&
         !hidden &&
-        (match992 ? <MobileNavbar /> : <Navbar />)}
+        (match1200 ? <MobileNavbar /> : <Navbar />)}
       <div
         className="layoutContent"
         style={{

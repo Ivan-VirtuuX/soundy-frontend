@@ -2,8 +2,9 @@
 
 .container {
   margin-top: 25px;
-  position: sticky;
-  top: 75px;
+  position: fixed;
+  left: 20px;
+  z-index: 20;
 
   li {
     a {
