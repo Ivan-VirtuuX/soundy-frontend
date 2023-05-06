@@ -44,7 +44,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             router.asPath.includes("conversations") &&
             router.query.id
           )
-            ? 25
+            ? 50
             : 0,
           alignItems:
             match992 &&
