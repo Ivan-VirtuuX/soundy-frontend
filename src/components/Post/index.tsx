@@ -59,7 +59,7 @@ const Index: React.FC<PostProps> = ({
     FormData[]
   >([]);
   const [isCommentInputVisible, setIsCommentInputVisible] =
-    React.useState(false);
+    React.useState(true);
   const [expandedImageUrl, setExpandedImageUrl] = React.useState("");
   const [isShowComments, setIsShowComments] = React.useState(false);
   const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
@@ -69,8 +69,9 @@ const Index: React.FC<PostProps> = ({
   const [lastComment, setLastComment] = React.useState<IComment>();
   const [likesCount, setLikesCount] = React.useState(likes?.length);
   const [viewsCount, setViewsCount] = React.useState(views?.length);
-  const [isPinned, setIsPinned] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
   const [previews, setPreviews] = React.useState<string[]>([]);
+  const [isPinned, setIsPinned] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [isView, setIsView] = React.useState(false);
 
@@ -156,9 +157,9 @@ const Index: React.FC<PostProps> = ({
             });
 
             setLocalComments([...localComments, comment]);
-            setAttachedImagesFormData([]);
-            setAttachedImages([]);
-            setPreviews([]);
+            setAttachedImagesFormData(null);
+            setAttachedImages(null);
+            setPreviews(null);
             setMessage("");
           }
         }
@@ -177,9 +178,7 @@ const Index: React.FC<PostProps> = ({
           });
 
           setLocalComments([...localComments, comment]);
-
           setIsUploading(false);
-
           setMessage("");
         }
       }
@@ -308,7 +307,7 @@ const Index: React.FC<PostProps> = ({
       try {
         const data = await Api().comment.getAll(postId);
 
-        data.length > 0 && setIsCommentInputVisible(true);
+        data.length === 0 && setIsCommentInputVisible(false);
 
         setLocalComments(data);
       } catch (err) {
@@ -320,9 +319,13 @@ const Index: React.FC<PostProps> = ({
   React.useEffect(() => {
     (async () => {
       try {
+        setIsLoading(true);
+
         const data = await Api().comment.getAll(postId);
 
         setLastComment(data.at(-1));
+
+        setIsLoading(false);
       } catch (err) {
         console.warn(err);
       }
@@ -497,7 +500,11 @@ const Index: React.FC<PostProps> = ({
       )}
       {localComments.length !== 0 && !isShowComments && (
         <div className={styles.lastComment}>
-          <CommentItem handleDeleteComment={onDeleteComment} {...lastComment} />
+          <CommentItem
+            handleDeleteComment={onDeleteComment}
+            {...lastComment}
+            isLoading={isLoading}
+          />
         </div>
       )}
       {localComments.length > 1 && !isShowComments && (

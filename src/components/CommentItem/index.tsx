@@ -1,6 +1,4 @@
 import React from "react";
-
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 import { IComment, ILike } from "@/api/types";
@@ -17,9 +15,11 @@ import { KebabMenu } from "@/components/ui/KebabMenu";
 import { Like } from "@/components/ui/Like";
 
 import styles from "./CommentItem.module.scss";
+import { CommentItemSkeleton } from "@/components/CommentItem/CommentItem.skeleton";
 
 interface CommentItemProps extends IComment {
   handleDeleteComment: (commentId: string, userId: string) => void;
+  isLoading?: boolean;
 }
 
 export const CommentItem: React.FC<CommentItemProps> = ({
@@ -30,7 +30,11 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   content,
   likes,
   handleDeleteComment,
+  isLoading,
 }) => {
+  const [expandedImageUrl, setExpandedImageUrl] = React.useState("");
+  const [isVisibleExpandedImage, setIsVisibleExpandedImage] =
+    React.useState(false);
   const [likesCount, setLikesCount] = React.useState(0);
   const [localLikes, setLocalLikes] = React.useState<ILike[]>([]);
 
@@ -84,87 +88,109 @@ export const CommentItem: React.FC<CommentItemProps> = ({
     setLikesCount(likes?.length);
   }, [likes]);
 
+  if (isLoading) {
+    return <CommentItemSkeleton />;
+  }
+
   return (
-    <div
-      className={styles.container}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
-    >
-      {author?.avatarUrl ? (
-        <div>
-          <img
-            width={40}
-            height={40}
-            className={styles.avatar}
-            src={author?.avatarUrl}
-            alt="avatar"
-            onClick={() => router.push(`/users/${author?.userId}`)}
-          />
-        </div>
-      ) : (
-        <EmptyAvatar
-          handleClick={() => router.push(`/users/${author?.userId}`)}
-        />
-      )}
-      <div className={styles.content}>
-        <div className={styles.head}>
-          <div className={styles.infoBlock}>
-            <div className={styles.nameSurnameBlock}>
-              <span
-                className={styles.name}
-                onClick={() => router.push(`/users/${author?.userId}`)}
-              >
-                {author?.name}
-              </span>
-              <span
-                className={styles.surname}
-                onClick={() => router.push(`/users/${author?.userId}`)}
-              >
-                {author?.surname}
-              </span>
-            </div>
-            <span className={styles.createdAt}>{convertedDate}</span>
-          </div>
-          <div className={styles.rightSide}>
-            {isVisible && userData?.userId === author.userId && (
-              <KebabMenu
-                handleDelete={onDeleteComment}
-                innerRef={kebabMenuRef}
-              />
-            )}
-            <Like
-              isLiked={localLikes?.some(
-                (like) => like?.author?.userId === userData?.userId
-              )}
-              likeId={
-                localLikes?.find(
-                  (like) => like?.author?.userId === userData?.userId
-                )?.likeId
-              }
-              handleClickLike={onClickLike}
-              handleClickDislike={onClickDislike}
-              likesCount={likesCount > 0 && likesCount}
-              size="small"
+    <>
+      <div
+        className={styles.container}
+        onMouseOver={onMouseOver}
+        onMouseLeave={onMouseLeave}
+      >
+        {author?.avatarUrl ? (
+          <div>
+            <img
+              width={40}
+              height={40}
+              className={styles.avatar}
+              src={author?.avatarUrl}
+              alt="avatar"
+              onClick={() => router.push(`/users/${author?.userId}`)}
             />
           </div>
-        </div>
-        {content?.images?.length !== 0 && (
-          <div className={styles.commentImagesBlock}>
-            {content?.images?.map((img, index) => (
-              <Image
-                key={index}
-                className={styles.commentImage}
-                width={200}
-                height={200}
-                src={img.url}
-                quality={100}
-                alt="comment image"
-              />
-            ))}
-          </div>
+        ) : (
+          <EmptyAvatar
+            handleClick={() => router.push(`/users/${author?.userId}`)}
+          />
         )}
-        {content?.text && <p className={styles.text}>{content?.text}</p>}
+        <div className={styles.content}>
+          <div className={styles.head}>
+            <div className={styles.infoBlock}>
+              <div className={styles.nameSurnameBlock}>
+                <span
+                  className={styles.name}
+                  onClick={() => router.push(`/users/${author?.userId}`)}
+                >
+                  {author?.name}
+                </span>
+                <span
+                  className={styles.surname}
+                  onClick={() => router.push(`/users/${author?.userId}`)}
+                >
+                  {author?.surname}
+                </span>
+              </div>
+              <span className={styles.createdAt}>{convertedDate}</span>
+            </div>
+            <div className={styles.rightSide}>
+              {isVisible && userData?.userId === author?.userId && (
+                <KebabMenu
+                  handleDelete={onDeleteComment}
+                  innerRef={kebabMenuRef}
+                />
+              )}
+              <Like
+                isLiked={localLikes?.some(
+                  (like) => like?.author?.userId === userData?.userId
+                )}
+                likeId={
+                  localLikes?.find(
+                    (like) => like?.author?.userId === userData?.userId
+                  )?.likeId
+                }
+                handleClickLike={onClickLike}
+                handleClickDislike={onClickDislike}
+                likesCount={likesCount > 0 && likesCount}
+                size="small"
+              />
+            </div>
+          </div>
+          {expandedImageUrl && isVisibleExpandedImage && (
+            <div
+              className={styles.expandedImageBlock}
+              onClick={() => setIsVisibleExpandedImage(false)}
+            >
+              <img
+                className={styles.expandedImage}
+                src={expandedImageUrl}
+                alt="expanded image"
+              />
+            </div>
+          )}
+          {content?.images?.length !== 0 && (
+            <div className={styles.commentImagesBlock}>
+              {content?.images?.map((img, index) => (
+                <img
+                  key={index}
+                  className={styles.commentImage}
+                  width={200}
+                  height={200}
+                  src={img.url}
+                  alt="comment image"
+                  onClick={() => {
+                    setExpandedImageUrl(img.url);
+                    onMouseOver();
+                    setIsVisibleExpandedImage(true);
+                  }}
+                />
+              ))}
+            </div>
+          )}
+          {content?.text && <p className={styles.text}>{content?.text}</p>}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

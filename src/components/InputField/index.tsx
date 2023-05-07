@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
 import { AttachImagePopup } from "@/components/AttachImagePopup";
-import { SendIcon } from "@/components/ui/Icons/SendIcon";
 import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
 import { InputPreviewItem } from "@/components/InputPreviewItem";
 
@@ -18,6 +17,8 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import styles from "./InputField.module.scss";
+import { Oval } from "react-loader-spinner";
+import { SendIcon } from "../ui/Icons/SendIcon";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -116,7 +117,7 @@ export const InputField: React.FC<InputFieldProps> = ({
             >
               <SmileIcon />
             </IconButton>
-            {attachedImages.length < 5 && (
+            {attachedImages?.length < 5 && (
               <AttachImagePopup
                 className={styles.attachImageButton}
                 handleChangeAttachedImages={(images, imagesFormData) =>
@@ -132,7 +133,19 @@ export const InputField: React.FC<InputFieldProps> = ({
           className={styles.sendMessageButton}
           disabled={isUploading}
         >
-          <SendIcon />
+          {isUploading ? (
+            <Oval
+              height={20}
+              width={20}
+              color="#181F92"
+              ariaLabel="oval-loading"
+              secondaryColor="#2831C0"
+              strokeWidth={5}
+              strokeWidthSecondary={5}
+            />
+          ) : (
+            <SendIcon />
+          )}
         </IconButton>
       </div>
       {previews && (

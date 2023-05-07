@@ -10,7 +10,7 @@ export const Comment = ({
   handleClick: () => void;
 }) => {
   return (
-    <div className={styles.container}>
+    <div>
       <div className={styles.commentsBlock}>
         <IconButton size="large" color="success" onClick={handleClick}>
           <svg

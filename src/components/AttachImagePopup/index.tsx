@@ -82,7 +82,7 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
           setPreviews([...previews, reader.result as string]);
         };
 
-        reader.readAsDataURL(attachedImages[i]);
+        attachedImages[i] && reader.readAsDataURL(attachedImages[i]);
       }
     } else {
       setPreviews([]);
@@ -117,13 +117,13 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
         <DialogContent>
           <DialogContentText className={styles.popupContainer}>
             <span className={styles.popupTitle}>Отправка изображения</span>
-            {previews[previews.length - 1] && (
+            {previews.at(-1) && (
               <Image
                 width={200}
                 height={200}
                 quality={100}
                 className={styles.preview}
-                src={previews[previews.length - 1]}
+                src={previews.at(-1)}
                 alt="image preview"
               />
             )}
