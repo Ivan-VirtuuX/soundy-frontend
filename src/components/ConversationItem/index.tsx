@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { IConversation, IMessage } from "@/api/types";
 import { Api } from "@/api";
@@ -16,13 +16,15 @@ import { ImageIcon } from "@/components/ui/Icons/ImageIcon";
 
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useMediaQuery } from "@mui/material";
 
 import { useInterval } from "@/hooks/useInterval";
 
 import { ConversationItemSkeleton } from "@/components/ConversationItem/ConversationItem.skeleton";
 
+import { useLongPress } from "use-long-press";
+
 import styles from "./ConversationItem.module.scss";
-import { useMediaQuery } from "@mui/material";
 
 interface ConversationItemProps extends IConversation {
   handleDeleteConversation: (conversationId: string) => void;
@@ -43,9 +45,9 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const [isLoading, setIsLoading] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  const router = useRouter();
-
   const userData = useAppSelector(selectUserData);
+
+  const wrapperRef = React.useRef(null);
 
   const conversationUser =
     receiver?.userId === userData?.userId ? sender : receiver;
@@ -57,8 +59,12 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   const onShowMessageActions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
-    setAnchorEl(e.currentTarget);
+    setAnchorEl(wrapperRef.current);
   };
+
+  const bind = useLongPress((e: React.MouseEvent<HTMLDivElement>) =>
+    onShowMessageActions(e)
+  );
 
   React.useEffect(() => {
     (async () => {
@@ -115,54 +121,64 @@ export const ConversationItem: React.FC<ConversationItemProps> = ({
   }
 
   return (
-    <div className={styles.wrapper} onContextMenu={onShowMessageActions}>
-      <div
-        className={styles.container}
-        onClick={() => router.push(`/conversations/${conversationId}`)}
-      >
-        <div className={styles.leftSide}>
-          {conversationUser.avatarUrl ? (
-            <div>
-              <img
-                className={styles.avatar}
-                src={conversationUser.avatarUrl}
-                alt="avatar"
-              />
+    <div
+      className={styles.wrapper}
+      onContextMenu={onShowMessageActions}
+      ref={wrapperRef}
+      {...bind()}
+    >
+      <Link href={`/conversations/${conversationId}`}>
+        <div className={styles.container}>
+          <div className={styles.leftSide}>
+            {conversationUser.avatarUrl ? (
+              <div>
+                <img
+                  className={styles.avatar}
+                  src={conversationUser.avatarUrl}
+                  alt="avatar"
+                />
+              </div>
+            ) : (
+              <div>
+                <EmptyAvatar width={50} className={styles.avatar} />
+              </div>
+            )}
+            <div className={styles.leftSideText}>
+              <div className={styles.receiverInfo}>
+                <span>{conversationUser.name}</span>
+                <span>{truncateString(conversationUser.surname, 10)}</span>
+              </div>
+              <p className={styles.lastMessageText}>
+                {lastMessage?.sender.userId === userData?.userId &&
+                lastMessage?.content.text
+                  ? "Вы: " +
+                    truncateString(
+                      lastMessage?.content.text,
+                      match576 ? 10 : 20
+                    )
+                  : truncateString(
+                      lastMessage?.content.text,
+                      match576 ? 10 : 20
+                    )}
+                {lastMessage?.sender.userId === userData?.userId &&
+                  lastMessage?.content?.images[
+                    lastMessage?.content?.images?.length - 1
+                  ] && (
+                    <div className={styles.imageMessageBlock}>
+                      <span>Вы: Картинка</span>
+                      <ImageIcon />
+                    </div>
+                  )}
+              </p>
             </div>
-          ) : (
-            <div>
-              <EmptyAvatar width={50} className={styles.avatar} />
-            </div>
-          )}
-          <div className={styles.leftSideText}>
-            <div className={styles.receiverInfo}>
-              <span>{conversationUser.name}</span>
-              <span>{truncateString(conversationUser.surname, 10)}</span>
-            </div>
-            <p className={styles.lastMessageText}>
-              {lastMessage?.sender.userId === userData?.userId &&
-              lastMessage?.content.text
-                ? "Вы: " +
-                  truncateString(lastMessage?.content.text, match576 ? 10 : 20)
-                : truncateString(lastMessage?.content.text, match576 ? 10 : 20)}
-              {lastMessage?.sender.userId === userData?.userId &&
-                lastMessage?.content?.images[
-                  lastMessage?.content?.images?.length - 1
-                ] && (
-                  <div className={styles.imageMessageBlock}>
-                    <span>Вы: Картинка</span>
-                    <ImageIcon />
-                  </div>
-                )}
-            </p>
+          </div>
+          <div className={styles.rightSide}>
+            {lastMessage && lastMessage?.createdAt && (
+              <span className={styles.lastMessageDate}>{convertedDate}</span>
+            )}
           </div>
         </div>
-        <div className={styles.rightSide}>
-          {lastMessage && lastMessage?.createdAt && (
-            <span className={styles.lastMessageDate}>{convertedDate}</span>
-          )}
-        </div>
-      </div>
+      </Link>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

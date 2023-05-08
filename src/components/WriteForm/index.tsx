@@ -13,6 +13,8 @@ import { UploadIcon } from "@/components/ui/Icons/UploadIcon";
 
 import { OutputData } from "@editorjs/editorjs";
 
+import { Alert } from "@mui/material";
+
 import styles from "./WriteForm.module.scss";
 
 const Editor = dynamic(() => import("../Editor"), {
@@ -25,9 +27,9 @@ interface WriteFormProps {
 }
 
 export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
-  const [blocks, setBlocks] = React.useState(data?.body || []);
-  const [isLoading, setIsLoading] = React.useState(false);
   const [isImageSubmitting, setIsImageSubmitting] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [blocks, setBlocks] = React.useState(data?.body || []);
 
   const router = useRouter();
 
@@ -68,10 +70,32 @@ export const WriteForm: FC<WriteFormProps> = ({ data, fromUsersPage }) => {
     <div style={{ backgroundColor: "white" }} className={styles.writeContainer}>
       <div className={styles.head}>
         <h2>Создание статьи</h2>
+        {blocks.filter((block) => block.type === "image").length > 10 && (
+          <div style={{ width: "50%" }}>
+            <Alert
+              severity="warning"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: 30,
+                marginTop: 10,
+                borderRadius: 17,
+                height: 50,
+              }}
+            >
+              Вы прикрепили больше 10 изображений
+            </Alert>
+          </div>
+        )}
         <BlueButton
           text="Опубликовать"
           handleClick={onAddPost}
-          disabled={isImageSubmitting || !blocks.length || isLoading}
+          disabled={
+            isImageSubmitting ||
+            !blocks.length ||
+            isLoading ||
+            blocks.filter((block) => block.type === "image").length > 10
+          }
           color="primary"
         >
           <UploadIcon className={styles.uploadIcon} />

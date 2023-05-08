@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
 
 import { v4 as uuidv4 } from "uuid";
 
@@ -25,6 +27,8 @@ import { IConversation, IMessage } from "@/api/types";
 import { CloudinaryApi } from "@/api/CloudinaryApi";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+import crySticker from "@/public/images/crySticker.png";
 
 import styles from "./Conversation.module.scss";
 
@@ -232,34 +236,29 @@ const Conversation: NextPage<IConversation> = ({
         <div className={styles.head}>
           <div className={styles.leftSide}>
             {conversationUser?.avatarUrl ? (
-              <div>
+              <Link href={`/users/${conversationUser?.userId}`}>
                 <img
                   className={styles.avatar}
                   src={conversationUser.avatarUrl}
                   alt="avatar"
-                  onClick={() =>
-                    router.push(`/users/${conversationUser?.userId}`)
-                  }
                 />
-              </div>
+              </Link>
             ) : (
-              <EmptyAvatar
-                width={40}
-                handleClick={() =>
-                  router.push(`/users/${conversationUser?.userId}`)
-                }
-              />
+              <Link href={`/users/${conversationUser?.userId}`}>
+                <EmptyAvatar width={40} />
+              </Link>
             )}
-            <div
-              className={styles.userInfo}
-              onClick={() => router.push(`/users/${conversationUser?.userId}`)}
-            >
-              <div className={styles.nameSurname}>
-                <span>{conversationUser?.name}</span>
-                <span>{conversationUser?.surname}</span>
+            <Link href={`/users/${conversationUser?.userId}`}>
+              <div className={styles.userInfo}>
+                <div className={styles.nameSurname}>
+                  <span>{conversationUser?.name}</span>
+                  <span>{conversationUser?.surname}</span>
+                </div>
+                <span className={styles.nickname}>
+                  {conversationUser?.login}
+                </span>
               </div>
-              <span className={styles.nickname}>{conversationUser?.login}</span>
-            </div>
+            </Link>
           </div>
           <IconButton
             className={styles.closeButton}
@@ -268,37 +267,58 @@ const Conversation: NextPage<IConversation> = ({
             <CrossIcon size={16} color="#A9A9A9" />
           </IconButton>
         </div>
-        <ul className={styles.content} ref={parent}>
-          {localMessages
-            .map((message) => (
-              <MessageItem
-                key={message.messageId}
-                {...message}
-                innerRef={messageContainerRef}
-                nextMessageSenderId={
-                  localMessages[
-                    localMessages?.findIndex(
-                      (msg) => msg.messageId === message.messageId
-                    ) + 1
-                  ]?.sender.userId
-                }
-                lastSenderMessage={
-                  localMessages
-                    .filter(
-                      (msg) => msg.sender.userId === message.sender.userId
-                    )
-                    .slice(-1)[0]
-                }
-                lastReceiverMessage={
-                  localMessages
-                    .filter(
-                      (msg) => msg.sender.userId !== message.sender.userId
-                    )
-                    .slice(-1)[0]
-                }
+        <ul
+          className={styles.content}
+          ref={parent}
+          style={{ justifyContent: localMessages.length === 0 && "center" }}
+        >
+          {localMessages.length === 0 ? (
+            <div className={styles.emptyConversationBlock}>
+              <p className={styles.emptyConversationTitle}>
+                Список сообщений пуст
+              </p>
+              <p className={styles.emptyConversationText}>
+                Станьте первым, кто напишет сообщение
+              </p>
+              <Image
+                src={crySticker}
+                alt="crySticker"
+                quality={100}
+                className={styles.emptyConversationImg}
               />
-            ))
-            .reverse()}
+            </div>
+          ) : (
+            localMessages
+              .map((message) => (
+                <MessageItem
+                  key={message.messageId}
+                  {...message}
+                  innerRef={messageContainerRef}
+                  nextMessageSenderId={
+                    localMessages[
+                      localMessages?.findIndex(
+                        (msg) => msg.messageId === message.messageId
+                      ) + 1
+                    ]?.sender.userId
+                  }
+                  lastSenderMessage={
+                    localMessages
+                      .filter(
+                        (msg) => msg.sender.userId === message.sender.userId
+                      )
+                      .slice(-1)[0]
+                  }
+                  lastReceiverMessage={
+                    localMessages
+                      .filter(
+                        (msg) => msg.sender.userId !== message.sender.userId
+                      )
+                      .slice(-1)[0]
+                  }
+                />
+              ))
+              .reverse()
+          )}
         </ul>
         <div className={styles.bottom}>
           <InputField

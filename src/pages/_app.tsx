@@ -11,6 +11,7 @@ import { Api } from "@/api";
 import { Header } from "@/components/Header";
 
 import { MuiThemeProvider } from "@material-ui/core";
+import { useMediaQuery } from "@mui/material";
 
 import { theme } from "@/theme";
 
@@ -21,7 +22,6 @@ import NProgress from "nprogress";
 import { socket, SocketContext } from "@/utils/SocketContext";
 
 import "@/styles/globals.scss";
-import { useMediaQuery } from "@mui/material";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   Router.events.on("routeChangeStart", () => {

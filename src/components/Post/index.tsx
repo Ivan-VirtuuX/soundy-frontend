@@ -2,6 +2,7 @@ import React, { FormEvent, Ref, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { IconButton, Tooltip, Typography } from "@mui/material";
 
@@ -59,7 +60,7 @@ const Index: React.FC<PostProps> = ({
     FormData[]
   >([]);
   const [isCommentInputVisible, setIsCommentInputVisible] =
-    React.useState(true);
+    React.useState(false);
   const [expandedImageUrl, setExpandedImageUrl] = React.useState("");
   const [isShowComments, setIsShowComments] = React.useState(false);
   const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
@@ -87,8 +88,6 @@ const Index: React.FC<PostProps> = ({
   const expandedImageBlock = useRef(null);
 
   const commentInputRef = React.useRef<HTMLInputElement>(null);
-
-  const router = useRouter();
 
   const { convertedDate } = useInterval(5000, createdAt);
 
@@ -307,7 +306,7 @@ const Index: React.FC<PostProps> = ({
       try {
         const data = await Api().comment.getAll(postId);
 
-        data.length === 0 && setIsCommentInputVisible(false);
+        data.length !== 0 && setIsCommentInputVisible(true);
 
         setLocalComments(data);
       } catch (err) {
@@ -362,31 +361,31 @@ const Index: React.FC<PostProps> = ({
       <div className={styles.head}>
         <div className={styles.headLeftSide}>
           {author?.avatarUrl ? (
-            <img
-              className={styles.avatar}
-              src={author?.avatarUrl}
-              alt="avatar"
-              width={40}
-              height={40}
-              onClick={() => router.push(`/users/${author?.userId}`)}
-            />
+            <Link href={`/users/${author?.userId}`}>
+              <img
+                className={styles.avatar}
+                src={author?.avatarUrl}
+                alt="avatar"
+                width={40}
+                height={40}
+              />
+            </Link>
           ) : (
-            <EmptyAvatar
-              handleClick={() => router.push(`/users/${author?.userId}`)}
-            />
+            <Link href={`/users/${author?.userId}`}>
+              <EmptyAvatar />
+            </Link>
           )}
           <div className={styles.userInfoBlock}>
             <div className={styles.userInfo}>
-              <div
-                onClick={() => router.push(`/users/${author?.userId}`)}
-                className={styles.userInfoBlockContainer}
-              >
-                <div className={styles.nameSurnameBlock}>
-                  <span className={styles.name}>{author?.name}</span>
-                  <span className={styles.surname}>{author?.surname}</span>
+              <Link href={`/users/${author?.userId}`}>
+                <div className={styles.userInfoBlockContainer}>
+                  <div className={styles.nameSurnameBlock}>
+                    <span className={styles.name}>{author?.name}</span>
+                    <span className={styles.surname}>{author?.surname}</span>
+                  </div>
+                  <span className={styles.login}>{author?.login}</span>
                 </div>
-                <span className={styles.login}>{author?.login}</span>
-              </div>
+              </Link>
               {pinned && asPath.includes("/users") && (
                 <div>
                   <PinIcon className={styles.pinIcon} />
@@ -406,7 +405,7 @@ const Index: React.FC<PostProps> = ({
           />
         )}
       </div>
-      <div className={styles.content}>
+      <div>
         {body.map((obj) => (
           <Typography
             key={obj?.id}

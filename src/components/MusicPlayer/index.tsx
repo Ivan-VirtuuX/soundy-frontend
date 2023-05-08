@@ -34,7 +34,11 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({
   const [parent] = useAutoAnimate();
 
   return (
-    <ul className={styles.tracks} ref={parent}>
+    <ul
+      className={styles.tracks}
+      ref={parent}
+      style={{ paddingBottom: currentTrack && 200 }}
+    >
       {searchText
         ? filterItems(tracks, ["artist", "name"], searchText).map((track) => (
             <TrackItem
@@ -107,7 +111,7 @@ export const MusicPlayer: React.FC<MusicPlayerProps> = ({
               handleAddTrack={(track) => handleChangeUserTracks(track)}
               handleRemoveTrack={(track) => handleRemoveTrack(track)}
               muted={false}
-            />{" "}
+            />
           </div>
         </div>
       )}

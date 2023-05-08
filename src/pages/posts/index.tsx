@@ -4,7 +4,7 @@ import { InfinitySpin } from "react-loader-spinner";
 
 import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { MainLayout } from "@/layouts/MainLayout";
 
@@ -27,8 +27,6 @@ const Posts: NextPage = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
-
-  const router = useRouter();
 
   const { posts, setPosts } = usePosts(newPosts, page);
 
@@ -73,11 +71,11 @@ const Posts: NextPage = () => {
       </Head>
       <main className={styles.container}>
         <PageTitle pageTitle="Посты" />
-        <div style={{ marginBottom: 20 }} onClick={() => router.push("/write")}>
+        <Link href="/write" style={{ marginBottom: 20 }}>
           <BlueButton color="primary" text="Создать">
             <PencilIcon width={17} height={17} />
           </BlueButton>
-        </div>
+        </Link>
         <ul ref={parent} className={styles.postsBlock}>
           {posts.map((post) => (
             <li key={post.postId}>
@@ -92,12 +90,12 @@ const Posts: NextPage = () => {
               />
             </li>
           ))}
+          {isLoading && (
+            <li className={styles.spinLoader}>
+              <InfinitySpin width="200" color="#181F92" />
+            </li>
+          )}
         </ul>
-        {isLoading && (
-          <div className={styles.loadSpinner}>
-            <InfinitySpin width="200" color="#181F92" />
-          </div>
-        )}
         <NotificationsBlock />
       </main>
     </MainLayout>

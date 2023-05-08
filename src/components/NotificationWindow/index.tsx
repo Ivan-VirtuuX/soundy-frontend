@@ -1,6 +1,5 @@
 import React from "react";
-
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
@@ -28,8 +27,6 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
 }) => {
   const notificationBlockRef = React.useRef(null);
 
-  const router = useRouter();
-
   const onCloseNotification = () => {
     setTimeout(() => {
       handleCloseNotificationMessage(messageId);
@@ -51,34 +48,31 @@ export const NotificationWindow: React.FC<NotificationWindowProps> = ({
     >
       <div className={styles.notificationBlockInner}>
         {sender?.avatarUrl ? (
-          <img
-            className={styles.notificationUserAvatar}
-            src={sender.avatarUrl}
-            alt="user avatar"
-            onClick={() => router.push(`/conversations/${conversationId}`)}
-          />
+          <Link href={`/conversations/${conversationId}`}>
+            <img
+              className={styles.notificationUserAvatar}
+              src={sender.avatarUrl}
+              alt="user avatar"
+            />
+          </Link>
         ) : (
-          <EmptyAvatar width={50} />
+          <Link href={`/conversations/${conversationId}`}>
+            <EmptyAvatar width={50} />
+          </Link>
         )}
         <div className={styles.notificationBlockRightSide}>
           <div className={styles.notificationBlockContent}>
-            <span
-              onClick={() => router.push(`/conversations/${conversationId}`)}
-            >
-              {sender?.name}
-            </span>
-            <span
-              onClick={() => router.push(`/conversations/${conversationId}`)}
-            >
-              {sender?.surname}
-            </span>
+            <Link href={`/conversations/${conversationId}`}>
+              <span>{sender?.name}</span>
+              <span>{sender?.surname}</span>
+            </Link>
             <IconButton onClick={onCloseNotification}>
               <CrossIcon color="#898989" />
             </IconButton>
           </div>
-          <p onClick={() => router.push(`/conversations/${conversationId}`)}>
-            {truncateString(content.text, 15)}
-          </p>
+          <Link href={`/conversations/${conversationId}`}>
+            <p>{truncateString(content.text, 15)}</p>
+          </Link>
         </div>
       </div>
     </li>

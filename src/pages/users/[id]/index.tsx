@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import React from "react";
 
@@ -167,43 +168,43 @@ const Users: NextPage<IUser> = ({
                     </span>
                   </div>
                   {userTracks.length !== 0 && (
-                    <div
-                      className={styles.musicBlock}
-                      onClick={() => router.push(`/users/${query.id}/playlist`)}
-                    >
-                      <span className={styles.musicBlockTitle}>Музыка</span>
-                      <div className={styles.musicBlockTracks}>
-                        {userTracks.slice(-4).map((track) => (
-                          <Image
-                            key={track.id}
-                            width={35}
-                            height={35}
-                            className={styles.trackCover}
-                            quality={100}
-                            src={track.coverUrl}
-                            alt="track cover image"
-                          />
-                        ))}
+                    <Link href={`/users/${query.id}/playlist`}>
+                      <div className={styles.musicBlock}>
+                        <span className={styles.musicBlockTitle}>Музыка</span>
+                        <div className={styles.musicBlockTracks}>
+                          {userTracks.slice(-4).map((track) => (
+                            <Image
+                              key={track.id}
+                              width={35}
+                              height={35}
+                              className={styles.trackCover}
+                              quality={100}
+                              src={track.coverUrl}
+                              alt="track cover image"
+                            />
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    </Link>
                   )}
                 </div>
               </div>
             </div>
             <div className={styles.friendsBlock}>
-              <div
-                className={styles.friendsBlockHead}
-                onClick={() =>
+              <Link
+                href={
                   query?.id === userData?.userId
-                    ? router.push("/friends")
-                    : router.push(`/users/${query?.id}/friends`)
+                    ? "/friends"
+                    : `/users/${query?.id}/friends`
                 }
               >
-                <span className={styles.friendsBlockTitle}>Друзья</span>
-                <span className={styles.friendsBlockFriendsCount}>
-                  {friends?.length}
-                </span>
-              </div>
+                <div className={styles.friendsBlockHead}>
+                  <span className={styles.friendsBlockTitle}>Друзья</span>
+                  <span className={styles.friendsBlockFriendsCount}>
+                    {friends?.length}
+                  </span>
+                </div>
+              </Link>
               <FriendsList friends={friends} />
             </div>
           </div>

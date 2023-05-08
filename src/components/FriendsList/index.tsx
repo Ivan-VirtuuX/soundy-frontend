@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 
@@ -9,24 +9,22 @@ import { IUser } from "@/api/types";
 import styles from "./FriendsList.module.scss";
 
 export const FriendsList = ({ friends }: { friends: IUser[] }) => {
-  const router = useRouter();
-
   return (
     <ul className={styles.container}>
       {friends.slice(0, 6).map((friend) => (
         <li className={styles.friend} key={friend.userId}>
           {friend?.avatarUrl ? (
-            <img
-              className={styles.avatar}
-              src={friend?.avatarUrl}
-              alt="avatar"
-              onClick={() => router.push(`/users/${friend?.userId}`)}
-            />
+            <Link href={`/users/${friend?.userId}`}>
+              <img
+                className={styles.avatar}
+                src={friend?.avatarUrl}
+                alt="avatar"
+              />
+            </Link>
           ) : (
-            <EmptyAvatar
-              width={40}
-              handleClick={() => router.push(`/users/${friend?.userId}`)}
-            />
+            <Link href={`/users/${friend?.userId}`}>
+              <EmptyAvatar width={40} />
+            </Link>
           )}
           <span>{friend.name}</span>
         </li>

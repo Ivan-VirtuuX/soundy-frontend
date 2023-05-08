@@ -2,6 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { destroyCookie } from "nookies";
 
@@ -38,33 +39,34 @@ export const Header = () => {
   return (
     <div className={styles.container}>
       <div className={styles.inner}>
-        <Image
-          className={styles.logo}
-          src={logoText}
-          alt="logo"
-          quality={100}
-          onClick={() => router.push("/posts")}
-        />
+        <Link href="/posts">
+          <Image
+            className={styles.logo}
+            src={logoText}
+            alt="logo"
+            quality={100}
+          />
+        </Link>
         {isVisibleUserInfo && (
           <div className={styles.userInfoBlock}>
             {userData?.avatarUrl ? (
-              <img
-                className={styles.avatar}
-                src={userData?.avatarUrl}
-                alt="avatar"
-                width={40}
-                height={40}
-                onClick={() => router.push(`/users/${userData?.userId}`)}
-              />
+              <Link href={`/users/${userData?.userId}`}>
+                <img
+                  className={styles.avatar}
+                  src={userData?.avatarUrl}
+                  alt="avatar"
+                  width={40}
+                  height={40}
+                />
+              </Link>
             ) : (
-              <EmptyAvatar
-                width={30}
-                handleClick={() => router.push(`/users/${userData?.userId}`)}
-              />
+              <Link href={`/users/${userData?.userId}`}>
+                <EmptyAvatar width={30} />
+              </Link>
             )}
-            <div onClick={() => router.push(`/users/${userData?.userId}`)}>
+            <Link href={`/users/${userData?.userId}`}>
               <span className={styles.name}>{userData?.name}</span>
-            </div>
+            </Link>
             <IconButton
               onClick={onLogout}
               size="small"

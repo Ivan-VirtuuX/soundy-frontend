@@ -13,8 +13,8 @@ import { editProfileFormSchema } from "@/utils/validations";
 
 import { FormField } from "@/components/FormField";
 
-import { Alert } from "@mui/material";
 import { Button } from "@material-ui/core";
+import { Alert } from "@mui/material";
 
 interface EditProfileFormProps {
   name: string;

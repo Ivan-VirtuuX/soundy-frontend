@@ -16,6 +16,10 @@
   @media (max-width: 992px) {
     height: calc(100vh - 90px);
   }
+
+  @media ((width < 1200px) and (width >= 992px)) {
+    height: calc(100vh - 220px);
+  }
 }
 
 .head {
@@ -116,4 +120,31 @@
 .bottomPreviewOpened {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.emptyConversationBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.emptyConversationTitle {
+  font-size: 20px;
+  text-align: center;
+  color: $darkGray;
+}
+
+.emptyConversationText {
+  font-size: 15px;
+  text-align: center;
+  color: $gray;
+  max-width: 450px;
+  line-height: 20px;
+}
+
+.emptyConversationImg {
+  height: auto;
+  width: 150px;
+  margin-bottom: 10px;
 }

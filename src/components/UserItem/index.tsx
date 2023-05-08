@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { BlueButton } from "@/components/ui/BlueButton";
@@ -9,14 +10,14 @@ import { CrossIcon } from "@/components/ui/Icons/CrossIcon";
 import { MessageIcon } from "@/components/ui/Icons/MessageIcon";
 import { CheckMarkIcon } from "@/components/ui/Icons/CheckMarkIcon";
 
-import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
-
 import { Api } from "@/api";
 
 import { truncateString } from "@/utils/truncateString";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+
+import { useLongPress } from "use-long-press";
 
 import styles from "./UserItem.module.scss";
 
@@ -55,16 +56,17 @@ export const UserItem: React.FC<UserItemProps> = ({
 
   const router = useRouter();
 
-  const friendItemRef = React.useRef(null);
-
-  const { isVisible, onMouseOver, onMouseLeave } =
-    useTransitionOpacity(friendItemRef);
+  const containerRef = React.useRef(null);
 
   const onShowMessageActions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
 
-    setAnchorEl(e.currentTarget);
+    setAnchorEl(containerRef.current);
   };
+
+  const bind = useLongPress((e: React.MouseEvent<HTMLDivElement>) =>
+    onShowMessageActions(e)
+  );
 
   const createConversation = async () => {
     try {
@@ -99,44 +101,35 @@ export const UserItem: React.FC<UserItemProps> = ({
         onContextMenu={
           type !== "requestFriends" && !menuHidden && onShowMessageActions
         }
-        onMouseOver={onMouseOver}
-        onMouseLeave={onMouseLeave}
         className={styles.container}
         style={{
           marginTop: type === "requestFriends" && 20,
         }}
+        {...bind()}
+        ref={containerRef}
       >
         <div className={styles.leftSide}>
           {avatarUrl ? (
-            <img
-              className={styles.avatar}
-              src={avatarUrl}
-              alt="avatar"
-              onClick={() => router.push(`/users/${userId}`)}
-            />
+            <Link href={`/users/${userId}`}>
+              <img className={styles.avatar} src={avatarUrl} alt="avatar" />
+            </Link>
           ) : (
-            <EmptyAvatar
-              className={styles.avatar}
-              width={80}
-              handleClick={() => router.push(`/users/${userId}`)}
-            />
+            <Link href={`/users/${userId}`}>
+              <EmptyAvatar className={styles.avatar} width={80} />
+            </Link>
           )}
           <div className={styles.userInfoBlock}>
-            <div
-              className={styles.nameSurnameBlock}
-              onClick={() => router.push(`/users/${userId}`)}
-            >
-              <span className={styles.name}>{name}</span>
-              <span className={styles.surname}>
-                {truncateString(surname, 10)}
-              </span>
-            </div>
-            <span
-              className={styles.login}
-              onClick={() => router.push(`/users/${userId}`)}
-            >
-              {login}
-            </span>
+            <Link href={`/users/${userId}`}>
+              <div className={styles.nameSurnameBlock}>
+                <span className={styles.name}>{name}</span>
+                <span className={styles.surname}>
+                  {truncateString(surname, 10)}
+                </span>
+              </div>
+              <Link href={`/users/${userId}`}>
+                <span className={styles.login}>{login}</span>
+              </Link>
+            </Link>
             {type === "requestFriends" ? (
               <div className={styles.requestFriendActionsBlock}>
                 {!isConfirmed && (

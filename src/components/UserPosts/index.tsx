@@ -29,7 +29,6 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   userId,
 }) => {
   const [filteredPosts, setFilteredPosts] = React.useState<IPost[]>([]);
-  const [isLoading, setIsLoading] = React.useState(false);
   const [newPosts, setNewPosts] = React.useState<IPost[]>([]);
   const [page, setPage] = React.useState(1);
 
@@ -40,7 +39,12 @@ export const UserPosts: React.FC<UserPostsProps> = ({
     triggerOnce: true,
   });
 
-  const { posts } = usePosts(newPosts, page, pinnedPost, router?.query?.id);
+  const { posts, isPostsLoading, setIsPostsLoading } = usePosts(
+    newPosts,
+    page,
+    pinnedPost,
+    router?.query?.id
+  );
 
   const [parent] = useAutoAnimate();
 
@@ -55,8 +59,14 @@ export const UserPosts: React.FC<UserPostsProps> = ({
   };
 
   React.useEffect(() => {
+    setFilteredPosts([]);
+  }, [router.query.id]);
+
+  React.useEffect(() => {
     (async () => {
       try {
+        setIsPostsLoading(true);
+
         const data = await Api().post.getPinnedPost(userId);
 
         if (data) {
@@ -64,26 +74,34 @@ export const UserPosts: React.FC<UserPostsProps> = ({
             data,
             ...posts.filter((post) => post.postId !== data.postId),
           ]);
+
+          setIsPostsLoading(false);
         } else if (filteredPosts.length === 0) {
           const data = await Api().post.getUserPosts(page, userId);
 
           setFilteredPosts([
             ...filteredPosts.concat(data).filter((post) => !post.pinned),
           ]);
+
+          setIsPostsLoading(false);
+        } else {
+          setFilteredPosts(posts);
+
+          setIsPostsLoading(false);
         }
       } catch (err) {
         console.warn(err);
       }
     })();
-  }, [posts, router?.query?.id, pinnedPost]);
+  }, [posts, pinnedPost]);
 
   React.useEffect(() => {
     (async () => {
+      setIsPostsLoading(true);
+
       if (posts.length >= 4) {
         try {
           if (inView) {
-            setIsLoading(true);
-
             const data = await Api().post.getUserPosts(page, userId);
 
             setNewPosts(data);
@@ -92,12 +110,10 @@ export const UserPosts: React.FC<UserPostsProps> = ({
 
             setPage((page) => page + 1);
 
-            setIsLoading(false);
+            setIsPostsLoading(false);
           }
         } catch (err) {
           console.warn(err);
-        } finally {
-          setIsLoading(false);
         }
       }
     })();
@@ -107,7 +123,7 @@ export const UserPosts: React.FC<UserPostsProps> = ({
     <div>
       <PageTitle pageTitle="Посты" marginBottom={20} marginTop={15} />
       <ul className={styles.posts} ref={parent}>
-        {filteredPosts.length === 0 ? (
+        {filteredPosts.length === 0 && !isPostsLoading ? (
           <li>
             <NullResultsBlock text="Список постов пуст" />
           </li>
@@ -129,12 +145,12 @@ export const UserPosts: React.FC<UserPostsProps> = ({
             </li>
           ))
         )}
+        {isPostsLoading && (
+          <li className={styles.spinLoader}>
+            <InfinitySpin width="200" color="#181F92" />
+          </li>
+        )}
       </ul>
-      {isLoading && (
-        <div>
-          <InfinitySpin width="200" color="#181F92" />
-        </div>
-      )}
     </div>
   );
 };

@@ -11,9 +11,10 @@ import { SearchIcon } from "@/components/ui/Icons/SearchIcon";
 import { MusicIcon } from "@/components/ui/Icons/MusicIcon";
 import { BlueButton } from "@/components/ui/BlueButton";
 
-import styles from "./NavbarItem.module.scss";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUserData } from "@/redux/slices/user";
+
+import styles from "./NavbarItem.module.scss";
 
 interface NavbarItemProps {
   name: string;

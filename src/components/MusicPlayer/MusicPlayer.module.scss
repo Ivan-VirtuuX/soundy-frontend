@@ -17,6 +17,10 @@
   @media (max-width: 768px) {
     padding-right: 0;
   }
+
+  @media ((width < 1200px) and (width >= 768px)) {
+    padding-bottom: 75px;
+  }
 }
 
 .currentTrackBlock {
@@ -34,6 +38,10 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
+  @media (max-width: 1200px) {
+    bottom: 70px;
+  }
 
   @media (max-width: 992px) {
     bottom: 70px;

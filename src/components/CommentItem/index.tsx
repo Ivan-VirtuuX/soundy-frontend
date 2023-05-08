@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { IComment, ILike } from "@/api/types";
 import { Api } from "@/api";
@@ -13,9 +13,9 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 import { EmptyAvatar } from "@/components/ui/EmptyAvatar";
 import { KebabMenu } from "@/components/ui/KebabMenu";
 import { Like } from "@/components/ui/Like";
+import { CommentItemSkeleton } from "@/components/CommentItem/CommentItem.skeleton";
 
 import styles from "./CommentItem.module.scss";
-import { CommentItemSkeleton } from "@/components/CommentItem/CommentItem.skeleton";
 
 interface CommentItemProps extends IComment {
   handleDeleteComment: (commentId: string, userId: string) => void;
@@ -41,8 +41,6 @@ export const CommentItem: React.FC<CommentItemProps> = ({
   const kebabMenuRef = React.useRef(null);
 
   const userData = useAppSelector(selectUserData);
-
-  const router = useRouter();
 
   const { convertedDate } = useInterval(5000, createdAt);
 
@@ -100,38 +98,29 @@ export const CommentItem: React.FC<CommentItemProps> = ({
         onMouseLeave={onMouseLeave}
       >
         {author?.avatarUrl ? (
-          <div>
+          <Link href={`/users/${author?.userId}`}>
             <img
               width={40}
               height={40}
               className={styles.avatar}
               src={author?.avatarUrl}
               alt="avatar"
-              onClick={() => router.push(`/users/${author?.userId}`)}
             />
-          </div>
+          </Link>
         ) : (
-          <EmptyAvatar
-            handleClick={() => router.push(`/users/${author?.userId}`)}
-          />
+          <Link href={`/users/${author?.userId}`}>
+            <EmptyAvatar />
+          </Link>
         )}
         <div className={styles.content}>
           <div className={styles.head}>
             <div className={styles.infoBlock}>
-              <div className={styles.nameSurnameBlock}>
-                <span
-                  className={styles.name}
-                  onClick={() => router.push(`/users/${author?.userId}`)}
-                >
-                  {author?.name}
-                </span>
-                <span
-                  className={styles.surname}
-                  onClick={() => router.push(`/users/${author?.userId}`)}
-                >
-                  {author?.surname}
-                </span>
-              </div>
+              <Link href={`/users/${author?.userId}`}>
+                <div className={styles.nameSurnameBlock}>
+                  <span className={styles.name}>{author?.name}</span>
+                  <span className={styles.surname}>{author?.surname}</span>
+                </div>
+              </Link>
               <span className={styles.createdAt}>{convertedDate}</span>
             </div>
             <div className={styles.rightSide}>

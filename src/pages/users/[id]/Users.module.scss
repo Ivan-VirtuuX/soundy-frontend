@@ -10,7 +10,6 @@
   }
 }
 
-// Head content user info block
 .headContentUserInfo {
   display: flex;
   flex-direction: column;
@@ -59,7 +58,11 @@
 }
 
 .nameSurnameBlock {
-  height: 40px;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }
 
 .name,
@@ -68,6 +71,10 @@
   font-size: 35px;
   line-height: 50px;
   color: $primary;
+
+  @media (max-width: 768px) {
+    line-height: 40px;
+  }
 }
 
 .name {
@@ -79,10 +86,8 @@
   font-size: 20px;
   line-height: 22px;
   color: $secondary;
-  margin-top: 5px;
 }
 
-// Friends block
 .friendsBlock {
   user-select: none;
 
@@ -126,7 +131,6 @@
   }
 }
 
-// Birthdate block
 .birthDateBlockDate {
   font-weight: 700;
   font-size: 20px;
@@ -149,7 +153,6 @@
   user-select: none;
 }
 
-// Avatar block
 .avatarBlock {
   position: relative;
   display: flex;
@@ -166,7 +169,6 @@
   border-radius: 50%;
 }
 
-// Music block
 .musicBlock {
   display: flex;
   flex-direction: column;

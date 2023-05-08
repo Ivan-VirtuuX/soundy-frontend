@@ -98,7 +98,7 @@ const Editor: FC<EditorProps> = ({
       if (editor) {
         editor.style.pointerEvents = "auto";
       }
-    }, 1500);
+    }, 1000);
   }, []);
 
   return <div id="editor" className={styles.editor} />;

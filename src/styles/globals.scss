@@ -160,7 +160,7 @@ h6 {
   font-family: "Comfortaa", sans-serif !important;
 }
 
-.MuiAlert-root {
+.MuiAlert-root:not(.MuiAlert-standardWarning) {
   background: #ffebf4 !important;
 }
 

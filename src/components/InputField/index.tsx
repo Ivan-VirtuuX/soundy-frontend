@@ -1,4 +1,5 @@
 import React, { FormEvent } from "react";
+import { Oval } from "react-loader-spinner";
 
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
@@ -16,9 +17,9 @@ import { useTransitionOpacity } from "@/hooks/useTransitionOpacity";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-import styles from "./InputField.module.scss";
-import { Oval } from "react-loader-spinner";
 import { SendIcon } from "../ui/Icons/SendIcon";
+
+import styles from "./InputField.module.scss";
 
 interface InputFieldProps {
   innerRef?: React.Ref<HTMLInputElement>;
@@ -137,9 +138,9 @@ export const InputField: React.FC<InputFieldProps> = ({
             <Oval
               height={20}
               width={20}
-              color="#181F92"
+              color="#A9A9A9"
               ariaLabel="oval-loading"
-              secondaryColor="#2831C0"
+              secondaryColor="#A9A9A9"
               strokeWidth={5}
               strokeWidthSecondary={5}
             />

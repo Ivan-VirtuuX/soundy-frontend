@@ -6,13 +6,39 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/loadingSticker.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/musicImage.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/images/postsIcon.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConversationItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditProfileForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Editor/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Editor/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FriendsList/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MusicPlayer/MusicPlayer.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MusicPlayer/MusicPlayer.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MusicPlayer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MusicPlayer/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavbarItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NotificationWindow/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Comment/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchInput/SearchInput.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchInput/SearchInput.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserPosts/UserPosts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPosts/UserPosts.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserPosts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WriteForm/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/usePosts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePosts.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/_app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/Conversation.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/friends/Friends.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/friends/Friends.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/Posts.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/posts/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/posts/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/Users.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/users/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/globals.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/styles/globals.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +74,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Документы/next-nest-soundy/soundy-frontend/src/components/CommentItem",
+    "last_opened_file_path": "E:/Документы/next-nest-soundy/soundy-frontend/src/components/Post",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -65,6 +91,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\Post" />
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\CommentItem" />
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components" />
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\utils\api" />
@@ -154,7 +181,8 @@
       <workItem from="1683377296992" duration="4936000" />
       <workItem from="1683382479860" duration="369000" />
       <workItem from="1683383157092" duration="1523000" />
-      <workItem from="1683440002226" duration="4067000" />
+      <workItem from="1683440002226" duration="4096000" />
+      <workItem from="1683520026052" duration="12852000" />
     </task>
     <servers />
   </component>
