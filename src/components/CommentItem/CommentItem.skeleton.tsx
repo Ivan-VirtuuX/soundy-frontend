@@ -1,10 +1,13 @@
 import React from "react";
 
 import { Skeleton } from "@material-ui/lab";
+import { useMediaQuery } from "@mui/material";
 
 import styles from "./CommentItem.module.scss";
 
 export const CommentItemSkeleton = () => {
+  const match576 = useMediaQuery("(max-width: 576px)");
+
   return (
     <div className={styles.container}>
       <div>
@@ -22,11 +25,10 @@ export const CommentItemSkeleton = () => {
               <Skeleton
                 variant="text"
                 className={styles.name}
-                width={80}
+                width={60}
                 height={20}
                 style={{ marginRight: 10 }}
               />
-
               <Skeleton
                 variant="text"
                 className={styles.surname}
@@ -38,7 +40,7 @@ export const CommentItemSkeleton = () => {
             <Skeleton
               variant="text"
               className={styles.createdAt}
-              width={80}
+              width={100}
               height={20}
               style={{ marginRight: 10 }}
             />
@@ -57,7 +59,7 @@ export const CommentItemSkeleton = () => {
           className={styles.text}
           width={80}
           height={20}
-          style={{ marginRight: 10 }}
+          style={{ marginRight: 10, marginTop: match576 && 5 }}
         />
       </div>
     </div>
