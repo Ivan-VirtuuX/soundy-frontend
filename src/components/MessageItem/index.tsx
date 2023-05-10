@@ -91,7 +91,7 @@ export const Index: React.FC<MessageItemProps> = ({
                 <p
                   className={styles.text}
                   style={{
-                    marginRight:
+                    marginLeft:
                       content.images?.length && content?.images !== undefined
                         ? 10
                         : 0,

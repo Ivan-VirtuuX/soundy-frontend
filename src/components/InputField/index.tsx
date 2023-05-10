@@ -8,7 +8,7 @@ import { AttachImagePopup } from "@/components/AttachImagePopup";
 import { SmileIcon } from "@/components/ui/Icons/SmileIcon";
 import { InputPreviewItem } from "@/components/InputPreviewItem";
 
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 
 import { EmojiStyle } from "emoji-picker-react";
 
@@ -35,6 +35,7 @@ interface InputFieldProps {
   ) => void;
   handleRemoveAttachedImage?: (preview: string) => void;
   handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  attachedImagesFormData: FormData[];
 }
 
 export const InputField: React.FC<InputFieldProps> = ({
@@ -48,6 +49,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   handleChangeAttachedImages,
   handleRemoveAttachedImage,
   handleSubmit,
+  attachedImagesFormData,
 }) => {
   const pickerRef = React.useRef(null);
 
@@ -68,17 +70,19 @@ export const InputField: React.FC<InputFieldProps> = ({
     useTransitionOpacity(pickerRef);
 
   React.useEffect(() => {
-    if (attachedImages?.length !== 0) {
-      for (let i: number = 0; i < attachedImages?.length; i++) {
-        const reader = new FileReader();
+    (async () => {
+      if (attachedImages?.length !== 0) {
+        for (let i: number = 0; i < attachedImages?.length; i++) {
+          const reader = new FileReader();
 
-        reader.onloadend = () => {
-          handleChangePreview(reader.result as string);
-        };
+          reader.onloadend = async () => {
+            await handleChangePreview(reader.result as string);
+          };
 
-        reader?.readAsDataURL(attachedImages[i]);
+          await reader?.readAsDataURL(attachedImages[i]);
+        }
       }
-    }
+    })();
   }, [attachedImages]);
 
   React.useEffect(() => {
@@ -111,15 +115,24 @@ export const InputField: React.FC<InputFieldProps> = ({
               type="text"
               placeholder="Cообщение"
             />
-            <IconButton
-              className={styles.emojiButton}
-              size="small"
-              onClick={() => (isVisible ? onMouseLeave() : onMouseOver())}
+            <Tooltip
+              placement="top"
+              title="Эмодзи"
+              arrow
+              className={styles.closeImageButton}
             >
-              <SmileIcon />
-            </IconButton>
-            {attachedImages?.length < 5 && (
+              <IconButton
+                className={styles.emojiButton}
+                size="small"
+                onClick={() => (isVisible ? onMouseLeave() : onMouseOver())}
+              >
+                <SmileIcon />
+              </IconButton>
+            </Tooltip>
+            {attachedImages?.length < 4 && (
               <AttachImagePopup
+                attachedImagesFormData={attachedImagesFormData}
+                isUploading={isUploading}
                 className={styles.attachImageButton}
                 handleChangeAttachedImages={(images, imagesFormData) =>
                   handleChangeAttachedImages(images, imagesFormData)
@@ -159,6 +172,7 @@ export const InputField: React.FC<InputFieldProps> = ({
               handleCloseAttachedImage={(preview) =>
                 handleRemoveAttachedImage(preview)
               }
+              isUploading={isUploading}
             />
           ))}
         </ul>

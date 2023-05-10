@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.skeleton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/CommentItem.skeleton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CommentItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputPreviewItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputPreviewItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/ImageIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/ImageIcon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +159,9 @@
       <workItem from="1683383157092" duration="1523000" />
       <workItem from="1683440002226" duration="4096000" />
       <workItem from="1683520026052" duration="12933000" />
-      <workItem from="1683534341203" duration="387000" />
+      <workItem from="1683534341203" duration="546000" />
+      <workItem from="1683690287734" duration="2000" />
+      <workItem from="1683690342330" duration="5346000" />
     </task>
     <servers />
   </component>

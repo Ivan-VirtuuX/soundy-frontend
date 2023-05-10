@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   IconButton,
+  Tooltip,
 } from "@mui/material";
 
 import { BlueButton } from "@/components/ui/BlueButton";
@@ -20,17 +21,18 @@ interface AttachImagePopupProps {
     images: File[],
     imagesFormData: FormData[]
   ) => void;
+  isUploading: boolean;
+  attachedImagesFormData: FormData[];
 }
 
 export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   className,
   handleChangeAttachedImages,
+  isUploading,
+  attachedImagesFormData,
 }) => {
   const [isChangeAttachImageOpen, setIsChangeAttachImageOpen] =
     React.useState(false);
-  const [attachedImagesFormData, setAttachedImagesFormData] = React.useState<
-    FormData[]
-  >([]);
   const [attachedImages, setAttachedImages] = React.useState<File[]>([]);
   const [isSaveImage, setIsSaveImage] = React.useState(false);
   const [previews, setPreviews] = React.useState<string[]>([]);
@@ -40,7 +42,6 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
   const onCloseImage = async () => {
     await setIsChangeAttachImageOpen(false);
     await setIsSaveImage(false);
-    await setAttachedImagesFormData([]);
     await setAttachedImages([]);
     await setPreviews([]);
     await handleChangeAttachedImages([], []);
@@ -53,7 +54,10 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
       formData.append("file", files[0]);
       formData.append("upload_preset", "cqxjdiz4");
 
-      setAttachedImagesFormData([...attachedImagesFormData, formData]);
+      handleChangeAttachedImages(attachedImages, [
+        ...attachedImagesFormData,
+        formData,
+      ]);
 
       setAttachedImages([...attachedImages, files[0]]);
 
@@ -70,6 +74,13 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
 
     handleChangeAttachedImages(attachedImages, attachedImagesFormData);
   };
+
+  React.useEffect(() => {
+    if (attachedImages.length !== 0) {
+      setAttachedImages([]);
+      setIsSaveImage(false);
+    }
+  }, [isUploading]);
 
   React.useEffect(() => {
     if (isSaveImage) setIsChangeAttachImageOpen(true);
@@ -91,22 +102,30 @@ export const AttachImagePopup: React.FC<AttachImagePopupProps> = ({
 
   return (
     <>
-      <IconButton
-        size="small"
-        className={className}
-        onClick={() => attachedImageRef?.current?.click()}
+      <Tooltip
+        placement="top"
+        title="Прикрепить изображение"
+        arrow
+        className={styles.closeImageButton}
+        style={{ pointerEvents: isUploading ? "none" : "all" }}
       >
-        <input
-          accept="image/*"
-          ref={attachedImageRef}
-          type="file"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            handleChangeImage(e.target.files)
-          }
-          hidden
-        />
-        <AttachImageIcon />
-      </IconButton>
+        <IconButton
+          size="small"
+          className={className}
+          onClick={() => attachedImageRef?.current?.click()}
+        >
+          <input
+            accept="image/*"
+            ref={attachedImageRef}
+            type="file"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleChangeImage(e.target.files)
+            }
+            hidden
+          />
+          <AttachImageIcon />
+        </IconButton>
+      </Tooltip>
       <Dialog
         open={isChangeAttachImageOpen && !!attachedImages}
         onClose={() => setIsChangeAttachImageOpen(false)}

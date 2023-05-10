@@ -11,7 +11,7 @@ export const EmptyAvatar = ({
     <svg
       className={className}
       onClick={handleClick}
-      style={{ cursor: handleClick ? "pointer" : "default" }}
+      style={{ cursor: "pointer" }}
       width={width ? width : 40}
       height={width ? width : 40}
       viewBox="0 0 40 40"

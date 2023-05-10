@@ -110,10 +110,8 @@ const Conversation: NextPage<IConversation> = ({
     images: File[],
     imagesFormData: FormData[]
   ) => {
-    setAttachedImages([...attachedImages.concat(images)]);
-    setAttachedImagesFormData([
-      ...attachedImagesFormData.concat(imagesFormData),
-    ]);
+    setAttachedImages(images);
+    setAttachedImagesFormData(imagesFormData);
   };
 
   const onRemoveAttachedImage = (preview) => {
@@ -143,8 +141,8 @@ const Conversation: NextPage<IConversation> = ({
           });
 
           setAttachedImagesFormData([]);
+          setAttachedImages([]);
           setPreviews([]);
-          setMessage("");
         }
       } else {
         if (attachedImagesFormData.length !== 0) {
@@ -160,6 +158,7 @@ const Conversation: NextPage<IConversation> = ({
             });
 
             setAttachedImagesFormData([]);
+            setAttachedImages([]);
             setPreviews([]);
           }
         }
@@ -174,7 +173,9 @@ const Conversation: NextPage<IConversation> = ({
             createdAt: new Date(),
           });
 
-          setMessage("");
+          setAttachedImagesFormData([]);
+          setAttachedImages([]);
+          setPreviews([]);
         }
       }
     } catch (err) {
@@ -333,6 +334,7 @@ const Conversation: NextPage<IConversation> = ({
             isUploading={isUploading}
             attachedImages={attachedImages}
             previews={previews}
+            attachedImagesFormData={attachedImagesFormData}
           />
         </div>
       </main>

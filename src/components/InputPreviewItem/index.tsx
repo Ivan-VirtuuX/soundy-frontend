@@ -14,12 +14,14 @@ interface InputPreviewItemProps {
   preview: string;
   previews: string[];
   handleCloseAttachedImage: (preview: string) => void;
+  isUploading: boolean;
 }
 
 export const InputPreviewItem: React.FC<InputPreviewItemProps> = ({
   preview,
   previews,
   handleCloseAttachedImage,
+  isUploading,
 }) => {
   const closeImageButtonRef = React.useRef(null);
 
@@ -49,7 +51,7 @@ export const InputPreviewItem: React.FC<InputPreviewItemProps> = ({
         src={preview}
         alt="image preview"
       />
-      {isVisible && (
+      {isVisible && !isUploading && (
         <Tooltip
           ref={closeImageButtonRef}
           placement="top"
