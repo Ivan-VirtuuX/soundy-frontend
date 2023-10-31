@@ -1,4 +1,4 @@
-export const filterItems = <K, T extends keyof K>(
+export const filterItems = <K>(
   items: K[],
   key: string | string[],
   keyWord: string

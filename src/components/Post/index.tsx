@@ -526,6 +526,7 @@ const Index: React.FC<PostProps> = ({
           isUploading={isUploading}
           attachedImages={attachedImages}
           previews={previews}
+          attachedImagesFormData={attachedImagesFormData}
         />
       )}
     </div>

@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AttachImagePopup/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/InputField.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputField/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputField/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputPreviewItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputPreviewItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MessageItem/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Comment/Comment.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/EmptyAvatar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/Icons/ImageIcon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/Icons/ImageIcon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/conversations/[id]/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useClickOutside.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useClickOutside.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/filterItems.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/filterItems.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +27,9 @@
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
   <component name="ProjectId" id="2NGN5TbknXAQMLgyV8CmfZXYuca" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -44,27 +41,29 @@
     <option name="showModules" value="false" />
     <option name="showScratchesAndConsoles" value="false" />
     <option name="sortByType" value="true" />
+    <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Документы/next-nest-soundy/soundy-frontend/src/components/Post&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/Документы/next-nest-soundy/soundy-frontend/src/components/Post",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_interpreter_path": "node",
+    "nodejs_package_manager_path": "yarn",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\VirtuuX\\AppData\\Roaming\\npm\\node_modules\\prettier",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "ts.external.directory.path": "E:\\Документы\\next-nest-soundy\\soundy-frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Документы\next-nest-soundy\soundy-frontend\src\components\Post" />
@@ -161,7 +160,10 @@
       <workItem from="1683520026052" duration="12933000" />
       <workItem from="1683534341203" duration="546000" />
       <workItem from="1683690287734" duration="2000" />
-      <workItem from="1683690342330" duration="5346000" />
+      <workItem from="1683690342330" duration="5403000" />
+      <workItem from="1683965181266" duration="22000" />
+      <workItem from="1684931706522" duration="3427000" />
+      <workItem from="1698767714683" duration="293000" />
     </task>
     <servers />
   </component>
