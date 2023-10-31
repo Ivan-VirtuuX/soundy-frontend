@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1f42c67-73cc-4236-8379-e2989447a223" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Post/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Post/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useClickOutside.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useClickOutside.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/filterItems.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/filterItems.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/SocketContext.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/SocketContext.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +160,7 @@
       <workItem from="1683690342330" duration="5403000" />
       <workItem from="1683965181266" duration="22000" />
       <workItem from="1684931706522" duration="3427000" />
-      <workItem from="1698767714683" duration="293000" />
+      <workItem from="1698767714683" duration="589000" />
     </task>
     <servers />
   </component>
