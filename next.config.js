@@ -9,7 +9,7 @@ const nextConfig = {
       "res.cloudinary.com",
       "upload.wikimedia.org",
       "kpopmerchandiseguide.com",
-      "news.koreadaily.com",
+      "static.wikia.nocookie.net",
     ],
   },
 };
