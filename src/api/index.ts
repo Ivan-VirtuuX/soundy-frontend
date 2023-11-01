@@ -25,7 +25,7 @@ export const Api = (
   const token = cookies.authToken;
 
   const instance = axios.create({
-    baseURL: "https://byzantium-lovebird-veil.cyclic.app",
+    baseURL: "https://victorious-ox-dress.cyclic.app",
     headers: {
       Authorization: "Bearer " + token,
     },
