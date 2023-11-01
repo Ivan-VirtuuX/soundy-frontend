@@ -71,7 +71,7 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZAbyss.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
   {
     id: 10,
@@ -79,7 +79,7 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZBusted.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
   {
     id: 11,
@@ -87,7 +87,7 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZDrowning.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
   {
     id: 12,
@@ -95,7 +95,7 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZJourney.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
   {
     id: 13,
@@ -103,7 +103,7 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZReadyToFight.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
   {
     id: 14,
@@ -111,6 +111,6 @@ export const musicTracks: ITrack[] = [
     artist: "WOODZ",
     trackSrc: "/music/WOODZWhoKnows.mp3",
     coverUrl:
-      "https://news.koreadaily.com/data/photo/2023/04/27/202304270816772932_6449b1cee79ee.jpg",
+      "https://static.wikia.nocookie.net/kpop/images/9/92/WOODZ_Oo-Li_digital_album_cover.png",
   },
 ];
