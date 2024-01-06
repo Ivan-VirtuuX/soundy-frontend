@@ -25,7 +25,7 @@ export const Api = (
   const token = cookies.authToken;
 
   const instance = axios.create({
-    baseURL: "https://victorious-ox-dress.cyclic.app",
+    baseURL: "https://soundy-backend.onrender.com",
     headers: {
       Authorization: "Bearer " + token,
     },
